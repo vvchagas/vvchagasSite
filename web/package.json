@@ -1,0 +1,52 @@
+{
+  "name": "web",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^7.3.0",
+    "@fortawesome/free-brands-svg-icons": "^7.3.0",
+    "@fortawesome/free-regular-svg-icons": "^7.3.0",
+    "@fortawesome/free-solid-svg-icons": "^7.3.0",
+    "@fortawesome/vue-fontawesome": "^3.3.0",
+    "@nuxt/a11y": "^1.0.0-alpha.1",
+    "@nuxt/eslint": "^1.16.0",
+    "@nuxt/ui": "^4.9.0",
+    "@prisma/client": "^7.8.0",
+    "@tiptap/core": "^3.27.3",
+    "@tiptap/extension-bubble-menu": "^3.27.3",
+    "@tiptap/extension-code": "^3.27.3",
+    "@tiptap/extension-collaboration": "^3.27.3",
+    "@tiptap/extension-drag-handle": "^3.27.3",
+    "@tiptap/extension-drag-handle-vue-3": "^3.27.3",
+    "@tiptap/extension-floating-menu": "^3.27.3",
+    "@tiptap/extension-horizontal-rule": "^3.27.3",
+    "@tiptap/extension-image": "^3.27.3",
+    "@tiptap/extension-mention": "^3.27.3",
+    "@tiptap/extension-node-range": "^3.27.3",
+    "@tiptap/extension-placeholder": "^3.27.3",
+    "@tiptap/markdown": "^3.27.3",
+    "@tiptap/pm": "^3.27.3",
+    "@tiptap/starter-kit": "^3.27.3",
+    "@tiptap/suggestion": "^3.27.3",
+    "@tiptap/vue-3": "^3.27.3",
+    "eslint": "^10.6.0",
+    "nuxt": "^4.4.8",
+    "tailwindcss": "^4.3.2",
+    "typescript": "^6.0.3",
+    "vue": "^3.5.39",
+    "vue-router": "^5.1.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.3.2",
+    "postcss": "^8.5.16",
+    "prisma": "^7.8.0",
+    "vue-tsc": "^3.3.7"
+  }
+}
