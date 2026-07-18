@@ -39,7 +39,7 @@
 
             <h1 class="mt-5 text-3xl font-black tracking-tight sm:text-4xl">
               Victor               <span
-                class="bg-gradient-to-r from-blue-500 via-indigo-500 to-fuchsia-500 bg-clip-text text-transparent"
+                class="text-blue-600"
                 >Chagas</span
               >
             </h1>
@@ -369,7 +369,7 @@
         </div>
 
         <div
-          class="mt-6 rounded-3xl border border-border/60 bg-gradient-to-b from-blue-950/80 via-blue-950/30 to-zinc-950 p-6"
+          class="mt-6 rounded-3xl border border-blue-200/80 bg-gradient-to-br from-sky-100 via-cyan-100 to-indigo-100 p-6 shadow-lg shadow-blue-500/10 dark:border-border/60 dark:from-blue-950/80 dark:via-blue-950/30 dark:to-zinc-950 dark:shadow-none"
         >
           <div
             class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between"
@@ -584,15 +584,40 @@
                 </label>
 
                 <label class="block">
+                  <span class="text-sm font-semibold">Seu número ou e-mail</span>
+                  <input
+                    v-model="form.contact"
+                    type="text"
+                    class="mt-2 w-full rounded-2xl border border-border/70 bg-background/50 px-4 py-3 text-sm outline-none transition focus:border-blue-500/60 focus:ring-2 focus:ring-blue-500/20"
+                    placeholder="Ex: (11) 99999-9999 ou maria@email.com"
+                    required
+                  >
+                </label>
+
+                <label class="block">
                   <span class="text-sm font-semibold">Assunto</span>
                   <select
                     v-model="form.topic"
                     class="mt-2 w-full rounded-2xl border border-border/70 bg-background/50 px-4 py-3 text-sm outline-none transition focus:border-blue-500/60 focus:ring-2 focus:ring-blue-500/20"
                     required
                   >
-                    <option class="bg-background text-foreground" value="web">Site / Web</option>
-                    <option class="bg-background text-foreground" value="ti">Assistência de TI</option>
-                    <option class="bg-background text-foreground" value="notebook">Manutenção de Notebook</option>
+                    <option class="bg-background text-foreground" value="web">Web</option>
+                    <option class="bg-background text-foreground" value="ti">TI</option>
+                    <option class="bg-background text-foreground" value="assistencia-tecnica">Assistência técnica</option>
+                  </select>
+                </label>
+
+                <label class="block">
+                  <span class="text-sm font-semibold">Por onde você me encontrou?</span>
+                  <select
+                    v-model="form.source"
+                    class="mt-2 w-full rounded-2xl border border-border/70 bg-background/50 px-4 py-3 text-sm outline-none transition focus:border-blue-500/60 focus:ring-2 focus:ring-blue-500/20"
+                    required
+                  >
+                    <option class="bg-background text-foreground" value="google">Google / Web</option>
+                    <option class="bg-background text-foreground" value="linkedin">Linkedin</option>
+                    <option class="bg-background text-foreground" value="indicacao">Indicação</option>
+                    <option class="bg-background text-foreground" value="github">Github</option>
                   </select>
                 </label>
 
@@ -602,7 +627,7 @@
                     v-model="form.message"
                     rows="5"
                     class="mt-2 w-full resize-none rounded-2xl border border-border/70 bg-background/50 px-4 py-3 text-sm outline-none transition focus:border-blue-500/60 focus:ring-2 focus:ring-blue-500/20"
-                    placeholder="Conte o que precisa e, se possível, detalhes do problem."
+                    placeholder="Conte me, qual é sua idéia de um site, qual é o problema que você está passando ou problema com seu notebook."
                     required
                   />
                 </label>
@@ -634,6 +659,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useHead } from "nuxt/app";
+import type { MessageTopic } from "~/shared/messages";
 
 
 import SiteHeader from "../components/SiteHeader.vue";
@@ -656,16 +682,28 @@ const toast = ref<string | null>(null);
 
 const form = ref({
   name: "",
-  topic: "web",
+  contact: "",
+  topic: "web" as MessageTopic,
+  source: "google",
   message: "",
 });
 
 
-function submit() {
+async function submit() {
+  await $fetch("/api/messages", {
+    method: "POST",
+    body: form.value,
+  });
+
   toast.value =
-    "Mensagem enviada! (demo) — substitua este comportamento pelo seu backend.";
-  // Reset simples
-  form.value = { name: "", topic: "web", message: "" };
+    "Mensagem enviada! Só esperar minha resposta por e-mail ou WhatsApp.";
+  form.value = {
+    name: "",
+    contact: "",
+    topic: "web",
+    source: "google",
+    message: "",
+  };
   window.setTimeout(() => (toast.value = null), 3500);
 }
 </script>

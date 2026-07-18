@@ -102,6 +102,7 @@ onMounted(() => {
         <NuxtLink class="nav-link hover:-translate-y-0.5 duration-300" to="/servicosView">Serviços</NuxtLink>
         <NuxtLink class="nav-link hover:-translate-y-0.5 duration-300" to="/portfolioView">Portfólio</NuxtLink>
         <NuxtLink class="nav-link hover:-translate-y-0.5 duration-300" to="/contatoView">Contato</NuxtLink>
+        <NuxtLink class="nav-link hover:-translate-y-0.5 duration-300" to="/messagesView">Mensagens</NuxtLink>
       </nav>
 
       <div class="flex items-center gap-3">
@@ -143,6 +144,7 @@ onMounted(() => {
         <NuxtLink class="nav-link block py-2 text-base" to="/servicosView" @click="isMenuOpen = false">Serviços</NuxtLink>
         <NuxtLink class="nav-link block py-2 text-base" to="/portfolioView" @click="isMenuOpen = false">Portfólio</NuxtLink>
         <NuxtLink class="nav-link block py-2 text-base" to="/contatoView" @click="isMenuOpen = false">Contato</NuxtLink>
+        <NuxtLink class="nav-link block py-2 text-base" to="/messagesView" @click="isMenuOpen = false">Mensagens</NuxtLink>
 
         <NuxtLink
           id="nuxtlink"

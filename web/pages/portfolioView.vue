@@ -30,7 +30,7 @@
 
         <div class="grid gap-6 md:grid-cols-3">
           <article
-            class="group relative overflow-hidden rounded-3xl border border-border/60 bg-card/60 p-5 shadow-sm backdrop-blur"
+            class="group relative overflow-hidden rounded-3xl border border-border/60 bg-card/60 p-5 hover:-translate-y-1 duration-600 shadow-sm backdrop-blur"
           >
             <div
               class="absolute inset-0 opacity-0 transition group-hover:opacity-100"
@@ -77,7 +77,7 @@
           </article>
 
           <article
-            class="group relative overflow-hidden rounded-3xl border border-border/60 bg-card/60 p-5 shadow-sm backdrop-blur"
+            class="group relative overflow-hidden rounded-3xl border border-border/60 bg-card/60 hover:-translate-y-1 duration-600 p-5 shadow-sm backdrop-blur"
           >
             <div class="relative">
               <div class="flex items-start justify-between gap-4">
@@ -121,7 +121,7 @@
           </article>
 
           <article
-            class="group relative overflow-hidden rounded-3xl border border-border/60 bg-card/60 p-5 shadow-sm backdrop-blur"
+            class="group relative overflow-hidden rounded-3xl border border-border/60 bg-card/60 hover:-translate-y-1 duration-600 p-5 shadow-sm backdrop-blur"
           >
             <div class="relative">
               <div class="flex items-start justify-between gap-4">

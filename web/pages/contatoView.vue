@@ -14,14 +14,18 @@
     <SiteHeader />
 
     <main class="mx-auto w-full max-w-6xl px-4 md:px-6">
-      <section class="mx-auto w-full max-w-4xl px-4 py-12 sm:px-8 sm:py-16 lg:px-10">
+      <section
+        class="mx-auto w-full max-w-4xl px-4 py-12 sm:px-8 sm:py-16 lg:px-10"
+      >
         <div class="mb-8 max-w-2xl space-y-4 sm:mb-10">
           <p
             class="text-xs font-semibold uppercase tracking-[0.3em] text-blue-600 dark:text-blue-400 sm:text-sm"
           >
             Contato
           </p>
-          <h1 class="text-3xl font-black tracking-tight sm:text-4xl lg:text-5xl">
+          <h1
+            class="text-3xl font-black tracking-tight sm:text-4xl lg:text-5xl"
+          >
             Veja como e onde posso te ajudar!
           </h1>
           <p class="text-base leading-7 text-muted sm:text-lg sm:leading-8">
@@ -34,7 +38,9 @@
         <div
           class="contact-card contact-card--whatsapp rounded-2xl border border-border/60 border-green-600 bg-card/70 p-5 shadow-sm backdrop-blur sm:rounded-[2rem] sm:p-8"
         >
-          <div class="flex items-center justify-center gap-2 text-green-600 dark:text-green-400">
+          <div
+            class="flex items-center justify-center gap-2 text-green-600 dark:text-green-400"
+          >
             <svg
               viewBox="0 0 24 24"
               fill="currentColor"
@@ -52,7 +58,9 @@
           <div
             class="mt-5 rounded-xl border border-border/60 border-green-600 bg-card/70 p-4 shadow-sm backdrop-blur sm:mt-6 sm:rounded-[2rem] sm:p-8"
           >
-            <h3 class="text-center text-base sm:text-lg mb-4 sm:mb-5">Tempo de resposta</h3>
+            <h3 class="text-center text-base sm:text-lg mb-4 sm:mb-5">
+              Tempo de resposta
+            </h3>
             <p class="text-center mb-4 text-sm sm:text-base">
               normalmente em até 10 horas úteis, dependendo do volume de
               solicitações
@@ -75,7 +83,9 @@
         <div
           class="contact-card contact-card--linkedin mt-8 rounded-2xl border border-border/60 border-blue-600 bg-card/70 p-5 shadow-sm backdrop-blur sm:mt-10 sm:rounded-[2rem] sm:p-8"
         >
-          <div class="flex items-center justify-center gap-2 text-blue-600 dark:text-blue-400">
+          <div
+            class="flex items-center justify-center gap-2 text-blue-600 dark:text-blue-400"
+          >
             <svg
               viewBox="0 0 24 24"
               fill="currentColor"
@@ -93,7 +103,9 @@
           <div
             class="mt-5 rounded-xl border border-border/60 border-blue-600 bg-card/70 p-4 shadow-sm backdrop-blur sm:mt-6 sm:rounded-[2rem] sm:p-8"
           >
-            <h3 class="text-center text-base sm:text-lg mb-4 sm:mb-5">Tempo de resposta</h3>
+            <h3 class="text-center text-base sm:text-lg mb-4 sm:mb-5">
+              Tempo de resposta
+            </h3>
             <p class="text-center mb-4 text-sm sm:text-base">
               normalmente em até 1 dia útil, dependendo do volume de
               solicitações
@@ -109,16 +121,26 @@
             rel="noopener noreferrer"
             class="contact-cta contact-cta--linkedin mx-auto mt-5 flex w-fit items-center justify-center rounded-md bg-blue-600 px-6 py-2.5 text-center text-white sm:mt-6"
           >
-            Me mande mensagem no Linkedin! 
+            Me mande mensagem no Linkedin!
           </a>
         </div>
 
         <div
           class="contact-card contact-card--email mt-8 rounded-2xl border border-border/60 border-red-600 bg-card/70 p-5 shadow-sm backdrop-blur sm:mt-10 sm:rounded-[2rem] sm:p-8"
         >
-          <div class="flex items-center justify-center gap-2 text-red-600 dark:text-red-400">
-            <svg viewBox="0 0 24 24" fill="currentColor" role="img" aria-hidden="true" class="size-5 shrink-0">
-              <path d="M22 4H2C.9 4 0 4.9 0 6v12c0 1.1.9 2 2 2h20c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-10 6.25L2 8V6l10 6.25L22 6v2z" />
+          <div
+            class="flex items-center justify-center gap-2 text-red-600 dark:text-red-400"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              role="img"
+              aria-hidden="true"
+              class="size-5 shrink-0"
+            >
+              <path
+                d="M22 4H2C.9 4 0 4.9 0 6v12c0 1.1.9 2 2 2h20c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-10 6.25L2 8V6l10 6.25L22 6v2z"
+              />
             </svg>
             <span class="text-sm font-semibold sm:text-base">E-mail</span>
           </div>
@@ -126,7 +148,9 @@
           <div
             class="mt-5 rounded-xl border border-border/60 border-red-600 bg-card/70 p-4 shadow-sm backdrop-blur sm:mt-6 sm:rounded-[2rem] sm:p-8"
           >
-            <h3 class="text-center text-base sm:text-lg mb-4 sm:mb-5">Tempo de resposta</h3>
+            <h3 class="text-center text-base sm:text-lg mb-4 sm:mb-5">
+              Tempo de resposta
+            </h3>
             <p class="text-center mb-4 text-sm sm:text-base">
               normalmente em até 2 dias úteis, dependendo do volume de
               solicitações
@@ -147,92 +171,129 @@
         </div>
 
         <div>
-          <h1 class="mt-10 text-lg text-center text-bold">Ou se preferir, me mande uma mensagem por aqui mesmo! E qual seria o tema para conversarmos!</h1>
+          <h1 class="mt-10 text-lg text-center text-bold">
+            Ou se preferir, me mande uma mensagem por aqui mesmo! E qual seria o
+            tema para conversarmos!
+          </h1>
         </div>
-          <div
-            class="mt-5 rounded-xl border border-border/60 border-gray-600 bg-card/70 p-4 shadow-sm backdrop-blur sm:mt-6 sm:rounded-[2rem] sm:p-8"
+        <div
+          class="contact-card contact-card--form mt-5 rounded-xl border border-border/60 border-gray-600 bg-card/70 p-4 shadow-sm backdrop-blur sm:mt-6 sm:rounded-[2rem] sm:p-8"
+        >
+          <h3 class="text-center text-base sm:text-lg mb-4 sm:mb-5">
+            Tempo de resposta
+          </h3>
+          <p class="text-center mb-4 text-sm sm:text-base">
+            normalmente em até 1 dia útil, dependendo do volume de solicitações
+          </p>
+          <p class="text-sm sm:text-base">
+            pois fique a vontade para nos enviar uma mensagem, com sua
+            curiosidade ou ideia para tirar do papel por aqui mesmo!
+          </p>
+
+          <form
+            class="rounded-3xl border border-border/60 bg-card/70 p-6 shadow-sm backdrop-blur md:p-8 mt-5"
+            @submit.prevent="submit"
           >
-            <h3 class="text-center text-base sm:text-lg mb-4 sm:mb-5">Tempo de resposta</h3>
-            <p class="text-center mb-4 text-sm sm:text-base">
-              normalmente em até 1 dia útil, dependendo do volume de
-              solicitações
-            </p>
-            <p class="text-sm sm:text-base">
-              pois fique a vontade para nos enviar uma mensagem, com sua
-              curiosidade ou ideia para tirar do papel por aqui mesmo!
-            </p>
+            <div class="flex items-center justify-between gap-4">
+              <h3 class="text-lg font-extrabold">Enviar mensagem</h3>
+            </div>
 
-             <form
-              class="rounded-3xl border border-border/60 bg-card/70 p-6 shadow-sm backdrop-blur md:p-8 mt-5"
-              @submit.prevent="submit"
-            >
-              <div class="flex items-center justify-between gap-4">
-                <h3 class="text-lg font-extrabold">Enviar mensagem</h3>
-                <span class="text-xs font-semibold text-muted"
-                  >Resposta rápida</span
+            <div class="mt-5 grid gap-4">
+              <label class="block">
+                <span class="text-sm font-semibold">Seu nome</span>
+                <input
+                  v-model="form.name"
+                  type="text"
+                  class="mt-2 w-full rounded-2xl border border-border/70 bg-background/50 px-4 py-3 text-sm outline-none transition focus:border-blue-500/60 focus:ring-2 focus:ring-blue-500/20"
+                  placeholder="Ex: Maria"
+                  required
                 >
-              </div>
+              </label>
+              <label class="block">
+                <span class="text-sm font-semibold"
+                  >Seu <span class="font-bold">Número</span> ou
+                  <span class="font-bold">E-mail</span> para contato</span
+                >
+                <input
+                  v-model="form.contact"
+                  type="text"
+                  class="mt-2 w-full rounded-2xl border border-border/70 bg-background/50 px-4 py-3 text-sm outline-none transition focus:border-blue-500/60 focus:ring-2 focus:ring-blue-500/20"
+                  placeholder="Ex: (11) 99999-9999 ou maria@email.com"
+                  required
+                >
+              </label>
+              <!-- v-model="form.name" -->
 
-              <div class="mt-5 grid gap-4">
-                <label class="block">
-                  <span class="text-sm font-semibold">Seu nome</span>
-                  <input
-                    type="text"
-                    class="mt-2 w-full rounded-2xl border border-border/70 bg-background/50 px-4 py-3 text-sm outline-none transition focus:border-blue-500/60 focus:ring-2 focus:ring-blue-500/20"
-                    placeholder="Ex: Maria"
-                    required
+              <label class="block">
+                <span class="text-sm font-semibold">Assunto</span>
+                <select
+                  v-model="form.topic"
+                  class="mt-2 w-full rounded-2xl border border-border/70 bg-background/50 px-4 py-3 text-sm outline-none transition focus:border-blue-500/60 focus:ring-2 focus:ring-blue-500/20"
+                  required
+                >
+                  <option class="bg-background text-foreground" value="web">
+                    Web
+                  </option>
+                  <option class="bg-background text-foreground" value="ti">
+                    TI
+                  </option>
+                  <option
+                    class="bg-background text-foreground"
+                    value="assistencia-tecnica"
                   >
-                </label>
-                <!-- v-model="form.name" -->
-
-                <label class="block">
-                  <span class="text-sm font-semibold">Assunto</span>
+                    Assistência técnica
+                  </option>
+                </select>
+              </label>
+               <label class="block">
+                  <span class="text-sm font-semibold">Por onde você me encontrou?</span>
                   <select
+                    v-model="form.source"
                     class="mt-2 w-full rounded-2xl border border-border/70 bg-background/50 px-4 py-3 text-sm outline-none transition focus:border-blue-500/60 focus:ring-2 focus:ring-blue-500/20"
                     required
                   >
-                    <option class="bg-background text-foreground" value="web">Site / Web</option>
-                    <option class="bg-background text-foreground" value="ti">Assistência de TI</option>
-                    <option class="bg-background text-foreground" value="notebook">Manutenção de Notebook</option>
+                    <option class="bg-background text-foreground" value="google">Google / Web</option>
+                    <option class="bg-background text-foreground" value="linkedin">Linkedin</option>
+                    <option class="bg-background text-foreground" value="indicacao">Indicação</option>
+                    <option class="bg-background text-foreground" value="github">Github</option>
                   </select>
-                  <!-- v-model="form.topic" -->
                 </label>
 
-                <label class="block">
-                  <span class="text-sm font-semibold">Mensagem</span>
-                  <textarea
-                    rows="5"
-                    class="mt-2 w-full resize-none rounded-2xl border border-border/70 bg-background/50 px-4 py-3 text-sm outline-none transition focus:border-blue-500/60 focus:ring-2 focus:ring-blue-500/20"
-                    placeholder="Conte o que precisa e, se possível, detalhes do problem."
-                    required
-                  />
-                  <!-- v-model: form.messge -->
-                </label>
+              <label class="block">
+                <span class="text-sm font-semibold">Mensagem</span>
+                <textarea
+                  rows="5"
+                  class="mt-2 w-full resize-none rounded-2xl border border-border/70 bg-background/50 px-4 py-3 text-sm outline-none transition focus:border-blue-500/60 focus:ring-2 focus:ring-blue-500/20"
+                  placeholder="Conte me, qual é sua idéia de um site, qual é o problema que você está passando ou problema com seu notebook."
+                  required
+                />
+              </label>
 
-                <button
-                  type="submit"
-                  class="inline-flex w-full items-center justify-center rounded-2xl bg-blue-600 px-4 py-3 text-sm font-extrabold text-white shadow-sm transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                >
-                  Enviar
-                </button>
+              <button
+                type="submit"
+                class="inline-flex w-full items-center justify-center rounded-2xl bg-blue-600 px-4 py-3 text-sm font-extrabold text-white shadow-sm transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                Enviar
+              </button>
 
-                <!-- <p
-                  v-if="toast"
-                  class="rounded-2xl border border-border/70 bg-card/60 px-4 py-3 text-sm text-muted"
-                  role="status"
-                >
-                  {{ toast }}
-                </p> -->
-              </div>
-            </form>
-          </div>
+              <p
+                v-if="toast"
+                class="rounded-2xl border border-border/70 bg-card/60 px-4 py-3 text-sm text-muted"
+                role="status"
+              >
+                {{ toast }}
+              </p>
+            </div>
+          </form>
+        </div>
       </section>
     </main>
 
     <SiteFooter />
-  </div>  
+  </div>
 </template>
 <script setup lang="ts">
+import type { MessageTopic } from "~/shared/messages";
 import SiteHeader from "../components/SiteHeader.vue";
 import SiteFooter from "../components/SiteFooter.vue";
 useHead({
@@ -247,10 +308,36 @@ useHead({
   ],
 });
 
+const toast = ref<string | null>(null);
+
+const form = ref({
+  name: "",
+  contact: "",
+  topic: "web" as MessageTopic,
+  source: "google",
+  message: "",
+});
+
+async function submit() {
+  await $fetch("/api/messages", {
+    method: "POST",
+    body: form.value,
+  });
+
+  toast.value =
+    "Mensagem enviada! Só Esperar minha resposta, pode ser pelo seu email ou whatsapp.";
+  form.value = {
+    name: "",
+    contact: "",
+    topic: "web",
+    source: "google",
+    message: "",
+  };
+  window.setTimeout(() => (toast.value = null), 3500);
+}
 </script>
 
 <style scoped>
-
 .bg-background {
   background-color: rgb(var(--bg));
 }
@@ -486,6 +573,9 @@ h1 span.bg-clip-text {
 .contact-card--email {
   animation-delay: 0.25s;
 }
+.contact-card--form {
+  animation-delay: 0.35s;
+}
 @keyframes cardIn {
   from {
     opacity: 0;
@@ -510,6 +600,10 @@ h1 span.bg-clip-text {
 .contact-card--email:hover {
   box-shadow: 0 20px 45px rgba(220, 38, 38, 0.25);
   border-color: rgba(220, 38, 38, 0.9);
+}
+.contact-card--form:hover {
+  box-shadow: 0 20px 45px rgba(73, 71, 71, 0.25);
+  border-color: rgba(73, 71, 71, 0.9);
 }
 @media (prefers-reduced-motion: reduce) {
   .contact-card {

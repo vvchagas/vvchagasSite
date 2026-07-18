@@ -20,23 +20,23 @@
         <h1 class="text-4xl font-black tracking-tight sm:text-5xl">
           Soluções completas para evoluir, estabilizar e manter sua presença digital.
         </h1>
-        <p class="max-w-2xl text-lg leading-8 text-zinc-600 dark:text-zinc-300">
+        <p class="max-w-2xl text-lg leading-8 text-muted">
           Atendemos desde a criação de sites e sistemas até suporte técnico e manutenção preventiva.
           Cada serviço foi pensado para reduzir atrito, aumentar desempenho e garantir continuidade.
         </p>
       </div>
 
       <div class="grid gap-6 lg:grid-cols-3">
-        <article class="rounded-3xl border border-zinc-200 bg-white p-8 shadow-sm transition hover:-translate-y-1 hover:shadow-xl dark:border-zinc-800 dark:bg-zinc-900">
+        <article class="rounded-3xl border border-border/60 bg-card/70 p-8 shadow-sm backdrop-blur transition hover:-translate-y-1 hover:shadow-xl">
           <div class="mb-6 inline-flex rounded-2xl bg-cyan-100 px-4 py-2 text-sm font-semibold text-cyan-800 dark:bg-cyan-950 dark:text-cyan-300">
             Desenvolvimento Web
           </div>
           <h2 class="text-2xl font-bold">Sites, landing pages e sistemas sob medida</h2>
-          <p class="mt-4 text-sm leading-7 text-zinc-600 dark:text-zinc-300">
+          <p class="mt-4 text-sm leading-7 text-muted">
             Planejamento, design responsivo, implementação em Nuxt e experiências focadas em conversão.
             Ideal para negócios que precisam de performance, clareza e escalabilidade.
           </p>
-          <ul class="mt-6 space-y-3 text-sm text-zinc-700 dark:text-zinc-200">
+          <ul class="mt-6 space-y-3 text-sm text-muted">
             <li class="flex gap-3"><span class="mt-2 h-2 w-2 rounded-full bg-cyan-500"/><span>Sites institucionais com SEO técnico e navegação fluida.</span></li>
             <li class="flex gap-3"><span class="mt-2 h-2 w-2 rounded-full bg-cyan-500"/><span>Landing pages para campanhas e captação de leads.</span></li>
             <li class="flex gap-3"><span class="mt-2 h-2 w-2 rounded-full bg-cyan-500"/><span>Integrações com APIs, automações e painéis administrativos.</span></li>
@@ -49,16 +49,16 @@
           </NuxtLink>
         </article>
 
-        <article class="rounded-3xl border border-zinc-200 bg-white p-8 shadow-sm transition hover:-translate-y-1 hover:shadow-xl dark:border-zinc-800 dark:bg-zinc-900">
+        <article class="rounded-3xl border border-border/60 bg-card/70 p-8 shadow-sm backdrop-blur transition hover:-translate-y-1 hover:shadow-xl">
           <div class="mb-6 inline-flex rounded-2xl bg-emerald-100 px-4 py-2 text-sm font-semibold text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">
             Assistência de TI
           </div>
           <h2 class="text-2xl font-bold">Suporte ágil para ambiente de trabalho sem interrupções</h2>
-          <p class="mt-4 text-sm leading-7 text-zinc-600 dark:text-zinc-300">
+          <p class="mt-4 text-sm leading-7 text-muted">
             Atendimento preventivo e corretivo para computadores, redes e periféricos, com foco em
             resolver problemas com rapidez e manter a operação funcionando bem.
           </p>
-          <ul class="mt-6 space-y-3 text-sm text-zinc-700 dark:text-zinc-200">
+          <ul class="mt-6 space-y-3 text-sm text-muted">
             <li class="flex gap-3"><span class="mt-2 h-2 w-2 rounded-full bg-emerald-500"/><span>Formatação, limpeza lógica e otimização de desempenho.</span></li>
             <li class="flex gap-3"><span class="mt-2 h-2 w-2 rounded-full bg-emerald-500"/><span>Configuração de redes e dispositivos de uso diário.</span></li>
             <li class="flex gap-3"><span class="mt-2 h-2 w-2 rounded-full bg-emerald-500"/><span>Atendimento para pequenas empresas e usuários domésticos.</span></li>
@@ -71,16 +71,16 @@
           </NuxtLink>
         </article>
 
-        <article class="rounded-3xl border border-zinc-200 bg-white p-8 shadow-sm transition hover:-translate-y-1 hover:shadow-xl dark:border-zinc-800 dark:bg-zinc-900">
+        <article class="rounded-3xl border border-border/60 bg-card/70 p-8 shadow-sm backdrop-blur transition hover:-translate-y-1 hover:shadow-xl">
           <div class="mb-6 inline-flex rounded-2xl bg-amber-100 px-4 py-2 text-sm font-semibold text-amber-800 dark:bg-amber-950 dark:text-amber-300">
             Manutenção de Notebooks
           </div>
           <h2 class="text-2xl font-bold">Diagnóstico técnico e reparo com foco em durabilidade</h2>
-          <p class="mt-4 text-sm leading-7 text-zinc-600 dark:text-zinc-300">
+          <p class="mt-4 text-sm leading-7 text-muted">
             Serviço dedicado para notebooks com aquecimento excessivo, lentidão, falhas de inicialização
             ou necessidade de upgrade de SSD e memória.
           </p>
-          <ul class="mt-6 space-y-3 text-sm text-zinc-700 dark:text-zinc-200">
+          <ul class="mt-6 space-y-3 text-sm text-muted">
             <li class="flex gap-3"><span class="mt-2 h-2 w-2 rounded-full bg-amber-500"/><span>Troca de pasta térmica, limpeza interna e análise de temperatura.</span></li>
             <li class="flex gap-3"><span class="mt-2 h-2 w-2 rounded-full bg-amber-500"/><span>Atualização para SSD, memória e melhorias de desempenho.</span></li>
             <li class="flex gap-3"><span class="mt-2 h-2 w-2 rounded-full bg-amber-500"/><span>Correção de falhas de energia, teclado, tela e carregamento.</span></li>
@@ -94,16 +94,16 @@
         </article>
       </div>
 
-      <section class="rounded-[2rem] border border-zinc-200 bg-white p-8 shadow-sm dark:border-zinc-800 dark:bg-zinc-900 sm:p-10">
+      <section class="rounded-[2rem] border border-border/60 bg-card/70 p-8 shadow-sm backdrop-blur sm:p-10">
         <div class="grid gap-6 lg:grid-cols-[1.25fr_0.75fr] lg:items-center">
           <div>
-            <p class="text-sm font-semibold uppercase tracking-[0.3em] text-zinc-500 dark:text-zinc-400">
+            <p class="text-sm font-semibold uppercase tracking-[0.3em] text-muted">
               Orçamento rápido
             </p>
             <h2 class="mt-3 text-3xl font-black tracking-tight sm:text-4xl">
               Quer um plano claro para o seu projeto ou manutenção?
             </h2>
-            <p class="mt-4 max-w-2xl text-base leading-7 text-zinc-600 dark:text-zinc-300">
+            <p class="mt-4 max-w-2xl text-base leading-7 text-muted">
               Envie os detalhes da sua necessidade e retornamos com a melhor direção técnica e comercial.
             </p>
           </div>
@@ -117,7 +117,7 @@
             </NuxtLink>
             <NuxtLink
               to="/portfolioView"
-              class="inline-flex items-center justify-center rounded-full border border-zinc-300 px-6 py-3 text-sm font-semibold text-zinc-800 transition hover:border-zinc-950 hover:text-zinc-950 dark:border-zinc-700 dark:text-zinc-100 dark:hover:border-zinc-200 dark:hover:text-white"
+              class="inline-flex items-center justify-center rounded-full border border-border/70 px-6 py-3 text-sm font-semibold text-foreground/90 transition hover:border-blue-500/60 hover:text-foreground"
             >
               Ver portfólio
             </NuxtLink>
@@ -131,7 +131,6 @@
   </div>
 </template>
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
 import SiteHeader from "../components/SiteHeader.vue";
 import SiteFooter from "../components/SiteFooter.vue";
 useHead({
@@ -146,44 +145,6 @@ useHead({
   ],
 });
 
-type Theme = "light" | "dark";
-
-const isDark = ref(false);
-
-const isMenuOpen = ref(false);
-
-function applyTheme(theme: Theme) {
-  const root = document.documentElement;
-  if (theme === "dark") root.classList.add("dark");
-  else root.classList.remove("dark");
-}
-
-function detectTheme(): Theme {
-  const stored =
-    typeof window !== "undefined" ? window.localStorage.getItem("theme") : null;
-  if (stored === "dark" || stored === "light") return stored;
-  return window.matchMedia &&
-    window.matchMedia("(prefers-color-scheme: dark)").matches
-    ? "dark"
-    : "light";
-}
-
-function syncStateFromDom() {
-  isDark.value = document.documentElement.classList.contains("dark");
-}
-
-function toggleTheme() {
-  const next: Theme = isDark.value ? "light" : "dark";
-  window.localStorage.setItem("theme", next);
-  applyTheme(next);
-  syncStateFromDom();
-}
-
-onMounted(() => {
-  const theme = detectTheme();
-  applyTheme(theme);
-  syncStateFromDom();
-});
 </script>
 
 <style scoped>

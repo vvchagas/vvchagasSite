@@ -13,55 +13,84 @@
 
     <main id="conteudo" class="mx-auto w-full max-w-6xl px-4 md:px-6">
       <section class="mx-auto w-full max-w-5xl py-12 sm:py-16">
-        <div class="mb-8 max-w-3xl space-y-4">
+        <div class="mb-8 max-w-4xl space-y-4">
           <p
             class="text-xs font-semibold uppercase tracking-[0.3em] text-blue-600 dark:text-blue-400 sm:text-sm"
           >
             Sobre
           </p>
           <h1 class="text-3xl font-black tracking-tight sm:text-4xl lg:text-5xl">
-            Web, TI e manutenção de notebooks — com foco em clareza
+            Soluções completas em Web, TI e assistência técnica
           </h1>
           <p class="text-base leading-7 text-muted sm:text-lg sm:leading-8">
-            Minha proposta é simples: transformar problemas em soluções com comunicação direta,
-            boas práticas e entrega consistente.
+            Meu trabalho é transformar cada necessidade em uma solução útil para o seu dia a dia:
+            com comunicação clara, entrega organizada e suporte de verdade.
           </p>
         </div>
 
-        <div class="grid gap-6 md:grid-cols-2">
+        <div class="rounded-3xl border border-blue-300/50 bg-blue-500/10 p-5 text-center shadow-sm dark:border-blue-500/30 dark:bg-blue-500/15">
+          <p class="text-base font-bold sm:text-lg">
+            "aqui não só consertamos ou fizemos algo, restauramos memórias"
+          </p>
+        </div>
+
+        <div class="mt-6 grid gap-6 md:grid-cols-2">
           <article class="rounded-3xl border border-border/60 bg-card/60 p-6 shadow-sm backdrop-blur">
-            <h2 class="text-lg font-extrabold">O que eu faço</h2>
+            <h2 class="text-lg font-extrabold">1) Desenvolvimento Web</h2>
             <p class="mt-3 text-sm text-muted leading-6">
-              Desenvolvimento web (sites e automações simples), suporte de TI e manutenção de
-              notebooks.
+              Criação de sites institucionais, landing pages e páginas de conversão com foco em
+              performance, visual moderno e navegação intuitiva.
             </p>
             <ul class="mt-5 space-y-2 text-sm text-muted">
-              <li class="flex gap-2"><span aria-hidden="true" class="material-symbols-outlined text-base text-emerald-500">check</span> Sites responsivos e modernos</li>
-              <li class="flex gap-2"><span aria-hidden="true" class="material-symbols-outlined text-base text-emerald-500">check</span> Assistência de TI objetiva</li>
-              <li class="flex gap-2"><span aria-hidden="true" class="material-symbols-outlined text-base text-emerald-500">check</span> Manutenção e upgrades com diagnóstico</li>
+              <li class="flex gap-2"><span aria-hidden="true" class="material-symbols-outlined text-base text-emerald-500">check</span> Layout responsivo e identidade profissional</li>
+              <li class="flex gap-2"><span aria-hidden="true" class="material-symbols-outlined text-base text-emerald-500">check</span> Organização estratégica de seções e CTA</li>
+              <li class="flex gap-2"><span aria-hidden="true" class="material-symbols-outlined text-base text-emerald-500">check</span> Ajustes contínuos para evolução do site</li>
             </ul>
           </article>
 
           <article class="rounded-3xl border border-border/60 bg-card/60 p-6 shadow-sm backdrop-blur">
-            <h2 class="text-lg font-extrabold">Como eu trabalho</h2>
+            <h2 class="text-lg font-extrabold">2) Suporte de TI</h2>
             <p class="mt-3 text-sm text-muted leading-6">
-              Você recebe um caminho claro, sem complicar o que é simples.
+              Atendimento para diagnóstico e correção de problemas técnicos com foco em rapidez e
+              continuidade da sua rotina.
             </p>
             <div class="mt-5 space-y-3">
               <div class="rounded-2xl bg-muted/60 p-4">
-                <h3 class="font-bold">1) Diagnóstico</h3>
-                <p class="mt-1 text-sm text-muted">Entendemos o problema e definimos a melhor rota.</p>
+                <h3 class="font-bold">Ambiente estável</h3>
+                <p class="mt-1 text-sm text-muted">Configuração de rede, sistema e periféricos.</p>
               </div>
               <div class="rounded-2xl bg-muted/60 p-4">
-                <h3 class="font-bold">2) Execução</h3>
-                <p class="mt-1 text-sm text-muted">Trabalho direto na solução com foco em resultado.</p>
+                <h3 class="font-bold">Segurança e prevenção</h3>
+                <p class="mt-1 text-sm text-muted">Boas práticas para evitar falhas recorrentes.</p>
               </div>
               <div class="rounded-2xl bg-muted/60 p-4">
-                <h3 class="font-bold">3) Entrega</h3>
-                <p class="mt-1 text-sm text-muted">Você entende o que foi feito e como manter.</p>
+                <h3 class="font-bold">Suporte claro</h3>
+                <p class="mt-1 text-sm text-muted">Explicação simples do que foi feito e próximo passo.</p>
               </div>
             </div>
           </article>
+        </div>
+
+        <div class="mt-6 rounded-3xl border border-border/60 bg-card/60 p-6 shadow-sm backdrop-blur">
+          <h2 class="text-lg font-extrabold">3) Assistência técnica para notebooks</h2>
+          <p class="mt-3 text-sm text-muted leading-6">
+            Serviço técnico para notebooks com lentidão, superaquecimento, falhas de inicialização
+            e necessidade de upgrade.
+          </p>
+          <ul class="mt-5 grid gap-3 text-sm text-muted md:grid-cols-3">
+            <li class="rounded-2xl bg-muted/60 p-4">
+              <p class="font-bold text-foreground">Limpeza e refrigeração</p>
+              <p class="mt-1">Troca de pasta térmica e manutenção interna.</p>
+            </li>
+            <li class="rounded-2xl bg-muted/60 p-4">
+              <p class="font-bold text-foreground">Upgrade de performance</p>
+              <p class="mt-1">SSD, memória e ajustes para maior velocidade.</p>
+            </li>
+            <li class="rounded-2xl bg-muted/60 p-4">
+              <p class="font-bold text-foreground">Reparo e diagnóstico</p>
+              <p class="mt-1">Identificação técnica e solução objetiva.</p>
+            </li>
+          </ul>
         </div>
 
         <div class="mt-8 rounded-[2rem] border border-border/60 bg-card/60 p-6 shadow-sm backdrop-blur">
@@ -155,4 +184,3 @@ useHead({
   vertical-align: middle;
 }
 </style>
-
