@@ -100,7 +100,6 @@ onMounted(() => {
         <NuxtLink class="nav-link hover:-translate-y-0.5 duration-300" to="/">Início</NuxtLink>
         <NuxtLink class="nav-link hover:-translate-y-0.5 duration-300" to="/aboutView">Sobre</NuxtLink>
         <NuxtLink class="nav-link hover:-translate-y-0.5 duration-300" to="/servicosView">Serviços</NuxtLink>
-        <NuxtLink class="nav-link hover:-translate-y-0.5 duration-300" to="/portfolioView">Portfólio</NuxtLink>
         <NuxtLink class="nav-link hover:-translate-y-0.5 duration-300" to="/contatoView">Contato</NuxtLink>
         <NuxtLink class="nav-link hover:-translate-y-0.5 duration-300" to="/messagesView">Mensagens</NuxtLink>
       </nav>

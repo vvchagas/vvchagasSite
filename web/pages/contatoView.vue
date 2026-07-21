@@ -269,12 +269,17 @@
                 />
               </label>
 
-              <button
-                type="submit"
-                class="inline-flex w-full items-center justify-center rounded-2xl bg-blue-600 px-4 py-3 text-sm font-extrabold text-white shadow-sm transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              >
-                Enviar
-              </button>
+                <button
+                  type="submit"
+                  :disabled="isSending"
+                  class="inline-flex w-full items-center justify-center rounded-2xl bg-blue-600 px-4 py-3 text-sm font-extrabold text-white shadow-sm transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                  {{ isSending ? "Enviando…" : "Enviar" }}
+                </button>
+
+                <p v-if="sendError" class="rounded-2xl border border-red-500/40 bg-red-500/10 px-4 py-3 text-sm text-red-700 dark:text-red-300" role="alert">
+                  {{ sendError }}
+                </p>
 
               <p
                 v-if="toast"
@@ -308,32 +313,33 @@ useHead({
   ],
 });
 
+const route = useRoute();
 const toast = ref<string | null>(null);
+const isSending = ref(false);
+const sendError = ref<string | null>(null);
+const selectedProject = typeof route.query.projeto === "string" ? route.query.projeto : "";
 
 const form = ref({
   name: "",
   contact: "",
   topic: "web" as MessageTopic,
   source: "google",
-  message: "",
+  message: selectedProject ? `Olá! Quero um projeto semelhante a “${selectedProject}”.` : "",
 });
 
 async function submit() {
-  await $fetch("/api/messages", {
-    method: "POST",
-    body: form.value,
-  });
-
-  toast.value =
-    "Mensagem enviada! Só Esperar minha resposta, pode ser pelo seu email ou whatsapp.";
-  form.value = {
-    name: "",
-    contact: "",
-    topic: "web",
-    source: "google",
-    message: "",
-  };
-  window.setTimeout(() => (toast.value = null), 3500);
+  isSending.value = true;
+  sendError.value = null;
+  try {
+    await $fetch("/api/messages", { method: "POST", body: form.value });
+    toast.value = "Mensagem enviada! Só esperar minha resposta por e-mail ou WhatsApp.";
+    form.value = { name: "", contact: "", topic: "web", source: "google", message: "" };
+    window.setTimeout(() => (toast.value = null), 3500);
+  } catch {
+    sendError.value = "Não foi possível enviar agora. Tente novamente em instantes.";
+  } finally {
+    isSending.value = false;
+  }
 }
 </script>
 

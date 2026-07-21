@@ -30,7 +30,7 @@
 
         <div class="rounded-3xl border border-blue-300/50 bg-blue-500/10 p-5 text-center shadow-sm dark:border-blue-500/30 dark:bg-blue-500/15">
           <p class="text-base font-bold sm:text-lg">
-            "aqui não só consertamos ou fizemos algo, restauramos memórias"
+            “Não entrego apenas soluções: devolvo ritmo, confiança e espaço para o que importa.”
           </p>
         </div>
 
@@ -93,6 +93,15 @@
           </ul>
         </div>
 
+        <div class="mt-14 border-t border-border/60 pt-14">
+          <ProjectShowcase
+            eyebrow="Na prática"
+            title="Projetos que traduzem o meu jeito de trabalhar"
+            description="Uma seleção completa do portfólio, agora dentro da página Sobre para você conhecer o resultado antes de iniciar a conversa."
+            compact
+          />
+        </div>
+
         <div class="mt-8 rounded-[2rem] border border-border/60 bg-card/60 p-6 shadow-sm backdrop-blur">
           <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <div>
@@ -117,6 +126,7 @@
 <script setup lang="ts">
 import SiteHeader from "../components/SiteHeader.vue";
 import SiteFooter from "../components/SiteFooter.vue";
+import ProjectShowcase from "../components/ProjectShowcase.vue";
 
 
 useHead({
