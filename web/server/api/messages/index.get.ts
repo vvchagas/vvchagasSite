@@ -18,7 +18,8 @@ export default defineEventHandler(async (event) => {
   const offset = positiveInteger(query.offset, 1, Number.MAX_SAFE_INTEGER) - 1;
   const storage = useStorage("data");
   const existing = (await storage.getItem<ContactMessage[]>("messages")) ?? [];
-  const filtered = typeof query.topic === "undefined" ? existing : existing.filter((item) => item.topic === query.topic);
+  const normalized = existing.map((item) => ({ ...item, readAt: item.readAt ?? null }));
+  const filtered = typeof query.topic === "undefined" ? normalized : normalized.filter((item) => item.topic === query.topic);
 
   return { items: filtered.slice(offset, offset + limit), meta: { total: filtered.length, limit, offset } };
 });

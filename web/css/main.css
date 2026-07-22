@@ -6,7 +6,6 @@
 /* Font Awesome (fallback/extra) */
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css');
 
-@import 'lenis/dist/lenis.css';
 /* Aside mobile */
 @media (max-width: 767.98px){
   header{ position: sticky; top: 0; }
@@ -59,10 +58,19 @@
   transition: transform .25s ease, box-shadow .25s ease, background-color .25s ease;
 }
 .project-action:hover { transform: translateY(-3px) translateZ(22px); }
-.project-action--primary { background: linear-gradient(135deg, #2563eb, #7c3aed); color: white; box-shadow: 0 8px 20px rgb(37 99 235 / .28); }
-.project-action--primary:hover { box-shadow: 0 14px 28px rgb(37 99 235 / .42); }
+.project-action--primary { background: #0f4c81; color: white; box-shadow: 0 8px 20px rgb(15 76 129 / .28); }
+.project-action--primary:hover { background: #e96736; box-shadow: 0 14px 28px rgb(233 103 54 / .36); }
 .project-action--secondary { border: 1px solid rgb(var(--border) / .9); background: rgb(var(--bg) / .55); color: rgb(var(--fg)); }
 .project-action--secondary:hover { border-color: rgb(96 165 250 / .75); background: rgb(59 130 246 / .12); }
+
+/* Pequena ilustração CSS: o desenho ganha volume real ao passar o cursor. */
+.project-illustration { position: relative; display: grid; width: 5.2rem; height: 5.2rem; place-items: center; perspective: 420px; transform-style: preserve-3d; }
+.project-illustration__orbit { position: absolute; width: 4.65rem; height: 2.2rem; border: 2px solid rgb(59 130 246 / .55); border-radius: 50%; transform: rotateX(66deg) rotateZ(-18deg); transition: transform .6s cubic-bezier(.2,.8,.2,1), border-color .4s ease; }
+.project-illustration__cube { position: absolute; width: 2.25rem; height: 2.25rem; border: 2px solid rgb(99 102 241 / .7); background: rgb(99 102 241 / .10); box-shadow: .6rem .6rem 0 rgb(59 130 246 / .13); transform: rotate(30deg) rotateX(58deg) rotateZ(-24deg); transition: transform .65s cubic-bezier(.2,.8,.2,1), box-shadow .65s ease; }
+.project-illustration__icon { position: relative; z-index: 1; font-size: 1.6rem; transform: translateZ(28px); transition: transform .5s ease, color .4s ease; }
+.project-card:hover .project-illustration__orbit { border-color: rgb(233 103 54 / .85); transform: rotateX(75deg) rotateZ(150deg) scale(1.12); }
+.project-card:hover .project-illustration__cube { box-shadow: 1rem 1rem 0 rgb(233 103 54 / .18); transform: rotate(30deg) rotateX(58deg) rotateZ(155deg) translateZ(22px); }
+.project-card:hover .project-illustration__icon { color: #e96736; transform: translateZ(50px) scale(1.12); }
 
 @media (prefers-reduced-motion: reduce) {
   [data-reveal] { opacity: 1; transform: none; transition: none; }

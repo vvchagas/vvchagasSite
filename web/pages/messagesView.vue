@@ -60,6 +60,7 @@
             v-for="item in messages"
             :key="item.id"
             class="rounded-3xl border border-border/70 bg-card/70 p-5 shadow-sm backdrop-blur md:p-6"
+            :class="item.readAt ? 'opacity-75' : 'ring-1 ring-blue-500/20'"
           >
             <div class="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
               <div>
@@ -77,12 +78,27 @@
                 <span class="rounded-full bg-muted px-3 py-1 text-xs font-semibold text-foreground/90">
                   {{ formatDate(item.createdAt) }}
                 </span>
+                <span v-if="item.readAt" class="rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-semibold text-emerald-700 dark:text-emerald-300">
+                  Lida
+                </span>
+                <span v-else class="rounded-full bg-amber-500/10 px-3 py-1 text-xs font-semibold text-amber-700 dark:text-amber-300">
+                  Não lida
+                </span>
               </div>
             </div>
 
             <p class="mt-4 whitespace-pre-line text-sm leading-7 text-muted">
               {{ item.message }}
             </p>
+
+            <div class="mt-5 flex flex-wrap gap-2">
+              <button type="button" class="message-action message-action--read" :disabled="busyId === item.id" @click="setRead(item, !item.readAt)">
+                {{ item.readAt ? "Marcar como não lida" : "Marcar como lida" }}
+              </button>
+              <button type="button" class="message-action message-action--delete" :disabled="busyId === item.id" @click="removeMessage(item)">
+                Excluir mensagem
+              </button>
+            </div>
           </article>
         </div>
       </section>
@@ -107,11 +123,33 @@ const query = computed(() =>
   selectedTopic.value === "all" ? {} : { topic: selectedTopic.value },
 );
 
-const { data, pending, error } = await useFetch<{ items: ContactMessage[] }>("/api/messages", {
+const { data, pending, error, refresh } = await useFetch<{ items: ContactMessage[] }>("/api/messages", {
   query,
 });
 
 const messages = computed(() => data.value?.items ?? []);
+const busyId = ref<string | null>(null);
+
+async function setRead(item: ContactMessage, read: boolean) {
+  busyId.value = item.id;
+  try {
+    await $fetch(`/api/messages/${item.id}`, { method: "PATCH", body: { read } });
+    await refresh();
+  } finally {
+    busyId.value = null;
+  }
+}
+
+async function removeMessage(item: ContactMessage) {
+  if (!window.confirm(`Excluir permanentemente a mensagem de ${item.name}?`)) return;
+  busyId.value = item.id;
+  try {
+    await $fetch(`/api/messages/${item.id}`, { method: "DELETE" });
+    await refresh();
+  } finally {
+    busyId.value = null;
+  }
+}
 
 function topicLabel(topic: MessageTopic) {
   return MESSAGE_TOPIC_LABELS[topic];
@@ -157,4 +195,11 @@ useHead({
 .bg-muted {
   background-color: rgba(var(--muted), 0.12);
 }
+.message-action { border-radius: .85rem; padding: .6rem .85rem; font-size: .8rem; font-weight: 800; transition: transform .2s ease, box-shadow .2s ease; }
+.message-action:hover:not(:disabled) { transform: translateY(-2px); }
+.message-action:disabled { cursor: wait; opacity: .55; }
+.message-action--read { background: rgb(37 99 235 / .12); color: rgb(29 78 216); }
+.message-action--delete { background: rgb(239 68 68 / .12); color: rgb(185 28 28); }
+:global(html.dark) .message-action--read { color: rgb(147 197 253); }
+:global(html.dark) .message-action--delete { color: rgb(252 165 165); }
 </style>

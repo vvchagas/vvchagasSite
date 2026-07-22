@@ -3,7 +3,7 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
   modules: ['@nuxt/a11y', '@nuxt/eslint', '@nuxt/ui', '@nuxt/fonts'],
-  css: ['../web/assets/css/main.css'],
+  css: ['~/assets/css/main.css'],
   
   app: {
     head: {

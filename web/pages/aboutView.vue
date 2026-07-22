@@ -71,7 +71,7 @@
           </article>
         </div>
 
-        <div class="mt-6 rounded-3xl border border-border/60 bg-card/60 p-6 shadow-sm backdrop-blur">
+        <div class="mt-6 mb-10 rounded-3xl border border-border/60 bg-card/60 p-6 shadow-sm backdrop-blur">
           <h2 class="text-lg font-extrabold">3) Assistência técnica para notebooks</h2>
           <p class="mt-3 text-sm text-muted leading-6">
             Serviço técnico para notebooks com lentidão, superaquecimento, falhas de inicialização
@@ -93,14 +93,18 @@
           </ul>
         </div>
 
-        <div class="mt-14 border-t border-border/60 pt-14">
-          <ProjectShowcase
-            eyebrow="Na prática"
-            title="Projetos que traduzem o meu jeito de trabalhar"
-            description="Uma seleção completa do portfólio, agora dentro da página Sobre para você conhecer o resultado antes de iniciar a conversa."
-            compact
-          />
-        </div>
+        <section class="mt-14 rounded-[2rem] border border-border/60 bg-card/60 p-6 shadow-sm backdrop-blur md:p-8" data-reveal>
+          <p class="text-xs font-semibold uppercase tracking-[0.3em] text-blue-600 dark:text-blue-400">Meu processo</p>
+          <h2 class="mt-3 text-2xl font-black tracking-tight md:text-3xl">Uma ideia bem entendida vira uma solução que funciona.</h2>
+          <div class="mt-7 grid gap-4 md:grid-cols-3">
+            <div class="rounded-2xl bg-muted/60 p-5"><span class="text-sm font-black text-blue-600 dark:text-blue-400">01 — Escuta</span><p class="mt-3 text-sm leading-6 text-muted">Entendo o contexto, a necessidade e o resultado que realmente faz diferença.</p></div>
+            <div class="rounded-2xl bg-muted/60 p-5"><span class="text-sm font-black text-blue-600 dark:text-blue-400">02 — Direção</span><p class="mt-3 text-sm leading-6 text-muted">Transformo o objetivo em um caminho claro, visual e técnico.</p></div>
+            <div class="rounded-2xl bg-muted/60 p-5"><span class="text-sm font-black text-blue-600 dark:text-blue-400">03 — Entrega</span><p class="mt-3 text-sm leading-6 text-muted">Construo, testo e ajusto para você poder usar com segurança.</p></div>
+          </div>
+          <div class="mt-7 flex items-center justify-center rounded-full border border-blue-500/40 px-5 py-3 text-sm font-extrabold text-blue-700 transition hover:-translate-y-1 hover:bg-blue-500/10 dark:text-blue-300">Venha conhecer um dos projetos abaixo!</div>
+        </section>
+
+        <ProjectShowcase/>
 
         <div class="mt-8 rounded-[2rem] border border-border/60 bg-card/60 p-6 shadow-sm backdrop-blur">
           <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
@@ -126,7 +130,6 @@
 <script setup lang="ts">
 import SiteHeader from "../components/SiteHeader.vue";
 import SiteFooter from "../components/SiteFooter.vue";
-import ProjectShowcase from "../components/ProjectShowcase.vue";
 
 
 useHead({

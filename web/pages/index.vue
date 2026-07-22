@@ -277,7 +277,7 @@
                   Landing pages, portfólios e páginas institucionais.
                 </p>
               </div>
-              <span class="badge">WEB</span>
+              <span class="badge border border-border/60 ">WEB</span>
             </div>
             <ul class="mt-4 space-y-2 text-sm text-muted">
               <li class="flex gap-2">
@@ -302,7 +302,7 @@
                   Correções, performance e evolução do seu site.
                 </p>
               </div>
-              <span class="badge badge-alt">UI/UX</span>
+              <span class="badge border border-border/60">UI/UX</span>
             </div>
             <ul class="mt-4 space-y-2 text-sm text-muted">
               <li class="flex gap-2">
@@ -327,7 +327,7 @@
                   Configurações, suporte e orientação objetiva.
                 </p>
               </div>
-              <span class="badge badge-3">TI</span>
+              <span class="badge border border-border/60">TI</span>
             </div>
             <ul class="mt-4 space-y-2 text-sm text-muted">
               <li class="flex gap-2">
@@ -352,7 +352,7 @@
                   Diagnóstico, limpeza, otimização e reparos.
                 </p>
               </div>
-              <span class="badge badge-4">NOTEBOOK</span>
+              <span class="badge border border-border/60">NOTEBOOK</span>
             </div>
             <ul class="mt-4 space-y-2 text-sm text-muted">
               <li class="flex gap-2">
@@ -369,14 +369,14 @@
         </div>
 
         <div
-          class="mt-6 rounded-3xl border border-blue-200/80 bg-gradient-to-br from-sky-100 via-cyan-100 to-indigo-100 p-6 shadow-lg shadow-blue-500/10 dark:border-border/60 dark:from-blue-950/80 dark:via-blue-950/30 dark:to-zinc-950 dark:shadow-none"
+          class="mt-6 rounded-3xl text-foreground border border-slate-200 bg-slate-50 p-6 shadow-sm dark:border-blue-900/60 dark:bg-slate-950/70"
         >
           <div
             class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between"
           >
             <div>
               <h3 class="text-lg font-extrabold">Quer um orçamento?</h3>
-              <p class="mt-1 text-sm text-muted">
+              <p class="mt-1 text-sm">
                 Envie uma mensagem com o que você precisa e eu retorno com um
                 caminho claro.
               </p>
@@ -422,7 +422,7 @@
                     Seções organizadas + CTA forte
                   </p>
                 </div>
-                <span class="badge badge-alt">SITE</span>
+                <span class="badge border border-border/60">SITE</span>
               </div>
               <div
                 class="mt-4 aspect-[4/3] rounded-2xl bg-muted/60 ring-1 ring-border/60"
@@ -457,7 +457,7 @@
                   <h3 class="text-lg font-extrabold">Portfólio com destaque</h3>
                   <p class="mt-2 text-sm text-muted">Grid, cards e narrativa</p>
                 </div>
-                <span class="badge">UI</span>
+                <span class="badge border border-border/60">UI</span>
               </div>
               <div
                 class="mt-4 aspect-[4/3] rounded-2xl bg-muted/60 ring-1 ring-border/60"
@@ -494,7 +494,7 @@
                     Formulário elegante e rápido
                   </p>
                 </div>
-                <span class="badge badge-3">CRM</span>
+                <span class="badge border border-border/60">CRM</span>
               </div>
               <div
                 class="mt-4 aspect-[4/3] rounded-2xl bg-muted/60 ring-1 ring-border/60"
@@ -813,23 +813,7 @@ async function submit() {
   font-size: 0.7rem;
   font-weight: 800;
   letter-spacing: 0.04em;
-  color: #fff;
-  background: linear-gradient(135deg, #3b82f6, #6366f1);
-  box-shadow: 0 4px 14px rgba(59, 130, 246, 0.35);
 }
-.badge-alt {
-  background: linear-gradient(135deg, #6366f1, #d946ef);
-  box-shadow: 0 4px 14px rgba(168, 85, 247, 0.35);
-}
-.badge-3 {
-  background: linear-gradient(135deg, #06b6d4, #3b82f6);
-  box-shadow: 0 4px 14px rgba(6, 182, 212, 0.35);
-}
-.badge-4 {
-  background: linear-gradient(135deg, #f59e0b, #ef4444);
-  box-shadow: 0 4px 14px rgba(245, 158, 11, 0.35);
-}
-
 /* Card links (Atendimento / Soluções) */
 .card-link {
   display: flex;

@@ -16,6 +16,7 @@ export interface ContactMessage {
   source: string;
   message: string;
   createdAt: string;
+  readAt: string | null;
 }
 
 export function isMessageTopic(value: unknown): value is MessageTopic {

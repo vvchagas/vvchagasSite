@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import 'lenis/dist/lenis.css';
 
 /* Material Icons (Google) */
 /* @import url('https://fonts.googleapis.com/icon?family=Material+Icons'); */

@@ -38,7 +38,7 @@ export default defineEventHandler(async (event) => {
 
   const storage = useStorage("data");
   const existing = (await storage.getItem<ContactMessage[]>("messages")) ?? [];
-  const newMessage: ContactMessage = { id: createId(), name, contact, topic: body.topic, source, message, createdAt: new Date().toISOString() };
+  const newMessage: ContactMessage = { id: createId(), name, contact, topic: body.topic, source, message, createdAt: new Date().toISOString(), readAt: null };
 
   await storage.setItem("messages", [newMessage, ...existing]);
   recentSubmissions.set(ip, Date.now());
