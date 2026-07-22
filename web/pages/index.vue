@@ -45,7 +45,7 @@
             </h1>
 
             <p class="mt-4 max-w-prose text-base text-muted sm:text-lg">
-              Desenvolvimento web, automações simples, suporte de TI e
+              Desenvolvimento web, suporte de TI e
               manutenção de notebooks. Do diagnóstico ao resultado: com clareza
               e sem enrolação.
             </p>
@@ -369,13 +369,13 @@
         </div>
 
         <div
-          class="mt-6 rounded-3xl text-foreground border border-slate-200 bg-slate-50 p-6 shadow-sm dark:border-blue-900/60 dark:bg-slate-950/70"
+          class="mt-6 text-foreground border border-slate-200 rounded-3xl border border-blue-300/50 bg-blue-500/10 p-5 text-center shadow-sm dark:border-blue-500/30 dark:bg-blue-500/15"
         >
           <div
-            class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between"
+            class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between "
           >
             <div>
-              <h3 class="text-lg font-extrabold">Quer um orçamento?</h3>
+              <h3 class="text-lg font-extrabold text-start">Quer um orçamento?</h3>
               <p class="mt-1 text-sm">
                 Envie uma mensagem com o que você precisa e eu retorno com um
                 caminho claro.
@@ -402,9 +402,7 @@
               Exemplos de projetos concluidos, e focados em seu objetivo!
             </p>
           </div>
-          <div class="hidden md:block text-sm text-muted">
-            Clique para ver detalhes
-          </div>
+          <NuxtLink to="/aboutView" class="border border/60 rounded-full px-2 py-1 hover:-translate-y-[5px] duration-400">Clique para ver mais projetos</NuxtLink> 
         </div>
 
         <div class="mt-7 grid gap-4 md:grid-cols-3">
@@ -561,7 +559,7 @@
             </div>
 
             <form
-              class="rounded-3xl border border-border/60 bg-card/70 p-6 shadow-sm backdrop-blur md:p-8"
+              class=" bg-background  rounded-3xl border border-border/60 bg-card/70 p-6 shadow-sm backdrop-blur md:p-8"
               @submit.prevent="submit"
             >
               <div class="flex items-center justify-between gap-4">
@@ -580,7 +578,7 @@
                     class="mt-2 w-full rounded-2xl border border-border/70 bg-background/50 px-4 py-3 text-sm outline-none transition focus:border-blue-500/60 focus:ring-2 focus:ring-blue-500/20"
                     placeholder="Ex: Maria"
                     required
-                  >
+                  > 
                 </label>
 
                 <label class="block">
