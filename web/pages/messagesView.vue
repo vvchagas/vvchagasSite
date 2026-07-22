@@ -95,7 +95,7 @@
               <button type="button" class="message-action message-action--read" :disabled="busyId === item.id" @click="setRead(item, !item.readAt)">
                 {{ item.readAt ? "Marcar como não lida" : "Marcar como lida" }}
               </button>
-              <button type="button" class="message-action message-action--delete" :disabled="busyId === item.id" @click="removeMessage(item)">
+              <button type="button" class="message-action message-action--delete" :disabled="busyId === item.id" @click="askRemove(item)">
                 Excluir mensagem
               </button>
             </div>
@@ -105,6 +105,18 @@
     </main>
 
     <SiteFooter />
+
+    <ConfirmModal
+      :open="confirmDelete !== null"
+      title="Excluir mensagem"
+      :message="`Tem certeza que deseja excluir permanentemente a mensagem de ${confirmDelete?.name ?? '...'}?`"
+      confirm-text="Sim, excluir"
+      cancel-text="Cancelar"
+      :danger="true"
+      :loading="deleting"
+      @confirm="confirmRemove"
+      @cancel="cancelRemove"
+    />
   </div>
 </template>
 
@@ -114,6 +126,7 @@ import type { ContactMessage, MessageTopic } from "~/shared/messages";
 import { MESSAGE_TOPIC_LABELS } from "~/shared/messages";
 import SiteFooter from "../components/SiteFooter.vue";
 import SiteHeader from "../components/SiteHeader.vue";
+import ConfirmModal from "../components/ConfirmModal.vue";
 
 type TopicFilter = "all" | MessageTopic;
 
@@ -130,21 +143,37 @@ const { data, pending, error, refresh } = await useFetch<{ items: ContactMessage
 const messages = computed(() => data.value?.items ?? []);
 const busyId = ref<string | null>(null);
 
-async function setRead(item: ContactMessage, read: boolean) {
+const confirmDelete = ref<ContactMessage | null>(null);
+const deleting = ref(false);
+
+function askRemove(item: ContactMessage) {
+  confirmDelete.value = item;
+}
+
+function cancelRemove() {
+  if (deleting.value) return;
+  confirmDelete.value = null;
+}
+
+async function confirmRemove() {
+  const item = confirmDelete.value;
+  if (!item) return;
+  deleting.value = true;
   busyId.value = item.id;
   try {
-    await $fetch(`/api/messages/${item.id}`, { method: "PATCH", body: { read } });
+    await $fetch(`/api/messages/${item.id}`, { method: "DELETE" });
     await refresh();
+    confirmDelete.value = null;
   } finally {
+    deleting.value = false;
     busyId.value = null;
   }
 }
 
-async function removeMessage(item: ContactMessage) {
-  if (!window.confirm(`Excluir permanentemente a mensagem de ${item.name}?`)) return;
+async function setRead(item: ContactMessage, read: boolean) {
   busyId.value = item.id;
   try {
-    await $fetch(`/api/messages/${item.id}`, { method: "DELETE" });
+    await $fetch(`/api/messages/${item.id}`, { method: "PATCH", body: { read } });
     await refresh();
   } finally {
     busyId.value = null;
@@ -198,7 +227,7 @@ useHead({
 .message-action { border-radius: .85rem; padding: .6rem .85rem; font-size: .8rem; font-weight: 800; transition: transform .2s ease, box-shadow .2s ease; }
 .message-action:hover:not(:disabled) { transform: translateY(-2px); }
 .message-action:disabled { cursor: wait; opacity: .55; }
-.message-action--read { background: rgb(37 99 235 / .12); color: rgb(29 78 216); }
+.message-action--read { background: rgba(15, 211, 9, 0.281); color: rgb(11, 170, 6); }
 .message-action--delete { background: rgb(239 68 68 / .12); color: rgb(185 28 28); }
 :global(html.dark) .message-action--read { color: rgb(147 197 253); }
 :global(html.dark) .message-action--delete { color: rgb(252 165 165); }
