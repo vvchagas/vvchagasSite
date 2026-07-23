@@ -91,7 +91,7 @@ onUnmounted(() => {
               :disabled="loading"
               @click="confirm"
             >
-              <span v-if="loading" class="confirm-modal__spinner" aria-hidden="true"></span>
+              <span v-if="loading" class="confirm-modal__spinner" aria-hidden="true"/>
               {{ loading ? "Excluindo…" : (confirmText ?? "Confirmar") }}
             </button>
           </div>

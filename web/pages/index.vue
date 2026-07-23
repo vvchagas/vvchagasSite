@@ -405,7 +405,7 @@
           <NuxtLink to="/aboutView" class="border border/60 rounded-full px-2 py-1 hover:-translate-y-[5px] duration-400">Clique para ver mais projetos</NuxtLink> 
         </div>
 
-        <div class="mt-7 grid gap-4 md:grid-cols-3">
+        <div class="mt-7 flex justify-beetween gap-4 md:grid-cols-3">
           <article
             class="group relative overflow-hidden rounded-3xl border border-border/60 bg-card/60 p-5 shadow-sm backdrop-blur"
           >
@@ -415,9 +415,9 @@
             <div class="relative">
               <div class="flex items-start justify-between gap-4">
                 <div>
-                  <h3 class="text-lg font-extrabold">Landing de Serviços</h3>
+                  <h3 class="text-lg font-extrabold">YU-GI-OH! API </h3>
                   <p class="mt-2 text-sm text-muted">
-                    Seções organizadas + CTA forte
+                    Projeto com API de cartas do jogo YU-GI-OH!
                   </p>
                 </div>
                 <span class="badge border border-border/60">SITE</span>
@@ -426,7 +426,7 @@
                 class="mt-4 aspect-[4/3] rounded-2xl bg-muted/60 ring-1 ring-border/60"
               >
                 <div class="flex h-full items-center justify-center">
-                  <span class="material-symbols-outlined text-3xl text-blue-500">explore</span>
+                  <img src="/yu-gi-oh_foto.webp" alt="YU-GI-OH! API">
                 </div>
               </div>
               <ul class="mt-4 space-y-2 text-sm text-muted">
@@ -437,7 +437,7 @@
                   <span aria-hidden="true" class="material-symbols-outlined text-base text-emerald-500">check</span> Semântica
                 </li>
                 <li class="flex gap-2">
-                  <span aria-hidden="true" class="material-symbols-outlined text-base text-emerald-500">check</span> Modo claro/escuro
+                  <span aria-hidden="true" class="material-symbols-outlined text-base text-emerald-500">check</span> Estrutura clara 
                 </li>
               </ul>
             </div>
@@ -452,16 +452,16 @@
             <div class="relative">
               <div class="flex items-start justify-between gap-4">
                 <div>
-                  <h3 class="text-lg font-extrabold">Portfólio com destaque</h3>
-                  <p class="mt-2 text-sm text-muted">Grid, cards e narrativa</p>
+                  <h3 class="text-lg font-extrabold">Loja do Seu Zé</h3>
+                  <p class="mt-2 text-sm text-muted">ERP com cobrança</p>
                 </div>
-                <span class="badge border border-border/60">UI</span>
+                <span class="badge border border-border/60">SITE</span>
               </div>
               <div
                 class="mt-4 aspect-[4/3] rounded-2xl bg-muted/60 ring-1 ring-border/60"
               >
                 <div class="flex h-full items-center justify-center">
-                  <span class="material-symbols-outlined text-3xl text-purple-500">grid_view</span>
+                  <img src="/loja-do-seu-ze.webp" alt="Loja do Seu Zé">
                 </div>
               </div>
               <ul class="mt-4 space-y-2 text-sm text-muted">
@@ -469,47 +469,10 @@
                   <span aria-hidden="true" class="material-symbols-outlined text-base text-emerald-500">check</span> Acessibilidade
                 </li>
                 <li class="flex gap-2">
-                  <span aria-hidden="true" class="material-symbols-outlined text-base text-emerald-500">check</span> Animações sutis
+                  <span aria-hidden="true" class="material-symbols-outlined text-base text-emerald-500">check</span> Responsividade
                 </li>
                 <li class="flex gap-2">
                   <span aria-hidden="true" class="material-symbols-outlined text-base text-emerald-500">check</span> Performance
-                </li>
-              </ul>
-            </div>
-          </article>
-
-          <article
-            class="group relative overflow-hidden rounded-3xl border border-border/60 bg-card/60 p-5 shadow-sm backdrop-blur"
-          >
-            <div
-              class="absolute inset-0  from-fuchsia-500/20 via-blue-500/10 to-indigo-500/20 opacity-0 transition group-hover:opacity-100"
-            />
-            <div class="relative">
-              <div class="flex items-start justify-between gap-4">
-                <div>
-                  <h3 class="text-lg font-extrabold">Página de Contato</h3>
-                  <p class="mt-2 text-sm text-muted">
-                    Formulário elegante e rápido
-                  </p>
-                </div>
-                <span class="badge border border-border/60">CRM</span>
-              </div>
-              <div
-                class="mt-4 aspect-[4/3] rounded-2xl bg-muted/60 ring-1 ring-border/60"
-              >
-                <div class="flex h-full items-center justify-center">
-                  <span class="material-symbols-outlined text-3xl text-pink-500">mail</span>
-                </div>
-              </div>
-              <ul class="mt-4 space-y-2 text-sm text-muted">
-                <li class="flex gap-2">
-                  <span aria-hidden="true" class="material-symbols-outlined text-base text-emerald-500">check</span> UX clara
-                </li>
-                <li class="flex gap-2">
-                  <span aria-hidden="true" class="material-symbols-outlined text-base text-emerald-500">check</span> CTA visível
-                </li>
-                <li class="flex gap-2">
-                  <span aria-hidden="true" class="material-symbols-outlined text-base text-emerald-500">check</span> Transições
                 </li>
               </ul>
             </div>
