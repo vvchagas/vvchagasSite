@@ -45,7 +45,7 @@ export const projects: Project[] = [
     title: "NuvemShop ERP",
     description: "Loja com integração ERP com a nuvemShop",
     longDescription:
-      "Formulário de contato direto ao ponto: poucos campos, validação clara e envio sem fricção. Os dados caem direto numa caixa de mensagens organizada por assunto.",
+      "O projeto NuvemShop ERP é uma loja online desenvolvida com integração a um sistema ERP, utilizando a plataforma NuvemShop. O objetivo do projeto é fornecer uma solução completa para gerenciamento de vendas, estoque e processos logísticos, permitindo que os usuários tenham uma experiência de compra eficiente e organizada. Desenvolvido com Vue 3, Prisma, PostgreSQL, Tailwind CSS e TypeScript, o projeto prioriza a clareza da interface do usuário (UX), a integração com APIs e o fluxo de envio direto para otimizar a experiência de compra.",
     tag: "SITE",
     icon: "shopping_cart",
     image: "/erp.webp",
