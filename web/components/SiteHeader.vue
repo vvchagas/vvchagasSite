@@ -134,22 +134,12 @@ onMounted(() => {
       id="menu-mobile"
       aria-label="Menu mobile"
       class="fixed left-0 bottom-0 top-[61px] z-40 w-64 border-r border-border/60 bg-background/95 backdrop-blur-md transition-transform duration-300 ease-in-out md:hidden"
-      :class="isMenuOpen ? 'translate-x-0' : '-translate-x-full'"
-    >
-      <div class="z-50 flex flex-col gap-3 bg-background px-4 py-6 backdrop-blur">
+      :class="isMenuOpen ? 'translate-x-0' : '-translate-x-full'">
+      <div class="z-50 flex flex-col gap-3 bg-background px-4 py-6 backdrop-blur bg-background rounded-r-lg shadow-lg">
         <NuxtLink class="nav-link block py-2 text-base" to="/" @click="isMenuOpen = false">Início</NuxtLink>
         <NuxtLink class="nav-link block py-2 text-base" to="/aboutView" @click="isMenuOpen = false">Sobre</NuxtLink>
         <NuxtLink class="nav-link block py-2 text-base" to="/servicosView" @click="isMenuOpen = false">Serviços</NuxtLink>
-        <NuxtLink class="nav-link block py-2 text-base" to="/portfolioView" @click="isMenuOpen = false">Portfólio</NuxtLink>
         <NuxtLink class="nav-link block py-2 text-base" to="/contatoView" @click="isMenuOpen = false">Contato</NuxtLink>
-
-        <NuxtLink
-          id="nuxtlink"
-          to="/contatoView"
-          class="sm:inline-flex items-center justify-center rounded-full bg-blue-600 px-4 py-2 text-sm font-bold text-white shadow-sm transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-        >
-          Vamos conversar
-        </NuxtLink>
       </div>
     </nav>
   </header>
@@ -176,5 +166,11 @@ onMounted(() => {
 #nuxtlink:hover {
   transform: translateY(-5px);
   transition: 0.5s
+}
+.bg-background {
+  background-color: rgb(var(--bg));
+}
+.text-foreground {
+  color: rgb(var(--fg));
 }
 </style>

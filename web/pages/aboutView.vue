@@ -96,7 +96,6 @@
         <section class="mt-14 rounded-[2rem] border border-border/60 bg-card/60 p-6 shadow-sm backdrop-blur md:p-8" data-reveal>
           <p class="text-xs font-semibold uppercase tracking-[0.3em] text-blue-600 dark:text-blue-400">Linguagens de programação que eu utilizo</p>
           <h2 class="mt-3 text-2xl font-black tracking-tight md:text-3xl">A combinação certa de linguagens de programação cria a stack perfeita.</h2>
-          <p class="mt-2 text-sm text-muted">Passe o mouse ou toque num ícone pra ver o nome.</p>
           <div class="mt-7">
             <TechMarquee />
           </div>

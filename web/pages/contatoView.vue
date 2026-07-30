@@ -191,61 +191,53 @@
           </p>
 
           <form
-            class="rounded-3xl border border-border/60 bg-card/70 p-6 shadow-sm backdrop-blur md:p-8 mt-5"
-            @submit.prevent="submit"
-          >
-            <div class="flex items-center justify-between gap-4">
-              <h3 class="text-lg font-extrabold">Enviar mensagem</h3>
-            </div>
+              class=" bg-background  rounded-3xl border border-border/60 bg-card/70 p-6 shadow-sm backdrop-blur md:p-8"
+              @submit.prevent="submit"
+            >
+              <div class="flex items-center justify-between gap-4">
+                <h3 class="text-lg font-extrabold">Enviar mensagem</h3>
+                <span class="text-xs font-semibold text-muted"
+                  >Resposta rápida</span
+                >
+              </div>
 
-            <div class="mt-5 grid gap-4">
-              <label class="block">
-                <span class="text-sm font-semibold">Seu nome</span>
-                <input
-                  v-model="form.name"
-                  type="text"
-                  class="mt-2 w-full rounded-2xl border border-border/70 bg-background/50 px-4 py-3 text-sm outline-none transition focus:border-blue-500/60 focus:ring-2 focus:ring-blue-500/20"
-                  placeholder="Ex: Maria"
-                  required
-                >
-              </label>
-              <label class="block">
-                <span class="text-sm font-semibold"
-                  >Seu <span class="font-bold">Número</span> ou
-                  <span class="font-bold">E-mail</span> para contato</span
-                >
-                <input
-                  v-model="form.contact"
-                  type="text"
-                  class="mt-2 w-full rounded-2xl border border-border/70 bg-background/50 px-4 py-3 text-sm outline-none transition focus:border-blue-500/60 focus:ring-2 focus:ring-blue-500/20"
-                  placeholder="Ex: (11) 99999-9999 ou maria@email.com"
-                  required
-                >
-              </label>
-              <!-- v-model="form.name" -->
+              <div class="mt-5 grid gap-4">
+                <label class="block">
+                  <span class="text-sm font-semibold">Seu nome</span>
+                  <input
+                    v-model="form.name"
+                    type="text"
+                    class="mt-2 w-full rounded-2xl border border-border/70 bg-background/50 px-4 py-3 text-sm outline-none transition focus:border-blue-500/60 focus:ring-2 focus:ring-blue-500/20"
+                    placeholder="Ex: Maria"
+                    required
+                  > 
+                </label>
 
-              <label class="block">
-                <span class="text-sm font-semibold">Assunto</span>
-                <select
-                  v-model="form.topic"
-                  class="mt-2 w-full rounded-2xl border border-border/70 bg-background/50 px-4 py-3 text-sm outline-none transition focus:border-blue-500/60 focus:ring-2 focus:ring-blue-500/20"
-                  required
-                >
-                  <option class="bg-background text-foreground" value="web">
-                    Web
-                  </option>
-                  <option class="bg-background text-foreground" value="ti">
-                    TI
-                  </option>
-                  <option
-                    class="bg-background text-foreground"
-                    value="assistencia-tecnica"
+                <label class="block">
+                  <span class="text-sm font-semibold">Seu número ou e-mail</span>
+                  <input
+                    v-model="form.contact"
+                    type="text"
+                    class="mt-2 w-full rounded-2xl border border-border/70 bg-background/50 px-4 py-3 text-sm outline-none transition focus:border-blue-500/60 focus:ring-2 focus:ring-blue-500/20"
+                    placeholder="Ex: (11) 99999-9999 ou maria@email.com"
+                    required
                   >
-                    Assistência técnica
-                  </option>
-                </select>
-              </label>
-               <label class="block">
+                </label>
+
+                <label class="block">
+                  <span class="text-sm font-semibold">Assunto</span>
+                  <select
+                    v-model="form.topic"
+                    class="mt-2 w-full rounded-2xl border border-border/70 bg-background/50 px-4 py-3 text-sm outline-none transition focus:border-blue-500/60 focus:ring-2 focus:ring-blue-500/20"
+                    required
+                  >
+                    <option class="bg-background text-foreground" value="web">Web</option>
+                    <option class="bg-background text-foreground" value="ti">TI</option>
+                    <option class="bg-background text-foreground" value="assistencia-tecnica">Assistência técnica</option>
+                  </select>
+                </label>
+
+                <label class="block">
                   <span class="text-sm font-semibold">Por onde você me encontrou?</span>
                   <select
                     v-model="form.source"
@@ -259,37 +251,42 @@
                   </select>
                 </label>
 
-              <label class="block">
-                <span class="text-sm font-semibold">Mensagem</span>
-                <textarea
-                  rows="5"
-                  class="mt-2 w-full resize-none rounded-2xl border border-border/70 bg-background/50 px-4 py-3 text-sm outline-none transition focus:border-blue-500/60 focus:ring-2 focus:ring-blue-500/20"
-                  placeholder="Conte me, qual é sua idéia de um site, qual é o problema que você está passando ou problema com seu notebook."
-                  required
-                />
-              </label>
+                <label class="block">
+                  <span class="text-sm font-semibold">Mensagem</span>
+                  <textarea
+                    v-model="form.message"
+                    rows="5"
+                    class="mt-2 w-full resize-none rounded-2xl border border-border/70 bg-background/50 px-4 py-3 text-sm outline-none transition focus:border-blue-500/60 focus:ring-2 focus:ring-blue-500/20"
+                    placeholder="Conte me, qual é sua idéia de um site, qual é o problema que você está passando ou problema com seu notebook."
+                    required
+                  />
+                </label>
 
                 <button
                   type="submit"
                   :disabled="isSending"
-                  class="inline-flex w-full items-center justify-center rounded-2xl bg-blue-600 px-4 py-3 text-sm font-extrabold text-white shadow-sm transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  class="inline-flex w-full items-center justify-center rounded-2xl bg-blue-600 px-4 py-3 text-sm font-extrabold text-white shadow-sm transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:cursor-wait disabled:opacity-55"
                 >
-                  {{ isSending ? "Enviando…" : "Enviar" }}
+                  {{ isSending ? "Enviando\u2026" : "Enviar" }}
                 </button>
 
-                <p v-if="sendError" class="rounded-2xl border border-red-500/40 bg-red-500/10 px-4 py-3 text-sm text-red-700 dark:text-red-300" role="alert">
+                <p
+                  v-if="sendError"
+                  class="rounded-2xl border border-red-500/40 bg-red-500/10 px-4 py-3 text-sm text-red-700 dark:text-red-300"
+                  role="alert"
+                >
                   {{ sendError }}
                 </p>
 
-              <p
-                v-if="toast"
-                class="rounded-2xl border border-border/70 bg-card/60 px-4 py-3 text-sm text-muted"
-                role="status"
-              >
-                {{ toast }}
-              </p>
-            </div>
-          </form>
+                <p
+                  v-if="toast"
+                  class="rounded-2xl border border-border/70 bg-card/60 px-4 py-3 text-sm text-muted"
+                  role="status"
+                >
+                  {{ toast }}
+                </p>
+              </div>
+            </form>
         </div>
       </section>
     </main>

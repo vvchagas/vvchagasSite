@@ -66,10 +66,10 @@ onUnmounted(() => {
           </div>
           <ul class="mt-4 space-y-2 text-sm text-muted"><li v-for="highlight in project.highlights" :key="highlight" class="flex gap-2"><span aria-hidden="true" class="material-symbols-outlined text-base text-emerald-600">check</span>{{ highlight }}</li></ul>
           <div class="mt-5 grid gap-2">
-            <button type="button" class="project-action hover:bg-blue-800 bg-blue-600" @click="openProject(project.slug)">
+            <button type="button" class="flex justify-center gap-2 py-2 project-action hover:bg-blue-800 bg-blue-600 rounded-full" @click="openProject(project.slug)">
               Ver o projeto completo <span class="material-symbols-outlined" aria-hidden="true">info</span>
             </button>
-            <NuxtLink :to="{ path: '/contatoView', query: { projeto: project.title } }" class="project-action project-action--secondary">Eu quero um projeto semelhante <span class="material-symbols-outlined" aria-hidden="true">chat</span></NuxtLink>
+            <NuxtLink :to="{ path: '/contatoView', query: { projeto: project.title } }" class="project-action text-start project-action--secondary border border/60 bg-background rounded-full flex justify-center gap-2 py-2">Eu quero um projeto semelhante <span class="material-symbols-outlined" aria-hidden="true">chat</span></NuxtLink>
           </div>
         </div>
       </article>
@@ -184,5 +184,11 @@ onUnmounted(() => {
   .lightbox-leave-active .lightbox-container {
     transition: none;
   }
+}
+.bg-background {
+  background-color: rgb(var(--bg));
+}
+.text-foreground {
+  color: rgb(var(--fg));
 }
 </style>

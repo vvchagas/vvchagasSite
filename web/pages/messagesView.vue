@@ -77,10 +77,10 @@
                 v-model="selectedTopic"
                 class="mt-2 w-full rounded-2xl border border-border/70 bg-background/60 px-4 py-3 text-sm outline-none transition focus:border-blue-500/60 focus:ring-2 focus:ring-blue-500/20"
               >
-                <option value="all">Todos</option>
-                <option value="web">Web</option>
-                <option value="ti">TI</option>
-                <option value="assistencia-tecnica">Assistência técnica</option>
+                <option class="bg-background text-foreground" value="all">Todos</option>
+                <option class="bg-background text-foreground" value="web">Web</option>
+                <option class="bg-background text-foreground" value="ti">TI</option>
+                <option class="bg-background text-foreground" value="assistencia-tecnica">Assistência técnica</option>
               </select>
             </label>
           </div>
@@ -140,7 +140,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, onMounted, nextTick } from "vue";
+import { ref, onMounted, nextTick, watch } from "vue";
 import type { ContactMessage, MessageTopic } from "~/shared/messages";
 import { MESSAGE_TOPIC_LABELS } from "~/shared/messages";
 import SiteFooter from "../components/SiteFooter.vue";
@@ -154,6 +154,38 @@ const loginLoading = ref(false);
 const loginError = ref("");
 const passwordInputRef = ref<HTMLInputElement | null>(null);
 
+// Token reativo – usado no cabeçalho de autenticação
+const basicToken = ref<string | null>(null);
+
+function getAuthHeaders(): Record<string, string> {
+  const token = basicToken.value;
+  if (token) return { authorization: `Basic ${token}` };
+  return {};
+}
+
+const messages = ref<ContactMessage[]>([]);
+const pending = ref(false);
+const error = ref(false);
+
+async function loadMessages() {
+  pending.value = true;
+  error.value = false;
+  try {
+    const params: Record<string, string> = {};
+    if (selectedTopic.value !== "all") params.topic = selectedTopic.value;
+    const result = await $fetch<{ items: ContactMessage[] }>("/api/messages", {
+      params,
+      headers: getAuthHeaders(),
+    });
+    messages.value = result.items;
+  } catch {
+    error.value = true;
+    messages.value = [];
+  } finally {
+    pending.value = false;
+  }
+}
+
 onMounted(() => {
   if (import.meta.client) {
     sessionStorage.removeItem("nuxt_messages_auth");
@@ -162,29 +194,40 @@ onMounted(() => {
   nextTick(() => passwordInputRef.value?.focus());
 });
 
-function getAuthHeaders(): Record<string, string> {
-  if (import.meta.client) {
-    const token = sessionStorage.getItem("nuxt_messages_auth");
-    if (token) return { authorization: `Basic ${token}` };
-  }
-  return {};
-}
-
-async function handleLogin() {
-  loginError.value = "";
+async function handleLogin(): Promise<void> {
+  loginError.value = '';
   loginLoading.value = true;
+
   try {
-    const token = btoa(`${loginUser.value}:${loginPassword.value}`);
-    await $fetch("/api/messages", {
-      headers: { authorization: `Basic ${token}` },
+    // encodeURIComponent evita quebra de caracteres Unicode no btoa
+    const rawCredentials = `${loginUser.value}:${loginPassword.value}`;
+    const token = btoa(encodeURIComponent(rawCredentials).replace(/%([0-9A-F]{2})/g, (_, p1) => 
+      String.fromCharCode(parseInt(p1, 16))
+    ));
+
+    await $fetch('/api/messages', {
+      headers: { 
+        authorization: `Basic ${token}` 
+      },
     });
+
     if (import.meta.client) {
-      sessionStorage.setItem("nuxt_messages_auth", token);
+      sessionStorage.setItem('nuxt_messages_auth', token);
     }
+
+    basicToken.value = token;
     authenticated.value = true;
-  } catch (err) {
-    loginError.value = err?.statusCode === 401 ? "Usu\u00e1rio ou senha inv\u00e1lidos." : "Erro ao conectar com o servidor.";
-    loginPassword.value = "";
+    // Carrega as mensagens agora com o token de autenticação
+    await loadMessages();
+  } catch (err: unknown) {
+    // Cast/Asserção de tipo correto do Erro do $fetch (ofetch)
+    const fetchError = err as FetchError;
+    
+    loginError.value = fetchError.statusCode === 401 
+      ? 'Usuário ou senha inválidos.' 
+      : 'Erro ao conectar com o servidor.';
+      
+    loginPassword.value = '';
   } finally {
     loginLoading.value = false;
   }
@@ -192,14 +235,12 @@ async function handleLogin() {
 
 type TopicFilter = "all" | MessageTopic;
 const selectedTopic = ref<TopicFilter>("all");
-const query = computed(() => selectedTopic.value === "all" ? {} : { topic: selectedTopic.value });
 
-const { data, pending, error, refresh } = await useFetch<{ items: ContactMessage[] }>("/api/messages", {
-  query,
-  headers: getAuthHeaders(),
+// Observa mudanças no filtro para recarregar mensagens (apenas se já autenticado)
+watch(selectedTopic, () => {
+  if (authenticated.value) loadMessages();
 });
 
-const messages = computed(() => data.value?.items ?? []);
 const busyId = ref<string | null>(null);
 const confirmDelete = ref<ContactMessage | null>(null);
 const deleting = ref(false);
@@ -214,7 +255,7 @@ async function confirmRemove() {
   busyId.value = item.id;
   try {
     await $fetch(`/api/messages/${item.id}`, { method: "DELETE", headers: getAuthHeaders() });
-    await refresh();
+    await loadMessages();
     confirmDelete.value = null;
   } finally {
     deleting.value = false;
@@ -226,7 +267,7 @@ async function setRead(item: ContactMessage, read: boolean) {
   busyId.value = item.id;
   try {
     await $fetch(`/api/messages/${item.id}`, { method: "PATCH", body: { read }, headers: getAuthHeaders() });
-    await refresh();
+    await loadMessages();
   } finally {
     busyId.value = null;
   }
