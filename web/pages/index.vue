@@ -56,17 +56,10 @@
             <div class="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
               <NuxtLink
                 id="nuxtlink"
-                to="/servicosView"
+                to="/servicos"
                 class="inline-flex items-center justify-center rounded-full bg-blue-600 px-5 py-3 text-sm font-bold text-white shadow-sm transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
                 Ver serviços
-              </NuxtLink>
-              <NuxtLink
-              id="nuxtlink"
-                to="/portfolioView"
-                class="inline-flex items-center justify-center rounded-full border border-border/70 bg-card/50 px-5 py-3 text-sm font-bold text-foreground/90 shadow-sm transition hover:border-blue-500/60 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              >
-                Confira portfólio
               </NuxtLink>
             </div>
 
@@ -152,14 +145,14 @@
               </div>
 
               <div class="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2">
-                <NuxtLink class="card-link" to="/contatoView">
+                <NuxtLink class="card-link" to="/contato">
                   <span class="card-icon material-symbols-outlined text-blue-500" aria-hidden="true">chat</span>
                   <span class="card-title">Atendimento</span>
                   <span class="card-desc"
                     >Vamos alinhar em poucos minutos.</span
                   >
                 </NuxtLink>
-                <NuxtLink class="card-link" to="/servicosView">
+                <NuxtLink class="card-link" to="/servicos">
                   <span class="card-icon material-symbols-outlined text-purple-500" aria-hidden="true">settings</span>
                   <span class="card-title">Soluções</span>
                   <span class="card-desc">Web e suporte de TI completo.</span>
@@ -191,7 +184,8 @@
         </div>
 
         <div class="mt-7 grid gap-4 md:grid-cols-3">
-          <article ref="sobreCard1"
+          <article
+ref="sobreCard1"
             class="rounded-3xl border border-border/60 bg-card/60 p-6 shadow-sm backdrop-blur"
           >
             <h3 class="text-lg font-extrabold">Web moderna</h3>
@@ -211,7 +205,8 @@
             </ul>
           </article>
 
-          <article ref="sobreCard2"
+          <article
+ref="sobreCard2"
             class="rounded-3xl border border-border/60 bg-card/60 p-6 shadow-sm backdrop-blur"
           >
             <h3 class="text-lg font-extrabold">Assistência de TI</h3>
@@ -232,7 +227,8 @@
             </ul>
           </article>
 
-          <article ref="sobreCard3"  
+          <article
+ref="sobreCard3"  
             class="rounded-3xl border border-border/60 bg-card/60 p-6 shadow-sm backdrop-blur"
           >
             <h3 class="text-lg font-extrabold">Manutenção de notebooks</h3>
@@ -272,7 +268,8 @@
         </div>
 
         <div class="mt-7 grid gap-4 md:grid-cols-2">
-          <article ref="servCard1"
+          <article
+ref="servCard1"
             class="rounded-3xl border border-border/60 bg-card/60 p-6 shadow-sm backdrop-blur"
           >
             <div class="flex items-start justify-between gap-4">
@@ -297,7 +294,8 @@
             </ul>
           </article>
 
-          <article ref="servCard2"
+          <article
+ref="servCard2"
             class="rounded-3xl border border-border/60 bg-card/60 p-6 shadow-sm backdrop-blur"
           >
             <div class="flex items-start justify-between gap-4">
@@ -322,7 +320,8 @@
             </ul>
           </article>
 
-          <article ref="servCard3"
+          <article
+ref="servCard3"
             class="rounded-3xl border border-border/60 bg-card/60 p-6 shadow-sm backdrop-blur"
           >
             <div class="flex items-start justify-between gap-4">
@@ -347,7 +346,8 @@
             </ul>
           </article>
 
-          <article ref="servCard4"
+          <article
+ref="servCard4"
             class="rounded-3xl border border-border/60 bg-card/60 p-6 shadow-sm backdrop-blur"
           >
             <div class="flex items-start justify-between gap-4">
@@ -373,9 +373,9 @@
           </article>
         </div>
 
-        <div ref="servCta"
-          class="mt-6 text-foreground border border-slate-200 rounded-3xl border border-blue-300/50 bg-blue-500/10 p-5 text-center shadow-sm dark:border-blue-500/30 dark:bg-blue-500/15"
-        >
+        <div
+ref="servCta"
+          class="mt-6 text-foreground border border-slate-200 rounded-3xl border border-blue-300/50 bg-blue-500/10 p-5 text-center shadow-sm dark:border-blue-500/30 dark:bg-blue-500/15">
           <div
             class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between "
           >
@@ -388,7 +388,7 @@
             </div>
             <NuxtLink
               id="nuxtlink"
-              to="/contatoView"
+              to="/contato"
               class="inline-flex items-center justify-center rounded-full bg-blue-600 px-5 py-3 text-sm font-bold text-white shadow-sm transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
               Falar agora
@@ -408,11 +408,12 @@
               Exemplos de projetos concluidos, e focados em seu objetivo!
             </p>
           </div>
-          <NuxtLink to="/aboutView" class="border border/60 rounded-full px-2 py-1 hover:-translate-y-[5px] duration-400">Clique para ver mais projetos</NuxtLink> 
+          <NuxtLink to="/about" class="border border/60 rounded-full px-2 py-1 hover:-translate-y-[5px] duration-400">Clique para ver mais projetos</NuxtLink> 
         </div>
 
         <div class="mt-7 flex justify-beetween gap-4 md:grid-cols-3">
-          <article ref="portCard1"
+          <article
+ref="portCard1"
             class="group relative overflow-hidden rounded-3xl border border-border/60 bg-card/60 p-5 shadow-sm backdrop-blur"
           >
             <div
@@ -449,7 +450,8 @@
             </div>
           </article>
 
-          <article ref="portCard2"
+          <article
+ref="portCard2"
             class="group relative overflow-hidden rounded-3xl border border-border/60 bg-card/60 p-5 shadow-sm backdrop-blur"
           >
             <div
@@ -528,7 +530,8 @@
               </ul>
             </div>
 
-            <form ref="contatoForm"
+            <form
+ref="contatoForm"
               class="bg-background rounded-3xl border border-border/60 bg-card/70 p-6 shadow-sm backdrop-blur md:p-8"
               @submit.prevent="submit"
             >

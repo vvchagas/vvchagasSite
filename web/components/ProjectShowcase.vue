@@ -75,7 +75,7 @@ onUnmounted(() => {
             <button type="button" class="flex justify-center gap-2 py-2 project-action hover:bg-blue-800 bg-blue-600 rounded-full" @click="openProject(project.slug)">
               Ver o projeto completo <span class="material-symbols-outlined" aria-hidden="true">info</span>
             </button>
-            <NuxtLink :to="{ path: '/contatoView', query: { projeto: project.title } }" class="project-action text-start project-action--secondary border border/60 bg-background rounded-full flex justify-center gap-2 py-2">Eu quero um projeto semelhante <span class="material-symbols-outlined" aria-hidden="true">chat</span></NuxtLink>
+<NuxtLink :to="{ path: '/contato', query: { projeto: project.title } }" class="project-action text-start project-action--secondary border border/60 bg-background rounded-full flex justify-center gap-2 py-2">Eu quero um projeto semelhante <span class="material-symbols-outlined" aria-hidden="true">chat</span></NuxtLink>
           </div>
         </div>
       </ScrollReveal>

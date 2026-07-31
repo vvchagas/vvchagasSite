@@ -110,7 +110,7 @@ onUnmounted(() => {
               Ver projeto no GitHub
             </a>
             <NuxtLink
-              :to="{ path: '/contatoView', query: { projeto: project.title } }"
+:to="{ path: '/contato', query: { projeto: project.title } }"
               class="project-action project-action--secondary"
               @click="close"
             >

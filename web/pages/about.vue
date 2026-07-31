@@ -121,7 +121,7 @@
               <p class="mt-2 text-sm text-muted">Envie uma mensagem e eu retorno com um caminho claro.</p>
             </div>
             <NuxtLink
-              to="/contatoView"
+              to="/contato"
               class="inline-flex items-center justify-center rounded-full bg-blue-600 px-6 py-3 text-sm font-extrabold text-white shadow-sm transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
               Falar agora
             </NuxtLink>

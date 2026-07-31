@@ -8,9 +8,9 @@
 
       <div class="flex flex-wrap gap-3 text-sm">
         <NuxtLink class="footer-link hover:-translate-y-0.5" to="/">Início</NuxtLink>
-        <NuxtLink class="footer-link hover:-translate-y-0.5" to="/servicosView">Serviços</NuxtLink>
-        <NuxtLink class="footer-link hover:-translate-y-0.5" to="/contatoView">Contato</NuxtLink>
-        <NuxtLink class="footer-link hover:-translate-y-0.5" to="/messagesView">Mensagens</NuxtLink>
+<NuxtLink class="footer-link hover:-translate-y-0.5" to="/servicos">Serviços</NuxtLink>
+        <NuxtLink class="footer-link hover:-translate-y-0.5" to="/contato">Contato</NuxtLink>
+        <NuxtLink class="footer-link hover:-translate-y-0.5" to="/messages">Mensagens</NuxtLink>
       </div>
 
       <div class="gap-6 flex flex-wrap items-center">

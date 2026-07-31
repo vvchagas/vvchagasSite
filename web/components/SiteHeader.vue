@@ -98,9 +98,9 @@ onMounted(() => {
 
       <nav aria-label="Navegação principal" class="hidden items-center gap-6 md:flex">
         <NuxtLink class="nav-link hover:-translate-y-0.5 duration-300" to="/">Início</NuxtLink>
-        <NuxtLink class="nav-link hover:-translate-y-0.5 duration-300" to="/aboutView">Sobre</NuxtLink>
-        <NuxtLink class="nav-link hover:-translate-y-0.5 duration-300" to="/servicosView">Serviços</NuxtLink>
-        <NuxtLink class="nav-link hover:-translate-y-0.5 duration-300" to="/contatoView">Contato</NuxtLink>
+<NuxtLink class="nav-link hover:-translate-y-0.5 duration-300" to="/about">Sobre</NuxtLink>
+        <NuxtLink class="nav-link hover:-translate-y-0.5 duration-300" to="/servicos">Serviços</NuxtLink>
+        <NuxtLink class="nav-link hover:-translate-y-0.5 duration-300" to="/contato">Contato</NuxtLink>
       </nav>
 
       <div class="flex items-center gap-3">
@@ -122,7 +122,7 @@ onMounted(() => {
 
         <NuxtLink
           id="nuxtlink"
-          to="/contatoView"
+to="/contato"
           class="hidden sm:inline-flex items-center justify-center rounded-full bg-blue-600 px-4 py-2 text-sm font-bold text-white shadow-sm transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           Vamos conversar
@@ -137,9 +137,9 @@ onMounted(() => {
       :class="isMenuOpen ? 'translate-x-0' : '-translate-x-full'">
       <div class="z-50 flex flex-col gap-3 bg-background px-4 py-6 backdrop-blur bg-background rounded-r-lg shadow-lg">
         <NuxtLink class="nav-link block py-2 text-base" to="/" @click="isMenuOpen = false">Início</NuxtLink>
-        <NuxtLink class="nav-link block py-2 text-base" to="/aboutView" @click="isMenuOpen = false">Sobre</NuxtLink>
-        <NuxtLink class="nav-link block py-2 text-base" to="/servicosView" @click="isMenuOpen = false">Serviços</NuxtLink>
-        <NuxtLink class="nav-link block py-2 text-base" to="/contatoView" @click="isMenuOpen = false">Contato</NuxtLink>
+<NuxtLink class="nav-link block py-2 text-base" to="/about" @click="isMenuOpen = false">Sobre</NuxtLink>
+        <NuxtLink class="nav-link block py-2 text-base" to="/servicos" @click="isMenuOpen = false">Serviços</NuxtLink>
+        <NuxtLink class="nav-link block py-2 text-base" to="/contato" @click="isMenuOpen = false">Contato</NuxtLink>
       </div>
     </nav>
   </header>

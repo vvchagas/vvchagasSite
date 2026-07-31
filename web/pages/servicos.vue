@@ -42,7 +42,7 @@
             <li class="flex gap-3"><span class="mt-2 h-2 w-2 rounded-full bg-cyan-500"/><span>Integrações com APIs, automações e painéis administrativos.</span></li>
           </ul>
           <NuxtLink
-            to="/contatoView"
+to="/contato"
             class="mt-8 inline-flex items-center justify-center rounded-full bg-zinc-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-cyan-600 dark:bg-white dark:text-zinc-950 dark:hover:bg-cyan-300"
           >
             Solicitar orçamento
@@ -64,7 +64,7 @@
             <li class="flex gap-3"><span class="mt-2 h-2 w-2 rounded-full bg-emerald-500"/><span>Atendimento para pequenas empresas e usuários domésticos.</span></li>
           </ul>
           <NuxtLink
-            to="/contatoView"
+to="/contato"
             class="mt-8 inline-flex items-center justify-center rounded-full bg-zinc-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-emerald-600 dark:bg-white dark:text-zinc-950 dark:hover:bg-emerald-300"
           >
             Falar com suporte
@@ -86,7 +86,7 @@
             <li class="flex gap-3"><span class="mt-2 h-2 w-2 rounded-full bg-amber-500"/><span>Correção de falhas de energia, teclado, tela e carregamento.</span></li>
           </ul>
           <NuxtLink
-            to="/contatoView"
+to="/contato"
             class="mt-8 inline-flex items-center justify-center rounded-full bg-zinc-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-amber-600 dark:bg-white dark:text-zinc-950 dark:hover:bg-amber-300"
           >
             Pedir diagnóstico
@@ -110,16 +110,16 @@
 
           <div class="flex flex-col gap-3 sm:flex-row lg:justify-end">
             <NuxtLink
-              to="/contatoView"
+to="/contato"
               class="inline-flex items-center justify-center rounded-full bg-zinc-950 px-6 py-3 text-sm font-semibold text-white transition hover:bg-cyan-600 dark:bg-white dark:text-zinc-950 dark:hover:bg-cyan-300"
             >
               Solicitar orçamento
             </NuxtLink>
             <NuxtLink
-              to="/portfolioView"
+              to="/about"
               class="inline-flex items-center justify-center rounded-full border border-border/70 px-6 py-3 text-sm font-semibold text-foreground/90 transition hover:border-blue-500/60 hover:text-foreground"
             >
-              Ver portfólio
+              Ver projetos
             </NuxtLink>
           </div>
         </div>
