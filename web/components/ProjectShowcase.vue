@@ -47,14 +47,20 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <section class="project-showcase mt-10" data-reveal>
+  <ScrollReveal as="section" class="project-showcase mt-10">
     <div class="mb-10 max-w-3xl space-y-4" :class="{ 'mb-7': compact }">
       <p class="text-xs font-semibold uppercase tracking-[0.3em] text-blue-600 dark:text-blue-400 sm:text-sm">{{ eyebrow }}</p>
       <h2 class="text-3xl font-black tracking-tight sm:text-4xl" :class="{ 'sm:text-3xl': compact }">{{ title }}</h2>
       <p class="text-base leading-7 text-muted sm:text-lg sm:leading-8">{{ description }}</p>
     </div>
     <div class="grid gap-6 md:grid-cols-3">
-      <article v-for="project in projects" :id="project.slug" :key="project.slug" class="projectslug hover:-translate-y-[3px] duration-600 group relative overflow-hidden rounded-3xl border border-border/60 bg-card/70 p-5 shadow-sm backdrop-blur" data-reveal>
+      <ScrollReveal
+        v-for="project in projects"
+        :id="project.slug"
+        :key="project.slug"
+        as="article"
+        class="projectslug hover:-translate-y-[3px] duration-600 group relative overflow-hidden rounded-3xl border border-border/60 bg-card/70 p-5 shadow-sm backdrop-blur"
+      >
         <div class="project-card__light absolute inset-0 opacity-0 transition-opacity duration-500" aria-hidden="true" />
         <div class="relative">
           <div class="flex items-start justify-between gap-4"><div><h3 class="text-lg font-extrabold">{{ project.title }}</h3><p class="mt-2 text-sm text-muted">{{ project.description }}</p></div><span class="badge border border-border/60 rounded-full px-2 py-1 text-sm">{{ project.tag }}</span></div>
@@ -72,7 +78,7 @@ onUnmounted(() => {
             <NuxtLink :to="{ path: '/contatoView', query: { projeto: project.title } }" class="project-action text-start project-action--secondary border border/60 bg-background rounded-full flex justify-center gap-2 py-2">Eu quero um projeto semelhante <span class="material-symbols-outlined" aria-hidden="true">chat</span></NuxtLink>
           </div>
         </div>
-      </article>
+      </ScrollReveal>
     </div>
 
     <ProjectModal :project="activeProject" :open="!!activeProject" @close="closeProject" />
@@ -84,7 +90,7 @@ onUnmounted(() => {
           class="lightbox-overlay"
           @click.self="closeLightbox"
         >
-          <div class="lightbox-container" data-lenis-prevent>
+          <div class="lightbox-container">
             <button
               type="button"
               class="lightbox-close"
@@ -98,7 +104,7 @@ onUnmounted(() => {
         </div>
       </Transition>
     </Teleport>
-  </section>
+  </ScrollReveal>
 </template>
 
 

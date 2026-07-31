@@ -201,7 +201,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="tech-marquee" data-reveal :style="{ '--marquee-distance': `${distance}px` }">
+  <ScrollReveal class="tech-marquee" :style="{ '--marquee-distance': `${distance}px` }">
     <div ref="trackRef" class="tech-marquee__track">
       <button
         v-for="tech in techs"
@@ -220,7 +220,7 @@ onUnmounted(() => {
         <span class="tech-chip__label">{{ tech.name }}</span>
       </button>
     </div>
-  </div>
+  </ScrollReveal>
 </template>
 
 <style scoped>

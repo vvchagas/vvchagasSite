@@ -12,7 +12,7 @@
     <SiteHeader />
 
    <main class="mx-auto w-full max-w-6xl px-4 md:px-6">
-    <section class="mx-auto flex w-full max-w-7xl flex-col gap-10 px-6 py-16 sm:px-8 lg:px-10">
+    <ScrollReveal as="section" class="mx-auto flex w-full max-w-7xl flex-col gap-10 px-6 py-16 sm:px-8 lg:px-10">
       <div class="max-w-3xl space-y-5">
         <p class="text-sm font-semibold uppercase tracking-[0.3em] text-cyan-700 dark:text-cyan-400">
           Serviços
@@ -94,7 +94,7 @@
         </article>
       </div>
 
-      <section class="rounded-[2rem] border border-border/60 bg-card/70 p-8 shadow-sm backdrop-blur sm:p-10">
+      <ScrollReveal as="section" class="rounded-[2rem] border border-border/60 bg-card/70 p-8 shadow-sm backdrop-blur sm:p-10">
         <div class="grid gap-6 lg:grid-cols-[1.25fr_0.75fr] lg:items-center">
           <div>
             <p class="text-sm font-semibold uppercase tracking-[0.3em] text-muted">
@@ -123,8 +123,8 @@
             </NuxtLink>
           </div>
         </div>
-      </section>
-    </section>
+      </ScrollReveal>
+    </ScrollReveal>
   </main>
 
     <SiteFooter />

@@ -1,4 +1,4 @@
-<template>
+  <template>
   <div class="min-h-screen bg-background text-foreground">
     <NuxtRouteAnnouncer />
 
@@ -12,7 +12,7 @@
     <SiteHeader />
 
     <main id="conteudo" class="mx-auto w-full max-w-6xl px-4 md:px-6">
-      <section class="mx-auto w-full max-w-5xl py-12 sm:py-16">
+      <section ref="heroSection" class="mx-auto w-full max-w-5xl py-12 sm:py-16" data-speed="0.9">
         <div class="mb-8 max-w-4xl space-y-4">
           <p
             class="text-xs font-semibold uppercase tracking-[0.3em] text-blue-600 dark:text-blue-400 sm:text-sm"
@@ -28,14 +28,14 @@
           </p>
         </div>
 
-        <div class="rounded-3xl border border-blue-300/50 bg-blue-500/10 p-5 text-center shadow-sm dark:border-blue-500/30 dark:bg-blue-500/15">
+        <div ref="heroQuote" class="rounded-3xl border border-blue-300/50 bg-blue-500/10 p-5 text-center shadow-sm dark:border-blue-500/30 dark:bg-blue-500/15">
           <p class="text-base font-bold sm:text-lg">
             “Não entrego apenas soluções: devolvo ritmo, confiança e espaço para o que importa.”
           </p>
         </div>
 
         <div class="mt-6 grid gap-6 md:grid-cols-2">
-          <article class="rounded-3xl border border-border/60 bg-card/60 p-6 shadow-sm backdrop-blur">
+          <article ref="artigoWeb" class="rounded-3xl border border-border/60 bg-card/60 p-6 shadow-sm backdrop-blur">
             <h2 class="text-lg font-extrabold">1) Desenvolvimento Web</h2>
             <p class="mt-3 text-sm text-muted leading-6">
               Criação de sites institucionais, landing pages e páginas de conversão com foco em
@@ -48,7 +48,7 @@
             </ul>
           </article>
 
-          <article class="rounded-3xl border border-border/60 bg-card/60 p-6 shadow-sm backdrop-blur">
+          <article ref="artigoTI" class="rounded-3xl border border-border/60 bg-card/60 p-6 shadow-sm backdrop-blur">
             <h2 class="text-lg font-extrabold">2) Suporte de TI</h2>
             <p class="mt-3 text-sm text-muted leading-6">
               Atendimento para diagnóstico e correção de problemas técnicos com foco em rapidez e
@@ -71,7 +71,7 @@
           </article>
         </div>
 
-        <div class="mt-6 mb-10 rounded-3xl border border-border/60 bg-card/60 p-6 shadow-sm backdrop-blur">
+        <div ref="artigoNotebook" class="mt-6 mb-10 rounded-3xl border border-border/60 bg-card/60 p-6 shadow-sm backdrop-blur">
           <h2 class="text-lg font-extrabold">3) Assistência técnica para notebooks</h2>
           <p class="mt-3 text-sm text-muted leading-6">
             Serviço técnico para notebooks com lentidão, superaquecimento, falhas de inicialização
@@ -93,7 +93,7 @@
           </ul>
         </div>
 
-        <section class="mt-14 rounded-[2rem] border border-border/60 bg-card/60 p-6 shadow-sm backdrop-blur md:p-8" data-reveal>
+        <section ref="techSection" class="mt-14 rounded-[2rem] border border-border/60 bg-card/60 p-6 shadow-sm backdrop-blur md:p-8">
           <p class="text-xs font-semibold uppercase tracking-[0.3em] text-blue-600 dark:text-blue-400">Linguagens de programação que eu utilizo</p>
           <h2 class="mt-3 text-2xl font-black tracking-tight md:text-3xl">A combinação certa de linguagens de programação cria a stack perfeita.</h2>
           <div class="mt-7">
@@ -101,20 +101,20 @@
           </div>
         </section>
 
-        <section class="mt-14 rounded-[2rem] border border-border/60 bg-card/60 p-6 shadow-sm backdrop-blur md:p-8" data-reveal>
+        <section ref="processSection" class="mt-14 rounded-[2rem] border border-border/60 bg-card/60 p-6 shadow-sm backdrop-blur md:p-8">
           <p class="text-xs font-semibold uppercase tracking-[0.3em] text-blue-600 dark:text-blue-400">Meu processo</p>
           <h2 class="mt-3 text-2xl font-black tracking-tight md:text-3xl">Uma ideia bem entendida vira uma solução que funciona.</h2>
           <div class="mt-7 grid gap-4 md:grid-cols-3">
-            <div class="rounded-2xl bg-muted/60 p-5"><span class="text-sm font-black text-blue-600 dark:text-blue-400">01 — Escuta</span><p class="mt-3 text-sm leading-6 text-muted">Entendo o contexto, a necessidade e o resultado que realmente faz diferença.</p></div>
-            <div class="rounded-2xl bg-muted/60 p-5"><span class="text-sm font-black text-blue-600 dark:text-blue-400">02 — Direção</span><p class="mt-3 text-sm leading-6 text-muted">Transformo o objetivo em um caminho claro, visual e técnico.</p></div>
-            <div class="rounded-2xl bg-muted/60 p-5"><span class="text-sm font-black text-blue-600 dark:text-blue-400">03 — Entrega</span><p class="mt-3 text-sm leading-6 text-muted">Construo, testo e ajusto para você poder usar com segurança.</p></div>
+            <div ref="process1" class="rounded-2xl bg-muted/60 p-5"><span class="text-sm font-black text-blue-600 dark:text-blue-400">01 — Escuta</span><p class="mt-3 text-sm leading-6 text-muted">Entendo o contexto, a necessidade e o resultado que realmente faz diferença.</p></div>
+            <div ref="process2" class="rounded-2xl bg-muted/60 p-5"><span class="text-sm font-black text-blue-600 dark:text-blue-400">02 — Direção</span><p class="mt-3 text-sm leading-6 text-muted">Transformo o objetivo em um caminho claro, visual e técnico.</p></div>
+            <div ref="process3" class="rounded-2xl bg-muted/60 p-5"><span class="text-sm font-black text-blue-600 dark:text-blue-400">03 — Entrega</span><p class="mt-3 text-sm leading-6 text-muted">Construo, testo e ajusto para você poder usar com segurança.</p></div>
           </div>
           <div class="mt-7 flex items-center justify-center rounded-full border border-blue-500/40 px-5 py-3 text-sm font-extrabold text-blue-700 transition hover:-translate-y-1 hover:bg-blue-500/10 dark:text-blue-300">Venha conhecer um dos projetos abaixo!</div>
         </section>
 
         <ProjectShowcase/>
 
-        <div class="mt-8 rounded-[2rem] border border-border/60 bg-card/60 p-6 shadow-sm backdrop-blur">
+        <div ref="ctaFinal" class="mt-8 rounded-[2rem] border border-border/60 bg-card/60 p-6 shadow-sm backdrop-blur">
           <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <div>
               <h2 class="text-xl font-extrabold">Quer conversar?</h2>
@@ -135,9 +135,10 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from "vue";
 import SiteHeader from "../components/SiteHeader.vue";
 import SiteFooter from "../components/SiteFooter.vue";
-
+import { useScrollReveal } from "~/composables/useScrollReveal";
 
 useHead({
   title: "vvchagas - Sobre",
@@ -150,6 +151,38 @@ useHead({
     },
   ],
 });
+
+// Hero
+const heroSection = ref<HTMLElement | null>(null);
+const heroQuote = ref<HTMLElement | null>(null);
+useScrollReveal(heroSection);
+useScrollReveal(heroQuote, { delay: 0.1 });
+
+// Artigos
+const artigoWeb = ref<HTMLElement | null>(null);
+const artigoTI = ref<HTMLElement | null>(null);
+const artigoNotebook = ref<HTMLElement | null>(null);
+useScrollReveal(artigoWeb, { delay: 0.0 });
+useScrollReveal(artigoTI, { delay: 0.15 });
+useScrollReveal(artigoNotebook, { delay: 0.1 });
+
+// Tech section
+const techSection = ref<HTMLElement | null>(null);
+useScrollReveal(techSection);
+
+// Processo
+const processSection = ref<HTMLElement | null>(null);
+const process1 = ref<HTMLElement | null>(null);
+const process2 = ref<HTMLElement | null>(null);
+const process3 = ref<HTMLElement | null>(null);
+useScrollReveal(processSection);
+useScrollReveal(process1, { delay: 0.0 });
+useScrollReveal(process2, { delay: 0.1 });
+useScrollReveal(process3, { delay: 0.2 });
+
+// CTA final
+const ctaFinal = ref<HTMLElement | null>(null);
+useScrollReveal(ctaFinal);
 </script>
 
 <style scoped>

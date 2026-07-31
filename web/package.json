@@ -8,8 +8,7 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "db:seed": "tsx prisma/seed.ts",
-    "vercel-build": "npx prisma migrate vvchagasDB"
+    "db:seed": "tsx prisma/seed.ts"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^7.3.0",

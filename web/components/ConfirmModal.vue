@@ -13,7 +13,7 @@ const emit = defineEmits<{
   (e: "confirm" | "cancel"): void;
 }>();
 
-const lenis = useLenis();
+const { lock, unlock } = useScrollLock();
 const dialogRef = ref<HTMLElement | null>(null);
 
 function cancel() {
@@ -33,11 +33,11 @@ watch(
   () => props.open,
   (isOpen) => {
     if (isOpen) {
-      lenis?.stop();
+      lock();
       document.addEventListener("keydown", onKeydown);
       nextTick(() => dialogRef.value?.focus());
     } else {
-      lenis?.start();
+      unlock();
       document.removeEventListener("keydown", onKeydown);
     }
   },
@@ -45,7 +45,7 @@ watch(
 
 onUnmounted(() => {
   document.removeEventListener("keydown", onKeydown);
-  lenis?.start();
+  unlock();
 });
 </script>
 
@@ -64,7 +64,6 @@ onUnmounted(() => {
           aria-modal="true"
           :aria-label="title"
           tabindex="-1"
-          data-lenis-prevent
         >
           <div class="confirm-modal__icon" :class="{ 'confirm-modal__icon--danger': danger }">
             <span aria-hidden="true" class="material-symbols-outlined">

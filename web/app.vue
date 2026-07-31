@@ -1,64 +1,60 @@
 <template>
-  <div>
-    <NuxtPage />
+  <div id="smooth-wrapper">
+    <div id="smooth-content">
+      <NuxtPage />
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted, onUnmounted, nextTick, watch } from "vue";
+import { nextTick, onBeforeUnmount, onMounted, watch } from "vue";
 import { useRoute } from "vue-router";
-// No Nuxt 3, useRoute é auto-importado nativamente.
-// Se ainda assim o editor reclamar antes de rodar 'nuxi prepare', a referência do tipo é inferida.
+import type { ScrollSmoother } from "gsap/ScrollSmoother";
+
 const route = useRoute();
+const { $ScrollSmoother, $ScrollTrigger } = useNuxtApp();
 
-let activeObserver: IntersectionObserver | null = null;
+let smoother: ScrollSmoother | null = null;
 
-function revealOnScroll(): void {
-  // Cancela o observador anterior se houver troca de rota para evitar memory leak
-  if (activeObserver) {
-    activeObserver.disconnect();
-    activeObserver = null;
-  }
+function createSmoother() {
+  if (!$ScrollSmoother) return;
 
-  // Respeita as preferências de acessibilidade do usuário (sem animação)
-  if (typeof window === "undefined" || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  smoother?.kill();
+
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    smoother = null;
     return;
   }
 
-  activeObserver = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("is-revealed");
-          // Deixa de observar o elemento após ter sido revelado
-          activeObserver?.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.12 }
-  );
-
-  const elements = document.querySelectorAll<HTMLElement>("[data-reveal]");
-  elements.forEach((element) => activeObserver?.observe(element));
+  smoother = $ScrollSmoother.create({
+    wrapper: "#smooth-wrapper",
+    content: "#smooth-content",
+    smooth: 1.2,
+    smoothTouch: 0.1,
+    effects: true, // Habilita data-speed e data-lag em qualquer elemento
+    normalizeScroll: true,
+  });
 }
 
 onMounted(() => {
-  revealOnScroll();
+  createSmoother();
 });
 
-// Desconecta o observador ao desmontar o componente global
-onUnmounted(() => {
-  if (activeObserver) {
-    activeObserver.disconnect();
-  }
+onBeforeUnmount(() => {
+  smoother?.kill();
+  smoother = null;
 });
 
-// Reavalia os elementos a serem revelados em cada navegação de página
+// Reavalia a altura da página e os gatilhos de scroll a cada troca de rota
 watch(
   () => route.fullPath,
   async () => {
     await nextTick();
-    revealOnScroll();
-  }
+    // Mata o smoother anterior e recria para se adaptar ao novo conteúdo
+    smoother?.kill();
+    createSmoother();
+    // Força o ScrollTrigger a reavaliar todos os gatilhos
+    $ScrollTrigger?.refresh();
+  },
 );
 </script>

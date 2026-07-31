@@ -8,7 +8,7 @@ const props = defineProps<{
 
 const emit = defineEmits<{ (e: "close"): void }>();
 
-const lenis = useLenis();
+const { lock, unlock } = useScrollLock();
 const dialogRef = ref<HTMLElement | null>(null);
 
 function close() {
@@ -23,11 +23,11 @@ watch(
   () => props.open,
   (isOpen) => {
     if (isOpen) {
-      lenis?.stop();
+      lock();
       document.addEventListener("keydown", onKeydown);
       nextTick(() => dialogRef.value?.focus());
     } else {
-      lenis?.start();
+      unlock();
       document.removeEventListener("keydown", onKeydown);
     }
   },
@@ -35,7 +35,7 @@ watch(
 
 onUnmounted(() => {
   document.removeEventListener("keydown", onKeydown);
-  lenis?.start();
+  unlock();
 });
 </script>
 
@@ -54,7 +54,6 @@ onUnmounted(() => {
           aria-modal="true"
           :aria-label="project.title"
           tabindex="-1"
-          data-lenis-prevent
         >
           <button
             type="button"

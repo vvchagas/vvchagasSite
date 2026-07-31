@@ -2,8 +2,6 @@
   <div class="min-h-screen bg-background text-foreground">
     <NuxtRouteAnnouncer />
 
-    <!-- Acessibilidade: âncora skip-link para o conteúdo -->
-
     <a
       href="#conteudo"
       class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-blue-600 focus:px-3 focus:py-2 focus:text-white"
@@ -15,7 +13,9 @@
 
     <main class="mx-auto w-full max-w-6xl px-4 md:px-6">
       <section
+        ref="heroSection"
         class="mx-auto w-full max-w-4xl px-4 py-12 sm:px-8 sm:py-16 lg:px-10"
+        data-speed="0.9"
       >
         <div class="mb-8 max-w-2xl space-y-4 sm:mb-10">
           <p
@@ -36,6 +36,7 @@
         </div>
 
         <div
+          ref="cardWhatsapp"
           class="contact-card contact-card--whatsapp rounded-2xl border border-border/60 border-green-600 bg-card/70 p-5 shadow-sm backdrop-blur sm:rounded-[2rem] sm:p-8"
         >
           <div
@@ -81,6 +82,7 @@
         </div>
 
         <div
+          ref="cardLinkedin"
           class="contact-card contact-card--linkedin mt-8 rounded-2xl border border-border/60 border-blue-600 bg-card/70 p-5 shadow-sm backdrop-blur sm:mt-10 sm:rounded-[2rem] sm:p-8"
         >
           <div
@@ -126,6 +128,7 @@
         </div>
 
         <div
+          ref="cardEmail"
           class="contact-card contact-card--email mt-8 rounded-2xl border border-border/60 border-red-600 bg-card/70 p-5 shadow-sm backdrop-blur sm:mt-10 sm:rounded-[2rem] sm:p-8"
         >
           <div
@@ -177,6 +180,7 @@
           </h1>
         </div>
         <div
+          ref="cardForm"
           class="contact-card contact-card--form mt-5 rounded-xl border border-border/60 border-gray-600 bg-card/70 p-4 shadow-sm backdrop-blur sm:mt-6 sm:rounded-[2rem] sm:p-8"
         >
           <h3 class="text-center text-base sm:text-lg mb-4 sm:mb-5">
@@ -295,9 +299,12 @@
   </div>
 </template>
 <script setup lang="ts">
+import { ref } from "vue";
 import type { MessageTopic } from "~/shared/messages";
 import SiteHeader from "../components/SiteHeader.vue";
 import SiteFooter from "../components/SiteFooter.vue";
+import { useScrollReveal } from "~/composables/useScrollReveal";
+
 useHead({
   title: "vvchagas - Contato",
   link: [
@@ -338,6 +345,21 @@ async function submit() {
     isSending.value = false;
   }
 }
+
+// ============================================================
+// ANIMAÇÕES COM GSAP
+// ============================================================
+const heroSection = ref<HTMLElement | null>(null);
+const cardWhatsapp = ref<HTMLElement | null>(null);
+const cardLinkedin = ref<HTMLElement | null>(null);
+const cardEmail = ref<HTMLElement | null>(null);
+const cardForm = ref<HTMLElement | null>(null);
+
+useScrollReveal(heroSection);
+useScrollReveal(cardWhatsapp, { delay: 0.0 });
+useScrollReveal(cardLinkedin, { delay: 0.15 });
+useScrollReveal(cardEmail, { delay: 0.3 });
+useScrollReveal(cardForm, { delay: 0.45 });
 </script>
 
 <style scoped>
@@ -362,27 +384,6 @@ async function submit() {
   background: rgba(var(--bg), 0.75);
 }
 
-.bg-muted {
-  background-color: rgba(var(--muted), 0.12);
-}
-
-#nuxtlink:hover {
-  transform: translateY(-5px);
-}
-
-.material-symbols-outlined {
-  font-family: "Material Symbols Outlined";
-  font-weight: normal;
-  font-style: normal;
-  font-size: 20px;
-  line-height: 1;
-  letter-spacing: normal;
-  text-transform: none;
-  display: inline-block;
-  white-space: nowrap;
-  word-wrap: normal;
-  direction: ltr;
-  -webkit-font-smoothing: antialiased;
   vertical-align: middle;
 }
 

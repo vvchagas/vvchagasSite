@@ -13,8 +13,10 @@
     <SiteHeader />
 
     <main id="conteudo" class="mx-auto w-full max-w-6xl px-4 md:px-6">
+      <!-- ===== HERO ===== -->
       <section id="inicio" class="relative overflow-hidden pt-10 md:pt-14">
-        <div class="absolute inset-0 -z-10">
+        <!-- Background com parallax lento via ScrollSmoother effects -->
+        <div class="absolute inset-0 -z-10" data-speed="0.3">
           <div
             class="absolute left-1/2 top-[-220px] h-[520px] w-[520px] -translate-x-1/2 rounded-full bg-gradient-to-tr from-blue-500/30 via-indigo-500/20 to-fuchsia-500/20 blur-3xl"
           />
@@ -26,7 +28,7 @@
           />
         </div>
 
-        <div class="grid items-center gap-10 md:grid-cols-2">
+        <div class="grid items-center gap-10 md:grid-cols-2" data-speed="0.8">
           <div>
             <p
               class="inline-flex items-center gap-2 rounded-full border border-border/60 bg-card/60 px-3 py-1 text-xs font-semibold text-foreground/90 backdrop-blur"
@@ -168,7 +170,8 @@
         </div>
       </section>
 
-      <section id="sobre" class="mt-14 md:mt-18">
+      <!-- ===== SOBRE ===== -->
+      <section id="sobre" ref="sobreSection" class="mt-14 md:mt-18">
         <div class="flex items-end justify-between gap-4">
           <div>
             <h2 class="text-2xl font-black tracking-tight md:text-3xl">
@@ -188,7 +191,7 @@
         </div>
 
         <div class="mt-7 grid gap-4 md:grid-cols-3">
-          <article
+          <article ref="sobreCard1"
             class="rounded-3xl border border-border/60 bg-card/60 p-6 shadow-sm backdrop-blur"
           >
             <h3 class="text-lg font-extrabold">Web moderna</h3>
@@ -208,7 +211,7 @@
             </ul>
           </article>
 
-          <article
+          <article ref="sobreCard2"
             class="rounded-3xl border border-border/60 bg-card/60 p-6 shadow-sm backdrop-blur"
           >
             <h3 class="text-lg font-extrabold">Assistência de TI</h3>
@@ -229,7 +232,7 @@
             </ul>
           </article>
 
-          <article  
+          <article ref="sobreCard3"  
             class="rounded-3xl border border-border/60 bg-card/60 p-6 shadow-sm backdrop-blur"
           >
             <h3 class="text-lg font-extrabold">Manutenção de notebooks</h3>
@@ -252,7 +255,8 @@
         </div>
       </section>
 
-      <section id="servicos" class="mt-14 md:mt-18">
+      <!-- ===== SERVIÇOS ===== -->
+      <section id="servicos" ref="servicosSection" class="mt-14 md:mt-18">
         <div
           class="flex flex-col gap-3 md:flex-row md:items-end md:justify-between"
         >
@@ -268,7 +272,7 @@
         </div>
 
         <div class="mt-7 grid gap-4 md:grid-cols-2">
-          <article
+          <article ref="servCard1"
             class="rounded-3xl border border-border/60 bg-card/60 p-6 shadow-sm backdrop-blur"
           >
             <div class="flex items-start justify-between gap-4">
@@ -293,7 +297,7 @@
             </ul>
           </article>
 
-          <article
+          <article ref="servCard2"
             class="rounded-3xl border border-border/60 bg-card/60 p-6 shadow-sm backdrop-blur"
           >
             <div class="flex items-start justify-between gap-4">
@@ -318,7 +322,7 @@
             </ul>
           </article>
 
-          <article
+          <article ref="servCard3"
             class="rounded-3xl border border-border/60 bg-card/60 p-6 shadow-sm backdrop-blur"
           >
             <div class="flex items-start justify-between gap-4">
@@ -343,7 +347,7 @@
             </ul>
           </article>
 
-          <article
+          <article ref="servCard4"
             class="rounded-3xl border border-border/60 bg-card/60 p-6 shadow-sm backdrop-blur"
           >
             <div class="flex items-start justify-between gap-4">
@@ -369,7 +373,7 @@
           </article>
         </div>
 
-        <div
+        <div ref="servCta"
           class="mt-6 text-foreground border border-slate-200 rounded-3xl border border-blue-300/50 bg-blue-500/10 p-5 text-center shadow-sm dark:border-blue-500/30 dark:bg-blue-500/15"
         >
           <div
@@ -393,7 +397,8 @@
         </div>
       </section>
 
-      <section id="portfolio" class="mt-14 md:mt-18">
+      <!-- ===== PORTFÓLIO ===== -->
+      <section id="portfolio" ref="portfolioSection" class="mt-14 md:mt-18">
         <div class="flex items-end justify-between gap-4">
           <div>
             <h2 class="text-2xl font-black tracking-tight md:text-3xl">
@@ -407,7 +412,7 @@
         </div>
 
         <div class="mt-7 flex justify-beetween gap-4 md:grid-cols-3">
-          <article
+          <article ref="portCard1"
             class="group relative overflow-hidden rounded-3xl border border-border/60 bg-card/60 p-5 shadow-sm backdrop-blur"
           >
             <div
@@ -444,7 +449,7 @@
             </div>
           </article>
 
-          <article
+          <article ref="portCard2"
             class="group relative overflow-hidden rounded-3xl border border-border/60 bg-card/60 p-5 shadow-sm backdrop-blur"
           >
             <div
@@ -481,12 +486,13 @@
         </div>
       </section>
 
-      <section id="contato" class="mt-14 pb-12 md:mt-18">
+      <!-- ===== CONTATO ===== -->
+      <section id="contato" ref="contatoSection" class="mt-14 pb-12 md:mt-18">
         <div
           class="rounded-[2.5rem] border border-border/70 from-blue-500/15 via-indigo-500/10 to-fuchsia-500/15 p-6 shadow-sm backdrop-blur md:p-10"
         >
           <div class="grid gap-8 md:grid-cols-2 md:items-start">
-            <div>
+            <div ref="contatoInfo">
               <h2 class="text-2xl font-black tracking-tight md:text-3xl">
                 Contato
               </h2>
@@ -522,8 +528,8 @@
               </ul>
             </div>
 
-            <form
-              class=" bg-background  rounded-3xl border border-border/60 bg-card/70 p-6 shadow-sm backdrop-blur md:p-8"
+            <form ref="contatoForm"
+              class="bg-background rounded-3xl border border-border/60 bg-card/70 p-6 shadow-sm backdrop-blur md:p-8"
               @submit.prevent="submit"
             >
               <div class="flex items-center justify-between gap-4">
@@ -618,14 +624,16 @@
     <SiteFooter />
   </div>
 </template>
+
 <script setup lang="ts">
 import { ref } from "vue";
 import { useHead } from "nuxt/app";
-import type { MessageTopic } from "@@/shared/message";
-
+import type { MessageTopic } from "@@/shared/messages";
 
 import SiteHeader from "../components/SiteHeader.vue";
 import SiteFooter from "../components/SiteFooter.vue";
+import { useScrollReveal } from "~/composables/useScrollReveal";
+
 useHead({
   title: "vvchagas - Início",
   link: [
@@ -638,9 +646,58 @@ useHead({
   ],
 });
 
+// ============================================================
+// ANIMAÇÕES COM GSAP (ScrollTrigger via composable useScrollReveal)
+// ============================================================
 
+// Sobre
+const sobreSection = ref<HTMLElement | null>(null);
+const sobreCard1 = ref<HTMLElement | null>(null);
+const sobreCard2 = ref<HTMLElement | null>(null);
+const sobreCard3 = ref<HTMLElement | null>(null);
+
+useScrollReveal(sobreSection);
+useScrollReveal(sobreCard1, { delay: 0.0 });
+useScrollReveal(sobreCard2, { delay: 0.1 });
+useScrollReveal(sobreCard3, { delay: 0.2 });
+
+// Serviços
+const servicosSection = ref<HTMLElement | null>(null);
+const servCard1 = ref<HTMLElement | null>(null);
+const servCard2 = ref<HTMLElement | null>(null);
+const servCard3 = ref<HTMLElement | null>(null);
+const servCard4 = ref<HTMLElement | null>(null);
+const servCta = ref<HTMLElement | null>(null);
+
+useScrollReveal(servicosSection);
+useScrollReveal(servCard1, { delay: 0.0 });
+useScrollReveal(servCard2, { delay: 0.1 });
+useScrollReveal(servCard3, { delay: 0.2 });
+useScrollReveal(servCard4, { delay: 0.3 });
+useScrollReveal(servCta, { delay: 0.4 });
+
+// Portfolio
+const portfolioSection = ref<HTMLElement | null>(null);
+const portCard1 = ref<HTMLElement | null>(null);
+const portCard2 = ref<HTMLElement | null>(null);
+
+useScrollReveal(portfolioSection);
+useScrollReveal(portCard1, { delay: 0.0 });
+useScrollReveal(portCard2, { delay: 0.15 });
+
+// Contato
+const contatoSection = ref<HTMLElement | null>(null);
+const contatoInfo = ref<HTMLElement | null>(null);
+const contatoForm = ref<HTMLElement | null>(null);
+
+useScrollReveal(contatoSection);
+useScrollReveal(contatoInfo, { delay: 0.0 });
+useScrollReveal(contatoForm, { delay: 0.15 });
+
+// ============================================================
+// FORMULÁRIO
+// ============================================================
 const toast = ref<string | null>(null);
-
 
 const form = ref({
   name: "",
@@ -649,7 +706,6 @@ const form = ref({
   source: "google",
   message: "",
 });
-
 
 async function submit() {
   await $fetch("/api/messages", {

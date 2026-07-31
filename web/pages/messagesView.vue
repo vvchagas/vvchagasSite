@@ -64,7 +64,7 @@
     <!-- Main content (only after auth) -->
     <template v-if="authenticated">
       <main id="conteudo" class="mx-auto w-full max-w-6xl px-4 py-12 md:px-6">
-        <section class="rounded-3xl border border-border/70 bg-card/70 p-6 shadow-sm backdrop-blur md:p-8">
+        <ScrollReveal as="section" class="rounded-3xl border border-border/70 bg-card/70 p-6 shadow-sm backdrop-blur md:p-8">
           <div class="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
             <div>
               <p class="text-xs font-semibold uppercase tracking-[0.3em] text-blue-600 dark:text-blue-400">Mensagens</p>
@@ -84,9 +84,9 @@
               </select>
             </label>
           </div>
-        </section>
+        </ScrollReveal>
 
-        <section class="mt-8">
+        <ScrollReveal as="section" class="mt-8">
           <p v-if="pending" class="rounded-2xl border border-border/70 bg-card/60 px-4 py-3 text-sm text-muted">Carregando mensagens...</p>
           <p v-else-if="error" class="rounded-2xl border border-red-500/40 bg-red-500/10 px-4 py-3 text-sm text-red-700 dark:text-red-300">Não foi possível carregar as mensagens agora.</p>
           <p v-else-if="!messages.length" class="rounded-2xl border border-border/70 bg-card/60 px-4 py-3 text-sm text-muted">Ainda não há mensagens para o filtro selecionado.</p>
@@ -120,7 +120,7 @@
               </div>
             </article>
           </div>
-        </section>
+        </ScrollReveal>
       </main>
 
       <SiteFooter />
