@@ -13,7 +13,11 @@ export default defineEventHandler(async (event) => {
   const index = messages.findIndex((message) => message.id === id);
   if (index === -1) throw createError({ statusCode: 404, statusMessage: "Mensagem não encontrada." });
 
-  const updated: ContactMessage = { ...messages[index], readAt: body.read ? new Date().toISOString() : null };
+  const target = messages[index]!;
+  const updated: ContactMessage = {
+    ...target,
+    readAt: body.read ? new Date().toISOString() : null,
+  };
   messages[index] = updated;
   await storage.setItem("messages", messages);
   return { ok: true, item: updated };

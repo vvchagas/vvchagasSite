@@ -13,6 +13,7 @@ const emit = defineEmits<{
   (e: "confirm" | "cancel"): void;
 }>();
 
+const { t } = useLocale();
 const { lock, unlock } = useScrollLock();
 const dialogRef = ref<HTMLElement | null>(null);
 
@@ -81,7 +82,7 @@ onUnmounted(() => {
               :disabled="loading"
               @click="cancel"
             >
-              {{ cancelText ?? "Cancelar" }}
+              {{ cancelText ?? t('common.cancel') }}
             </button>
             <button
               type="button"
@@ -91,7 +92,7 @@ onUnmounted(() => {
               @click="confirm"
             >
               <span v-if="loading" class="confirm-modal__spinner" aria-hidden="true"/>
-              {{ loading ? "Excluindo…" : (confirmText ?? "Confirmar") }}
+              {{ loading ? t('common.deleting') : (confirmText ?? t('common.confirm')) }}
             </button>
           </div>
         </div>
@@ -121,9 +122,15 @@ onUnmounted(() => {
   border: 1px solid rgb(var(--border) / 1);
   background: rgb(var(--card));
   color: rgb(var(--fg));
-  padding: 2rem;
+  padding: 1.5rem;
   text-align: center;
   box-shadow: 0 30px 70px -20px rgb(0 0 0 / 0.45);
+}
+
+@media (min-width: 640px) {
+  .confirm-modal {
+    padding: 2rem;
+  }
 }
 
 .confirm-modal__icon {
@@ -259,4 +266,3 @@ onUnmounted(() => {
   }
 }
 </style>
-

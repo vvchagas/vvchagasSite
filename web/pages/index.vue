@@ -1,98 +1,91 @@
 <template>
-  <div class="min-h-screen bg-background text-foreground">
+  <div class="min-h-screen bg-background text-foreground overflow-x-hidden">
     <NuxtRouteAnnouncer />
-    <NuxtPage/>
 
     <a
       href="#conteudo"
       class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-blue-600 focus:px-3 focus:py-2 focus:text-white"
     >
-      Pular para o conteúdo
+      {{ t('common.skipToContent') }}
     </a>
 
     <SiteHeader />
 
     <main id="conteudo" class="mx-auto w-full max-w-6xl px-4 md:px-6">
       <!-- ===== HERO ===== -->
-      <section id="inicio" class="relative overflow-hidden pt-10 md:pt-14">
-        <!-- Background com parallax lento via ScrollSmoother effects -->
-        <div class="absolute inset-0 -z-10" data-speed="0.3">
+      <section id="inicio" class="relative overflow-hidden pt-8 md:pt-14">
+        <div class="absolute inset-0 -z-10">
           <div
-            class="absolute left-1/2 top-[-220px] h-[520px] w-[520px] -translate-x-1/2 rounded-full bg-gradient-to-tr from-blue-500/30 via-indigo-500/20 to-fuchsia-500/20 blur-3xl"
+            class="absolute left-1/2 top-[-120px] h-[300px] w-[300px] sm:top-[-220px] sm:h-[520px] sm:w-[520px] -translate-x-1/2 rounded-full bg-gradient-to-tr from-blue-500/30 via-indigo-500/20 to-fuchsia-500/20 blur-3xl"
           />
           <div
-            class="absolute -left-24 top-28 h-64 w-64 rounded-full bg-blue-500/15 blur-2xl"
+            class="absolute -left-8 top-28 h-40 w-40 sm:-left-24 sm:h-64 sm:w-64 rounded-full bg-blue-500/15 blur-2xl"
           />
           <div
-            class="absolute -right-24 top-52 h-72 w-72 rounded-full bg-indigo-500/15 blur-2xl"
+            class="absolute -right-8 top-52 h-48 w-48 sm:-right-24 sm:h-72 sm:w-72 rounded-full bg-indigo-500/15 blur-2xl"
           />
         </div>
 
-        <div class="grid items-center gap-10 md:grid-cols-2" data-speed="0.8">
+        <div class="grid items-center gap-10 md:grid-cols-2">
           <div>
             <p
-              class="inline-flex items-center gap-2 rounded-full border border-border/60 bg-card/60 px-3 py-1 text-xs font-semibold text-foreground/90 backdrop-blur"
+              class="inline-flex items-center gap-2 rounded-full border border-border/60 bg-card/60 px-3 py-1.5 text-xs font-semibold text-foreground/90 backdrop-blur"
             >
-<span
+              <span
                 aria-hidden="true"
-                class="inline-flex size-2 rounded-full bg-blue-600 shadow-[0_0_0_4px_rgba(12,129,232,.15)]"
+                class="inline-flex size-2 rounded-full bg-blue-600 shadow-[0_0_0_4px_rgba(12,129,232,.15)] shrink-0"
               />
-               Web Desenvolvedor, Suporte de TI e Manutenção de Notebooks 
+              <span class="leading-tight">{{ t('hero.badge') }}</span>
             </p>
 
-            <h1 class="mt-5 text-3xl font-black tracking-tight sm:text-4xl">
-              Victor               <span
-                class="text-blue-600"
-                >Chagas</span
-              >
+            <h1 class="mt-5 text-3xl font-black tracking-tight sm:text-4xl lg:text-5xl">
+              Victor <span class="text-blue-600">Chagas</span>
             </h1>
 
-            <p class="mt-4 max-w-prose text-base text-muted sm:text-lg">
-              Desenvolvimento web, suporte de TI e
-              manutenção de notebooks. Do diagnóstico ao resultado: com clareza
-              e sem enrolação.
+            <p class="mt-4 max-w-prose text-base text-muted sm:text-lg leading-relaxed">
+              {{ t('hero.description') }}
             </p>
 
             <div class="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
               <NuxtLink
-                id="nuxtlink"
+                id="hero-cta-btn"
                 to="/servicos"
-                class="inline-flex items-center justify-center rounded-full bg-blue-600 px-5 py-3 text-sm font-bold text-white shadow-sm transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                class="inline-flex items-center justify-center rounded-full bg-blue-600 px-6 py-3 text-sm font-bold text-white shadow-sm transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
-                Ver serviços
+                {{ t('hero.cta') }}
               </NuxtLink>
             </div>
 
-            <dl class="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-3">
+            <dl class="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-3">
               <div
                 class="rounded-2xl border border-border/60 bg-card/60 p-4 backdrop-blur"
               >
-                <dt class="text-sm font-semibold text-foreground/80">
-                  Entrega
+                <dt class="text-xs sm:text-sm font-semibold text-foreground/80">
+                  {{ t('hero.statDeliveryLabel') }}
                 </dt>
-                <dd class="mt-1 text-2xl font-black">Rápida</dd>
+                <dd class="mt-1 text-xl sm:text-2xl font-black">{{ t('hero.statDeliveryValue') }}</dd>
                 <dd class="mt-1 text-xs text-muted">
-                  Organização e comunicação
+                  {{ t('hero.statDeliveryDesc') }}
                 </dd>
               </div>
               <div
                 class="rounded-2xl border border-border/60 bg-card/60 p-4 backdrop-blur"
               >
-                <dt class="text-sm font-semibold text-foreground/80">Foco</dt>
-                <dd class="mt-1 text-2xl font-black">Resultados</dd>
+                <dt class="text-xs sm:text-sm font-semibold text-foreground/80">{{ t('hero.statFocusLabel') }}</dt>
+                <dd class="mt-1 text-xl sm:text-2xl font-black">{{ t('hero.statFocusValue') }}</dd>
                 <dd class="mt-1 text-xs text-muted">
-                  Sem complicar o que é simples
+                  {{ t('hero.statFocusDesc') }}
                 </dd>
               </div>
               <div
                 class="rounded-2xl border border-border/60 bg-card/60 p-4 backdrop-blur"
               >
-                <dt class="text-sm font-semibold text-foreground/80">
-                  Suporte
+                <dt class="text-xs sm:text-sm font-semibold text-foreground/80">
+                  {{ t('hero.statSupportLabel') }}
                 </dt>
-                <dd class="mt-1 text-2xl font-black">Prático</dd>
+                <dd class="mt-1 text-xl sm:text-2xl font-black">{{ t('hero.statSupportValue') }}</dd>
                 <dd class="mt-1 text-xs text-muted">
-                  Para você seguir adiante
+                  {{ t('hero.statSupportDesc') }}
                 </dd>
               </div>
             </dl>
@@ -108,38 +101,38 @@
               <div class="flex items-center justify-between gap-4">
                 <div>
                   <p class="text-xs font-semibold text-muted">
-                    Status do atendimento
+                    {{ t('hero.statusLabel') }}
                   </p>
-                  <p class="text-lg font-extrabold">Pronto para ajudar</p>
+                  <p class="text-base sm:text-lg font-extrabold">{{ t('hero.statusValue') }}</p>
                 </div>
                 <span
-                  class="inline-flex items-center gap-2 rounded-full bg-muted px-3 py-1 text-xs font-semibold text-foreground/90"
+                  class="inline-flex items-center gap-2 rounded-full bg-muted px-3 py-1 text-xs font-semibold text-foreground/90 shrink-0"
                 >
                   <span
                     aria-hidden="true"
                     class="size-2 rounded-full bg-green-500"
                   />
-                  Online
+                  {{ t('hero.statusOnline') }}
                 </span>
               </div>
 
               <div class="mt-5 grid gap-3">
                 <div class="rounded-2xl bg-muted/60 p-4">
-                  <h3 class="font-bold">1) Diagnóstico</h3>
-                  <p class="mt-1 text-sm text-muted">
-                    Entendemos o problem e definimos o caminho mais eficiente.
+                  <h3 class="font-bold text-sm sm:text-base">{{ t('hero.step1Title') }}</h3>
+                  <p class="mt-1 text-xs sm:text-sm text-muted">
+                    {{ t('hero.step1Desc') }}
                   </p>
                 </div>
                 <div class="rounded-2xl bg-muted/60 p-4">
-                  <h3 class="font-bold">2) Execução</h3>
-                  <p class="mt-1 text-sm text-muted">
-                    Trabalho direto na solução: códigos, ajustes e manutenção.
+                  <h3 class="font-bold text-sm sm:text-base">{{ t('hero.step2Title') }}</h3>
+                  <p class="mt-1 text-xs sm:text-sm text-muted">
+                    {{ t('hero.step2Desc') }}
                   </p>
                 </div>
                 <div class="rounded-2xl bg-muted/60 p-4">
-                  <h3 class="font-bold">3) Entrega</h3>
-                  <p class="mt-1 text-sm text-muted">
-                    Você recebe clareza do que foi feito e como manter.
+                  <h3 class="font-bold text-sm sm:text-base">{{ t('hero.step3Title') }}</h3>
+                  <p class="mt-1 text-xs sm:text-sm text-muted">
+                    {{ t('hero.step3Desc') }}
                   </p>
                 </div>
               </div>
@@ -147,15 +140,13 @@
               <div class="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2">
                 <NuxtLink class="card-link" to="/contato">
                   <span class="card-icon material-symbols-outlined text-blue-500" aria-hidden="true">chat</span>
-                  <span class="card-title">Atendimento</span>
-                  <span class="card-desc"
-                    >Vamos alinhar em poucos minutos.</span
-                  >
+                  <span class="card-title">{{ t('hero.cardAttendTitle') }}</span>
+                  <span class="card-desc">{{ t('hero.cardAttendDesc') }}</span>
                 </NuxtLink>
                 <NuxtLink class="card-link" to="/servicos">
                   <span class="card-icon material-symbols-outlined text-purple-500" aria-hidden="true">settings</span>
-                  <span class="card-title">Soluções</span>
-                  <span class="card-desc">Web e suporte de TI completo.</span>
+                  <span class="card-title">{{ t('hero.cardSolutionsTitle') }}</span>
+                  <span class="card-desc">{{ t('hero.cardSolutionsDesc') }}</span>
                 </NuxtLink>
               </div>
             </div>
@@ -168,83 +159,80 @@
         <div class="flex items-end justify-between gap-4">
           <div>
             <h2 class="text-2xl font-black tracking-tight md:text-3xl">
-              Sobre
+              {{ t('indexSections.aboutTitle') }}
             </h2>
             <p class="mt-2 text-muted">
-              Uma combinação de web e suporte técnico para transformar
-              dificuldade em solução.
+              {{ t('indexSections.aboutDesc') }}
             </p>
           </div>
           <div
             class="hidden sm:block rounded-2xl border border-border/60 bg-card/60 px-4 py-3 text-sm text-muted"
           >
-            <p class="font-semibold text-foreground/90">Trabalho com:</p>
-            <p class="mt-1">Sites, manutenções e ajustes para o dia a dia.</p>
+            <p class="font-semibold text-foreground/90">{{ t('indexSections.aboutWork') }}</p>
+            <p class="mt-1">{{ t('indexSections.aboutWorkDesc') }}</p>
           </div>
         </div>
 
         <div class="mt-7 grid gap-4 md:grid-cols-3">
           <article
-ref="sobreCard1"
+            ref="sobreCard1"
             class="rounded-3xl border border-border/60 bg-card/60 p-6 shadow-sm backdrop-blur"
           >
-            <h3 class="text-lg font-extrabold">Web moderna</h3>
+            <h3 class="text-lg font-extrabold">{{ t('indexSections.aboutWebTitle') }}</h3>
             <p class="mt-3 text-sm text-muted">
-              Layouts responsivos, semântica, acessibilidade e performance.
+              {{ t('indexSections.aboutWebDesc') }}
             </p>
             <ul class="mt-4 space-y-2 text-sm text-muted">
               <li class="flex gap-2">
-                <span aria-hidden="true" class="material-symbols-outlined text-base text-emerald-500">task_alt</span> Landing pages e portfólios
+                <span aria-hidden="true" class="material-symbols-outlined text-base text-emerald-500">task_alt</span> {{ t('indexSections.aboutWebItem1') }}
               </li>
               <li class="flex gap-2">
-                <span aria-hidden="true" class="material-symbols-outlined text-base text-emerald-500">task_alt</span> UI com foco em conversão
+                <span aria-hidden="true" class="material-symbols-outlined text-base text-emerald-500">task_alt</span> {{ t('indexSections.aboutWebItem2') }}
               </li>
               <li class="flex gap-2">
-                <span aria-hidden="true" class="material-symbols-outlined text-base text-emerald-500">task_alt</span> Ajustes e melhorias contínuas
+                <span aria-hidden="true" class="material-symbols-outlined text-base text-emerald-500">task_alt</span> {{ t('indexSections.aboutWebItem3') }}
               </li>
             </ul>
           </article>
 
           <article
-ref="sobreCard2"
+            ref="sobreCard2"
             class="rounded-3xl border border-border/60 bg-card/60 p-6 shadow-sm backdrop-blur"
           >
-            <h3 class="text-lg font-extrabold">Assistência de TI</h3>
+            <h3 class="text-lg font-extrabold">{{ t('indexSections.aboutItTitle') }}</h3>
             <p class="mt-3 text-sm text-muted">
-              Diagnóstico prático para você voltar a trabalhar: configurações,
-              redes e rotinas.
+              {{ t('indexSections.aboutItDesc') }}
             </p>
             <ul class="mt-4 space-y-2 text-sm text-muted">
               <li class="flex gap-2">
-                <span aria-hidden="true" class="material-symbols-outlined text-base text-violet-500">psychology</span> Orientação objetiva
+                <span aria-hidden="true" class="material-symbols-outlined text-base text-violet-500">psychology</span> {{ t('indexSections.aboutItItem1') }}
               </li>
               <li class="flex gap-2">
-                <span aria-hidden="true" class="material-symbols-outlined text-base text-teal-500">shield</span> Boas práticas e segurança
+                <span aria-hidden="true" class="material-symbols-outlined text-base text-teal-500">shield</span> {{ t('indexSections.aboutItItem2') }}
               </li>
               <li class="flex gap-2">
-                <span aria-hidden="true" class="material-symbols-outlined text-base text-amber-500">build</span> Correções e otimização
+                <span aria-hidden="true" class="material-symbols-outlined text-base text-amber-500">build</span> {{ t('indexSections.aboutItItem3') }}
               </li>
             </ul>
           </article>
 
           <article
-ref="sobreCard3"  
+            ref="sobreCard3"
             class="rounded-3xl border border-border/60 bg-card/60 p-6 shadow-sm backdrop-blur"
           >
-            <h3 class="text-lg font-extrabold">Manutenção de notebooks</h3>
+            <h3 class="text-lg font-extrabold">{{ t('indexSections.aboutNotebookTitle') }}</h3>
             <p class="mt-3 text-sm text-muted">
-              Limpeza, ajustes de desempenho, atualização e recuperação do
-              funcionamento.
+              {{ t('indexSections.aboutNotebookDesc') }}
             </p>
             <ul class="mt-4 space-y-2 text-sm text-muted">
               <li class="flex gap-2">
-                <span aria-hidden="true" class="material-symbols-outlined text-base text-rose-500">thermostat</span> Controle térmico
+                <span aria-hidden="true" class="material-symbols-outlined text-base text-rose-500">thermostat</span> {{ t('indexSections.aboutNotebookItem1') }}
               </li>
               <li class="flex gap-2">
-                <span aria-hidden="true" class="material-symbols-outlined text-base text-sky-500">save</span> Otimização de armazenamento
+                <span aria-hidden="true" class="material-symbols-outlined text-base text-sky-500">save</span> {{ t('indexSections.aboutNotebookItem2') }}
               </li>
               <li class="flex gap-2">
-                <span aria-hidden="true" class="material-symbols-outlined text-base text-amber-500">bolt</span> Performance no uso real
+                <span aria-hidden="true" class="material-symbols-outlined text-base text-amber-500">bolt</span> {{ t('indexSections.aboutNotebookItem3') }}
               </li>
             </ul>
           </article>
@@ -258,140 +246,138 @@ ref="sobreCard3"
         >
           <div>
             <h2 class="text-2xl font-black tracking-tight md:text-3xl">
-              Serviços
+              {{ t('indexSections.servicesTitle') }}
             </h2>
             <p class="mt-2 text-muted">
-              Escolha o que você precisa agora — a gente monta o plano de ação.
+              {{ t('indexSections.servicesDesc') }}
             </p>
           </div>
-          
         </div>
 
         <div class="mt-7 grid gap-4 md:grid-cols-2">
           <article
-ref="servCard1"
+            ref="servCard1"
             class="rounded-3xl border border-border/60 bg-card/60 p-6 shadow-sm backdrop-blur"
           >
             <div class="flex items-start justify-between gap-4">
               <div>
-                <h3 class="text-lg font-extrabold">Desenvolvimento de sites</h3>
+                <h3 class="text-lg font-extrabold">{{ t('indexSections.servWebTitle') }}</h3>
                 <p class="mt-2 text-sm text-muted">
-                  Landing pages, portfólios e páginas institucionais.
+                  {{ t('indexSections.servWebDesc') }}
                 </p>
               </div>
-              <span class="badge border border-border/60 ">WEB</span>
+              <span class="badge border border-border/60">WEB</span>
             </div>
             <ul class="mt-4 space-y-2 text-sm text-muted">
               <li class="flex gap-2">
-                <span aria-hidden="true" class="material-symbols-outlined text-base text-amber-500">bolt</span> Responsivo e semântico
+                <span aria-hidden="true" class="material-symbols-outlined text-base text-amber-500">bolt</span> {{ t('indexSections.servWebItem1') }}
               </li>
               <li class="flex gap-2">
-                <span aria-hidden="true" class="material-symbols-outlined text-base text-fuchsia-500">palette</span> Visual moderno (claro/escuro)
+                <span aria-hidden="true" class="material-symbols-outlined text-base text-fuchsia-500">palette</span> {{ t('indexSections.servWebItem2') }}
               </li>
               <li class="flex gap-2">
-                <span aria-hidden="true" class="material-symbols-outlined text-base text-cyan-500">accessibility_new</span> Acessibilidade e foco
+                <span aria-hidden="true" class="material-symbols-outlined text-base text-cyan-500">accessibility_new</span> {{ t('indexSections.servWebItem3') }}
               </li>
             </ul>
           </article>
 
           <article
-ref="servCard2"
+            ref="servCard2"
             class="rounded-3xl border border-border/60 bg-card/60 p-6 shadow-sm backdrop-blur"
           >
             <div class="flex items-start justify-between gap-4">
               <div>
-                <h3 class="text-lg font-extrabold">Ajustes e melhorias</h3>
+                <h3 class="text-lg font-extrabold">{{ t('indexSections.servAdjTitle') }}</h3>
                 <p class="mt-2 text-sm text-muted">
-                  Correções, performance e evolução do seu site.
+                  {{ t('indexSections.servAdjDesc') }}
                 </p>
               </div>
               <span class="badge border border-border/60">UI/UX</span>
             </div>
             <ul class="mt-4 space-y-2 text-sm text-muted">
               <li class="flex gap-2">
-                <span aria-hidden="true" class="material-symbols-outlined text-base text-indigo-500">widgets</span> Componentes e layouts
+                <span aria-hidden="true" class="material-symbols-outlined text-base text-indigo-500">widgets</span> {{ t('indexSections.servAdjItem1') }}
               </li>
               <li class="flex gap-2">
-                <span aria-hidden="true" class="material-symbols-outlined text-base text-emerald-500">trending_up</span> Melhorias de navegação
+                <span aria-hidden="true" class="material-symbols-outlined text-base text-emerald-500">trending_up</span> {{ t('indexSections.servAdjItem2') }}
               </li>
               <li class="flex gap-2">
-                <span aria-hidden="true" class="material-symbols-outlined text-base text-blue-500">search</span> Revisão de conteúdo e CTA
+                <span aria-hidden="true" class="material-symbols-outlined text-base text-blue-500">search</span> {{ t('indexSections.servAdjItem3') }}
               </li>
             </ul>
           </article>
 
           <article
-ref="servCard3"
+            ref="servCard3"
             class="rounded-3xl border border-border/60 bg-card/60 p-6 shadow-sm backdrop-blur"
           >
             <div class="flex items-start justify-between gap-4">
               <div>
-                <h3 class="text-lg font-extrabold">Assistência de TI</h3>
+                <h3 class="text-lg font-extrabold">{{ t('indexSections.servItTitle') }}</h3>
                 <p class="mt-2 text-sm text-muted">
-                  Configurações, suporte e orientação objetiva.
+                  {{ t('indexSections.servItDesc') }}
                 </p>
               </div>
               <span class="badge border border-border/60">TI</span>
             </div>
             <ul class="mt-4 space-y-2 text-sm text-muted">
               <li class="flex gap-2">
-                <span aria-hidden="true" class="material-symbols-outlined text-base text-orange-500">construction</span> Setup e rotinas
+                <span aria-hidden="true" class="material-symbols-outlined text-base text-orange-500">construction</span> {{ t('indexSections.servItItem1') }}
               </li>
               <li class="flex gap-2">
-                <span aria-hidden="true" class="material-symbols-outlined text-base text-cyan-500">wifi</span> Conectividade e rede
+                <span aria-hidden="true" class="material-symbols-outlined text-base text-cyan-500">wifi</span> {{ t('indexSections.servItItem2') }}
               </li>
               <li class="flex gap-2">
-                <span aria-hidden="true" class="material-symbols-outlined text-base text-amber-500">build</span> Correções práticas
+                <span aria-hidden="true" class="material-symbols-outlined text-base text-amber-500">build</span> {{ t('indexSections.servItItem3') }}
               </li>
             </ul>
           </article>
 
           <article
-ref="servCard4"
+            ref="servCard4"
             class="rounded-3xl border border-border/60 bg-card/60 p-6 shadow-sm backdrop-blur"
           >
             <div class="flex items-start justify-between gap-4">
               <div>
-                <h3 class="text-lg font-extrabold">Manutenção de notebooks</h3>
+                <h3 class="text-lg font-extrabold">{{ t('indexSections.servNotebookTitle') }}</h3>
                 <p class="mt-2 text-sm text-muted">
-                  Diagnóstico, limpeza, otimização e reparos.
+                  {{ t('indexSections.servNotebookDesc') }}
                 </p>
               </div>
               <span class="badge border border-border/60">NOTEBOOK</span>
             </div>
             <ul class="mt-4 space-y-2 text-sm text-muted">
               <li class="flex gap-2">
-                <span aria-hidden="true" class="material-symbols-outlined text-base text-teal-500">cleaning_services</span> Limpeza e ajustes
+                <span aria-hidden="true" class="material-symbols-outlined text-base text-teal-500">cleaning_services</span> {{ t('indexSections.servNotebookItem1') }}
               </li>
               <li class="flex gap-2">
-                <span aria-hidden="true" class="material-symbols-outlined text-base text-purple-500">memory</span> Upgrade e performance
+                <span aria-hidden="true" class="material-symbols-outlined text-base text-purple-500">memory</span> {{ t('indexSections.servNotebookItem2') }}
               </li>
               <li class="flex gap-2">
-                <span aria-hidden="true" class="material-symbols-outlined text-base text-emerald-500">battery_charging_full</span> Energia e uso prolongado
+                <span aria-hidden="true" class="material-symbols-outlined text-base text-emerald-500">battery_charging_full</span> {{ t('indexSections.servNotebookItem3') }}
               </li>
             </ul>
           </article>
         </div>
 
         <div
-ref="servCta"
-          class="mt-6 text-foreground border border-slate-200 rounded-3xl border border-blue-300/50 bg-blue-500/10 p-5 text-center shadow-sm dark:border-blue-500/30 dark:bg-blue-500/15">
+          ref="servCta"
+          class="mt-6 text-foreground rounded-3xl border border-blue-300/50 bg-blue-500/10 p-5 text-center shadow-sm dark:border-blue-500/30 dark:bg-blue-500/15"
+        >
           <div
-            class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between "
+            class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between"
           >
             <div>
-              <h3 class="text-lg font-extrabold text-start">Quer um orçamento?</h3>
-              <p class="mt-1 text-sm">
-                Envie uma mensagem com o que você precisa e eu retorno com um
-                caminho claro.
+              <h3 class="text-lg font-extrabold text-start">{{ t('indexSections.servCtaTitle') }}</h3>
+              <p class="mt-1 text-sm text-start">
+                {{ t('indexSections.servCtaDesc') }}
               </p>
             </div>
             <NuxtLink
-              id="nuxtlink"
               to="/contato"
-              class="inline-flex items-center justify-center rounded-full bg-blue-600 px-5 py-3 text-sm font-bold text-white shadow-sm transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              class="inline-flex items-center justify-center rounded-full bg-blue-600 px-5 py-3 text-sm font-bold text-white shadow-sm transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 shrink-0"
             >
-              Falar agora
+              {{ t('indexSections.servCtaBtn') }}
             </NuxtLink>
           </div>
         </div>
@@ -399,216 +385,152 @@ ref="servCta"
 
       <!-- ===== PORTFÓLIO ===== -->
       <section id="portfolio" ref="portfolioSection" class="mt-14 md:mt-18">
-        <div class="flex items-end justify-between gap-4">
+        <div class="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <h2 class="text-2xl font-black tracking-tight md:text-3xl">
-              Meus Portfólios
+              {{ t('indexSections.portfolioTitle') }}
             </h2>
             <p class="mt-2 text-muted">
-              Exemplos de projetos concluidos, e focados em seu objetivo!
+              {{ t('indexSections.portfolioDesc') }}
             </p>
           </div>
-          <NuxtLink to="/about" class="border border/60 rounded-full px-2 py-1 hover:-translate-y-[5px] duration-400">Clique para ver mais projetos</NuxtLink> 
+          <NuxtLink to="/sobre" class="border border-border/60 rounded-full px-3 py-1.5 hover:-translate-y-0.5 duration-300 text-sm text-center font-semibold shrink-0">
+            {{ t('indexSections.portfolioMore') }}
+          </NuxtLink>
         </div>
 
-        <div class="mt-7 flex justify-beetween gap-4 md:grid-cols-3">
-          <article
-ref="portCard1"
-            class="group relative overflow-hidden rounded-3xl border border-border/60 bg-card/60 p-5 shadow-sm backdrop-blur"
-          >
-            <div
-              class="absolute inset-0  from-blue-500/20 via-indigo-500/10 to-fuchsia-500/20 opacity-0 transition group-hover:opacity-100"
-            />
-            <div class="relative">
-              <div class="flex items-start justify-between gap-4">
-                <div>
-                  <h3 class="text-lg font-extrabold">YU-GI-OH! API </h3>
-                  <p class="mt-2 text-sm text-muted">
-                    Projeto com API de cartas do jogo YU-GI-OH!
-                  </p>
-                </div>
-                <span class="badge border border-border/60">SITE</span>
-              </div>
-              <div
-                class="mt-4 aspect-[4/3] rounded-2xl bg-muted/60 ring-1 ring-border/60"
-              >
-                <div class="flex h-full items-center justify-center">
-                  <img src="/yu-gi-oh_foto.webp" alt="YU-GI-OH! API">
-                </div>
-              </div>
-              <ul class="mt-4 space-y-2 text-sm text-muted">
-                <li class="flex gap-2">
-                  <span aria-hidden="true" class="material-symbols-outlined text-base text-emerald-500">check</span> Responsivo
-                </li>
-                <li class="flex gap-2">
-                  <span aria-hidden="true" class="material-symbols-outlined text-base text-emerald-500">check</span> Semântica
-                </li>
-                <li class="flex gap-2">
-                  <span aria-hidden="true" class="material-symbols-outlined text-base text-emerald-500">check</span> Estrutura clara 
-                </li>
-              </ul>
-            </div>
-          </article>
-
-          <article
-ref="portCard2"
-            class="group relative overflow-hidden rounded-3xl border border-border/60 bg-card/60 p-5 shadow-sm backdrop-blur"
-          >
-            <div
-              class="absolute inset-0 from-indigo-500/20 via-fuchsia-500/10 to-blue-500/20 opacity-0 transition group-hover:opacity-100"
-            />
-            <div class="relative">
-              <div class="flex items-start justify-between gap-4">
-                <div>
-                  <h3 class="text-lg font-extrabold">Loja do Seu Zé</h3>
-                  <p class="mt-2 text-sm text-muted">ERP com cobrança</p>
-                </div>
-                <span class="badge border border-border/60">SITE</span>
-              </div>
-              <div
-                class="mt-4 aspect-[4/3] rounded-2xl bg-muted/60 ring-1 ring-border/60"
-              >
-                <div class="flex h-full items-center justify-center">
-                  <img src="/loja-do-seu-ze.webp" alt="Loja do Seu Zé">
-                </div>
-              </div>
-              <ul class="mt-4 space-y-2 text-sm text-muted">
-                <li class="flex gap-2">
-                  <span aria-hidden="true" class="material-symbols-outlined text-base text-emerald-500">check</span> Acessibilidade
-                </li>
-                <li class="flex gap-2">
-                  <span aria-hidden="true" class="material-symbols-outlined text-base text-emerald-500">check</span> Responsividade
-                </li>
-                <li class="flex gap-2">
-                  <span aria-hidden="true" class="material-symbols-outlined text-base text-emerald-500">check</span> Performance
-                </li>
-              </ul>
-            </div>
-          </article>
-        </div>
+        <ProjectShowcase
+          :columns="2"
+          :hide-heading="true"
+          :slugs="['yu-gi-oh-api', 'loja-do-seu-ze']"
+          class="mt-7"
+        />
       </section>
 
       <!-- ===== CONTATO ===== -->
       <section id="contato" ref="contatoSection" class="mt-14 pb-12 md:mt-18">
         <div
-          class="rounded-[2.5rem] border border-border/70 from-blue-500/15 via-indigo-500/10 to-fuchsia-500/15 p-6 shadow-sm backdrop-blur md:p-10"
+          class="rounded-[2.5rem] border border-border/70 from-blue-500/15 via-indigo-500/10 to-fuchsia-500/15 p-5 shadow-sm backdrop-blur sm:p-8 md:p-10"
         >
           <div class="grid gap-8 md:grid-cols-2 md:items-start">
             <div ref="contatoInfo">
               <h2 class="text-2xl font-black tracking-tight md:text-3xl">
-                Contato
+                {{ t('indexSections.contactTitle') }}
               </h2>
               <p class="mt-3 text-muted">
-                Me diga o que você precisa e eu retorno com um caminho claro.
-                Sem pensamento de vender, use sua criatividade e me conte e
-                vamos conversar juntos!
+                {{ t('indexSections.contactDesc') }}
               </p>
 
               <ul class="mt-6 space-y-3 text-sm text-muted">
                 <li class="flex items-start gap-3">
                   <span
                     aria-hidden="true"
-                    class="material-symbols-outlined mt-0.5 flex size-9 items-center justify-center rounded-xl bg-muted/60 text-lg text-rose-500"
-                    >location_on</span
-                  >
+                    class="material-symbols-outlined mt-0.5 flex size-9 items-center justify-center rounded-xl bg-muted/60 text-lg text-rose-500 shrink-0"
+                  >location_on</span>
                   <div>
-                    <p class="font-semibold text-foreground/90">Atendimento</p>
-                    <p>Online e/ou presencial (conforme disponibilidade).</p>
+                    <p class="font-semibold text-foreground/90">{{ t('indexSections.contactLocLabel') }}</p>
+                    <p>{{ t('indexSections.contactLocDesc') }}</p>
                   </div>
                 </li>
                 <li class="flex items-start gap-3">
                   <span
                     aria-hidden="true"
-                    class="material-symbols-outlined mt-0.5 flex size-9 items-center justify-center rounded-xl bg-muted/60 text-lg text-amber-500"
-                    >bolt</span
-                  >
+                    class="material-symbols-outlined mt-0.5 flex size-9 items-center justify-center rounded-xl bg-muted/60 text-lg text-amber-500 shrink-0"
+                  >bolt</span>
                   <div>
-                    <p class="font-semibold text-foreground/90">Objetivo</p>
-                    <p>Resolver e deixar você andando sem travar.</p>
+                    <p class="font-semibold text-foreground/90">{{ t('indexSections.contactObjLabel') }}</p>
+                    <p>{{ t('indexSections.contactObjDesc') }}</p>
                   </div>
                 </li>
               </ul>
             </div>
 
             <form
-ref="contatoForm"
-              class="bg-background rounded-3xl border border-border/60 bg-card/70 p-6 shadow-sm backdrop-blur md:p-8"
+              ref="contatoForm"
+              class="bg-background rounded-3xl border border-border/60 bg-card/70 p-5 shadow-sm backdrop-blur sm:p-6 md:p-8"
               @submit.prevent="submit"
             >
               <div class="flex items-center justify-between gap-4">
-                <h3 class="text-lg font-extrabold">Enviar mensagem</h3>
-                <span class="text-xs font-semibold text-muted"
-                  >Resposta rápida</span
-                >
+                <h3 class="text-lg font-extrabold">{{ t('contact.formTitle') }}</h3>
+                <span class="text-xs font-semibold text-muted">{{ t('contact.formFast') }}</span>
               </div>
 
               <div class="mt-5 grid gap-4">
                 <label class="block">
-                  <span class="text-sm font-semibold">Seu nome</span>
+                  <span class="text-sm font-semibold">{{ t('contact.formName') }}</span>
                   <input
                     v-model="form.name"
                     type="text"
                     class="mt-2 w-full rounded-2xl border border-border/70 bg-background/50 px-4 py-3 text-sm outline-none transition focus:border-blue-500/60 focus:ring-2 focus:ring-blue-500/20"
-                    placeholder="Ex: Maria"
+                    :placeholder="t('contact.formNamePlaceholder')"
                     required
                   > 
                 </label>
 
                 <label class="block">
-                  <span class="text-sm font-semibold">Seu número ou e-mail</span>
+                  <span class="text-sm font-semibold">{{ t('contact.formContact') }}</span>
                   <input
                     v-model="form.contact"
                     type="text"
                     class="mt-2 w-full rounded-2xl border border-border/70 bg-background/50 px-4 py-3 text-sm outline-none transition focus:border-blue-500/60 focus:ring-2 focus:ring-blue-500/20"
-                    placeholder="Ex: (11) 99999-9999 ou maria@email.com"
+                    :placeholder="t('contact.formContactPlaceholder')"
                     required
                   >
                 </label>
 
                 <label class="block">
-                  <span class="text-sm font-semibold">Assunto</span>
+                  <span class="text-sm font-semibold">{{ t('contact.formSubject') }}</span>
                   <select
                     v-model="form.topic"
                     class="mt-2 w-full rounded-2xl border border-border/70 bg-background/50 px-4 py-3 text-sm outline-none transition focus:border-blue-500/60 focus:ring-2 focus:ring-blue-500/20"
                     required
                   >
-                    <option class="bg-background text-foreground" value="web">Web</option>
-                    <option class="bg-background text-foreground" value="ti">TI</option>
-                    <option class="bg-background text-foreground" value="assistencia-tecnica">Assistência técnica</option>
+                    <option class="bg-background text-foreground" value="web">{{ t('contact.formSubjectWeb') }}</option>
+                    <option class="bg-background text-foreground" value="ti">{{ t('contact.formSubjectIT') }}</option>
+                    <option class="bg-background text-foreground" value="assistencia-tecnica">{{ t('contact.formSubjectTech') }}</option>
                   </select>
                 </label>
 
                 <label class="block">
-                  <span class="text-sm font-semibold">Por onde você me encontrou?</span>
+                  <span class="text-sm font-semibold">{{ t('contact.formSource') }}</span>
                   <select
                     v-model="form.source"
                     class="mt-2 w-full rounded-2xl border border-border/70 bg-background/50 px-4 py-3 text-sm outline-none transition focus:border-blue-500/60 focus:ring-2 focus:ring-blue-500/20"
                     required
                   >
-                    <option class="bg-background text-foreground" value="google">Google / Web</option>
-                    <option class="bg-background text-foreground" value="linkedin">Linkedin</option>
-                    <option class="bg-background text-foreground" value="indicacao">Indicação</option>
-                    <option class="bg-background text-foreground" value="github">Github</option>
+                    <option class="bg-background text-foreground" value="google">{{ t('contact.formSourceGoogle') }}</option>
+                    <option class="bg-background text-foreground" value="linkedin">{{ t('contact.formSourceLinkedin') }}</option>
+                    <option class="bg-background text-foreground" value="indicacao">{{ t('contact.formSourceIndication') }}</option>
+                    <option class="bg-background text-foreground" value="github">{{ t('contact.formSourceGithub') }}</option>
                   </select>
                 </label>
 
                 <label class="block">
-                  <span class="text-sm font-semibold">Mensagem</span>
+                  <span class="text-sm font-semibold">{{ t('contact.formMessage') }}</span>
                   <textarea
                     v-model="form.message"
                     rows="5"
                     class="mt-2 w-full resize-none rounded-2xl border border-border/70 bg-background/50 px-4 py-3 text-sm outline-none transition focus:border-blue-500/60 focus:ring-2 focus:ring-blue-500/20"
-                    placeholder="Conte me, qual é sua idéia de um site, qual é o problema que você está passando ou problema com seu notebook."
+                    :placeholder="t('contact.formMessagePlaceholder')"
                     required
                   />
                 </label>
 
                 <button
                   type="submit"
-                  class="inline-flex w-full items-center justify-center rounded-2xl bg-blue-600 px-4 py-3 text-sm font-extrabold text-white shadow-sm transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  :disabled="isSending"
+                  class="inline-flex w-full items-center justify-center rounded-2xl bg-blue-600 px-4 py-3 text-sm font-extrabold text-white shadow-sm transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:cursor-wait disabled:opacity-55"
                 >
-                  Enviar
+                  {{ isSending ? t('contact.formSending') : t('contact.formSend') }}
                 </button>
+
+                <p
+                  v-if="sendError"
+                  class="rounded-2xl border border-red-500/40 bg-red-500/10 px-4 py-3 text-sm text-red-700 dark:text-red-300"
+                  role="alert"
+                >
+                  {{ sendError }}
+                </p>
 
                 <p
                   v-if="toast"
@@ -635,7 +557,10 @@ import type { MessageTopic } from "@@/shared/messages";
 
 import SiteHeader from "../components/SiteHeader.vue";
 import SiteFooter from "../components/SiteFooter.vue";
+import ProjectShowcase from "../components/ProjectShowcase.vue";
 import { useScrollReveal } from "~/composables/useScrollReveal";
+
+const { t } = useLocale();
 
 useHead({
   title: "vvchagas - Início",
@@ -648,10 +573,6 @@ useHead({
     },
   ],
 });
-
-// ============================================================
-// ANIMAÇÕES COM GSAP (ScrollTrigger via composable useScrollReveal)
-// ============================================================
 
 // Sobre
 const sobreSection = ref<HTMLElement | null>(null);
@@ -681,12 +602,7 @@ useScrollReveal(servCta, { delay: 0.4 });
 
 // Portfolio
 const portfolioSection = ref<HTMLElement | null>(null);
-const portCard1 = ref<HTMLElement | null>(null);
-const portCard2 = ref<HTMLElement | null>(null);
-
 useScrollReveal(portfolioSection);
-useScrollReveal(portCard1, { delay: 0.0 });
-useScrollReveal(portCard2, { delay: 0.15 });
 
 // Contato
 const contatoSection = ref<HTMLElement | null>(null);
@@ -697,10 +613,9 @@ useScrollReveal(contatoSection);
 useScrollReveal(contatoInfo, { delay: 0.0 });
 useScrollReveal(contatoForm, { delay: 0.15 });
 
-// ============================================================
-// FORMULÁRIO
-// ============================================================
 const toast = ref<string | null>(null);
+const sendError = ref<string | null>(null);
+const isSending = ref(false);
 
 const form = ref({
   name: "",
@@ -711,27 +626,33 @@ const form = ref({
 });
 
 async function submit() {
-  await $fetch("/api/messages", {
-    method: "POST",
-    body: form.value,
-  });
+  isSending.value = true;
+  sendError.value = null;
+  try {
+    await $fetch("/api/messages", {
+      method: "POST",
+      body: form.value,
+    });
 
-  toast.value =
-    "Mensagem enviada! Só esperar minha resposta por e-mail ou WhatsApp.";
-  form.value = {
-    name: "",
-    contact: "",
-    topic: "web",
-    source: "google",
-    message: "",
-  };
-  window.setTimeout(() => (toast.value = null), 3500);
+    toast.value = t("contact.formSuccess");
+    form.value = {
+      name: "",
+      contact: "",
+      topic: "web",
+      source: "google",
+      message: "",
+    };
+    window.setTimeout(() => (toast.value = null), 3500);
+  } catch {
+    sendError.value = t("contact.formError");
+  } finally {
+    isSending.value = false;
+  }
 }
 </script>
 
 <style scoped>
 :global(html) {
-  /* Defaults: Tailwind is still used; variables enable non-Tailwind usage and semantic names */
   --bg: 255 255 255;
   --fg: 15 23 42;
   --muted: 71 85 105;
@@ -746,7 +667,6 @@ async function submit() {
   --border: 30 41 59;
 }
 
-/* Semantic colors used by classes above */
 .bg-background {
   background-color: rgb(var(--bg));
 }
@@ -763,7 +683,6 @@ async function submit() {
   border-color: rgb(var(--border));
 }
 
-/* Header/footers translucidos */
 .bg-header,
 .bg-footer {
   background: rgba(var(--bg), 0.75);
@@ -773,7 +692,6 @@ async function submit() {
   background-color: rgba(var(--muted), 0.12);
 }
 
-/* Google Fonts - Material Symbols */
 .material-symbols-outlined {
   font-family: "Material Symbols Outlined";
   font-weight: normal;
@@ -790,7 +708,6 @@ async function submit() {
   vertical-align: middle;
 }
 
-/* Nav links */
 .nav-link {
   position: relative;
   font-weight: 600;
@@ -825,7 +742,6 @@ async function submit() {
   color: #3b82f6;
 }
 
-/* Badges */
 .badge {
   display: inline-flex;
   align-items: center;
@@ -835,7 +751,7 @@ async function submit() {
   font-weight: 800;
   letter-spacing: 0.04em;
 }
-/* Card links (Atendimento / Soluções) */
+
 .card-link {
   display: flex;
   flex-direction: column;
@@ -863,7 +779,6 @@ async function submit() {
   color: rgb(var(--muted));
 }
 
-/* Blobs animados no hero */
 section#inicio .absolute.inset-0.-z-10 > div {
   animation: float 8s ease-in-out infinite;
 }
@@ -885,7 +800,6 @@ section#inicio .absolute.inset-0.-z-10 > div:not(:first-child) {
   50% { transform: translateY(18px) scale(1.05); }
 }
 
-/* Status "Online" pulsando */
 .bg-green-500 {
   position: relative;
 }
@@ -902,7 +816,6 @@ section#inicio .absolute.inset-0.-z-10 > div:not(:first-child) {
   100% { box-shadow: 0 0 0 8px rgba(34, 197, 94, 0); }
 }
 
-/* Botões com glow no hover */
 .bg-blue-600 {
   transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
 }
@@ -912,21 +825,11 @@ button.bg-blue-600:hover {
   box-shadow: 0 10px 30px rgba(37, 99, 235, 0.45);
 }
 
-/* Cards de artigo com leve elevação no hover */
 article.rounded-3xl {
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 article.rounded-3xl:hover {
   transform: translateY(-4px);
   box-shadow: 0 16px 40px rgba(59, 130, 246, 0.15);
-}
-
-/* Título do hero com leve brilho no gradiente */
-h1 span.bg-clip-text {
-  background-size: 200% auto;
-  animation: shine 6s linear infinite;
-}
-@keyframes shine {
-  to { background-position: 200% center; }
 }
 </style>

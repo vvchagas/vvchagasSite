@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from "vue";
+import { useScrollReveal } from "~/composables/useScrollReveal";
 
-// Cada "shape" é um elemento SVG nativo (path/rect/polygon) com seus atributos.
-// Nada aqui vira HTML puro: o Vue cria os elementos SVG diretamente a partir
-// destes dados, então não há risco de injeção (é por isso que não usamos v-html).
 interface Shape {
   tag: "path" | "rect" | "polygon";
   attrs: Record<string, string>;
@@ -175,12 +173,12 @@ function toggleActive(id: string) {
   activeId.value = activeId.value === id ? null : id;
 }
 
-// Vaivém automático só até 768px de largura (mede a trilha real, sem
-// duplicar itens no DOM). Acima disso o carrossel fica parado e
-// centralizado — ver breakpoint em CSS logo abaixo.
 const trackRef = ref<HTMLElement | null>(null);
+const marqueeEl = ref<HTMLElement | null>(null);
 const distance = ref(0);
 let resizeObserver: ResizeObserver | null = null;
+
+useScrollReveal(marqueeEl);
 
 function measure() {
   const track = trackRef.value;
@@ -201,7 +199,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <ScrollReveal class="tech-marquee" :style="{ '--marquee-distance': `${distance}px` }">
+  <div ref="marqueeEl" class="tech-marquee w-full max-w-full overflow-hidden" :style="{ '--marquee-distance': `${distance}px` }">
     <div ref="trackRef" class="tech-marquee__track">
       <button
         v-for="tech in techs"
@@ -220,18 +218,21 @@ onUnmounted(() => {
         <span class="tech-chip__label">{{ tech.name }}</span>
       </button>
     </div>
-  </ScrollReveal>
+  </div>
 </template>
 
 <style scoped>
 .tech-marquee {
   overflow: hidden;
+  position: relative;
+  width: 100%;
 }
 
 .tech-marquee__track {
   display: flex;
   width: max-content;
   gap: 1rem;
+  padding: 0.5rem 0;
   animation: tech-scroll 16s ease-in-out infinite alternate;
 }
 
@@ -249,7 +250,6 @@ onUnmounted(() => {
   }
 }
 
-/* Acima de 768px: sem animação, trilha parada e centralizada na tela. */
 @media (min-width: 768.02px) {
   .tech-marquee {
     display: flex;
@@ -272,14 +272,21 @@ onUnmounted(() => {
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  width: 4rem;
-  height: 4rem;
+  width: 3.5rem;
+  height: 3.5rem;
   border-radius: 1.25rem;
   border: 1px solid rgb(var(--border) / 1);
   background: rgb(var(--card) / 0.7);
   color: var(--tech-color);
   cursor: pointer;
   transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+@media (min-width: 640px) {
+  .tech-chip {
+    width: 4rem;
+    height: 4rem;
+  }
 }
 
 .tech-chip:hover,
@@ -319,6 +326,7 @@ onUnmounted(() => {
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 10;
 }
 
 .tech-chip:hover .tech-chip__label,

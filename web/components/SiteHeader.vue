@@ -1,30 +1,34 @@
 <script setup lang="ts">
-const isDark = ref(false)
+import { ref, onMounted, watch } from "vue";
+import LanguageSwitcher from "./LanguageSwitcher.vue";
+
+const { t } = useLocale();
+const { lock, unlock } = useScrollLock();
+const isDark = ref(false);
 const isMenuOpen = ref(false);
-type Theme = 'light' | 'dark'
+type Theme = "light" | "dark";
 
 function applyTheme(theme: Theme) {
-  const root = document.documentElement
-  if (theme === 'dark') root.classList.add('dark')
-  else root.classList.remove('dark')
+  const root = document.documentElement;
+  if (theme === "dark") root.classList.add("dark");
+  else root.classList.remove("dark");
 }
 
 function detectTheme(): Theme {
-  const stored = typeof window !== 'undefined' ? window.localStorage.getItem('theme') : null
-
-  if (stored === 'dark' || stored === 'light') return stored
-
-  return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
-    ? 'dark'
-    : 'light'
+  const stored = typeof window !== "undefined" ? window.localStorage.getItem("theme") : null;
+  if (stored === "dark" || stored === "light") return stored;
+  return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? "dark"
+    : "light";
 }
 
 function syncStateFromDom() {
-  isDark.value = document.documentElement.classList.contains('dark')
+  isDark.value = document.documentElement.classList.contains("dark");
 }
 
 function toggleTheme(event: MouseEvent) {
-  if (!document.startViewTransition) {
+  const doc = document as Document & { startViewTransition?: (callback: () => void) => { ready: Promise<void> } };
+  if (!doc.startViewTransition) {
     executeThemeToggle();
     return;
   }
@@ -33,25 +37,25 @@ function toggleTheme(event: MouseEvent) {
   const y = event.clientY;
   const endRadius = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
 
-  const transition = document.startViewTransition(() => {
+  const transition = doc.startViewTransition(() => {
     executeThemeToggle();
   });
 
   transition.ready.then(() => {
     const clipPath = [
       `circle(0px at ${x}px ${y}px)`,
-      `circle(${endRadius}px at ${x}px ${y}px)`
+      `circle(${endRadius}px at ${x}px ${y}px)`,
     ];
-    
+
     document.documentElement.animate(
       {
-        clipPath: isDark.value ? [...clipPath].reverse() : clipPath
+        clipPath: isDark.value ? [...clipPath].reverse() : clipPath,
       },
       {
         duration: 450,
-        easing: 'ease-in-out',
-        pseudoElement: isDark.value ? '::view-transition-old(root)' : '::view-transition-new(root)'
-      }
+        easing: "ease-in-out",
+        pseudoElement: isDark.value ? "::view-transition-old(root)" : "::view-transition-new(root)",
+      },
     );
   });
 }
@@ -62,11 +66,20 @@ function executeThemeToggle() {
   applyTheme(next);
   syncStateFromDom();
 }
+
+watch(isMenuOpen, (open) => {
+  if (open) {
+    lock();
+  } else {
+    unlock();
+  }
+});
+
 onMounted(() => {
-  const theme = detectTheme()
-  applyTheme(theme)
-  syncStateFromDom()
-})
+  const theme = detectTheme();
+  applyTheme(theme);
+  syncStateFromDom();
+});
 </script>
 
 <template>
@@ -78,6 +91,7 @@ onMounted(() => {
           class="inline-flex items-center justify-center rounded-full border border-border/70 bg-card/60 p-2 text-sm font-semibold shadow-sm backdrop-blur transition hover:border-blue-500/60 focus:outline-none focus:ring-2 focus:ring-blue-500 md:hidden"
           :aria-expanded="isMenuOpen"
           aria-controls="menu-mobile"
+          :aria-label="isMenuOpen ? t('nav.closeMenu') : t('nav.openMenu')"
           @click="isMenuOpen = !isMenuOpen"
         >
           <span
@@ -85,29 +99,31 @@ onMounted(() => {
             class="material-symbols-outlined block text-blue-600 dark:text-blue-400 transition-transform duration-200"
             :class="{ 'rotate-90': isMenuOpen }"
           >{{ isMenuOpen ? 'close' : 'menu' }}</span>
-          <span class="sr-only">Abrir menu</span>
+          <span class="sr-only">{{ isMenuOpen ? t('nav.closeMenu') : t('nav.openMenu') }}</span>
         </button>
 
         <NuxtLink
           to="/"
           class="group inline-flex items-center gap-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          @click="isMenuOpen = false"
         >
           <span class="text-base font-black tracking-tight">VVCHAGAS</span>
         </NuxtLink>
       </div>
 
       <nav aria-label="Navegação principal" class="hidden items-center gap-6 md:flex">
-        <NuxtLink class="nav-link hover:-translate-y-0.5 duration-300" to="/">Início</NuxtLink>
-<NuxtLink class="nav-link hover:-translate-y-0.5 duration-300" to="/about">Sobre</NuxtLink>
-        <NuxtLink class="nav-link hover:-translate-y-0.5 duration-300" to="/servicos">Serviços</NuxtLink>
-        <NuxtLink class="nav-link hover:-translate-y-0.5 duration-300" to="/contato">Contato</NuxtLink>
+        <NuxtLink class="nav-link hover:-translate-y-0.5 duration-300" to="/">{{ t('nav.home') }}</NuxtLink>
+        <NuxtLink class="nav-link hover:-translate-y-0.5 duration-300" to="/sobre">{{ t('nav.about') }}</NuxtLink>
+        <NuxtLink class="nav-link hover:-translate-y-0.5 duration-300" to="/servicos">{{ t('nav.services') }}</NuxtLink>
+        <NuxtLink class="nav-link hover:-translate-y-0.5 duration-300" to="/contato">{{ t('nav.contact') }}</NuxtLink>
       </nav>
 
       <div class="flex items-center gap-3">
+        <LanguageSwitcher class="hidden sm:inline-flex" />
         <button
           type="button"
           class="theme-toggle inline-flex items-center gap-2 rounded-full border border-border/70 bg-card/60 p-1.5 text-sm font-semibold shadow-sm backdrop-blur transition hover:border-blue-500/60 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          :aria-label="isDark ? 'Alternar para modo claro' : 'Alternar para modo escuro'"
+          :aria-label="isDark ? t('nav.toggleLight') : t('nav.toggleDark')"
           @click="toggleTheme"
         >
           <span aria-hidden="true" class="inline-flex size-8 items-center justify-center rounded-full bg-muted text-foreground/90">
@@ -121,56 +137,70 @@ onMounted(() => {
         </button>
 
         <NuxtLink
-          id="nuxtlink"
-to="/contato"
+          id="talk-btn"
+          to="/contato"
           class="hidden sm:inline-flex items-center justify-center rounded-full bg-blue-600 px-4 py-2 text-sm font-bold text-white shadow-sm transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
-          Vamos conversar
+          {{ t('nav.talk') }}
         </NuxtLink>
       </div>
     </div>
 
+    <!-- Backdrop do menu mobile -->
+    <Transition name="fade">
+      <div
+        v-if="isMenuOpen"
+        class="fixed inset-0 top-[61px] z-40 bg-black/50 backdrop-blur-xs md:hidden"
+        @click="isMenuOpen = false"
+      />
+    </Transition>
+
+    <!-- Menu mobile -->
     <nav
       id="menu-mobile"
       aria-label="Menu mobile"
-      class="fixed left-0 bottom-0 top-[61px] z-40 w-64 border-r border-border/60 bg-background/95 backdrop-blur-md transition-transform duration-300 ease-in-out md:hidden"
-      :class="isMenuOpen ? 'translate-x-0' : '-translate-x-full'">
-      <div class="z-50 flex flex-col gap-3 bg-background px-4 py-6 backdrop-blur bg-background rounded-r-lg shadow-lg">
-        <NuxtLink class="nav-link block py-2 text-base" to="/" @click="isMenuOpen = false">Início</NuxtLink>
-<NuxtLink class="nav-link block py-2 text-base" to="/about" @click="isMenuOpen = false">Sobre</NuxtLink>
-        <NuxtLink class="nav-link block py-2 text-base" to="/servicos" @click="isMenuOpen = false">Serviços</NuxtLink>
-        <NuxtLink class="nav-link block py-2 text-base" to="/contato" @click="isMenuOpen = false">Contato</NuxtLink>
+      class="fixed left-0 bottom-0 top-[61px] w-72 max-w-[80vw] border-r border-border/60 bg-background/95 bg-background  transition-transform duration-300 ease-in-out md:hidden"
+      :class="isMenuOpen ? 'translate-x-0' : '-translate-x-full'"
+    >
+      <div class="flex flex-col gap-3 h-full overflow-y-auto px-5 py-6 bg-card text-foreground">
+        <NuxtLink class="nav-link block py-2.5 text-base border-b border-border/40" to="/" @click="isMenuOpen = false">{{ t('nav.home') }}</NuxtLink>
+        <NuxtLink class="nav-link block py-2.5 text-base border-b border-border/40" to="/sobre" @click="isMenuOpen = false">{{ t('nav.about') }}</NuxtLink>
+        <NuxtLink class="nav-link block py-2.5 text-base border-b border-border/40" to="/servicos" @click="isMenuOpen = false">{{ t('nav.services') }}</NuxtLink>
+        <NuxtLink class="nav-link block py-2.5 text-base border-b border-border/40" to="/contato" @click="isMenuOpen = false">{{ t('nav.contact') }}</NuxtLink>
+        
+        <div class="mt-4 pt-4 border-t border-border/60 flex flex-col gap-3">
+          <LanguageSwitcher class="w-full justify-start" />
+          <NuxtLink
+            to="/contato"
+            class="mt-2 flex items-center justify-center rounded-full bg-blue-600 px-4 py-2.5 text-sm font-bold text-white shadow-sm transition hover:bg-blue-700"
+            @click="isMenuOpen = false"
+          >
+            {{ t('nav.talk') }}
+          </NuxtLink>
+        </div>
       </div>
     </nav>
   </header>
 </template>
 
-
 <style scoped>
-:global(html) {
-  /* Defaults: Tailwind is still used; variables enable non-Tailwind usage and semantic names */
-  --bg: 255 255 255;
-  --fg: 15 23 42;
-  --muted: 71 85 105;
-  --card: 255 255 255;
-  --border: 226 232 240;
-}
-:global(html.dark) {
-  --bg: 12 12 12;
-  --fg: 226 232 240;
-  --muted: 148 163 184;
-  --card: 10 16 34;
-  --border: 30 41 59;
-}
-
-#nuxtlink:hover {
-  transform: translateY(-5px);
-  transition: 0.5s
+#talk-btn:hover {
+  transform: translateY(-2px);
+  transition: transform 0.3s ease;
 }
 .bg-background {
   background-color: rgb(var(--bg));
 }
 .text-foreground {
   color: rgb(var(--fg));
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.25s ease;
+}
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>

@@ -32,6 +32,9 @@ export default defineNuxtConfig({
       include: [
         '@vue/devtools-core',
         '@vue/devtools-kit',
+        'gsap',
+        'gsap/ScrollSmoother',
+        'gsap/ScrollTrigger'
       ]
     },
     esbuild: {
@@ -40,6 +43,12 @@ export default defineNuxtConfig({
     plugins: [
       tailwindcss()
     ]
+  },
+
+  // Node.js serverless na Vercel — não usar 'vercel-edge' aqui, porque o
+  // driver do Postgres (pg) precisa de socket TCP, que o Edge não suporta.
+  nitro: {
+    preset: 'vercel',
   },
 
   typescript: {

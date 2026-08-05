@@ -1,115 +1,111 @@
-  <template>
-  <div class="min-h-screen bg-background text-foreground">
+<template>
+  <div class="min-h-screen bg-background text-foreground overflow-x-hidden">
     <NuxtRouteAnnouncer />
 
     <a
       href="#conteudo"
       class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-blue-600 focus:px-3 focus:py-2 focus:text-white"
     >
-      Pular para o conteúdo
+      {{ t('common.skipToContent') }}
     </a>
 
     <SiteHeader />
 
     <main id="conteudo" class="mx-auto w-full max-w-6xl px-4 md:px-6">
-      <section ref="heroSection" class="mx-auto w-full max-w-5xl py-12 sm:py-16" data-speed="0.9">
+      <section ref="heroSection" class="mx-auto w-full max-w-5xl py-8 sm:py-16">
         <div class="mb-8 max-w-4xl space-y-4">
           <p
             class="text-xs font-semibold uppercase tracking-[0.3em] text-blue-600 dark:text-blue-400 sm:text-sm"
           >
-            Sobre
+            {{ t('about.sectionLabel') }}
           </p>
           <h1 class="text-3xl font-black tracking-tight sm:text-4xl lg:text-5xl">
-            Soluções completas em Web, TI e assistência técnica
+            {{ t('about.heading') }}
           </h1>
           <p class="text-base leading-7 text-muted sm:text-lg sm:leading-8">
-            Meu trabalho é transformar cada necessidade em uma solução útil para o seu dia a dia:
-            com comunicação clara, entrega organizada e suporte de verdade.
+            {{ t('about.description') }}
           </p>
         </div>
 
         <div ref="heroQuote" class="rounded-3xl border border-blue-300/50 bg-blue-500/10 p-5 text-center shadow-sm dark:border-blue-500/30 dark:bg-blue-500/15">
           <p class="text-base font-bold sm:text-lg">
-            “Não entrego apenas soluções: devolvo ritmo, confiança e espaço para o que importa.”
+            {{ t('about.quote') }}
           </p>
         </div>
 
         <div class="mt-6 grid gap-6 md:grid-cols-2">
           <article ref="artigoWeb" class="rounded-3xl border border-border/60 bg-card/60 p-6 shadow-sm backdrop-blur">
-            <h2 class="text-lg font-extrabold">1) Desenvolvimento Web</h2>
+            <h2 class="text-lg font-extrabold">{{ t('about.webTitle') }}</h2>
             <p class="mt-3 text-sm text-muted leading-6">
-              Criação de sites institucionais, landing pages e páginas de conversão com foco em
-              performance, visual moderno e navegação intuitiva.
+              {{ t('about.webDesc') }}
             </p>
             <ul class="mt-5 space-y-2 text-sm text-muted">
-              <li class="flex gap-2"><span aria-hidden="true" class="material-symbols-outlined text-base text-emerald-500">check</span> Layout responsivo e identidade profissional</li>
-              <li class="flex gap-2"><span aria-hidden="true" class="material-symbols-outlined text-base text-emerald-500">check</span> Organização estratégica de seções e CTA</li>
-              <li class="flex gap-2"><span aria-hidden="true" class="material-symbols-outlined text-base text-emerald-500">check</span> Ajustes contínuos para evolução do site</li>
+              <li class="flex gap-2"><span aria-hidden="true" class="material-symbols-outlined text-base text-emerald-500 shrink-0">check</span> <span>{{ t('about.webItem1') }}</span></li>
+              <li class="flex gap-2"><span aria-hidden="true" class="material-symbols-outlined text-base text-emerald-500 shrink-0">check</span> <span>{{ t('about.webItem2') }}</span></li>
+              <li class="flex gap-2"><span aria-hidden="true" class="material-symbols-outlined text-base text-emerald-500 shrink-0">check</span> <span>{{ t('about.webItem3') }}</span></li>
             </ul>
           </article>
 
           <article ref="artigoTI" class="rounded-3xl border border-border/60 bg-card/60 p-6 shadow-sm backdrop-blur">
-            <h2 class="text-lg font-extrabold">2) Suporte de TI</h2>
+            <h2 class="text-lg font-extrabold">{{ t('about.itTitle') }}</h2>
             <p class="mt-3 text-sm text-muted leading-6">
-              Atendimento para diagnóstico e correção de problemas técnicos com foco em rapidez e
-              continuidade da sua rotina.
+              {{ t('about.itDesc') }}
             </p>
             <div class="mt-5 space-y-3">
               <div class="rounded-2xl bg-muted/60 p-4">
-                <h3 class="font-bold">Ambiente estável</h3>
-                <p class="mt-1 text-sm text-muted">Configuração de rede, sistema e periféricos.</p>
+                <h3 class="font-bold text-sm sm:text-base">{{ t('about.itCard1Title') }}</h3>
+                <p class="mt-1 text-sm text-muted">{{ t('about.itCard1Desc') }}</p>
               </div>
               <div class="rounded-2xl bg-muted/60 p-4">
-                <h3 class="font-bold">Segurança e prevenção</h3>
-                <p class="mt-1 text-sm text-muted">Boas práticas para evitar falhas recorrentes.</p>
+                <h3 class="font-bold text-sm sm:text-base">{{ t('about.itCard2Title') }}</h3>
+                <p class="mt-1 text-sm text-muted">{{ t('about.itCard2Desc') }}</p>
               </div>
               <div class="rounded-2xl bg-muted/60 p-4">
-                <h3 class="font-bold">Suporte claro</h3>
-                <p class="mt-1 text-sm text-muted">Explicação simples do que foi feito e próximo passo.</p>
+                <h3 class="font-bold text-sm sm:text-base">{{ t('about.itCard3Title') }}</h3>
+                <p class="mt-1 text-sm text-muted">{{ t('about.itCard3Desc') }}</p>
               </div>
             </div>
           </article>
         </div>
 
         <div ref="artigoNotebook" class="mt-6 mb-10 rounded-3xl border border-border/60 bg-card/60 p-6 shadow-sm backdrop-blur">
-          <h2 class="text-lg font-extrabold">3) Assistência técnica para notebooks</h2>
+          <h2 class="text-lg font-extrabold">{{ t('about.notebookTitle') }}</h2>
           <p class="mt-3 text-sm text-muted leading-6">
-            Serviço técnico para notebooks com lentidão, superaquecimento, falhas de inicialização
-            e necessidade de upgrade.
+            {{ t('about.notebookDesc') }}
           </p>
           <ul class="mt-5 grid gap-3 text-sm text-muted md:grid-cols-3">
             <li class="rounded-2xl bg-muted/60 p-4">
-              <p class="font-bold text-foreground">Limpeza e refrigeração</p>
-              <p class="mt-1">Troca de pasta térmica e manutenção interna.</p>
+              <p class="font-bold text-foreground">{{ t('about.notebookItem1Title') }}</p>
+              <p class="mt-1">{{ t('about.notebookItem1Desc') }}</p>
             </li>
             <li class="rounded-2xl bg-muted/60 p-4">
-              <p class="font-bold text-foreground">Upgrade de performance</p>
-              <p class="mt-1">SSD, memória e ajustes para maior velocidade.</p>
+              <p class="font-bold text-foreground">{{ t('about.notebookItem2Title') }}</p>
+              <p class="mt-1">{{ t('about.notebookItem2Desc') }}</p>
             </li>
             <li class="rounded-2xl bg-muted/60 p-4">
-              <p class="font-bold text-foreground">Reparo e diagnóstico</p>
-              <p class="mt-1">Identificação técnica e solução objetiva.</p>
+              <p class="font-bold text-foreground">{{ t('about.notebookItem3Title') }}</p>
+              <p class="mt-1">{{ t('about.notebookItem3Desc') }}</p>
             </li>
           </ul>
         </div>
 
-        <section ref="techSection" class="mt-14 rounded-[2rem] border border-border/60 bg-card/60 p-6 shadow-sm backdrop-blur md:p-8">
-          <p class="text-xs font-semibold uppercase tracking-[0.3em] text-blue-600 dark:text-blue-400">Linguagens de programação que eu utilizo</p>
-          <h2 class="mt-3 text-2xl font-black tracking-tight md:text-3xl">A combinação certa de linguagens de programação cria a stack perfeita.</h2>
+        <section ref="techSection" class="mt-14 rounded-[2rem] border border-border/60 bg-card/60 p-5 shadow-sm backdrop-blur sm:p-6 md:p-8">
+          <p class="text-xs font-semibold uppercase tracking-[0.3em] text-blue-600 dark:text-blue-400">{{ t('about.techLabel') }}</p>
+          <h2 class="mt-3 text-2xl font-black tracking-tight md:text-3xl">{{ t('about.techHeading') }}</h2>
           <div class="mt-7">
             <TechMarquee />
           </div>
         </section>
 
-        <section ref="processSection" class="mt-14 rounded-[2rem] border border-border/60 bg-card/60 p-6 shadow-sm backdrop-blur md:p-8">
-          <p class="text-xs font-semibold uppercase tracking-[0.3em] text-blue-600 dark:text-blue-400">Meu processo</p>
-          <h2 class="mt-3 text-2xl font-black tracking-tight md:text-3xl">Uma ideia bem entendida vira uma solução que funciona.</h2>
+        <section ref="processSection" class="mt-14 rounded-[2rem] border border-border/60 bg-card/60 p-5 shadow-sm backdrop-blur sm:p-6 md:p-8">
+          <p class="text-xs font-semibold uppercase tracking-[0.3em] text-blue-600 dark:text-blue-400">{{ t('about.processLabel') }}</p>
+          <h2 class="mt-3 text-2xl font-black tracking-tight md:text-3xl">{{ t('about.processHeading') }}</h2>
           <div class="mt-7 grid gap-4 md:grid-cols-3">
-            <div ref="process1" class="rounded-2xl bg-muted/60 p-5"><span class="text-sm font-black text-blue-600 dark:text-blue-400">01 — Escuta</span><p class="mt-3 text-sm leading-6 text-muted">Entendo o contexto, a necessidade e o resultado que realmente faz diferença.</p></div>
-            <div ref="process2" class="rounded-2xl bg-muted/60 p-5"><span class="text-sm font-black text-blue-600 dark:text-blue-400">02 — Direção</span><p class="mt-3 text-sm leading-6 text-muted">Transformo o objetivo em um caminho claro, visual e técnico.</p></div>
-            <div ref="process3" class="rounded-2xl bg-muted/60 p-5"><span class="text-sm font-black text-blue-600 dark:text-blue-400">03 — Entrega</span><p class="mt-3 text-sm leading-6 text-muted">Construo, testo e ajusto para você poder usar com segurança.</p></div>
+            <div ref="process1" class="rounded-2xl bg-muted/60 p-5"><span class="text-sm font-black text-blue-600 dark:text-blue-400">{{ t('about.process01Label') }}</span><p class="mt-3 text-sm leading-6 text-muted">{{ t('about.process01Desc') }}</p></div>
+            <div ref="process2" class="rounded-2xl bg-muted/60 p-5"><span class="text-sm font-black text-blue-600 dark:text-blue-400">{{ t('about.process02Label') }}</span><p class="mt-3 text-sm leading-6 text-muted">{{ t('about.process02Desc') }}</p></div>
+            <div ref="process3" class="rounded-2xl bg-muted/60 p-5"><span class="text-sm font-black text-blue-600 dark:text-blue-400">{{ t('about.process03Label') }}</span><p class="mt-3 text-sm leading-6 text-muted">{{ t('about.process03Desc') }}</p></div>
           </div>
-          <div class="mt-7 flex items-center justify-center rounded-full border border-blue-500/40 px-5 py-3 text-sm font-extrabold text-blue-700 transition hover:-translate-y-1 hover:bg-blue-500/10 dark:text-blue-300">Venha conhecer um dos projetos abaixo!</div>
+          <div class="mt-7 flex items-center justify-center rounded-full border border-blue-500/40 px-5 py-3 text-sm font-extrabold text-blue-700 transition hover:-translate-y-1 hover:bg-blue-500/10 dark:text-blue-300 text-center">{{ t('about.processCallout') }}</div>
         </section>
 
         <ProjectShowcase/>
@@ -117,13 +113,14 @@
         <div ref="ctaFinal" class="mt-8 rounded-[2rem] border border-border/60 bg-card/60 p-6 shadow-sm backdrop-blur">
           <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <div>
-              <h2 class="text-xl font-extrabold">Quer conversar?</h2>
-              <p class="mt-2 text-sm text-muted">Envie uma mensagem e eu retorno com um caminho claro.</p>
+              <h2 class="text-xl font-extrabold">{{ t('about.ctaHeading') }}</h2>
+              <p class="mt-2 text-sm text-muted">{{ t('about.ctaDesc') }}</p>
             </div>
             <NuxtLink
               to="/contato"
-              class="inline-flex items-center justify-center rounded-full bg-blue-600 px-6 py-3 text-sm font-extrabold text-white shadow-sm transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
-              Falar agora
+              class="inline-flex items-center justify-center rounded-full bg-blue-600 px-6 py-3 text-sm font-extrabold text-white shadow-sm transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 shrink-0"
+            >
+              {{ t('about.ctaBtn') }}
             </NuxtLink>
           </div>
         </div>
@@ -139,6 +136,8 @@ import { ref } from "vue";
 import SiteHeader from "../components/SiteHeader.vue";
 import SiteFooter from "../components/SiteFooter.vue";
 import { useScrollReveal } from "~/composables/useScrollReveal";
+
+const { t } = useLocale();
 
 useHead({
   title: "vvchagas - Sobre",

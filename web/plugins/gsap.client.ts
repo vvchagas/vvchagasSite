@@ -1,19 +1,36 @@
 // plugins/gsap.client.ts
-import { gsap } from "gsap";
+
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ScrollSmoother } from "gsap/ScrollSmoother";
+import Lenis from "lenis";
 
 export default defineNuxtPlugin(() => {
-  // Registra os plugins oficiais do GSAP.
-  // ScrollSmoother é o substituto do Lenis (mesmo fabricante do ScrollTrigger,
-  // então os dois já nascem integrados — sem gambiarra de sincronização).
-  gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
+  // Registra o ScrollTrigger do GSAP
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Inicializa o Lenis para scroll suave
+  const lenis = new Lenis({
+    duration: 1.2,
+    easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    orientation: "vertical",
+    smoothWheel: true,
+  });
+
+  // Sincroniza o Lenis com o ScrollTrigger do GSAP
+  lenis.on("scroll", () => {
+    ScrollTrigger.update();
+  });
+
+  gsap.ticker.add((time: number) => {
+    lenis.raf(time * 1000);
+  });
+
+  gsap.ticker.lagSmoothing(0);
 
   return {
     provide: {
       gsap,
       ScrollTrigger,
-      ScrollSmoother,
+      lenis,
     },
   };
 });

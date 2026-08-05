@@ -1,17 +1,87 @@
 <script setup lang="ts">
-import { projects } from "~/shared/projects";
+import type { ComponentPublicInstance } from "vue";
+import { getTranslatedProjects, type ResolvedProject } from "~/shared/projects";
+import { useScrollReveal } from "~/composables/useScrollReveal";
 
-withDefaults(defineProps<{ eyebrow?: string; title?: string; description?: string; compact?: boolean }>(), {
-  eyebrow: "Meus Projetos",
-  title: "Projetos que transformam ideias em resultado",
-  description: "Cada projeto combina estratégia, clareza visual e uma experiência fluida em qualquer tela.",
-  compact: false,
+const props = withDefaults(
+  defineProps<{
+    eyebrow?: string;
+    title?: string;
+    description?: string;
+    compact?: boolean;
+    /** Número de colunas do grid (padrão: 3). */
+    columns?: number;
+    /** Oculta o bloco de título/descrição (usado quando o título é renderizado fora). */
+    hideHeading?: boolean;
+    /** Lista de slugs para exibir. Se vazio, exibe todos os projetos. */
+    slugs?: string[];
+  }>(),
+  {
+    eyebrow: "",
+    title: "",
+    description: "",
+    compact: false,
+    columns: 3,
+    hideHeading: false,
+    slugs: () => [],
+  },
+);
+
+const { t, locale } = useLocale();
+const { lock, unlock } = useScrollLock();
+
+const allProjects = computed(() => getTranslatedProjects(locale.value));
+
+const translatedProjects = computed(() => {
+  if (!props.slugs.length) return allProjects.value;
+  return allProjects.value.filter((project) => props.slugs.includes(project.slug));
 });
 
+// Classes de grid fixas para o Tailwind gerar os estilos corretamente.
+const gridClasses: Record<number, string> = {
+  1: "md:grid-cols-1",
+  2: "md:grid-cols-2",
+  3: "md:grid-cols-3",
+};
+
+const gridClass = computed(() => gridClasses[props.columns] ?? "md:grid-cols-3");
+
 const activeSlug = ref<string | null>(null);
-const activeProject = computed(() => projects.find((project) => project.slug === activeSlug.value) ?? null);
+const activeProject = computed<ResolvedProject | null>(
+  () => translatedProjects.value.find((project) => project.slug === activeSlug.value) ?? null,
+);
 
 const lightboxImage = ref<string | null>(null);
+
+const sectionEl = ref<HTMLElement | null>(null);
+useScrollReveal(sectionEl);
+
+const cardEls = ref<HTMLElement[]>([]);
+function setCardRef(el: Element | ComponentPublicInstance | null) {
+  if (el instanceof HTMLElement && !cardEls.value.includes(el)) {
+    cardEls.value.push(el);
+  }
+}
+
+onMounted(() => {
+  const { $gsap, $ScrollTrigger } = useNuxtApp();
+  if (!$gsap || !$ScrollTrigger || !cardEls.value.length) return;
+
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    $gsap.set(cardEls.value, { opacity: 1, y: 0 });
+    return;
+  }
+
+  $ScrollTrigger.batch(cardEls.value, {
+    start: "top 90%",
+    onEnter: (batch: Element[]) =>
+      $gsap.fromTo(
+        batch,
+        { opacity: 0, y: 24 },
+        { opacity: 1, y: 0, duration: 0.6, ease: "power2.out", stagger: 0.12 },
+      ),
+  });
+});
 
 function openProject(slug: string) {
   activeSlug.value = slug;
@@ -23,10 +93,12 @@ function closeProject() {
 
 function openLightbox(image: string) {
   lightboxImage.value = image;
+  lock();
 }
 
 function closeLightbox() {
   lightboxImage.value = null;
+  unlock();
 }
 
 function onLightboxKeydown(event: KeyboardEvent) {
@@ -43,42 +115,85 @@ watch(lightboxImage, (val) => {
 
 onUnmounted(() => {
   document.removeEventListener("keydown", onLightboxKeydown);
+  unlock();
 });
 </script>
 
 <template>
-  <ScrollReveal as="section" class="project-showcase mt-10">
-    <div class="mb-10 max-w-3xl space-y-4" :class="{ 'mb-7': compact }">
-      <p class="text-xs font-semibold uppercase tracking-[0.3em] text-blue-600 dark:text-blue-400 sm:text-sm">{{ eyebrow }}</p>
-      <h2 class="text-3xl font-black tracking-tight sm:text-4xl" :class="{ 'sm:text-3xl': compact }">{{ title }}</h2>
-      <p class="text-base leading-7 text-muted sm:text-lg sm:leading-8">{{ description }}</p>
+  <section ref="sectionEl" class="project-showcase mt-10">
+    <div v-if="!props.hideHeading" class="mb-10 max-w-3xl space-y-4" :class="{ 'mb-7': props.compact }">
+      <p class="mt-10 text-xs font-semibold uppercase tracking-[0.3em] text-blue-600 dark:text-blue-400 sm:text-sm">
+        {{ props.eyebrow || t('portfolio.eyebrow') }}
+      </p>
+      <h2 class="text-3xl font-black tracking-tight sm:text-4xl" :class="{ 'sm:text-3xl': props.compact }">
+        {{ props.title || t('portfolio.title') }}
+      </h2>
+      <p class="text-base leading-7 text-muted sm:text-lg sm:leading-8">
+        {{ props.description || t('portfolio.description') }}
+      </p>
     </div>
-    <div class="grid gap-6 md:grid-cols-3">
-      <ScrollReveal
-        v-for="project in projects"
+
+    <div class="grid gap-6" :class="gridClass">
+      <article
+        v-for="project in translatedProjects"
         :id="project.slug"
         :key="project.slug"
-        as="article"
-        class="projectslug hover:-translate-y-[3px] duration-600 group relative overflow-hidden rounded-3xl border border-border/60 bg-card/70 p-5 shadow-sm backdrop-blur"
+        :ref="setCardRef"
+        class="projectslug hover:-translate-y-[3px] duration-600 group relative overflow-hidden rounded-3xl border border-border/60 bg-card/70 p-5 shadow-sm backdrop-blur flex flex-col justify-between"
       >
         <div class="project-card__light absolute inset-0 opacity-0 transition-opacity duration-500" aria-hidden="true" />
-        <div class="relative">
-          <div class="flex items-start justify-between gap-4"><div><h3 class="text-lg font-extrabold">{{ project.title }}</h3><p class="mt-2 text-sm text-muted">{{ project.description }}</p></div><span class="badge border border-border/60 rounded-full px-2 py-1 text-sm">{{ project.tag }}</span></div>
-          <div class="mt-4 flex aspect-[4/3] items-center justify-center overflow-hidden rounded-2xl bg-muted/60 ring-1 ring-border/60">
-            <img v-if="project.image" :src="project.image" :alt="project.title" class="h-full w-full cursor-pointer object-cover transition duration-300 hover:scale-105" loading="lazy" @click="openLightbox(project.image)">
-            <div v-else class="project-illustration relative flex h-16 w-16 items-center justify-center rounded-full bg-blue/60">
-              <span class="material-symbols-outlined text-2xl">{{ project.icon }}</span>
+        <div class="relative flex flex-col h-full justify-between">
+          <div>
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <h3 class="text-lg font-extrabold">{{ project.title }}</h3>
+                <p class="mt-2 text-sm text-muted">{{ project.description }}</p>
+              </div>
+              <span class="badge border border-border/60 rounded-full px-2 py-1 text-xs font-bold shrink-0">{{ project.tag }}</span>
             </div>
+
+            <div class="mt-4 flex aspect-[4/3] items-center justify-center overflow-hidden rounded-2xl bg-muted/60 ring-1 ring-border/60">
+              <img
+                v-if="project.image"
+                :src="project.image"
+                :alt="project.title"
+                class="h-full w-full cursor-pointer object-cover transition duration-300 hover:scale-105"
+                loading="lazy"
+                @click="openLightbox(project.image)"
+              >
+              <div v-else class="project-illustration relative flex h-16 w-16 items-center justify-center rounded-full bg-blue/60">
+                <span class="material-symbols-outlined text-2xl">{{ project.icon }}</span>
+              </div>
+            </div>
+
+            <ul class="mt-4 space-y-2 text-sm text-muted">
+              <li v-for="highlight in project.highlights" :key="highlight" class="flex gap-2">
+                <span aria-hidden="true" class="material-symbols-outlined text-base text-emerald-600">check</span>
+                {{ highlight }}
+              </li>
+            </ul>
           </div>
-          <ul class="mt-4 space-y-2 text-sm text-muted"><li v-for="highlight in project.highlights" :key="highlight" class="flex gap-2"><span aria-hidden="true" class="material-symbols-outlined text-base text-emerald-600">check</span>{{ highlight }}</li></ul>
+
           <div class="mt-5 grid gap-2">
-            <button type="button" class="flex justify-center gap-2 py-2 project-action hover:bg-blue-800 bg-blue-600 rounded-full" @click="openProject(project.slug)">
-              Ver o projeto completo <span class="material-symbols-outlined" aria-hidden="true">info</span>
+            <button
+              type="button"
+              class="flex items-center justify-center gap-1.5 px-3 py-2.5 text-xs sm:text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-full transition text-center leading-snug"
+              @click="openProject(project.slug)"
+            >
+              <span>{{ t('portfolio.viewFull') }}</span>
+              <span class="material-symbols-outlined text-base" aria-hidden="true">info</span>
             </button>
-<NuxtLink :to="{ path: '/contato', query: { projeto: project.title } }" class="project-action text-start project-action--secondary border border/60 bg-background rounded-full flex justify-center gap-2 py-2">Eu quero um projeto semelhante <span class="material-symbols-outlined" aria-hidden="true">chat</span></NuxtLink>
+
+            <NuxtLink
+              :to="{ path: '/contato', query: { projeto: project.title } }"
+              class="project-action--secondary border border-border/60 bg-background hover:bg-muted rounded-full flex items-center justify-center gap-1.5 px-3 py-2.5 text-xs sm:text-sm font-semibold transition text-center leading-snug"
+            >
+              <span>{{ t('portfolio.wantSimilar') }}</span>
+              <span class="material-symbols-outlined text-base" aria-hidden="true">chat</span>
+            </NuxtLink>
           </div>
         </div>
-      </ScrollReveal>
+      </article>
     </div>
 
     <ProjectModal :project="activeProject" :open="!!activeProject" @close="closeProject" />
@@ -94,22 +209,21 @@ onUnmounted(() => {
             <button
               type="button"
               class="lightbox-close"
-              aria-label="Fechar imagem"
+              :aria-label="t('portfolio.lightboxClose')"
               @click="closeLightbox"
             >
               <span aria-hidden="true" class="material-symbols-outlined">close</span>
             </button>
-            <img :src="lightboxImage" alt="Foto do projeto ampliada" class="lightbox-image">
+            <img :src="lightboxImage" :alt="t('portfolio.lightboxAlt')" class="lightbox-image">
           </div>
         </div>
       </Transition>
     </Teleport>
-  </ScrollReveal>
+  </section>
 </template>
 
-
 <style scoped>
-.projectslug:hover{
+.projectslug:hover {
   background-color: rgba(59, 130, 246, 0.1);
   border-color: rgba(59, 130, 246, 0.5);  
 }

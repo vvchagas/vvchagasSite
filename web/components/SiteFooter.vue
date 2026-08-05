@@ -1,16 +1,19 @@
+<script setup lang="ts">
+const { t } = useLocale();
+</script>
+
 <template>
   <footer class="border-t border-border/60 bg-footer/60">
     <div class="mx-auto flex w-full max-w-6xl flex-col gap-3 px-4 py-8 md:flex-row md:items-center md:justify-between md:px-6">
       <div>
         <p class="font-extrabold">VVCHAGAS</p>
-        <p class="text-sm text-muted">Web • TI • Manutenção de notebooks</p>
+        <p class="text-sm text-muted">{{ t('footer.tagline') }}</p>
       </div>
 
       <div class="flex flex-wrap gap-3 text-sm">
-        <NuxtLink class="footer-link hover:-translate-y-0.5" to="/">Início</NuxtLink>
-<NuxtLink class="footer-link hover:-translate-y-0.5" to="/servicos">Serviços</NuxtLink>
-        <NuxtLink class="footer-link hover:-translate-y-0.5" to="/contato">Contato</NuxtLink>
-        <NuxtLink class="footer-link hover:-translate-y-0.5" to="/messages">Mensagens</NuxtLink>
+        <NuxtLink class="footer-link hover:-translate-y-0.5" to="/">{{ t('footer.home') }}</NuxtLink>
+<NuxtLink class="footer-link hover:-translate-y-0.5" to="/servicos">{{ t('footer.services') }}</NuxtLink>
+        <NuxtLink class="footer-link hover:-translate-y-0.5" to="/contato">{{ t('footer.contact') }}</NuxtLink>
       </div>
 
       <div class="gap-6 flex flex-wrap items-center">

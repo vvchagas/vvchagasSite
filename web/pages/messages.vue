@@ -1,38 +1,38 @@
 <template>
-  <div class="min-h-screen bg-background text-foreground">
+  <div class="min-h-screen bg-background text-foreground overflow-x-hidden">
     <NuxtRouteAnnouncer />
     <SiteHeader />
 
-    <!-- Password modal - always shows on visit -->
+    <!-- Password modal - always shows on visit until auth -->
     <div 
       v-if="!authenticated" 
-      class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm"
+      class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4"
     >
       <form 
-        class="w-full max-w-sm rounded-3xl border border-border/70 bg-card p-8 shadow-2xl backdrop-blur" 
+        class="w-full max-w-sm rounded-3xl border border-border/70 bg-card p-6 sm:p-8 shadow-2xl backdrop-blur" 
         @submit.prevent="handleLogin"
       >
         <div class="text-center">
-          <h2 class="text-2xl font-black tracking-tight text-foreground">Acesso restrito</h2>
+          <h2 class="text-2xl font-black tracking-tight text-foreground">{{ t('admin.restrictedTitle') }}</h2>
           <p class="mt-2 text-sm text-muted">
-            Digite a senha de administrador para acessar as mensagens.
+            {{ t('admin.restrictedDesc') }}
           </p>
         </div>
 
         <div class="mt-6 space-y-4">
           <div>
-            <label for="login-user" class="text-sm font-semibold text-foreground">Usuário</label>
+            <label for="login-user" class="text-sm font-semibold text-foreground">{{ t('admin.userLabel') }}</label>
             <input
               id="login-user"
               v-model="loginUser"
               type="text"
               autocomplete="username"
               class="mt-1 w-full rounded-2xl border border-border/70 bg-background/60 px-4 py-3 text-sm outline-none transition focus:border-blue-500/60 focus:ring-2 focus:ring-blue-500/20"
-              placeholder="Usuário"
+              :placeholder="t('admin.userLabel')"
             >
           </div>
           <div>
-            <label for="login-pass" class="text-sm font-semibold text-foreground">Senha</label>
+            <label for="login-pass" class="text-sm font-semibold text-foreground">{{ t('admin.passLabel') }}</label>
             <input
               id="login-pass"
               ref="passwordInputRef"
@@ -40,7 +40,7 @@
               type="password"
               autocomplete="current-password"
               class="mt-1 w-full rounded-2xl border border-border/70 bg-background/60 px-4 py-3 text-sm outline-none transition focus:border-blue-500/60 focus:ring-2 focus:ring-blue-500/20"
-              placeholder="Senha"
+              :placeholder="t('admin.passLabel')"
             >
           </div>
           <p 
@@ -56,40 +56,40 @@
           :disabled="loginLoading"
           class="mt-6 w-full rounded-2xl bg-blue-600 px-4 py-3 text-sm font-extrabold text-white transition hover:bg-blue-700 disabled:cursor-wait disabled:opacity-55"
         >
-          {{ loginLoading ? "Verificando\u2026" : "Entrar" }}
+          {{ loginLoading ? t('admin.verifying') : t('admin.loginBtn') }}
         </button>
       </form>
     </div>
 
     <!-- Main content (only after auth) -->
     <template v-if="authenticated">
-      <main id="conteudo" class="mx-auto w-full max-w-6xl px-4 py-12 md:px-6">
-        <ScrollReveal as="section" class="rounded-3xl border border-border/70 bg-card/70 p-6 shadow-sm backdrop-blur md:p-8">
+      <main id="conteudo" class="mx-auto w-full max-w-6xl px-4 py-8 sm:py-12 md:px-6">
+        <section ref="listHeaderSection" class="rounded-3xl border border-border/70 bg-card/70 p-5 sm:p-6 md:p-8 shadow-sm backdrop-blur">
           <div class="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
             <div>
               <p class="text-xs font-semibold uppercase tracking-[0.3em] text-blue-600 dark:text-blue-400">Mensagens</p>
-              <h1 class="mt-2 text-3xl font-black tracking-tight sm:text-4xl">Caixa de mensagens do site</h1>
-              <p class="mt-2 max-w-2xl text-sm text-muted sm:text-base">Aqui você visualiza os envios do formulário e pode filtrar por assunto.</p>
+              <h1 class="mt-2 text-2xl sm:text-3xl font-black tracking-tight md:text-4xl">{{ t('admin.headerTitle') }}</h1>
+              <p class="mt-2 max-w-2xl text-sm text-muted sm:text-base">{{ t('admin.headerDesc') }}</p>
             </div>
             <label class="block w-full md:w-72">
-              <span class="text-sm font-semibold">Filtrar por assunto</span>
+              <span class="text-sm font-semibold">{{ t('admin.filterLabel') }}</span>
               <select
                 v-model="selectedTopic"
                 class="mt-2 w-full rounded-2xl border border-border/70 bg-background/60 px-4 py-3 text-sm outline-none transition focus:border-blue-500/60 focus:ring-2 focus:ring-blue-500/20"
               >
-                <option class="bg-background text-foreground" value="all">Todos</option>
-                <option class="bg-background text-foreground" value="web">Web</option>
-                <option class="bg-background text-foreground" value="ti">TI</option>
-                <option class="bg-background text-foreground" value="assistencia-tecnica">Assistência técnica</option>
+                <option class="bg-background text-foreground" value="all">{{ t('admin.filterAll') }}</option>
+                <option class="bg-background text-foreground" value="web">{{ t('contact.formSubjectWeb') }}</option>
+                <option class="bg-background text-foreground" value="ti">{{ t('contact.formSubjectIT') }}</option>
+                <option class="bg-background text-foreground" value="assistencia-tecnica">{{ t('contact.formSubjectTech') }}</option>
               </select>
             </label>
           </div>
-        </ScrollReveal>
+        </section>
 
-        <ScrollReveal as="section" class="mt-8">
-          <p v-if="pending" class="rounded-2xl border border-border/70 bg-card/60 px-4 py-3 text-sm text-muted">Carregando mensagens...</p>
-          <p v-else-if="error" class="rounded-2xl border border-red-500/40 bg-red-500/10 px-4 py-3 text-sm text-red-700 dark:text-red-300">Não foi possível carregar as mensagens agora.</p>
-          <p v-else-if="!messages.length" class="rounded-2xl border border-border/70 bg-card/60 px-4 py-3 text-sm text-muted">Ainda não há mensagens para o filtro selecionado.</p>
+        <section ref="listSection" class="mt-8">
+          <p v-if="pending" class="rounded-2xl border border-border/70 bg-card/60 px-4 py-3 text-sm text-muted">{{ t('admin.loading') }}</p>
+          <p v-else-if="error" class="rounded-2xl border border-red-500/40 bg-red-500/10 px-4 py-3 text-sm text-red-700 dark:text-red-300">{{ t('admin.loadError') }}</p>
+          <p v-else-if="!messages.length" class="rounded-2xl border border-border/70 bg-card/60 px-4 py-3 text-sm text-muted">{{ t('admin.noMessages') }}</p>
 
           <div v-else class="grid gap-4">
             <article
@@ -105,31 +105,29 @@
                 </div>
                 <div class="flex flex-wrap gap-2">
                   <span class="rounded-full bg-blue-600/10 px-3 py-1 text-xs font-bold text-blue-700 dark:text-blue-300">{{ topicLabel(item.topic) }}</span>
-                  <span class="rounded-full bg-muted px-3 py-1 text-xs font-semibold text-foreground/90">Origem: {{ item.source }}</span>
+                  <span class="rounded-full bg-muted px-3 py-1 text-xs font-semibold text-foreground/90">{{ t('admin.sourcePrefix') }} {{ item.source }}</span>
                   <span class="rounded-full bg-muted px-3 py-1 text-xs font-semibold text-foreground/90">{{ formatDate(item.createdAt) }}</span>
-                  <span v-if="item.readAt" class="rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-semibold text-emerald-700 dark:text-emerald-300">Lida</span>
-                  <span v-else class="rounded-full bg-amber-500/10 px-3 py-1 text-xs font-semibold text-amber-700 dark:text-amber-300">Não lida</span>
+                  <span v-if="item.readAt" class="rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-semibold text-emerald-700 dark:text-emerald-300">{{ t('admin.read') }}</span>
+                  <span v-else class="rounded-full bg-amber-500/10 px-3 py-1 text-xs font-semibold text-amber-700 dark:text-amber-300">{{ t('admin.unread') }}</span>
                 </div>
               </div>
               <p class="mt-4 whitespace-pre-line text-sm leading-7 text-muted">{{ item.message }}</p>
               <div class="mt-5 flex flex-wrap gap-2">
                 <button type="button" class="message-action message-action--read" :disabled="busyId === item.id" @click="setRead(item, !item.readAt)">
-                  {{ item.readAt ? "Marcar como não lida" : "Marcar como lida" }}
+                  {{ item.readAt ? t('admin.markUnread') : t('admin.markRead') }}
                 </button>
-                <button type="button" class="message-action message-action--delete" :disabled="busyId === item.id" @click="askRemove(item)">Excluir mensagem</button>
+                <button type="button" class="message-action message-action--delete" :disabled="busyId === item.id" @click="askRemove(item)">{{ t('admin.deleteMsg') }}</button>
               </div>
             </article>
           </div>
-        </ScrollReveal>
+        </section>
       </main>
 
       <SiteFooter />
       <ConfirmModal
         :open="confirmDelete !== null"
-        title="Excluir mensagem"
-        :message="`Tem certeza que deseja excluir permanentemente a mensagem de ${confirmDelete?.name ?? '...'}?`"
-        confirm-text="Sim, excluir"
-        cancel-text="Cancelar"
+        :title="t('admin.confirmDeleteTitle')"
+        :message="t('admin.confirmDeleteMsg').replace('{name}', confirmDelete?.name ?? '...')"
         :danger="true"
         :loading="deleting"
         @confirm="confirmRemove"
@@ -146,6 +144,14 @@ import { MESSAGE_TOPIC_LABELS } from "~/shared/messages";
 import SiteFooter from "../components/SiteFooter.vue";
 import SiteHeader from "../components/SiteHeader.vue";
 import ConfirmModal from "../components/ConfirmModal.vue";
+import { useScrollReveal } from "~/composables/useScrollReveal";
+
+const { t, locale } = useLocale();
+
+const listHeaderSection = ref<HTMLElement | null>(null);
+const listSection = ref<HTMLElement | null>(null);
+useScrollReveal(listHeaderSection);
+useScrollReveal(listSection, { delay: 0.1 });
 
 const authenticated = ref(false);
 const loginUser = ref("");
@@ -154,7 +160,6 @@ const loginLoading = ref(false);
 const loginError = ref("");
 const passwordInputRef = ref<HTMLInputElement | null>(null);
 
-// Token reativo – usado no cabeçalho de autenticação
 const basicToken = ref<string | null>(null);
 
 function getAuthHeaders(): Record<string, string> {
@@ -178,7 +183,13 @@ async function loadMessages() {
       headers: getAuthHeaders(),
     });
     messages.value = result.items;
-  } catch {
+  } catch (err: unknown) {
+    // Sessão expirada ou token inválido: volta para o login.
+    const statusCode = (err as { statusCode?: number }).statusCode;
+    if (statusCode === 401) {
+      logout();
+      return;
+    }
     error.value = true;
     messages.value = [];
   } finally {
@@ -186,12 +197,21 @@ async function loadMessages() {
   }
 }
 
-onMounted(() => {
+onMounted(async () => {
+  // Restaura a autenticação salva nesta sessão, se existir
+  let token: string | null = null;
   if (import.meta.client) {
-    sessionStorage.removeItem("nuxt_messages_auth");
+    token = sessionStorage.getItem("nuxt_messages_auth");
   }
-  authenticated.value = false;
-  nextTick(() => passwordInputRef.value?.focus());
+
+  if (token) {
+    basicToken.value = token;
+    authenticated.value = true;
+    await loadMessages();
+  } else {
+    authenticated.value = false;
+    nextTick(() => passwordInputRef.value?.focus());
+  }
 });
 
 async function handleLogin(): Promise<void> {
@@ -199,7 +219,6 @@ async function handleLogin(): Promise<void> {
   loginLoading.value = true;
 
   try {
-    // encodeURIComponent evita quebra de caracteres Unicode no btoa
     const rawCredentials = `${loginUser.value}:${loginPassword.value}`;
     const token = btoa(encodeURIComponent(rawCredentials).replace(/%([0-9A-F]{2})/g, (_, p1) => 
       String.fromCharCode(parseInt(p1, 16))
@@ -217,15 +236,13 @@ async function handleLogin(): Promise<void> {
 
     basicToken.value = token;
     authenticated.value = true;
-    // Carrega as mensagens agora com o token de autenticação
     await loadMessages();
   } catch (err: unknown) {
-    // Cast/Asserção de tipo correto do Erro do $fetch (ofetch)
-    const fetchError = err as FetchError;
+    const fetchError = err as { statusCode?: number };
     
     loginError.value = fetchError.statusCode === 401 
-      ? 'Usuário ou senha inválidos.' 
-      : 'Erro ao conectar com o servidor.';
+      ? t('admin.invalidAuth') 
+      : t('admin.serverError');
       
     loginPassword.value = '';
   } finally {
@@ -236,7 +253,6 @@ async function handleLogin(): Promise<void> {
 type TopicFilter = "all" | MessageTopic;
 const selectedTopic = ref<TopicFilter>("all");
 
-// Observa mudanças no filtro para recarregar mensagens (apenas se já autenticado)
 watch(selectedTopic, () => {
   if (authenticated.value) loadMessages();
 });
@@ -274,7 +290,7 @@ async function setRead(item: ContactMessage, read: boolean) {
 }
 
 function topicLabel(topic: MessageTopic) { return MESSAGE_TOPIC_LABELS[topic]; }
-function formatDate(value: string) { return new Date(value).toLocaleString("pt-BR", { dateStyle: "short", timeStyle: "short" }); }
+function formatDate(value: string) { return new Date(value).toLocaleString(locale.value === 'en' ? 'en-US' : 'pt-BR', { dateStyle: "short", timeStyle: "short" }); }
 
 useHead({
   title: "vvchagas - Mensagens",

@@ -35,9 +35,8 @@ export function useScrollReveal(
 
   let ctx: gsap.Context | undefined;
 
-  onMounted(() => {
-    const el = elRef.value;
-    if (!el || !$gsap) return;
+  function reveal(el: HTMLElement) {
+    if (!$gsap) return;
 
     // Acessibilidade: respeita preferências de movimento reduzido
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
@@ -64,7 +63,22 @@ export function useScrollReveal(
         },
       );
     }, el);
-  });
+  }
+
+  // watch (não só onMounted) porque o elemento pode só existir depois do
+  // mount inicial — ex: uma seção atrás de um v-if que muda de estado
+  // (login -> conteúdo). onMounted sozinho perderia esse caso.
+  watch(
+    elRef,
+    (el, oldEl) => {
+      if (oldEl) {
+        ctx?.revert();
+        ctx = undefined;
+      }
+      if (el) reveal(el);
+    },
+    { immediate: true, flush: "post" },
+  );
 
   onUnmounted(() => {
     ctx?.revert();

@@ -1,13 +1,14 @@
 <script setup lang="ts">
-import type { Project } from "~/shared/projects";
+import type { ResolvedProject } from "~/shared/projects";
 
 const props = defineProps<{
-  project: Project | null;
+  project: ResolvedProject | null;
   open: boolean;
 }>();
 
 const emit = defineEmits<{ (e: "close"): void }>();
 
+const { t } = useLocale();
 const { lock, unlock } = useScrollLock();
 const dialogRef = ref<HTMLElement | null>(null);
 
@@ -58,7 +59,7 @@ onUnmounted(() => {
           <button
             type="button"
             class="project-modal__close"
-            aria-label="Fechar"
+            :aria-label="t('common.close')"
             @click="close"
           >
             <span aria-hidden="true" class="material-symbols-outlined">close</span>
@@ -71,7 +72,7 @@ onUnmounted(() => {
               </p>
               <h2 class="mt-1 text-2xl font-black tracking-tight sm:text-3xl">{{ project.title }}</h2>
             </div>
-            <div class=" hidden shrink-0 sm:grid" aria-hidden="true">
+            <div class="hidden shrink-0 sm:grid" aria-hidden="true">
               <span class="material-symbols-outlined">{{ project.icon }}</span>
             </div>
           </div>
@@ -88,33 +89,35 @@ onUnmounted(() => {
           </ul>
 
           <div class="mt-6">
-            <p class="text-xs font-semibold uppercase tracking-[0.2em] text-muted">Tecnologias</p>
+            <p class="text-xs font-semibold uppercase tracking-[0.2em] text-muted">{{ t('portfolio.technologies') }}</p>
             <div class="mt-2 flex flex-wrap gap-2">
               <span v-for="tech in project.stack" :key="tech" class="stack-badge">{{ tech }}</span>
             </div>
           </div>
 
-          <div class="mt-7 grid gap-2 sm:grid-cols-2">
+          <div class="mt-7 grid gap-3 sm:grid-cols-2">
             <a
               v-if="project.githubUrl"
               :href="project.githubUrl"
               target="_blank"
               rel="noopener noreferrer"
-              class="project-action project-action--github"
+              class="project-action project-action--github rounded-full py-2.5 px-4 text-xs sm:text-sm font-bold flex items-center justify-center gap-2 transition"
             >
               <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
                 <path
                   d="M12 .5C5.73.5.5 5.73.5 12c0 5.09 3.29 9.4 7.86 10.93.58.1.79-.25.79-.56v-2.17c-3.2.7-3.88-1.36-3.88-1.36-.53-1.33-1.29-1.69-1.29-1.69-1.05-.72.08-.7.08-.7 1.17.08 1.78 1.2 1.78 1.2 1.03 1.78 2.71 1.26 3.37.97.1-.75.4-1.26.73-1.55-2.56-.29-5.26-1.28-5.26-5.7 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.47.11-3.06 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.24 2.77.12 3.06.74.8 1.18 1.83 1.18 3.09 0 4.43-2.7 5.4-5.28 5.69.42.36.78 1.07.78 2.16v3.2c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5Z"
                 />
               </svg>
-              Ver projeto no GitHub
+              <span>{{ t('portfolio.viewGithub') }}</span>
             </a>
+
             <NuxtLink
-:to="{ path: '/contato', query: { projeto: project.title } }"
-              class="project-action project-action--secondary"
+              :to="{ path: '/contato', query: { projeto: project.title } }"
+              class="project-action project-action--secondary rounded-full py-2.5 px-4 text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 border border-border/60 transition"
               @click="close"
             >
-              Eu quero um projeto semelhante <span class="material-symbols-outlined">chat</span>
+              <span>{{ t('portfolio.wantSimilar') }}</span>
+              <span class="material-symbols-outlined text-base">chat</span>
             </NuxtLink>
           </div>
         </div>
@@ -146,8 +149,14 @@ onUnmounted(() => {
   border: 1px solid rgb(var(--border) / 1);
   background: rgb(var(--card));
   color: rgb(var(--fg));
-  padding: 2rem;
+  padding: 1.5rem;
   box-shadow: 0 30px 70px -20px rgb(0 0 0 / 0.45);
+}
+
+@media (min-width: 640px) {
+  .project-modal {
+    padding: 2rem;
+  }
 }
 
 .project-modal__close {
@@ -187,10 +196,6 @@ onUnmounted(() => {
 .project-action--github {
   background: #171515;
   color: #fff;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
 }
 .project-action--github:hover {
   background: #2b2828;
@@ -223,12 +228,12 @@ onUnmounted(() => {
   }
 }
 
-::-webkit-scrollbar{
+::-webkit-scrollbar {
   background-color: rgb(var(--bg));
-  width: 10px;
+  width: 8px;
   border-radius: 999px;
 }
-::-webkit-scrollbar-thumb{
+::-webkit-scrollbar-thumb {
   background-color: rgb(var(--muted) / 0.3);
   border-radius: 999px;
 }

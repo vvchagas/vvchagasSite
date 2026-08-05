@@ -1,60 +1,57 @@
 <template>
-  <div id="smooth-wrapper">
-    <div id="smooth-content">
-      <NuxtPage />
-    </div>
+  <div class="app-root">
+    <NuxtPage />
   </div>
 </template>
 
 <script setup lang="ts">
-import { nextTick, onBeforeUnmount, onMounted, watch } from "vue";
+import { nextTick, watch } from "vue";
 import { useRoute } from "vue-router";
-import type { ScrollSmoother } from "gsap/ScrollSmoother";
 
 const route = useRoute();
-const { $ScrollSmoother, $ScrollTrigger } = useNuxtApp();
+const { $lenis, $ScrollTrigger } = useNuxtApp();
 
-let smoother: ScrollSmoother | null = null;
-
-function createSmoother() {
-  if (!$ScrollSmoother) return;
-
-  smoother?.kill();
-
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    smoother = null;
-    return;
-  }
-
-  smoother = $ScrollSmoother.create({
-    wrapper: "#smooth-wrapper",
-    content: "#smooth-content",
-    smooth: 1.2,
-    smoothTouch: 0.1,
-    effects: true, // Habilita data-speed e data-lag em qualquer elemento
-    normalizeScroll: true,
-  });
-}
-
-onMounted(() => {
-  createSmoother();
-});
-
-onBeforeUnmount(() => {
-  smoother?.kill();
-  smoother = null;
-});
-
-// Reavalia a altura da página e os gatilhos de scroll a cada troca de rota
+// Atualiza o scroll do Lenis e gatinhos do ScrollTrigger ao trocar de rota
 watch(
   () => route.fullPath,
   async () => {
     await nextTick();
-    // Mata o smoother anterior e recria para se adaptar ao novo conteúdo
-    smoother?.kill();
-    createSmoother();
-    // Força o ScrollTrigger a reavaliar todos os gatilhos
-    $ScrollTrigger?.refresh();
+    if ($lenis) {
+      $lenis.scrollTo(0, { immediate: true });
+    }
+    if ($ScrollTrigger) {
+      $ScrollTrigger.refresh();
+    }
   },
 );
 </script>
+
+<style>
+/* CSS global para garantir comportamentos suaves e prevenir estouros horizontais */
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+/* Evita que o Lenis interfira na rolagem suave nativa em modais ou overlays */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+</style>
