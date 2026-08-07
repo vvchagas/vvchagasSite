@@ -24,8 +24,7 @@ export default defineNuxtConfig({
     '@nuxt/a11y',
     '@nuxt/eslint',
     '@nuxt/ui',
-    '@nuxt/fonts',
-    '@prisma/nuxt'
+    '@nuxt/fonts'
   ],
 
   vite: {
@@ -50,10 +49,6 @@ export default defineNuxtConfig({
   // driver do Postgres (pg) precisa de socket TCP, que o Edge não suporta.
   nitro: {
     preset: 'vercel',
-    experimental: {
-      wasm: true
-    },
-    moduleSideEffects: ['@prisma/client']
   },
 
   typescript: {

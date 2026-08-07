@@ -268,6 +268,7 @@ export const dictionaries = {
     admin: {
       restrictedTitle: "Acesso restrito",
       restrictedDesc: "Digite a senha de administrador para acessar as mensagens.",
+      checkingSession: "Verificando sessão...",
       userLabel: "Usuário",
       passLabel: "Senha",
       loginBtn: "Entrar",
@@ -558,6 +559,7 @@ export const dictionaries = {
     admin: {
       restrictedTitle: "Restricted access",
       restrictedDesc: "Enter admin password to access messages.",
+      checkingSession: "Checking session...",
       userLabel: "Username",
       passLabel: "Password",
       loginBtn: "Log in",
