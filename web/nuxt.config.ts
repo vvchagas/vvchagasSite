@@ -49,6 +49,16 @@ export default defineNuxtConfig({
   // driver do Postgres (pg) precisa de socket TCP, que o Edge não suporta.
   nitro: {
     preset: 'vercel',
+    serverAssets: [
+      {
+        baseName: 'prisma',
+        dir: './generated/prisma'
+      }
+    ],
+    // Força o empacotamento do caminho do Prisma Client gerado
+    externals: {
+      inline: ['./generated/prisma']
+    }
   },
 
   typescript: {

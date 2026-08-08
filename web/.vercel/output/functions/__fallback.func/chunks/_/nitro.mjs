@@ -4411,7 +4411,7 @@ function _expandFromEnv(value) {
 const _inlineRuntimeConfig = {
   "app": {
     "baseURL": "/",
-    "buildId": "193855fd-0fcf-426c-83c5-928b9de39f23",
+    "buildId": "c0255da9-cf1e-41c5-a2ce-e0a1caa7749f",
     "buildAssetsDir": "/_nuxt/",
     "cdnURL": ""
   },
@@ -5012,7 +5012,7 @@ const config = {
   "clientVersion": "7.9.1",
   "engineVersion": "e922089b7d7502aff4249d5da3420f6fa55fc6ad",
   "activeProvider": "postgresql",
-  "inlineSchema": '// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Get a free hosted Postgres database in seconds: `npx create-db`\n\ngenerator client {\n  provider = "prisma-client"\n  output   = "../generated/prisma"\n}\n\ndatasource db {\n  provider = "postgresql"\n}\n\nmodel AdminUser {\n  id           String   @id @default(cuid())\n  username     String   @unique\n  passwordHash String\n  passwordSalt String\n  createdAt    DateTime @default(now())\n  updatedAt    DateTime @updatedAt\n}\n\n// Registro de toda tentativa de acesso a \xE1rea de mensagens \u2014 autorizada ou n\xE3o.\nmodel DeviceAccessLog {\n  id         String   @id @default(cuid())\n  ip         String\n  userAgent  String\n  username   String?\n  authorized Boolean\n  reason     String\n  createdAt  DateTime @default(now())\n\n  @@index([authorized])\n  @@index([ip])\n  @@index([createdAt])\n}\n',
+  "inlineSchema": '// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Get a free hosted Postgres database in seconds: `npx create-db`\n\ngenerator client {\n  provider      = "prisma-client"\n  output        = "../generated/prisma"\n  binaryTargets = ["native", "rhel-openssl-3.0.x"]\n}\n\ndatasource db {\n  provider = "postgresql"\n}\n\nmodel AdminUser {\n  id           String   @id @default(cuid())\n  username     String   @unique\n  passwordHash String\n  passwordSalt String\n  createdAt    DateTime @default(now())\n  updatedAt    DateTime @updatedAt\n}\n\n// Registro de toda tentativa de acesso a \xE1rea de mensagens \u2014 autorizada ou n\xE3o.\nmodel DeviceAccessLog {\n  id         String   @id @default(cuid())\n  ip         String\n  userAgent  String\n  username   String?\n  authorized Boolean\n  reason     String\n  createdAt  DateTime @default(now())\n\n  @@index([authorized])\n  @@index([ip])\n  @@index([createdAt])\n}\n',
   "runtimeDataModel": {
     "models": {},
     "enums": {},
