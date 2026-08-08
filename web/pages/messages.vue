@@ -63,7 +63,7 @@
 
     <!-- Main content (only after auth) -->
     <template v-if="authenticated">
-      <main id="conteudo" class="mx-auto w-full max-w-6xl px-4 py-12 md:px-6">
+      <main id="conteudo" class="mx-auto mt-10 w-full max-w-6xl px-4 py-12 md:px-6">
         <ScrollReveal as="section" class="rounded-3xl border border-border/70 bg-card/70 p-6 shadow-sm backdrop-blur md:p-8">
           <div class="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
             <div>

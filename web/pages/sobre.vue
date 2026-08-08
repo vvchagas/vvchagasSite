@@ -11,7 +11,7 @@
 
     <SiteHeader />
 
-    <main id="conteudo" class="mx-auto w-full max-w-6xl px-4 md:px-6">
+    <main id="conteudo" class="mx-auto mt-10 w-full max-w-6xl px-4 md:px-6">
       <section ref="heroSection" class="mx-auto w-full max-w-5xl py-8 sm:py-16">
         <div class="mb-8 max-w-4xl space-y-4">
           <p

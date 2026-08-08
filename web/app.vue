@@ -1,5 +1,5 @@
 <template>
-  <div class="app-root">
+  <div class="pt-header">
     <NuxtPage />
   </div>
 </template>

@@ -11,7 +11,7 @@
 
     <SiteHeader />
 
-    <main id="conteudo" class="mx-auto w-full max-w-6xl px-4 md:px-6">
+    <main id="conteudo" class="mx-auto mt-10 w-full max-w-6xl px-4 md:px-6">
       <section ref="heroSection" class="mx-auto flex w-full max-w-7xl flex-col gap-10 py-10 sm:py-16">
         <div class="max-w-3xl space-y-4">
           <p class="text-xs sm:text-sm font-semibold uppercase tracking-[0.3em] text-cyan-700 dark:text-cyan-400">

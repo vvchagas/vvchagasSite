@@ -1,25 +1,55 @@
-@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css');
 @import "tailwindcss";
 
-/* Material Icons (Google) */
-/* @import url('https://fonts.googleapis.com/icon?family=Material+Icons'); */
+/* ===== Variáveis de tema (claro/escuro) — globais =====
+   Antes essas variáveis eram redefinidas no <style> de cada página.
+   Movê-las para o CSS global garante que header, footer e modais
+   funcionem em qualquer rota sem depender da página. */
+:root,
+:root.light {
+  --bg: 255 255 255;
+  --fg: 15 23 42;
+  --muted: 71 85 105;
+  --card: 255 255 255;
+  --border: 226 232 240;
+}
 
-/* Font Awesome (fallback/extra) */
+:root.dark {
+  --bg: 12 12 12;
+  --fg: 226 232 240;
+  --muted: 148 163 184;
+  --card: 10 16 34;
+  --border: 30 41 59;
+}
 
-/* Placeholders dos formulários adaptados a claro/escuro (usa a var --muted já definida por página) */
+/* ===== Utilitários de superfície (usados em todo o site) ===== */
+.bg-background { background-color: rgb(var(--bg)); }
+.text-foreground { color: rgb(var(--fg)); }
+.text-muted { color: rgb(var(--muted)); }
+.bg-card { background-color: rgb(var(--card)); }
+.border-border { border-color: rgb(var(--border)); }
+.bg-muted { background-color: rgb(var(--muted) / 0.12); }
+
+.bg-header,
+.bg-footer {
+  background: rgb(var(--bg) / 0.75);
+}
+
+/* Placeholders dos formulários adaptados a claro/escuro */
 input::placeholder,
 textarea::placeholder {
   color: rgb(var(--muted) / 0.75);
   opacity: 1;
 }
 
-/* Aside mobile */
-@media (max-width: 767.98px){
-  header{ position: sticky; top: 0; }
+/* Header fixo em todas as telas (o conteúdo é compensado no app.vue) */
+header {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
 }
 
 /* Interações 3D: a mesma profundidade se adapta às variáveis de ambos os temas. */
-
 button.project-action {
   border: none;
   cursor: pointer;
@@ -32,13 +62,12 @@ button.project-action {
   .project-card, .project-card:hover, .project-action:hover, .project-card:hover .project-preview { transform: none; }
 }
 
-
-::-webkit-scrollbar{
+::-webkit-scrollbar {
   background-color: rgb(var(--bg));
   width: 10px;
   border-radius: 999px;
 }
-::-webkit-scrollbar-thumb{
+::-webkit-scrollbar-thumb {
   background-color: rgb(var(--muted) / 0.3);
   border-radius: 999px;
 }

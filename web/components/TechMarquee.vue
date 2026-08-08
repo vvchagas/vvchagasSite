@@ -262,7 +262,7 @@ onUnmounted(() => {
     flex-wrap: wrap;
     justify-content: center;
     width: 100%;
-    max-width: 40rem;
+    max-width: 50rem;
   }
 }
 

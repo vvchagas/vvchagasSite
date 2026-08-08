@@ -614,29 +614,29 @@ function getRouteRules(arg) {
 }
 const _routes = [
   {
-    name: "about",
-    path: "/about",
-    component: () => import('./about-DjAHcRtp.mjs')
-  },
-  {
     name: "contato",
     path: "/contato",
-    component: () => import('./contato-3Ew3DboZ.mjs')
+    component: () => import('./contato-BRiaC9Af.mjs')
   },
   {
     name: "messages",
     path: "/messages",
-    component: () => import('./messages-BirUYqT-.mjs')
+    component: () => import('./messages-1WaQ7SQV.mjs')
   },
   {
     name: "servicos",
     path: "/servicos",
-    component: () => import('./servicos-sRQNRjnr.mjs')
+    component: () => import('./servicos-DUTuPL3u.mjs')
+  },
+  {
+    name: "sobre",
+    path: "/sobre",
+    component: () => import('./sobre-D_kR3Bfi.mjs')
   },
   {
     name: "index",
     path: "/",
-    component: () => import('./index-Cx_AJHEP.mjs')
+    component: () => import('./index-C427Y1iH.mjs')
   }
 ];
 const ROUTE_KEY_PARENTHESES_RE = /(:\w+)\([^)]+\)/g;
@@ -1583,7 +1583,7 @@ const _sfc_main$2 = /* @__PURE__ */ defineComponent({
     );
     return (_ctx, _push, _parent, _attrs) => {
       const _component_NuxtPage = __nuxt_component_0;
-      _push(`<div${ssrRenderAttrs(mergeProps({ class: "app-root" }, _attrs))}>`);
+      _push(`<div${ssrRenderAttrs(mergeProps({ class: "pt-header" }, _attrs))}>`);
       _push(ssrRenderComponent(_component_NuxtPage, null, null, _parent));
       _push(`</div>`);
     };

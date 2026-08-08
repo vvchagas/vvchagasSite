@@ -67,11 +67,15 @@ function executeThemeToggle() {
   syncStateFromDom();
 }
 
+function closeMenu() {
+  isMenuOpen.value = false;
+}
+
 watch(isMenuOpen, (open) => {
   if (open) {
-    lock();
+    lock({ stopLenis: false });
   } else {
-    unlock();
+    unlock({ stopLenis: false });
   }
 });
 
@@ -83,7 +87,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <header class="sticky top-0 z-50 border-b border-border/60 bg-header/80 backdrop-blur">
+  <header class="fixed inset-x-0 top-0 z-50 border-b border-border/60 bg-header/80 backdrop-blur">
     <div class="mx-auto flex w-full max-w-6xl items-center justify-between gap-4 px-4 py-3 md:px-6">
       <div class="flex items-center gap-3">
         <button
@@ -105,7 +109,7 @@ onMounted(() => {
         <NuxtLink
           to="/"
           class="group inline-flex items-center gap-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          @click="isMenuOpen = false"
+          @click="closeMenu"
         >
           <span class="text-base font-black tracking-tight">VVCHAGAS</span>
         </NuxtLink>
@@ -140,59 +144,58 @@ onMounted(() => {
           id="talk-btn"
           to="/contato"
           class="hidden sm:inline-flex items-center justify-center rounded-full bg-blue-600 px-4 py-2 text-sm font-bold text-white shadow-sm transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          @click="closeMenu"
         >
           {{ t('nav.talk') }}
         </NuxtLink>
       </div>
     </div>
+  </header>
 
-    <!-- Backdrop do menu mobile -->
+  <!-- Backdrop + menu mobile teleportados para <body>: assim o position:fixed
+       é relativo à viewport (o backdrop-blur do header criaria um containing
+       block e quebraria o posicionamento). -->
+  <Teleport to="body">
     <Transition name="fade">
       <div
         v-if="isMenuOpen"
-        class="fixed inset-0 top-[61px] z-40 bg-black/50 backdrop-blur-xs md:hidden"
-        @click="isMenuOpen = false"
+        class="fixed inset-0 z-40 bg-black/50 md:hidden"
+        @click="closeMenu"
       />
     </Transition>
 
-    <!-- Menu mobile -->
-    <nav
-      id="menu-mobile"
-      aria-label="Menu mobile"
-      class="fixed left-0 bottom-0 top-[61px] w-72 max-w-[80vw] border-r border-border/60 bg-background/95 bg-background  transition-transform duration-300 ease-in-out md:hidden"
-      :class="isMenuOpen ? 'translate-x-0' : '-translate-x-full'"
-    >
-      <div class="flex flex-col gap-3 h-full overflow-y-auto px-5 py-6 bg-card text-foreground">
-        <NuxtLink class="nav-link block py-2.5 text-base border-b border-border/40" to="/" @click="isMenuOpen = false">{{ t('nav.home') }}</NuxtLink>
-        <NuxtLink class="nav-link block py-2.5 text-base border-b border-border/40" to="/sobre" @click="isMenuOpen = false">{{ t('nav.about') }}</NuxtLink>
-        <NuxtLink class="nav-link block py-2.5 text-base border-b border-border/40" to="/servicos" @click="isMenuOpen = false">{{ t('nav.services') }}</NuxtLink>
-        <NuxtLink class="nav-link block py-2.5 text-base border-b border-border/40" to="/contato" @click="isMenuOpen = false">{{ t('nav.contact') }}</NuxtLink>
-        
-        <div class="mt-4 pt-4 border-t border-border/60 flex flex-col gap-3">
-          <LanguageSwitcher class="w-full justify-start" />
+    <Transition name="slide">
+      <nav
+        v-if="isMenuOpen"
+        id="menu-mobile"
+        aria-label="Menu mobile"
+        class="fixed inset-y-0 mt-14 left-0 z-50 flex w-72 max-w-[80vw] flex-col border-r border-border/60 bg-background text-foreground shadow-2xl md:hidden"
+      >
+        <div class="flex flex-1 flex-col gap-3 overflow-y-auto px-5 py-6">
+          <NuxtLink class="nav-link block border-b border-border/40 py-2.5 text-base" to="/" @click="closeMenu">{{ t('nav.home') }}</NuxtLink>
+          <NuxtLink class="nav-link block border-b border-border/40 py-2.5 text-base" to="/sobre" @click="closeMenu">{{ t('nav.about') }}</NuxtLink>
+          <NuxtLink class="nav-link block border-b border-border/40 py-2.5 text-base" to="/servicos" @click="closeMenu">{{ t('nav.services') }}</NuxtLink>
+          <NuxtLink class="nav-link block border-b border-border/40 py-2.5 text-base" to="/contato" @click="closeMenu">{{ t('nav.contact') }}</NuxtLink>
+        </div>
+
+        <div class="mt-4 flex flex-col gap-3 border-t border-border/60 px-5 py-6">
           <NuxtLink
             to="/contato"
             class="mt-2 flex items-center justify-center rounded-full bg-blue-600 px-4 py-2.5 text-sm font-bold text-white shadow-sm transition hover:bg-blue-700"
-            @click="isMenuOpen = false"
+            @click="closeMenu"
           >
             {{ t('nav.talk') }}
           </NuxtLink>
         </div>
-      </div>
-    </nav>
-  </header>
+      </nav>
+    </Transition>
+  </Teleport>
 </template>
 
 <style scoped>
 #talk-btn:hover {
   transform: translateY(-2px);
   transition: transform 0.3s ease;
-}
-.bg-background {
-  background-color: rgb(var(--bg));
-}
-.text-foreground {
-  color: rgb(var(--fg));
 }
 
 .fade-enter-active,
@@ -202,5 +205,14 @@ onMounted(() => {
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
+}
+
+.slide-enter-active,
+.slide-leave-active {
+  transition: transform 0.3s ease;
+}
+.slide-enter-from,
+.slide-leave-to {
+  transform: translateX(-100%);
 }
 </style>

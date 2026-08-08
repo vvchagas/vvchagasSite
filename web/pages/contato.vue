@@ -18,7 +18,7 @@
       >
         <div class="mb-8 max-w-2xl space-y-4 sm:mb-10">
           <p
-            class="text-xs font-semibold uppercase tracking-[0.3em] text-blue-600 dark:text-blue-400 sm:text-sm"
+            class="text-xs font-semibold mt-10 uppercase tracking-[0.3em] text-blue-600 dark:text-blue-400 sm:text-sm"
           >
             {{ t('contact.sectionLabel') }}
           </p>
