@@ -11,7 +11,7 @@
 
     <SiteHeader />
 
-    <main id="conteudo" class="mx-auto mt-10 w-full max-w-6xl px-4 md:px-6">
+    <main id="conteudo" class="mx-auto w-full max-w-6xl px-4 md:px-6">
       <!-- ===== HERO ===== -->
       <section id="inicio" class="relative overflow-hidden pt-8 md:pt-14">
         <div class="absolute inset-0 -z-10">
@@ -28,11 +28,6 @@
 
         <div class="grid items-center gap-10 md:grid-cols-2">
           <div>
-            
-            <h1 class="mt-5 text-3xl font-black tracking-tight sm:text-4xl mb-5 lg:text-5xl">
-              Victor <span class="text-blue-600">Chagas</span>
-            </h1>
-            
             <p
               class="inline-flex items-center gap-2 rounded-full border border-border/60 bg-card/60 px-3 py-1.5 text-xs font-semibold text-foreground/90 backdrop-blur"
             >
@@ -42,7 +37,11 @@
               />
               <span class="leading-tight">{{ t('hero.badge') }}</span>
             </p>
-            
+
+            <h1 class="mt-5 text-3xl font-black tracking-tight sm:text-4xl lg:text-5xl">
+              Victor <span class="text-blue-600">Chagas</span>
+            </h1>
+
             <p class="mt-4 max-w-prose text-base text-muted sm:text-lg leading-relaxed">
               {{ t('hero.description') }}
             </p>

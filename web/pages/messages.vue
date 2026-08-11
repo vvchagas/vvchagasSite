@@ -63,9 +63,9 @@
 
     <!-- Main content (only after auth) -->
     <template v-if="authenticated">
-      <main id="conteudo" class="mx-auto mt-10 w-full max-w-6xl px-4 py-12 md:px-6">
-        <ScrollReveal as="section" class="rounded-3xl border border-border/70 bg-card/70 p-6 shadow-sm backdrop-blur md:p-8">
-          <div class="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+      <main id="conteudo" class=" mt-10 mx-auto w-full max-w-6xl px-4 py-12 md:px-6">
+        <ScrollReveal as="section" class="rounded-3xl p-6 shadow-sm backdrop-blur md:p-8">
+          <div class="flex flex-col gap-5 md:flex-row mt-10 md:items-end md:justify-between">
             <div>
               <p class="text-xs font-semibold uppercase tracking-[0.3em] text-blue-600 dark:text-blue-400">Mensagens</p>
               <h1 class="mt-2 text-3xl font-black tracking-tight sm:text-4xl">Caixa de mensagens do site</h1>
@@ -107,8 +107,8 @@
                   <span class="rounded-full bg-blue-600/10 px-3 py-1 text-xs font-bold text-blue-700 dark:text-blue-300">{{ topicLabel(item.topic) }}</span>
                   <span class="rounded-full bg-muted px-3 py-1 text-xs font-semibold text-foreground/90">Origem: {{ item.source }}</span>
                   <span class="rounded-full bg-muted px-3 py-1 text-xs font-semibold text-foreground/90">{{ formatDate(item.createdAt) }}</span>
-                  <span v-if="item.readAt" class="rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-semibold text-emerald-700 dark:text-emerald-300">Lida</span>
-                  <span v-else class="rounded-full bg-amber-500/10 px-3 py-1 text-xs font-semibold text-amber-700 dark:text-amber-300">Não lida</span>
+                  <span v-if="item.readAt" class="rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-semibold text-emerald-700 dark:text-green-600">Lida</span>
+                  <span v-else class="rounded-full bg-amber-500/10 px-3 py-1 text-xs font-semibold text-amber-700 dark:text-red-600">Não lida</span>
                 </div>
               </div>
               <p class="mt-4 whitespace-pre-line text-sm leading-7 text-muted">{{ item.message }}</p>

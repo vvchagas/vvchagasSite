@@ -616,27 +616,27 @@ const _routes = [
   {
     name: "contato",
     path: "/contato",
-    component: () => import('./contato-BRiaC9Af.mjs')
+    component: () => import('./contato-BV0bZKLj.mjs')
   },
   {
     name: "messages",
     path: "/messages",
-    component: () => import('./messages-1WaQ7SQV.mjs')
+    component: () => import('./messages-DX8VgO7h.mjs')
   },
   {
     name: "servicos",
     path: "/servicos",
-    component: () => import('./servicos-DUTuPL3u.mjs')
+    component: () => import('./servicos-BQVdaK3b.mjs')
   },
   {
     name: "sobre",
     path: "/sobre",
-    component: () => import('./sobre-D_kR3Bfi.mjs')
+    component: () => import('./sobre-Mzy_jqx8.mjs')
   },
   {
     name: "index",
     path: "/",
-    component: () => import('./index-C427Y1iH.mjs')
+    component: () => import('./index-D2jNdOkU.mjs')
   }
 ];
 const ROUTE_KEY_PARENTHESES_RE = /(:\w+)\([^)]+\)/g;

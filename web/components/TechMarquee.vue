@@ -263,6 +263,7 @@ onUnmounted(() => {
     justify-content: center;
     width: 100%;
     max-width: 50rem;
+    margin-top: 1.8em
   }
 }
 

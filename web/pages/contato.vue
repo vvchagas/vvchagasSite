@@ -11,14 +11,14 @@
 
     <SiteHeader />
 
-    <main id="conteudo" class="mx-auto w-full max-w-6xl px-4 md:px-6">
+    <main id="conteudo" class=" mt-10 mx-auto w-full max-w-6xl px-4 md:px-6">
       <section
         ref="heroSection"
         class="mx-auto w-full max-w-4xl py-10 sm:py-16"
       >
         <div class="mb-8 max-w-2xl space-y-4 sm:mb-10">
           <p
-            class="text-xs font-semibold mt-10 uppercase tracking-[0.3em] text-blue-600 dark:text-blue-400 sm:text-sm"
+            class="text-xs font-semibold uppercase tracking-[0.3em] text-blue-600 dark:text-blue-400 sm:text-sm"
           >
             {{ t('contact.sectionLabel') }}
           </p>
