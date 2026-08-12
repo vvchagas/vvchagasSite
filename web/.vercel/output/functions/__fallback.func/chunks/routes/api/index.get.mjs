@@ -7,7 +7,6 @@ import 'node:buffer';
 import 'node:path';
 import 'node:url';
 import 'node:crypto';
-import '@prisma/client-runtime-utils';
 import 'node:fs';
 import 'node:async_hooks';
 import 'node:os';

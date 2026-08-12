@@ -6,12 +6,10 @@ export default defineNuxtConfig({
 
   css: ['@/assets/css/main.css'],
 
-  // Força o Nuxt a usar a estrutura padrão na raiz em vez da pasta /app
   future: {
     compatibilityVersion: 4
   },
 
-  // Mantém os caminhos explícitos na raiz do projeto
   srcDir: '.',
 
   app: {
@@ -49,6 +47,9 @@ export default defineNuxtConfig({
   // driver do Postgres (pg) precisa de socket TCP, que o Edge não suporta.
   nitro: {
     preset: 'vercel',
+    externals: {
+      inline: ['@prisma/client-runtime-utils'],
+    },
   },
 
   typescript: {
