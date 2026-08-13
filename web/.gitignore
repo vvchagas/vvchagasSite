@@ -8,22 +8,36 @@ dist
 .vercel
 
 # Node dependencies
-node_modules
+node_modules/
+
+# Prisma Generated Client (Trata tanto a raiz quanto subpastas)
+**/generated/prisma
+**/generated/prisma/**
+generated/
+
+# AI Tooling & Editors (VS Code, Windsurf, Claude)
+.agents/
+.claude/
+.windsurf/
+.vscode/
+.DS_Store
+.fleet
+.idea
 
 # Logs
 logs
 *.log
 
-# Misc
-.DS_Store
-.fleet
-.idea
-
-# Local env files
+# Environment Files (Proteção de Chaves de API e Segredos)
 .env
 .env.*
 !.env.example
 
-/generated/prisma
-
+# Outros
 /public/robot.txt
+
+API_MESSAGES.md
+
+User-agent: *
+Disallow: /api/
+Disallow: /messages
