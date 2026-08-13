@@ -1,5 +1,6 @@
 import { createError, getRouterParam, readBody } from "h3";
-import type { ContactMessage } from "@@/shared/messages";
+import { Prisma } from "../../../generated/prisma/client";
+import { prisma } from "../../utils/prisma";
 
 export default defineEventHandler(async (event) => {
   const id = getRouterParam(event, "id");
@@ -8,17 +9,24 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 400, statusMessage: "Informe o status de leitura da mensagem." });
   }
 
-  const storage = useStorage("data");
-  const messages = (await storage.getItem<ContactMessage[]>("messages")) ?? [];
-  const index = messages.findIndex((message) => message.id === id);
-  if (index === -1) throw createError({ statusCode: 404, statusMessage: "Mensagem não encontrada." });
+  try {
+    const updated = await prisma.contactMessage.update({
+      where: { id },
+      data: { readAt: body.read ? new Date() : null },
+    });
 
-  const target = messages[index]!;
-  const updated: ContactMessage = {
-    ...target,
-    readAt: body.read ? new Date().toISOString() : null,
-  };
-  messages[index] = updated;
-  await storage.setItem("messages", messages);
-  return { ok: true, item: updated };
+    return {
+      ok: true,
+      item: {
+        ...updated,
+        createdAt: updated.createdAt.toISOString(),
+        readAt: updated.readAt ? updated.readAt.toISOString() : null,
+      },
+    };
+  } catch (err) {
+    if (err instanceof Prisma.PrismaClientKnownRequestError && err.code === "P2025") {
+      throw createError({ statusCode: 404, statusMessage: "Mensagem não encontrada." });
+    }
+    throw err;
+  }
 });

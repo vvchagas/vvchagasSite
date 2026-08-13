@@ -1,6 +1,6 @@
 import { createError, getQuery } from "h3";
-import type { ContactMessage } from "@@/shared/messages";
 import { isMessageTopic } from "@@/shared/messages";
+import { prisma } from "../../utils/prisma";
 
 function positiveInteger(value: unknown, fallback: number, maximum: number) {
   if (typeof value !== "string") return fallback;
@@ -16,10 +16,25 @@ export default defineEventHandler(async (event) => {
 
   const limit = positiveInteger(query.limit, 50, 100);
   const offset = positiveInteger(query.offset, 1, Number.MAX_SAFE_INTEGER) - 1;
-  const storage = useStorage("data");
-  const existing = (await storage.getItem<ContactMessage[]>("messages")) ?? [];
-  const normalized = existing.map((item) => ({ ...item, readAt: item.readAt ?? null }));
-  const filtered = typeof query.topic === "undefined" ? normalized : normalized.filter((item) => item.topic === query.topic);
+  const topic = typeof query.topic === "undefined" ? undefined : query.topic;
 
-  return { items: filtered.slice(offset, offset + limit), meta: { total: filtered.length, limit, offset } };
+  const where = topic ? { topic } : {};
+
+  const [rows, total] = await Promise.all([
+    prisma.contactMessage.findMany({
+      where,
+      orderBy: { createdAt: "desc" },
+      skip: offset,
+      take: limit,
+    }),
+    prisma.contactMessage.count({ where }),
+  ]);
+
+  const items = rows.map((row) => ({
+    ...row,
+    createdAt: row.createdAt.toISOString(),
+    readAt: row.readAt ? row.readAt.toISOString() : null,
+  }));
+
+  return { items, meta: { total, limit, offset } };
 });

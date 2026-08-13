@@ -35,3 +35,17 @@ model DeviceAccessLog {
   @@index([ip])
   @@index([createdAt])
 }
+
+model ContactMessage {
+  id        String   @id @default(cuid())
+  name      String
+  contact   String
+  topic     String
+  source    String
+  message   String
+  createdAt DateTime @default(now())
+  readAt    DateTime?
+
+  @@index([topic])
+  @@index([createdAt])
+}

@@ -1,6 +1,7 @@
 import { createError, getRequestIP, readBody } from "h3";
-import type { ContactMessage } from "@@/shared/messages.js";
 import { isMessageTopic } from "@@/shared/messages";
+import { prisma } from "../../utils/prisma";
+
 interface IncomingMessageBody {
   name?: unknown;
   contact?: unknown;
@@ -16,7 +17,9 @@ const MAX_LENGTH = {
   message: 3_000,
 } as const;
 
-// Armazena o IP e a data da última requisição
+// Rate limit em memória por instância. Em serverless não é garantia
+// entre invocações diferentes, mas ainda barra spam de curtíssimo prazo
+// dentro da mesma instância "quente".
 const recentSubmissions = new Map<string, number>();
 const RATE_LIMIT_MS = 15_000;
 
@@ -26,14 +29,6 @@ function toText(value: unknown, field: keyof typeof MAX_LENGTH): string | null {
   return text.length > 0 && text.length <= MAX_LENGTH[field] ? text : null;
 }
 
-function createId(): string {
-  if (typeof crypto !== "undefined" && typeof crypto.randomUUID === "function") {
-    return crypto.randomUUID();
-  }
-  return `${Date.now()}-${Math.random().toString(16).slice(2)}`;
-}
-
-// Limpeza periódica do Map para evitar vazamento de memória (Memory Leak)
 function cleanupRateLimit(): void {
   const now = Date.now();
   for (const [ip, timestamp] of recentSubmissions.entries()) {
@@ -67,25 +62,19 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  const storage = useStorage("data");
-  const existing = (await storage.getItem<ContactMessage[]>("messages")) ?? [];
+  const created = await prisma.contactMessage.create({
+    data: { name, contact, topic: body.topic, source, message },
+  });
 
-  const newMessage: ContactMessage = {
-    id: createId(),
-    name,
-    contact,
-    topic: body.topic,
-    source,
-    message,
-    createdAt: new Date().toISOString(),
-    readAt: null,
-  };
-
-  await storage.setItem("messages", [newMessage, ...existing]);
-  
-  // Atualiza a trava e executa a limpeza dos IPs antigos
   recentSubmissions.set(ip, Date.now());
   cleanupRateLimit();
 
-  return { ok: true, item: newMessage };
+  return {
+    ok: true,
+    item: {
+      ...created,
+      createdAt: created.createdAt.toISOString(),
+      readAt: created.readAt ? created.readAt.toISOString() : null,
+    },
+  };
 });
