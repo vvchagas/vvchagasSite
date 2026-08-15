@@ -108,7 +108,7 @@
           <div class="mt-7 flex items-center justify-center rounded-full border border-blue-500/40 px-5 py-3 text-sm font-extrabold text-blue-700 transition hover:-translate-y-1 hover:bg-blue-500/10 dark:text-blue-300 text-center">{{ t('about.processCallout') }}</div>
         </section>
 
-        <ProjectShowcase/>
+        <ProjectShowcase :slugs="['sige-sistema-de-emergencias', 'data-secreta', 'nuvemshop-erp']" />
 
         <div ref="ctaFinal" class="mt-8 rounded-[2rem] border border-border/60 bg-card/60 p-6 shadow-sm backdrop-blur">
           <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">

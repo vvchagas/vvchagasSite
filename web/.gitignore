@@ -30,8 +30,7 @@ logs
 
 # Environment Files (Proteção de Chaves de API e Segredos)
 .env
-.env.*
-!.env.example
+.env.local
 
 # Outros
 /public/robot.txt

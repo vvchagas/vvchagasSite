@@ -21,6 +21,8 @@
     "@nuxt/eslint": "^1.16.0",
     "@nuxt/ui": "^4.9.0",
     "@prisma/adapter-pg": "^7.9.1",
+    "@prisma/client": "^7.9.1",
+    "@prisma/client-runtime-utils": "^7.9.1",
     "@tiptap/core": "^3.27.3",
     "@tiptap/extension-bubble-menu": "^3.27.3",
     "@tiptap/extension-code": "^3.27.3",
@@ -49,8 +51,6 @@
     "vue-router": "^5.1.0"
   },
   "devDependencies": {
-    "@prisma/client": "^7.9.1",
-    "@prisma/client-runtime-utils": "^7.9.1",
     "@tailwindcss/postcss": "^4.3.2",
     "@tailwindcss/vite": "^4.3.3",
     "@types/node": "^26.1.2",
