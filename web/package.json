@@ -3,12 +3,12 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "build": "prisma generate && nuxt build",
+    "build": "nuxt prepare && prisma generate && nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "prisma generate",
-    "vercel-build": "prisma generate && nuxt build",
+    "postinstall": "nuxt prepare && prisma generate",
+    "vercel-build": "nuxt prepare && prisma generate && nuxt build",
     "db:seed": "tsx prisma/seed.ts"
   },
   "dependencies": {
@@ -23,6 +23,7 @@
     "@prisma/adapter-pg": "^7.9.1",
     "@prisma/client": "^7.9.1",
     "@prisma/client-runtime-utils": "^7.9.1",
+    "@supabase/supabase-js": "^2.112.3",
     "@tiptap/core": "^3.27.3",
     "@tiptap/extension-bubble-menu": "^3.27.3",
     "@tiptap/extension-code": "^3.27.3",

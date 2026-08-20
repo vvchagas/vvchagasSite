@@ -24,7 +24,7 @@ export default defineNuxtConfig({
     '@nuxt/a11y',
     '@nuxt/eslint',
     '@nuxt/ui',
-    '@nuxt/fonts'
+    '@nuxt/fonts',
   ],
 
   vite: {
@@ -34,7 +34,8 @@ export default defineNuxtConfig({
         '@vue/devtools-kit',
         'gsap',
         'gsap/ScrollSmoother',
-        'gsap/ScrollTrigger'
+        'gsap/ScrollTrigger',
+        'lenis'
       ]
     },
     esbuild: {
