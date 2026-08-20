@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-background text-foreground">
+  <div class="site-page min-h-screen bg-background text-foreground">
     <NuxtRouteAnnouncer />
     <SiteHeader />
 
@@ -147,6 +147,8 @@ import { MESSAGE_TOPIC_LABELS } from "~/shared/messages";
 import SiteFooter from "../components/SiteFooter.vue";
 import SiteHeader from "../components/SiteHeader.vue";
 import ConfirmModal from "../components/ConfirmModal.vue";
+
+definePageMeta({ middleware: "messages-access" });
 
 const authenticated = ref(false);
 const loginUser = ref("");

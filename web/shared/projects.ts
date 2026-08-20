@@ -130,34 +130,34 @@ export const rawProjects: Project[] = [
     stack: ["C#", "ASP.NET Core"],
     githubUrl: "https://github.com/vvchagas/DataSecreta",
   },
-  {
-    slug: "nuvemshop-erp",
-    title: {
-      pt: "NuvemShop ERP",
-      en: "NuvemShop ERP",
-    },
-    description: {
-      pt: "Loja com integração ERP com a NuvemShop",
-      en: "Store integrated with NuvemShop ERP system",
-    },
-    longDescription: {
-      pt: "O projeto NuvemShop ERP é uma loja online desenvolvida com integração a um sistema ERP, utilizando a plataforma NuvemShop. O objetivo do projeto é fornecer uma solução completa para gerenciamento de vendas, estoque e processos logísticos, permitindo que os usuários tenham uma experiência de compra eficiente e organizada. Desenvolvido com Vue 3, Prisma, PostgreSQL, Tailwind CSS e TypeScript.",
-      en: "The NuvemShop ERP project is an online store integrated with an ERP system using the NuvemShop platform. It provides a complete solution for sales, inventory, and logistics management, ensuring an efficient shopping experience. Built with Vue 3, Prisma, PostgreSQL, Tailwind CSS, and TypeScript.",
-    },
-    tag: {
-      pt: "SITE",
-      en: "SITE",
-    },
-    icon: "shopping_cart",
-    image: "/erp.webp",
-    highlights: [
-      { pt: "UX clara", en: "Clear UX" },
-      { pt: "API", en: "API" },
-      { pt: "Fluxo de envio direto", en: "Direct shipping workflow" },
-    ],
-    stack: ["Vue 3", "Prisma", "PostgreSQL", "Tailwind CSS", "TypeScript"],
-    githubUrl: "https://github.com/vvchagas/ERP-project",
-  },
+  // {
+  //   slug: "nuvemshop-erp",
+  //   title: {
+  //     pt: "NuvemShop ERP",
+  //     en: "NuvemShop ERP",
+  //   },
+  //   description: {
+  //     pt: "Loja com integração ERP com a NuvemShop",
+  //     en: "Store integrated with NuvemShop ERP system",
+  //   },
+  //   longDescription: {
+  //     pt: "O projeto NuvemShop ERP é uma loja online desenvolvida com integração a um sistema ERP, utilizando a plataforma NuvemShop. O objetivo do projeto é fornecer uma solução completa para gerenciamento de vendas, estoque e processos logísticos, permitindo que os usuários tenham uma experiência de compra eficiente e organizada. Desenvolvido com Vue 3, Prisma, PostgreSQL, Tailwind CSS e TypeScript.",
+  //     en: "The NuvemShop ERP project is an online store integrated with an ERP system using the NuvemShop platform. It provides a complete solution for sales, inventory, and logistics management, ensuring an efficient shopping experience. Built with Vue 3, Prisma, PostgreSQL, Tailwind CSS, and TypeScript.",
+  //   },
+  //   tag: {
+  //     pt: "SITE",
+  //     en: "SITE",
+  //   },
+  //   icon: "shopping_cart",
+  //   image: "/erp.webp",
+  //   highlights: [
+  //     { pt: "UX clara", en: "Clear UX" },
+  //     { pt: "API", en: "API" },
+  //     { pt: "Fluxo de envio direto", en: "Direct shipping workflow" },
+  //   ],
+  //   stack: ["Vue 3", "Prisma", "PostgreSQL", "Tailwind CSS", "TypeScript"],
+  //   githubUrl: "https://github.com/vvchagas/ERP-project",
+  // },
 ];
 
 export interface ResolvedProject {

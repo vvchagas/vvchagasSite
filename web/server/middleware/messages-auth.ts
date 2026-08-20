@@ -40,7 +40,11 @@ export default defineEventHandler(async (event) => {
   const isMessagesApi = url.startsWith("/api/messages");
   const isPublicSubmit = isMessagesApi && method === "POST";
 
-  // A página é pública (proteção é feita no cliente com modal de senha).
+  if ((url === "/messages" || url.startsWith("/messages?")) && !import.meta.dev) {
+    throw createError({ statusCode: 404, statusMessage: "Página não encontrada" });
+  }
+
+  // A página fica disponível apenas em desenvolvimento local.
   // Apenas a API de leitura/edição/exclusão exige autenticação Basic.
   // O envio do formulário (POST) continua público.
   const needsAuth = isMessagesApi && !isPublicSubmit;
