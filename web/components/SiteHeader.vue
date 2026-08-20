@@ -87,12 +87,12 @@ onMounted(() => {
 </script>
 
 <template>
-  <header class="fixed inset-x-0 top-0 z-50 border-b border-border/60 bg-header/80 backdrop-blur">
+  <header class="site-header fixed inset-x-0 top-0 z-50 border-b border-border/60 bg-header/80 backdrop-blur">
     <div class="mx-auto flex w-full max-w-6xl items-center justify-between gap-4 px-4 py-3 md:px-6">
       <div class="flex items-center gap-3">
         <button
           type="button"
-          class="inline-flex items-center justify-center rounded-full border border-border/70 bg-card/60 p-2 text-sm font-semibold shadow-sm backdrop-blur transition hover:border-blue-500/60 focus:outline-none focus:ring-2 focus:ring-blue-500 md:hidden"
+          class="inline-flex items-center justify-center rounded-xl border border-border/70 bg-card/60 p-2 text-sm font-semibold shadow-sm backdrop-blur transition hover:border-blue-500/60 focus:outline-none focus:ring-2 focus:ring-blue-500 md:hidden"
           :aria-expanded="isMenuOpen"
           aria-controls="menu-mobile"
           :aria-label="isMenuOpen ? t('nav.closeMenu') : t('nav.openMenu')"
@@ -111,7 +111,7 @@ onMounted(() => {
           class="group inline-flex items-center gap-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           @click="closeMenu"
         >
-          <span class="text-base font-black tracking-tight">VVCHAGAS</span>
+          <span class="site-logo text-base font-black tracking-tight">VVCHAGAS<span>.</span></span>
         </NuxtLink>
       </div>
 
@@ -214,6 +214,15 @@ onMounted(() => {
 .text-foreground {
   color: rgb(var(--fg));
 }
+
+.site-header {
+  border-color: rgb(var(--border) / .7);
+  background: rgb(var(--bg) / .74);
+  box-shadow: 0 8px 30px rgb(15 23 42 / .04);
+}
+
+.site-logo { letter-spacing: .08em; }
+.site-logo span { color: #1464f4; }
 
 #talk-btn:hover {
   transform: translateY(-2px);

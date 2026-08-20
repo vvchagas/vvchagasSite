@@ -11,6 +11,8 @@ const props = withDefaults(
     compact?: boolean;
     /** Número de colunas do grid (padrão: 3). */
     columns?: number;
+    /** Layout da lista de projetos. */
+    layout?: "grid" | "centered";
     /** Oculta o bloco de título/descrição (usado quando o título é renderizado fora). */
     hideHeading?: boolean;
     /** Lista de slugs para exibir. Se vazio, exibe todos os projetos. */
@@ -22,6 +24,7 @@ const props = withDefaults(
     description: "",
     compact: false,
     columns: 3,
+    layout: "grid",
     hideHeading: false,
     slugs: () => [],
   },
@@ -45,6 +48,9 @@ const gridClasses: Record<number, string> = {
 };
 
 const gridClass = computed(() => gridClasses[props.columns] ?? "md:grid-cols-3");
+const listClass = computed(() =>
+  props.layout === "centered" ? "project-showcase__list--centered" : "grid gap-6",
+);
 
 const activeSlug = ref<string | null>(null);
 const activeProject = computed<ResolvedProject | null>(
@@ -133,7 +139,7 @@ onUnmounted(() => {
       </p>
     </div>
 
-    <div class="grid gap-6" :class="gridClass">
+    <div :class="[listClass, props.layout === 'grid' ? gridClass : '']">
       <article
         v-for="project in translatedProjects"
         :id="project.slug"
@@ -223,6 +229,24 @@ onUnmounted(() => {
 </template>
 
 <style scoped>
+.project-showcase__list--centered {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.project-showcase__list--centered > article {
+  width: 100%;
+  max-width: 32rem;
+}
+
+@media (min-width: 768px) {
+  .project-showcase__list--centered > article {
+    flex: 1 1 20rem;
+  }
+}
+
 .projectslug:hover {
   background-color: rgba(59, 130, 246, 0.1);
   border-color: rgba(59, 130, 246, 0.5);  

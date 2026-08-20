@@ -263,7 +263,7 @@ onUnmounted(() => {
     justify-content: center;
     width: 100%;
     max-width: 50rem;
-    margin-top: 1.8em
+    margin-top: 2em;
   }
 }
 
@@ -324,17 +324,24 @@ onUnmounted(() => {
   font-size: 0.7rem;
   font-weight: 700;
   padding: 0.3rem 0.6rem;
-  opacity: 0;
+  display: none;
   pointer-events: none;
   transition: opacity 0.2s ease, transform 0.2s ease;
   z-index: 10;
 }
 
-.tech-chip:hover .tech-chip__label,
-.tech-chip:focus-visible .tech-chip__label,
-.tech-chip--active .tech-chip__label {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
+@media (min-width: 800px) {
+  .tech-chip__label {
+    display: block;
+    opacity: 0;
+  }
+
+  .tech-chip:hover .tech-chip__label,
+  .tech-chip:focus-visible .tech-chip__label,
+  .tech-chip--active .tech-chip__label {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
