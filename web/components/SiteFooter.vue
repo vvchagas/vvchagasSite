@@ -3,7 +3,7 @@ const { t } = useLocale();
 </script>
 
 <template>
-  <footer class="border-t border-border/60 bg-footer/60">
+  <footer class="site-footer border-t border-border/60 bg-footer/60">
     <div class="mx-auto flex w-full max-w-6xl flex-col gap-3 px-4 py-8 md:flex-row md:items-center md:justify-between md:px-6">
       <div>
         <p class="font-extrabold">VVCHAGAS</p>
@@ -11,9 +11,10 @@ const { t } = useLocale();
       </div>
 
       <div class="flex flex-wrap gap-3 text-sm">
-        <NuxtLink class="footer-link hover:-translate-y-0.5" to="/">{{ t('footer.home') }}</NuxtLink>
-<NuxtLink class="footer-link hover:-translate-y-0.5" to="/servicos">{{ t('footer.services') }}</NuxtLink>
-        <NuxtLink class="footer-link hover:-translate-y-0.5" to="/contato">{{ t('footer.contact') }}</NuxtLink>
+        <NuxtLink class="footer-link hover:-translate-y-0.5 duration-500" to="/">{{ t('footer.home') }}</NuxtLink>
+        <NuxtLink class="footer-link hover:-translate-y-0.5 duration-500" to="/servicos">{{ t('footer.services') }}</NuxtLink>
+        <NuxtLink class="footer-link hover:-translate-y-0.5 duration-500" to="/sobre">{{ t('footer.about') }}</NuxtLink>
+        <NuxtLink class="footer-link hover:-translate-y-0.5 duration-500" to="/contato">{{ t('footer.contact') }}</NuxtLink>
       </div>
 
       <div class="gap-6 flex flex-wrap items-center">
@@ -60,3 +61,12 @@ const { t } = useLocale();
     </div>
   </footer>
 </template>
+
+<style scoped>
+.site-footer {
+  margin-top: 5rem;
+  border-color: rgb(var(--border) / .7);
+  background: rgb(var(--bg) / .62);
+  backdrop-filter: blur(18px);
+}
+</style>

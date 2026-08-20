@@ -27,6 +27,7 @@ export const dictionaries = {
     footer: {
       home: "Início",
       services: "Serviços",
+      about: "Sobre",
       contact: "Contato",
       tagline: "Web • TI • Manutenção de notebooks",
       rights: "Todos os direitos reservados.",
@@ -318,6 +319,7 @@ export const dictionaries = {
     footer: {
       home: "Home",
       services: "Services",
+      about: "About",
       contact: "Contact",
       tagline: "Web • IT • Laptop maintenance",
       rights: "All rights reserved.",
