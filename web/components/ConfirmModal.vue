@@ -241,7 +241,7 @@ onUnmounted(() => {
 
 .confirm-modal-enter-active,
 .confirm-modal-leave-active {
-  transition: opacity 0.2s ease;
+  transition: opacity 0.5s ease;
 }
 .confirm-modal-enter-from,
 .confirm-modal-leave-to {
@@ -262,7 +262,7 @@ onUnmounted(() => {
   .confirm-modal-leave-active,
   .confirm-modal-enter-active .confirm-modal,
   .confirm-modal-leave-active .confirm-modal {
-    transition: none;
+    transition: 0.5s ease-in-out;
   }
 }
 </style>

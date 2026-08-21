@@ -87,9 +87,9 @@
         </ScrollReveal>
 
         <ScrollReveal as="section" class="mt-8">
-          <p v-if="pending" class="rounded-2xl border border-border/70 bg-card/60 px-4 py-3 text-sm text-muted">Carregando mensagens...</p>
-          <p v-else-if="error" class="rounded-2xl border border-red-500/40 bg-red-500/10 px-4 py-3 text-sm text-red-700 dark:text-red-300">Não foi possível carregar as mensagens agora.</p>
-          <p v-else-if="!messages.length" class="rounded-2xl border border-border/70 bg-card/60 px-4 py-3 text-sm text-muted">Ainda não há mensagens para o filtro selecionado.</p>
+          <p v-if="pending" class="rounded-2xl border border-border/70 bg-card/60 mt-10 px-4 py-3 text-sm text-muted">Carregando mensagens...</p>
+          <p v-else-if="error" class="rounded-2xl border border-red-500/40 mt-10 bg-red-500/10 px-4 py-3 text-sm text-red-700 dark:text-red-300">Não foi possível carregar as mensagens agora.</p>
+          <p v-else-if="!messages.length" class="rounded-2xl mt-10 border border-border/70 bg-card/60 px-4 py-3 text-sm text-muted">Ainda não há mensagens para o filtro selecionado.</p>
 
           <div v-else class="grid gap-4">
             <article
