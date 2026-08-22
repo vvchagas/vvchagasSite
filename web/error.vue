@@ -1,8 +1,6 @@
 <template>
   <main class="error-page" :class="`error-page--${errorCode}`">
     <div class="error-grid" aria-hidden="true" />
-    <div class="error-orbit error-orbit--one" aria-hidden="true" />
-    <div class="error-orbit error-orbit--two" aria-hidden="true" />
 
     <section class="error-panel" aria-labelledby="error-title">
       <p class="error-code">{{ errorCode }}</p>
@@ -22,14 +20,14 @@ import { computed, onMounted } from "vue";
 
 const props = defineProps<{ error: { statusCode?: number; statusMessage?: string } }>();
 const errorCode = computed(() => props.error.statusCode === 404 ? 404 : 500);
-const errorTitle = computed(() => errorCode.value === 404 ? "Essa pagina nao existe." : "Algo saiu do eixo.");
+const errorTitle = computed(() => errorCode.value === 404 ? "Essa pagina não existe." : "Algo saiu do eixo.");
 const errorMessage = computed(() => errorCode.value === 404
-  ? "O endereco pode estar incorreto ou a pagina foi movida."
+  ? "O endereço pode estar incorreto ou a página foi movida."
   : "O servidor encontrou um problema inesperado. Tente novamente em alguns instantes.");
 
 onMounted(() => {
   if (import.meta.dev && errorCode.value >= 500) {
-    console.error("Erro interno da aplicacao:", props.error);
+    console.error("Erro interno da aplicação, o desenvolvedor estará resolvendo o problema e volta dentro de instantes.", props.error);
   }
 });
 
@@ -85,8 +83,6 @@ function handleRecovery() {
   pointer-events: none;
 }
 
-.error-orbit--one { width: min(72vw, 720px); aspect-ratio: 1; transform: rotate(26deg) skew(-12deg); animation: error-spin 24s linear infinite; }
-.error-orbit--two { width: min(48vw, 480px); aspect-ratio: 1; transform: rotate(-38deg) skew(15deg); animation: error-spin 17s linear infinite reverse; }
 
 .error-panel { width: min(90vw, 620px); padding: 3rem 0; text-align: center; }
 .error-code { margin: 0; color: var(--error-accent); font: 900 clamp(6rem, 20vw, 12rem)/.8 ui-monospace, SFMono-Regular, Consolas, monospace; letter-spacing: -.08em; }
