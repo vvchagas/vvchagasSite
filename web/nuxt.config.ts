@@ -32,9 +32,6 @@ export default defineNuxtConfig({
       include: [
         '@vue/devtools-core',
         '@vue/devtools-kit',
-        'gsap',
-        'gsap/ScrollSmoother',
-        'gsap/ScrollTrigger',
         'lenis'
       ]
     },

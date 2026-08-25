@@ -11,8 +11,12 @@ type ScrollLockOptions = {
 export function useScrollLock() {
   function getLenis() {
     if (typeof window === "undefined") return undefined;
-    const { $lenis } = useNuxtApp();
-    return $lenis;
+    try {
+      const { $lenis } = useNuxtApp();
+      return $lenis;
+    } catch {
+      return undefined;
+    }
   }
 
   function lock(options: ScrollLockOptions = {}) {
@@ -31,8 +35,7 @@ export function useScrollLock() {
 
   function unlock(options: ScrollLockOptions = {}) {
     if (typeof window === "undefined") return;
-    // Só libera o scroll quando todos os locks forem desfeitos,
-    // evitando que um modal sibling destrave a página antes da hora.
+    // Só libera o scroll quando todos os locks forem desfeitos
     lockCount = Math.max(0, lockCount - 1);
     if (options.stopLenis !== false) {
       lenisStopCount = Math.max(0, lenisStopCount - 1);
@@ -43,10 +46,22 @@ export function useScrollLock() {
       lenis.start();
     }
 
-    if (lockCount > 0) return;
-
-    document.body.style.overflow = "";
+    if (lockCount === 0) {
+      document.body.style.overflow = "";
+    }
   }
 
-  return { lock, unlock };
+  function reset() {
+    if (typeof window === "undefined") return;
+    lockCount = 0;
+    lenisStopCount = 0;
+    const lenis = getLenis();
+    if (lenis) {
+      lenis.start();
+    }
+    document.body.style.overflow = "";
+    document.documentElement.classList.remove("lenis-stopped");
+  }
+
+  return { lock, unlock, reset };
 }

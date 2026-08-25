@@ -142,20 +142,31 @@ onUnmounted(() => {
 .project-modal {
   position: relative;
   width: 100%;
-  max-width: 40rem;
-  max-height: 85vh;
+  max-width: 38rem;
+  max-height: 100vh;
   overflow-y: auto;
   border-radius: 1.75rem;
   border: 1px solid rgb(var(--border) / 1);
   background: rgb(var(--card));
   color: rgb(var(--fg));
   padding: 1.5rem;
-  box-shadow: 0 30px 70px -20px rgb(0 0 0 / 0.45);
+  box-shadow: 0 30px 70px -20px rgb(0 0 0 / 0.55);
 }
 
 @media (min-width: 640px) {
   .project-modal {
-    padding: 2rem;
+    padding: 2rem 2.25rem;
+    max-width: 42rem;
+  }
+}
+
+/* Regra para telas médias e desktops: expande lateralmente para leitura confortável */
+@media (min-width: 768px) {
+  .project-modal {
+    width: 90%;
+    max-width: 52rem;
+    padding: 2.5rem 3rem;
+    border-radius: 2.25rem;
   }
 }
 
@@ -166,17 +177,17 @@ onUnmounted(() => {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 2.25rem;
-  height: 2.25rem;
-  border-radius: 999px;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 1rem;
   border: 1px solid rgb(var(--border) / 1);
   background: rgb(var(--bg) / 0.6);
   color: rgb(var(--fg));
-  transition: transform 0.2s ease, border-color 0.2s ease;
+  transition: transform 0.25s ease, border-color 0.25s ease, background-color 0.25s ease;
 }
 .project-modal__close:hover {
-  transform: rotate(90deg);
-  border-color: rgb(233 103 54 / 0.75);
+  transform: scale(1.05);
+  border-color: rgba(238, 1, 1, 0.75);
 }
 
 .stack-badge {
@@ -184,7 +195,7 @@ onUnmounted(() => {
   border: 1px solid rgb(var(--border) / 1);
   background: rgb(59 130 246 / 0.1);
   color: rgb(37 99 235);
-  padding: 0.3rem 0.75rem;
+  padding: 0.35rem 0.85rem;
   font-size: 0.75rem;
   font-weight: 700;
 }
@@ -201,21 +212,23 @@ onUnmounted(() => {
   background: #2b2828;
 }
 
+/* Transição suave e uniforme de abertura e fechamento */
 .project-modal-enter-active,
 .project-modal-leave-active {
-  transition: opacity 0.2s ease;
+  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .project-modal-enter-from,
 .project-modal-leave-to {
   opacity: 0;
 }
+
 .project-modal-enter-active .project-modal,
 .project-modal-leave-active .project-modal {
-  transition: transform 0.25s ease, opacity 0.25s ease;
+  transition: transform 0.75s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .project-modal-enter-from .project-modal,
 .project-modal-leave-to .project-modal {
-  transform: translateY(16px) scale(0.98);
+  transform: translateY(20px) scale(0.96);
   opacity: 0;
 }
 
@@ -231,10 +244,10 @@ onUnmounted(() => {
 ::-webkit-scrollbar {
   background-color: rgb(var(--bg));
   width: 8px;
-  border-radius: 999px;
+  border-radius: 20px;
 }
 ::-webkit-scrollbar-thumb {
   background-color: rgb(var(--muted) / 0.3);
-  border-radius: 999px;
+  border-radius: 20px;
 }
 </style>

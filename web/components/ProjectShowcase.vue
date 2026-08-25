@@ -70,22 +70,35 @@ function setCardRef(el: Element | ComponentPublicInstance | null) {
 }
 
 onMounted(() => {
-  const { $gsap, $ScrollTrigger } = useNuxtApp();
-  if (!$gsap || !$ScrollTrigger || !cardEls.value.length) return;
+  if (typeof window === "undefined" || !cardEls.value.length) return;
 
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    $gsap.set(cardEls.value, { opacity: 1, y: 0 });
+    cardEls.value.forEach((el) => {
+      el.style.opacity = "1";
+      el.style.transform = "none";
+    });
     return;
   }
 
-  $ScrollTrigger.batch(cardEls.value, {
-    start: "top 90%",
-    onEnter: (batch: Element[]) =>
-      $gsap.fromTo(
-        batch,
-        { opacity: 0, y: 24 },
-        { opacity: 1, y: 0, duration: 0.6, ease: "power2.out", stagger: 0.12 },
-      ),
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry, index) => {
+        if (entry.isIntersecting) {
+          const target = entry.target as HTMLElement;
+          target.style.transition = `opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1) ${index * 0.08}s, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) ${index * 0.08}s`;
+          target.style.opacity = "1";
+          target.style.transform = "translateY(0)";
+          observer.unobserve(target);
+        }
+      });
+    },
+    { threshold: 0.1, rootMargin: "0px 0px -40px 0px" },
+  );
+
+  cardEls.value.forEach((el) => {
+    el.style.opacity = "0";
+    el.style.transform = "translateY(24px)";
+    observer.observe(el);
   });
 });
 
@@ -145,7 +158,7 @@ onUnmounted(() => {
         :id="project.slug"
         :key="project.slug"
         :ref="setCardRef"
-        class="projectslug hover:-translate-y-[3px] duration-600 group relative overflow-hidden rounded-3xl border border-border/60 bg-card/70 p-5 shadow-sm backdrop-blur flex flex-col justify-between"
+        class="projectslug hover:-translate-y-0.75 duration-600 group relative overflow-hidden rounded-3xl border border-border/60 bg-card/70 p-5 shadow-sm backdrop-blur flex flex-col justify-between"
       >
         <div class="project-card__light absolute inset-0 opacity-0 transition-opacity duration-500" aria-hidden="true" />
         <div class="relative flex flex-col h-full justify-between">
@@ -158,7 +171,7 @@ onUnmounted(() => {
               <span class="badge border border-border/60 rounded-full px-2 py-1 text-xs font-bold shrink-0">{{ project.tag }}</span>
             </div>
 
-            <div class="mt-4 flex aspect-[4/3] items-center justify-center overflow-hidden rounded-2xl bg-muted/60 ring-1 ring-border/60">
+            <div class="mt-4 flex aspect-4/3 items-center justify-center overflow-hidden rounded-2xl bg-muted/60 ring-1 ring-border/60">
               <img
                 v-if="project.image"
                 :src="project.image"

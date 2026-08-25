@@ -1,15 +1,8 @@
+﻿import type { Ref } from "vue";
+import { watch, onUnmounted } from "vue";
+
 /**
- * Composável reutilizável que substitui o componente ScrollReveal.
- *
- * Cria uma animação de entrada com ScrollTrigger (GSAP) para um elemento ref.
- * O cleanup é automático no onUnmounted do componente hospedeiro.
- *
- * Uso básico:
- *   const el = ref<HTMLElement | null>(null)
- *   useScrollReveal(el, { y: 30, duration: 0.6, start: "top 85%" })
- *
- * Uso com template:
- *   <div ref="el">...</div>
+ * Composável de reveal com IntersectionObserver nativo (sem dependência de GSAP).
  */
 export function useScrollReveal(
   elRef: Ref<HTMLElement | null>,
@@ -17,63 +10,64 @@ export function useScrollReveal(
     y?: number;
     duration?: number;
     delay?: number;
-    start?: string;
     once?: boolean;
     scale?: number;
   },
 ) {
-  const { $gsap } = useNuxtApp();
-
   const {
     y = 24,
-    duration = 0.8,
+    duration = 0.7,
     delay = 0,
-    start = "top 88%",
     once = true,
     scale = 0.985,
   } = options ?? {};
 
-  let ctx: gsap.Context | undefined;
+  let observer: IntersectionObserver | null = null;
 
   function reveal(el: HTMLElement) {
-    if (!$gsap) return;
+    if (typeof window === "undefined") return;
 
-    // Acessibilidade: respeita preferências de movimento reduzido
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      $gsap.set(el, { opacity: 1, y: 0, scale: 1 });
+      el.style.opacity = "1";
+      el.style.transform = "none";
       return;
     }
 
-    ctx = $gsap.context(() => {
-      $gsap.fromTo(
-        el,
-        { opacity: 0, y, scale },
-        {
-          opacity: 1,
-          y: 0,
-          scale: 1,
-          duration,
-          delay,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: el,
-            start,
-            toggleActions: once ? "play none none none" : "play reverse play reverse",
-          },
-        },
-      );
-    }, el);
+    el.style.opacity = "0";
+    el.style.transform = `translateY(${y}px) scale(${scale})`;
+    el.style.transition = `opacity ${duration}s cubic-bezier(0.16, 1, 0.3, 1) ${delay}s, transform ${duration}s cubic-bezier(0.16, 1, 0.3, 1) ${delay}s`;
+    el.style.willChange = "opacity, transform";
+
+    observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            el.style.opacity = "1";
+            el.style.transform = "translateY(0) scale(1)";
+            if (once) {
+              observer?.unobserve(el);
+            }
+          } else if (!once) {
+            el.style.opacity = "0";
+            el.style.transform = `translateY(${y}px) scale(${scale})`;
+          }
+        });
+      },
+      {
+        threshold: 0.1,
+        rootMargin: "0px 0px -40px 0px",
+      },
+    );
+
+    observer.observe(el);
   }
 
-  // watch (não só onMounted) porque o elemento pode só existir depois do
-  // mount inicial — ex: uma seção atrás de um v-if que muda de estado
-  // (login -> conteúdo). onMounted sozinho perderia esse caso.
   watch(
     elRef,
     (el, oldEl) => {
-      if (oldEl) {
-        ctx?.revert();
-        ctx = undefined;
+      if (oldEl && observer) {
+        observer.unobserve(oldEl);
+        observer.disconnect();
       }
       if (el) reveal(el);
     },
@@ -81,7 +75,6 @@ export function useScrollReveal(
   );
 
   onUnmounted(() => {
-    ctx?.revert();
+    observer?.disconnect();
   });
 }
-
