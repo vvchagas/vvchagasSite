@@ -89,7 +89,7 @@
           </ul>
         </div>
 
-        <section ref="techSection" class="mt-14 rounded-[2rem] border border-border/60 bg-card/60 p-5 shadow-sm backdrop-blur sm:p-6 md:p-8">
+        <section ref="techSection" class="mt-14 rounded-4xl border border-border/60 bg-card/60 p-5 shadow-sm backdrop-blur sm:p-6 md:p-8">
           <p class="text-xs font-semibold uppercase tracking-[0.3em] text-blue-600 dark:text-blue-400">{{ t('about.techLabel') }}</p>
           <h2 class="mt-3 text-2xl font-black tracking-tight md:text-3xl">{{ t('about.techHeading') }}</h2>
           <div class="mt-7">
@@ -97,7 +97,7 @@
           </div>
         </section>
 
-        <section ref="processSection" class="mt-14 rounded-[2rem] border border-border/60 bg-card/60 p-5 shadow-sm backdrop-blur sm:p-6 md:p-8">
+        <section ref="processSection" class="mt-14 rounded-4xl border border-border/60 bg-card/60 p-5 shadow-sm backdrop-blur sm:p-6 md:p-8">
           <p class="text-xs font-semibold uppercase tracking-[0.3em] text-blue-600 dark:text-blue-400">{{ t('about.processLabel') }}</p>
           <h2 class="mt-3 text-2xl font-black tracking-tight md:text-3xl">{{ t('about.processHeading') }}</h2>
           <div class="mt-7 grid gap-4 md:grid-cols-3">
@@ -113,7 +113,7 @@
           :slugs="['sige-sistema-de-emergencias', 'data-secreta', 'nuvemshop-erp']"
         />
 
-        <div ref="ctaFinal" class="mt-8 rounded-[2rem] border border-border/60 bg-card/60 p-6 shadow-sm backdrop-blur">
+        <div ref="ctaFinal" class="mt-8 rounded-4xl border border-border/60 bg-card/60 p-6 shadow-sm backdrop-blur">
           <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <div>
               <h2 class="text-xl font-extrabold">{{ t('about.ctaHeading') }}</h2>
@@ -196,11 +196,11 @@ useScrollReveal(ctaFinal);
   --border: 226 232 240;
 }
 :global(html.dark) {
-  --bg: 12 12 12;
+  --bg: 10 10 10;
   --fg: 226 232 240;
   --muted: 148 163 184;
-  --card: 10 16 34;
-  --border: 30 41 59;
+  --card: 18 18 18;
+  --border: 38 38 38;
 }
 
 .bg-background {

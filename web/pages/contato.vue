@@ -34,7 +34,7 @@
 
         <div
           ref="cardWhatsapp"
-          class="contact-card contact-card--whatsapp rounded-2xl border border-border/60 border-green-600 bg-card/70 p-5 shadow-sm backdrop-blur sm:rounded-[2rem] sm:p-8"
+          class="contact-card contact-card--whatsapp rounded-2xl border border-green-600/60 bg-card p-5 shadow-sm backdrop-blur sm:rounded-4xl sm:p-8"
         >
           <div
             class="flex items-center justify-center gap-2 text-green-600 dark:text-green-400"
@@ -54,15 +54,15 @@
           </div>
 
           <div
-            class="mt-5 rounded-xl border border-border/60 border-green-600 bg-card/70 p-4 shadow-sm backdrop-blur sm:mt-6 sm:rounded-[2rem] sm:p-8"
+            class="mt-5 rounded-xl border border-green-600/40 bg-black/50 dark:bg-black/60 p-4 shadow-sm backdrop-blur sm:mt-6 sm:rounded-4xl sm:p-8"
           >
             <h3 class="text-center text-base sm:text-lg mb-4 sm:mb-5 font-bold">
               {{ t('contact.whatsappResponseTitle') }}
             </h3>
-            <p class="text-center mb-4 text-sm sm:text-base">
+            <p class="text-center mb-4 text-sm sm:text-base text-muted">
               {{ t('contact.whatsappResponseTime') }}
             </p>
-            <p class="text-sm sm:text-base text-center sm:text-start">
+            <p class="text-sm sm:text-base text-center sm:text-start text-foreground/90">
               {{ t('contact.whatsappResponseDesc') }}
             </p>
           </div>
@@ -78,7 +78,7 @@
 
         <div
           ref="cardLinkedin"
-          class="contact-card contact-card--linkedin mt-8 rounded-2xl border border-border/60 border-blue-600 bg-card/70 p-5 shadow-sm backdrop-blur sm:mt-10 sm:rounded-[2rem] sm:p-8"
+          class="contact-card contact-card--linkedin mt-8 rounded-2xl border border-blue-600/60 bg-card p-5 shadow-sm backdrop-blur sm:mt-10 sm:rounded-4xl sm:p-8"
         >
           <div
             class="flex items-center justify-center gap-2 text-blue-600 dark:text-blue-400"
@@ -98,15 +98,15 @@
           </div>
 
           <div
-            class="mt-5 rounded-xl border border-border/60 border-blue-600 bg-card/70 p-4 shadow-sm backdrop-blur sm:mt-6 sm:rounded-[2rem] sm:p-8"
+            class="mt-5 rounded-xl border border-blue-600/40 bg-black/50 dark:bg-black/60 p-4 shadow-sm backdrop-blur sm:mt-6 sm:rounded-4xl sm:p-8"
           >
             <h3 class="text-center text-base sm:text-lg mb-4 sm:mb-5 font-bold">
               {{ t('contact.linkedinResponseTitle') }}
             </h3>
-            <p class="text-center mb-4 text-sm sm:text-base">
+            <p class="text-center mb-4 text-sm sm:text-base text-muted">
               {{ t('contact.linkedinResponseTime') }}
             </p>
-            <p class="text-sm sm:text-base text-center sm:text-start">
+            <p class="text-sm sm:text-base text-center sm:text-start text-foreground/90">
               {{ t('contact.linkedinResponseDesc') }}
             </p>
           </div>
@@ -122,7 +122,7 @@
 
         <div
           ref="cardEmail"
-          class="contact-card contact-card--email mt-8 rounded-2xl border border-border/60 border-red-600 bg-card/70 p-5 shadow-sm backdrop-blur sm:mt-10 sm:rounded-[2rem] sm:p-8"
+          class="contact-card contact-card--email mt-8 rounded-2xl border border-red-600/60 bg-card p-5 shadow-sm backdrop-blur sm:mt-10 sm:rounded-4xl sm:p-8"
         >
           <div
             class="flex items-center justify-center gap-2 text-red-600 dark:text-red-400"
@@ -142,15 +142,15 @@
           </div>
 
           <div
-            class="mt-5 rounded-xl border border-border/60 border-red-600 bg-card/70 p-4 shadow-sm backdrop-blur sm:mt-6 sm:rounded-[2rem] sm:p-8"
+            class="mt-5 rounded-xl border border-red-600/40 bg-black/50 dark:bg-black/60 p-4 shadow-sm backdrop-blur sm:mt-6 sm:rounded-4xl sm:p-8"
           >
             <h3 class="text-center text-base sm:text-lg mb-4 sm:mb-5 font-bold">
               {{ t('contact.emailResponseTitle') }}
             </h3>
-            <p class="text-center mb-4 text-sm sm:text-base">
+            <p class="text-center mb-4 text-sm sm:text-base text-muted">
               {{ t('contact.emailResponseTime') }}
             </p>
-            <p class="text-sm sm:text-base text-center sm:text-start">
+            <p class="text-sm sm:text-base text-center sm:text-start text-foreground/90">
               {{ t('contact.emailResponseDesc') }}
             </p>
           </div>
@@ -171,20 +171,20 @@
         </div>
         <div
           ref="cardForm"
-          class="contact-card contact-card--form mt-5 rounded-xl border border-border/60 border-gray-600 bg-card/70 p-4 shadow-sm backdrop-blur sm:mt-6 sm:rounded-[2rem] sm:p-8"
+          class="contact-card contact-card--form mt-5 rounded-xl border border-neutral-700/60 bg-card p-4 shadow-sm backdrop-blur sm:mt-6 sm:rounded-4xl sm:p-8"
         >
           <h3 class="text-center text-base sm:text-lg mb-4 sm:mb-5 font-bold">
             {{ t('contact.formResponseTitle') }}
           </h3>
-          <p class="text-center mb-4 text-sm sm:text-base">
+          <p class="text-center mb-4 text-sm sm:text-base text-muted">
             {{ t('contact.formResponseTime') }}
           </p>
-          <p class="text-sm sm:text-base text-center sm:text-start">
+          <p class="text-sm sm:text-base text-center sm:text-start text-foreground/90">
             {{ t('contact.formResponseDesc') }}
           </p>
 
           <form
-            class="bg-background rounded-3xl border border-border/60 bg-card/70 p-5 shadow-sm backdrop-blur sm:p-6 md:p-8 mt-5"
+            class="rounded-3xl border border-neutral-700/60 bg-black/50 dark:bg-black/60 p-5 shadow-sm backdrop-blur sm:p-6 md:p-8 mt-5"
             @submit.prevent="submit"
           >
             <div class="flex items-center justify-between gap-4">
@@ -421,15 +421,19 @@ useScrollReveal(cardForm, { delay: 0.45 });
 }
 .contact-card--whatsapp {
   animation-delay: 0.05s;
+  border-color: rgba(34, 197, 94, 0.5) !important;
 }
 .contact-card--linkedin {
   animation-delay: 0.15s;
+  border-color: rgba(59, 130, 246, 0.5) !important;
 }
 .contact-card--email {
   animation-delay: 0.25s;
+  border-color: rgba(239, 68, 68, 0.5) !important;
 }
 .contact-card--form {
   animation-delay: 0.35s;
+  border-color: rgba(115, 115, 115, 0.5) !important;
 }
 @keyframes cardIn {
   from {
@@ -446,19 +450,19 @@ useScrollReveal(cardForm, { delay: 0.45 });
 }
 .contact-card--whatsapp:hover {
   box-shadow: 0 20px 45px rgba(22, 163, 74, 0.25);
-  border-color: rgba(22, 163, 74, 0.9);
+  border-color: rgba(34, 197, 94, 0.95) !important;
 }
 .contact-card--linkedin:hover {
   box-shadow: 0 20px 45px rgba(37, 99, 235, 0.25);
-  border-color: rgba(37, 99, 235, 0.9);
+  border-color: rgba(59, 130, 246, 0.95) !important;
 }
 .contact-card--email:hover {
   box-shadow: 0 20px 45px rgba(220, 38, 38, 0.25);
-  border-color: rgba(220, 38, 38, 0.9);
+  border-color: rgba(239, 68, 68, 0.95) !important;
 }
 .contact-card--form:hover {
-  box-shadow: 0 20px 45px rgba(73, 71, 71, 0.25);
-  border-color: rgba(73, 71, 71, 0.9);
+  box-shadow: 0 20px 45px rgba(115, 115, 115, 0.25);
+  border-color: rgba(163, 163, 163, 0.95) !important;
 }
 @media (prefers-reduced-motion: reduce) {
   .contact-card {

@@ -16,7 +16,7 @@
       <section id="inicio" class="relative overflow-hidden pt-8 md:pt-14">
         <div class="absolute inset-0 -z-10">
           <div
-            class="absolute left-1/2 top-[-120px] h-[300px] w-[300px] sm:top-[-220px] sm:h-[520px] sm:w-[520px] -translate-x-1/2 rounded-full bg-gradient-to-tr from-blue-500/30 via-indigo-500/20 to-fuchsia-500/20 blur-3xl"
+            class="absolute left-1/2 top-30 h-75 w-75 sm:top-55 sm:h-130 sm:w-130 -translate-x-1/2 rounded-full bg-linear-to-tr from-blue-500/30 via-indigo-500/20 to-fuchsia-500/20 blur-3xl"
           />
           <div
             class="absolute -left-8 top-28 h-40 w-40 sm:-left-24 sm:h-64 sm:w-64 rounded-full bg-blue-500/15 blur-2xl"
@@ -93,10 +93,10 @@
 
           <div class="relative mt-10">
             <div
-              class="absolute inset-0 -z-10 rounded-[2rem] bg-gradient-to-b from-blue-500/15 to-transparent blur-2xl"
+              class="absolute inset-0 -z-10 rounded-4xl bg-linear-to-b from-blue-500/15 to-transparent blur-2xl"
             />
             <div
-              class="rounded-[2rem] border border-border/70 bg-card/70 p-5 shadow-sm backdrop-blur"
+              class="rounded-4xl border border-border/70 bg-card/70 p-5 shadow-sm backdrop-blur"
             >
               <div class="flex items-center justify-between gap-4">
                 <div>
@@ -448,7 +448,7 @@
 
             <form
               ref="contatoForm"
-              class="bg-background rounded-3xl border border-border/60 bg-card/70 p-5 shadow-sm backdrop-blur sm:p-6 md:p-8"
+              class="rounded-3xl border border-border/60 bg-card p-5 shadow-sm backdrop-blur sm:p-6 md:p-8"
               @submit.prevent="submit"
             >
               <div class="flex items-center justify-between gap-4">
@@ -661,11 +661,11 @@ async function submit() {
   --border: 226 232 240;
 }
 :global(html.dark) {
-  --bg: 12 12 12;
+  --bg: 10 10 10;
   --fg: 226 232 240;
   --muted: 148 163 184;
-  --card: 10 16 34;
-  --border: 30 41 59;
+  --card: 18 18 18;
+  --border: 38 38 38;
 }
 
 .bg-background {

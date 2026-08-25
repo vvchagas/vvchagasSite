@@ -86,7 +86,7 @@
           </article>
         </div>
 
-        <section ref="ctaSection" class="rounded-[2rem] border border-border/60 bg-card/70 p-6 shadow-sm backdrop-blur sm:p-10 relative overflow-hidden">
+        <section ref="ctaSection" class="rounded-4xl border border-border/60 bg-card/70 p-6 shadow-sm backdrop-blur sm:p-10 relative overflow-hidden">
           <div class="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-blue-900/5 blur-3xl pointer-events-none"/>
 
           <div class="grid gap-6 lg:grid-cols-[1.25fr_0.75fr] lg:items-center relative z-10">
@@ -186,11 +186,11 @@ useScrollReveal(ctaSection, { delay: 0.1 });
   --border: 226 232 240;
 }
 :global(html.dark) {
-  --bg: 12 12 12;
+  --bg: 10 10 10;
   --fg: 226 232 240;
   --muted: 148 163 184;
-  --card: 10 16 34;
-  --border: 30 41 59;
+  --card: 18 18 18;
+  --border: 38 38 38;
 }
 
 .bg-background {
