@@ -20,6 +20,7 @@
     "@nuxt/a11y": "^1.0.0-alpha.1",
     "@nuxt/eslint": "^1.16.0",
     "@nuxt/ui": "^4.9.0",
+    "@nuxt/fonts": "^0.14.0",
     "@prisma/adapter-pg": "^7.9.1",
     "@prisma/client": "^7.9.1",
     "@prisma/client-runtime-utils": "^7.9.1",

@@ -70,28 +70,45 @@ export default defineNuxtConfig({
   // nuxt-security — headers de segurança (OWASP)
   security: {
     headers: {
-      crossOriginEmbedderPolicy: process.env.NODE_ENV === 'development' ? 'unsafe-none' : 'credentialless',
       contentSecurityPolicy: {
-        'base-uri': ["'none'"],
         'default-src': ["'self'"],
-        'font-src': ["'self'", 'https:', 'data:'],
-        'form-action': ["'self'"],
-        'frame-ancestors': ["'self'"],
-        'img-src': ["'self'", 'data:', 'https:'],
-        'object-src': ["'none'"],
-        'script-src': ["'self'", "'unsafe-inline'", "'strict-dynamic'", 'https:'],
-        'script-src-attr': ["'none'"],
-        'style-src': ["'self'", "'unsafe-inline'"],
-        'connect-src': ["'self'", 'https://vitals.vercel-insights.com', 'https://*.vercel-insights.com'],
-        'upgrade-insecure-requests': true,
+        'script-src': [
+          "'self'",
+          "'unsafe-inline'",
+          "'unsafe-eval'",
+          "https://va.vercel-scripts.com"
+        ],
+        'style-src': [
+          "'self'",
+          "'unsafe-inline'",
+          "https://fonts.googleapis.com",
+          "https://cdnjs.cloudflare.com"
+        ],
+        'font-src': [
+          "'self'",
+          "data:",
+          "https://fonts.gstatic.com",
+          "https://fonts.googleapis.com",
+          "https://cdnjs.cloudflare.com"
+        ],
+        'img-src': [
+          "'self'",
+          "data:",
+          "https:"
+        ],
+        'connect-src': [
+          "'self'",
+          "https://*.vercel.app",
+          "https://*.vercel-insights.com",
+          "https://fonts.googleapis.com",
+          "https://fonts.gstatic.com"
+        ]
       },
-      xContentTypeOptions: 'nosniff',
-      referrerPolicy: 'strict-origin-when-cross-origin',
-      permissionsPolicy: {
-        camera: [],
-        microphone: [],
-        geolocation: [],
-      },
+      crossOriginEmbedderPolicy: 'unsafe-none'
     },
-  },
+    rateLimiter: {
+      tokensPerInterval: 150,
+      interval: 'hour'
+    }
+  }
 })
