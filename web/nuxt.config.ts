@@ -14,17 +14,13 @@ export default defineNuxtConfig({
   // Mantém os caminhos explícitos na raiz do projeto
   srcDir: '.',
 
-  app: {
-    head: {
-      title: 'vvchagas',
-    }
-  },
 
   modules: [
     '@nuxt/a11y',
     '@nuxt/eslint',
     '@nuxt/ui',
     '@nuxt/fonts',
+    'nuxt-security',
   ],
 
   vite: {
@@ -59,5 +55,43 @@ export default defineNuxtConfig({
 
   fonts: {
     families: []
-  }
+  },
+
+  // Vercel Analytics — injeção do script via head
+  app: {
+    head: {
+      title: 'vvchagas',
+      script: [
+        { src: '/_vercel/insights/script.js', defer: true },
+      ],
+    }
+  },
+
+  // nuxt-security — headers de segurança (OWASP)
+  security: {
+    headers: {
+      crossOriginEmbedderPolicy: process.env.NODE_ENV === 'development' ? 'unsafe-none' : 'credentialless',
+      contentSecurityPolicy: {
+        'base-uri': ["'none'"],
+        'default-src': ["'self'"],
+        'font-src': ["'self'", 'https:', 'data:'],
+        'form-action': ["'self'"],
+        'frame-ancestors': ["'self'"],
+        'img-src': ["'self'", 'data:', 'https:'],
+        'object-src': ["'none'"],
+        'script-src': ["'self'", "'unsafe-inline'", "'strict-dynamic'", 'https:'],
+        'script-src-attr': ["'none'"],
+        'style-src': ["'self'", "'unsafe-inline'"],
+        'connect-src': ["'self'", 'https://vitals.vercel-insights.com', 'https://*.vercel-insights.com'],
+        'upgrade-insecure-requests': true,
+      },
+      xContentTypeOptions: 'nosniff',
+      referrerPolicy: 'strict-origin-when-cross-origin',
+      permissionsPolicy: {
+        camera: [],
+        microphone: [],
+        geolocation: [],
+      },
+    },
+  },
 })

@@ -312,8 +312,8 @@ onUnmounted(() => {
   z-index: 1;
 }
 .lightbox-close:hover {
-  transform: rotate(90deg);
   background: rgb(0 0 0 / 0.75);
+  border-color: rgb(250, 9, 1)
 }
 
 .lightbox-enter-active,

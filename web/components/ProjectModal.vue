@@ -187,7 +187,8 @@ onUnmounted(() => {
 }
 .project-modal__close:hover {
   transform: scale(1.05);
-  border-color: rgba(238, 1, 1, 0.75);
+  border-color: rgb(250, 9, 1);
+  transition: transform 0.7s ease
 }
 
 .stack-badge {
