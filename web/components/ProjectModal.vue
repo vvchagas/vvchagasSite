@@ -183,12 +183,22 @@ onUnmounted(() => {
   border: 1px solid rgb(var(--border) / 1);
   background: rgb(var(--bg) / 0.6);
   color: rgb(var(--fg));
-  transition: transform 0.25s ease, border-color 0.25s ease, background-color 0.25s ease;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, background-color 0.3s ease;
+  animation: project-modal-close-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.15s backwards;
 }
 .project-modal__close:hover {
-  transform: scale(1.05);
   border-color: rgb(250, 9, 1);
-  transition: transform 0.7s ease
+}
+
+@keyframes project-modal-close-in {
+  from {
+    opacity: 0;
+    transform: scale(0.6)rotate(-45deg);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
 }
 
 .stack-badge {
@@ -239,6 +249,9 @@ onUnmounted(() => {
   .project-modal-enter-active .project-modal,
   .project-modal-leave-active .project-modal {
     transition: none;
+  }
+  .project-modal__close {
+    animation: none;
   }
 }
 

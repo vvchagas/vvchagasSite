@@ -35,7 +35,7 @@ export const dictionaries = {
     hero: {
       badge: "Web Desenvolvedor, Suporte de TI e Manutenção de Notebooks",
       description:
-        "Desenvolvimento web, suporte de TI e manutenção de notebooks. Do diagnóstico ao resultado: com clareza e sem enrolação.",
+        "Do diagnóstico ao resultado, com clareza e sem enrolação — sites que funcionam e equipamentos que não travam na sua rotina.",
       cta: "Ver serviços",
       statDeliveryLabel: "Entrega",
       statDeliveryValue: "Rápida",
@@ -327,7 +327,7 @@ export const dictionaries = {
     hero: {
       badge: "Web Developer, IT Support and Laptop Maintenance",
       description:
-        "Web development, IT support and laptop maintenance. From diagnosis to result: clear, no runaround.",
+        "From diagnosis to result, clear and no runaround — websites that work and hardware that keeps up with your routine.",
       cta: "View services",
       statDeliveryLabel: "Delivery",
       statDeliveryValue: "Fast",

@@ -196,7 +196,7 @@ onUnmounted(() => {
           <div class="mt-5 grid gap-2">
             <button
               type="button"
-              class="flex items-center justify-center gap-1.5 px-3 py-2.5 text-xs sm:text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-full transition text-center leading-snug"
+              class="flex items-center justify-center gap-1.5 px-3 py-2.5 text-xs sm:text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-full transition-all duration-300 ease-out hover:scale-105 active:scale-95 text-center leading-snug"
               @click="openProject(project.slug)"
             >
               <span>{{ t('portfolio.viewFull') }}</span>
