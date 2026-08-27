@@ -152,44 +152,41 @@ onMounted(() => {
     </div>
   </header>
 
-  <!-- Backdrop + menu mobile teleportados para <body>: assim o position:fixed
-       é relativo à viewport (o backdrop-blur do header criaria um containing
-       block e quebraria o posicionamento). -->
-  <Teleport to="body">
-    <Transition name="fade">
-      <div
-        v-if="isMenuOpen"
-        class="fixed inset-0 z-40 bg-black/50 md:hidden"
-        @click="closeMenu"
-      />
-    </Transition>
+  <!-- Overlay do menu mobile -->
+  <Transition name="fade">
+    <div
+      v-if="isMenuOpen"
+      class="fixed inset-0 z-40 bg-black/50 md:hidden"
+      @click="closeMenu"
+    />
+  </Transition>
 
-    <Transition name="slide">
-      <nav
-        v-if="isMenuOpen"
-        id="menu-mobile"
-        aria-label="Menu mobile"
-        class="fixed inset-y-0 mt-14 left-0 z-50 flex w-72 max-w-[80vw] flex-col border-r border-border/60 bg-background text-foreground shadow-2xl md:hidden"
-      >
-        <div class="flex flex-1 flex-col gap-3 overflow-y-auto px-5 py-6">
-          <NuxtLink class="nav-link block border-b border-border/40 py-2.5 text-base" to="/" @click="closeMenu">{{ t('nav.home') }}</NuxtLink>
-          <NuxtLink class="nav-link block border-b border-border/40 py-2.5 text-base" to="/sobre" @click="closeMenu">{{ t('nav.about') }}</NuxtLink>
-          <NuxtLink class="nav-link block border-b border-border/40 py-2.5 text-base" to="/servicos" @click="closeMenu">{{ t('nav.services') }}</NuxtLink>
-          <NuxtLink class="nav-link block border-b border-border/40 py-2.5 text-base" to="/contato" @click="closeMenu">{{ t('nav.contact') }}</NuxtLink>
-        </div>
+  <!-- Menu lateral mobile fixo abaixo do header -->
+  <Transition name="slide">
+    <nav
+      v-if="isMenuOpen"
+      id="menu-mobile"
+      aria-label="Menu mobile"
+      class="fixed inset-y-0 top-14.25 left-0 z-50 flex w-72 max-w-[80vw] flex-col border-r border-border/60 bg-background text-foreground shadow-2xl md:hidden"
+    >
+      <div class="flex flex-1 flex-col gap-3 overflow-y-auto px-5 py-6">
+        <NuxtLink class="nav-link block border-b border-border/40 py-2.5 text-base" to="/" @click="closeMenu">{{ t('nav.home') }}</NuxtLink>
+        <NuxtLink class="nav-link block border-b border-border/40 py-2.5 text-base" to="/sobre" @click="closeMenu">{{ t('nav.about') }}</NuxtLink>
+        <NuxtLink class="nav-link block border-b border-border/40 py-2.5 text-base" to="/servicos" @click="closeMenu">{{ t('nav.services') }}</NuxtLink>
+        <NuxtLink class="nav-link block border-b border-border/40 py-2.5 text-base" to="/contato" @click="closeMenu">{{ t('nav.contact') }}</NuxtLink>
+      </div>
 
-        <div class="mt-4 flex flex-col gap-3 border-t border-border/60 px-5 py-6">
-          <NuxtLink
-            to="/contato"
-            class="mt-2 flex items-center justify-center rounded-full bg-blue-600 px-4 py-2.5 text-sm font-bold text-white shadow-sm transition hover:bg-blue-700"
-            @click="closeMenu"
-          >
-            {{ t('nav.talk') }}
-          </NuxtLink>
-        </div>
-      </nav>
-    </Transition>
-  </Teleport>
+      <div class="mt-4 flex flex-col gap-3 border-t border-border/60 px-5 py-6">
+        <NuxtLink
+          to="/contato"
+          class="mt-2 flex items-center justify-center rounded-full bg-blue-600 px-4 py-2.5 text-sm font-bold text-white shadow-sm transition hover:bg-blue-700"
+          @click="closeMenu"
+        >
+          {{ t('nav.talk') }}
+        </NuxtLink>
+      </div>
+    </nav>
+  </Transition>
 </template>
 
 <style scoped>
@@ -223,6 +220,38 @@ onMounted(() => {
 
 .site-logo { letter-spacing: .08em; }
 .site-logo span { color: #1464f4; }
+
+.nav-link {
+  font-weight: 600;
+  color: rgba(var(--fg), 0.75);
+  transition: color 0.2s ease;
+}
+.nav-link:hover,
+.nav-link.router-link-active {
+  color: rgb(var(--fg));
+}
+
+@media (min-width: 768px) {
+  .nav-link {
+    position: relative;
+    font-size: 0.9rem;
+  }
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    height: 2px;
+    width: 0%;
+    border-radius: 999px;
+    background:#3b82f6;
+    transition: width 0.25s ease;
+  }
+  .nav-link:hover::after,
+  .nav-link.router-link-active::after {
+    width: 100%;
+  }
+}
 
 #talk-btn:hover {
   transform: translateY(-2px);

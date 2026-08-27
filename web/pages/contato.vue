@@ -386,31 +386,6 @@ useScrollReveal(cardForm, { delay: 0.45 });
   vertical-align: middle;
 }
 
-.nav-link {
-  position: relative;
-  font-weight: 600;
-  font-size: 0.9rem;
-  color: rgba(var(--fg), 0.75);
-  transition: color 0.2s ease;
-}
-.nav-link::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -4px;
-  height: 2px;
-  width: 0%;
-  border-radius: 999px;
-  background: linear-gradient(90deg, #3b82f6, #a855f7);
-  transition: width 0.25s ease;
-}
-.nav-link:hover {
-  color: rgb(var(--fg));
-}
-.nav-link:hover::after {
-  width: 100%;
-}
-
 .contact-card {
   opacity: 0;
   animation: cardIn 0.6s ease forwards;
