@@ -20,7 +20,6 @@ export default defineNuxtConfig({
     '@nuxt/eslint',
     '@nuxt/ui',
     '@nuxt/fonts',
-    'nuxt-security',
   ],
 
   vite: {
@@ -66,49 +65,4 @@ export default defineNuxtConfig({
       ],
     }
   },
-
-  // nuxt-security — headers de segurança (OWASP)
-  security: {
-    headers: {
-      contentSecurityPolicy: {
-        'default-src': ["'self'"],
-        'script-src': [
-          "'self'",
-          "'unsafe-inline'",
-          "'unsafe-eval'",
-          "https://va.vercel-scripts.com"
-        ],
-        'style-src': [
-          "'self'",
-          "'unsafe-inline'",
-          "https://fonts.googleapis.com",
-          "https://cdnjs.cloudflare.com"
-        ],
-        'font-src': [
-          "'self'",
-          "data:",
-          "https://fonts.gstatic.com",
-          "https://fonts.googleapis.com",
-          "https://cdnjs.cloudflare.com"
-        ],
-        'img-src': [
-          "'self'",
-          "data:",
-          "https:"
-        ],
-        'connect-src': [
-          "'self'",
-          "https://*.vercel.app",
-          "https://*.vercel-insights.com",
-          "https://fonts.googleapis.com",
-          "https://fonts.gstatic.com"
-        ]
-      },
-      crossOriginEmbedderPolicy: 'unsafe-none'
-    },
-    rateLimiter: {
-      tokensPerInterval: 150,
-      interval: 'hour'
-    }
-  }
 })
