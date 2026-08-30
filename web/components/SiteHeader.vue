@@ -4,9 +4,11 @@ import LanguageSwitcher from "./LanguageSwitcher.vue";
 
 const { t } = useLocale();
 const { lock, unlock } = useScrollLock();
+
+type Theme = "light" | "dark";
+
 const isDark = ref(false);
 const isMenuOpen = ref(false);
-type Theme = "light" | "dark";
 
 function applyTheme(theme: Theme) {
   const root = document.documentElement;
@@ -87,12 +89,15 @@ onMounted(() => {
 </script>
 
 <template>
+  <!-- Header estático fixo na raiz da aplicação (Sem Teleport) -->
   <header class="site-header fixed inset-x-0 top-0 z-50 border-b border-border/60 bg-header/80 backdrop-blur">
     <div class="mx-auto flex w-full max-w-6xl items-center justify-between gap-4 px-4 py-3 md:px-6">
+      
+      <!-- Esquerda: Botão Mobile + Logo -->
       <div class="flex items-center gap-3">
         <button
           type="button"
-          class="inline-flex items-center justify-center rounded-xl border border-border/70 bg-card/60 p-2 text-sm font-semibold shadow-sm backdrop-blur transition hover:border-blue-500/60 focus:outline-none focus:ring-2 focus:ring-blue-500 md:hidden"
+          class="inline-flex min-h-11 min-w-11 items-center justify-center rounded-xl border border-border/70 bg-card/60 p-2 text-sm font-semibold shadow-sm backdrop-blur transition hover:border-blue-500/60 focus:outline-none focus:ring-2 focus:ring-blue-500 md:hidden"
           :aria-expanded="isMenuOpen"
           aria-controls="menu-mobile"
           :aria-label="isMenuOpen ? t('nav.closeMenu') : t('nav.openMenu')"
@@ -102,7 +107,9 @@ onMounted(() => {
             aria-hidden="true"
             class="material-symbols-outlined block text-blue-600 dark:text-blue-400 transition-transform duration-200"
             :class="{ 'rotate-90': isMenuOpen }"
-          >{{ isMenuOpen ? 'close' : 'menu' }}</span>
+          >
+            {{ isMenuOpen ? 'close' : 'menu' }}
+          </span>
           <span class="sr-only">{{ isMenuOpen ? t('nav.closeMenu') : t('nav.openMenu') }}</span>
         </button>
 
@@ -111,26 +118,39 @@ onMounted(() => {
           class="group inline-flex items-center gap-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           @click="closeMenu"
         >
-          <span class="site-logo text-base font-black tracking-tight">VVCHAGAS<span>.</span></span>
+          <span class="site-logo text-base font-black tracking-tight text-foreground">
+            VVCHAGAS<span class="text-blue-600">.</span>
+          </span>
         </NuxtLink>
       </div>
 
-      <nav aria-label="Navegação principal" class="hidden items-center gap-6 md:flex">
-        <NuxtLink class="nav-link hover:-translate-y-0.5 duration-300" to="/">{{ t('nav.home') }}</NuxtLink>
-        <NuxtLink class="nav-link hover:-translate-y-0.5 duration-300" to="/sobre">{{ t('nav.about') }}</NuxtLink>
-        <NuxtLink class="nav-link hover:-translate-y-0.5 duration-300" to="/servicos">{{ t('nav.services') }}</NuxtLink>
-        <NuxtLink class="nav-link hover:-translate-y-0.5 duration-300" to="/contato">{{ t('nav.contact') }}</NuxtLink>
+      <!-- Centro: Navegação Desktop -->
+      <nav aria-label="Navegação principal" class="hidden items-center gap-4 lg:gap-6 md:flex">
+        <NuxtLink class="nav-link transition-transform duration-300 hover:-translate-y-0.5" to="/">
+          {{ t('nav.home') }}
+        </NuxtLink>
+        <NuxtLink class="nav-link transition-transform duration-300 hover:-translate-y-0.5" to="/sobre">
+          {{ t('nav.about') }}
+        </NuxtLink>
+        <NuxtLink class="nav-link transition-transform duration-300 hover:-translate-y-0.5" to="/servicos">
+          {{ t('nav.services') }}
+        </NuxtLink>
+        <NuxtLink class="nav-link transition-transform duration-300 hover:-translate-y-0.5" to="/contato">
+          {{ t('nav.contact') }}
+        </NuxtLink>
       </nav>
 
-      <div class="flex items-center gap-3">
+      <!-- Direita: Idioma, Theme Toggle & Botão CTA -->
+      <div class="flex items-center gap-2 lg:gap-3">
         <LanguageSwitcher class="hidden sm:inline-flex" />
+        
         <button
           type="button"
           class="theme-toggle inline-flex items-center gap-2 rounded-full border border-border/70 bg-card/60 p-1.5 text-sm font-semibold shadow-sm backdrop-blur transition hover:border-blue-500/60 focus:outline-none focus:ring-2 focus:ring-blue-500"
           :aria-label="isDark ? t('nav.toggleLight') : t('nav.toggleDark')"
           @click="toggleTheme"
         >
-          <span aria-hidden="true" class="inline-flex size-8 items-center justify-center rounded-full bg-muted text-foreground/90">
+          <span aria-hidden="true" class="inline-flex size-8 items-center justify-center rounded-full bg-muted text-foreground">
             <svg v-if="isDark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
               <path d="M21.64 13.65a1 1 0 0 0-1.17-.74 8.1 8.1 0 0 1-10.4-10.4 1 1 0 0 0-.74-1.17A10 10 0 1 0 21.64 13.65Z" />
             </svg>
@@ -143,7 +163,7 @@ onMounted(() => {
         <NuxtLink
           id="talk-btn"
           to="/contato"
-          class="hidden sm:inline-flex items-center justify-center rounded-full bg-blue-600 px-4 py-2 text-sm font-bold text-white shadow-sm transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          class="hidden sm:inline-flex items-center justify-center rounded-full bg-blue-600 px-3 lg:px-4 py-2 text-sm font-bold text-white shadow-sm transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
           @click="closeMenu"
         >
           {{ t('nav.talk') }}
@@ -152,41 +172,50 @@ onMounted(() => {
     </div>
   </header>
 
-  <!-- Overlay do menu mobile -->
-  <Transition name="fade">
-    <div
-      v-if="isMenuOpen"
-      class="fixed inset-0 z-40 bg-black/50 md:hidden"
-      @click="closeMenu"
-    />
-  </Transition>
+  <!-- Teleport mantido EXCLUSIVAMENTE para a sobreposição do Backdrop e Menu Mobile -->
+  <Teleport to="body">
+    <Transition name="fade">
+      <div
+        v-if="isMenuOpen"
+        class="fixed inset-0 z-40 bg-black/50 md:hidden"
+        @click="closeMenu"
+      />
+    </Transition>
 
-  <!-- Menu lateral mobile fixo abaixo do header -->
-  <Transition name="slide">
-    <nav
-      v-if="isMenuOpen"
-      id="menu-mobile"
-      aria-label="Menu mobile"
-      class="fixed inset-y-0 top-14.25 left-0 z-50 flex w-72 max-w-[80vw] flex-col border-r border-border/60 bg-background text-foreground shadow-2xl md:hidden"
-    >
-      <div class="flex flex-1 flex-col gap-3 overflow-y-auto px-5 py-6">
-        <NuxtLink class="nav-link block border-b border-border/40 py-2.5 text-base" to="/" @click="closeMenu">{{ t('nav.home') }}</NuxtLink>
-        <NuxtLink class="nav-link block border-b border-border/40 py-2.5 text-base" to="/sobre" @click="closeMenu">{{ t('nav.about') }}</NuxtLink>
-        <NuxtLink class="nav-link block border-b border-border/40 py-2.5 text-base" to="/servicos" @click="closeMenu">{{ t('nav.services') }}</NuxtLink>
-        <NuxtLink class="nav-link block border-b border-border/40 py-2.5 text-base" to="/contato" @click="closeMenu">{{ t('nav.contact') }}</NuxtLink>
-      </div>
+    <Transition name="slide">
+      <nav
+        v-if="isMenuOpen"
+        id="menu-mobile"
+        aria-label="Menu mobile"
+        class="fixed inset-y-0 left-0 mt-14 z-50 flex w-72 max-w-[80vw] flex-col border-r border-border/60 bg-background text-foreground shadow-2xl md:hidden"
+      >
+        <div class="flex flex-1 flex-col gap-3 overflow-y-auto px-5 py-6">
+          <NuxtLink class="nav-link block border-b border-border/40 py-2.5 text-base" to="/" @click="closeMenu">
+            {{ t('nav.home') }}
+          </NuxtLink>
+          <NuxtLink class="nav-link block border-b border-border/40 py-2.5 text-base" to="/sobre" @click="closeMenu">
+            {{ t('nav.about') }}
+          </NuxtLink>
+          <NuxtLink class="nav-link block border-b border-border/40 py-2.5 text-base" to="/servicos" @click="closeMenu">
+            {{ t('nav.services') }}
+          </NuxtLink>
+          <NuxtLink class="nav-link block border-b border-border/40 py-2.5 text-base" to="/contato" @click="closeMenu">
+            {{ t('nav.contact') }}
+          </NuxtLink>
+        </div>
 
-      <div class="mt-4 flex flex-col gap-3 border-t border-border/60 px-5 py-6">
-        <NuxtLink
-          to="/contato"
-          class="mt-2 flex items-center justify-center rounded-full bg-blue-600 px-4 py-2.5 text-sm font-bold text-white shadow-sm transition hover:bg-blue-700"
-          @click="closeMenu"
-        >
-          {{ t('nav.talk') }}
-        </NuxtLink>
-      </div>
-    </nav>
-  </Transition>
+        <div class="mt-4 flex flex-col gap-3 border-t border-border/60 px-5 py-6">
+          <NuxtLink
+            to="/contato"
+            class="mt-2 flex items-center justify-center rounded-full bg-blue-600 px-4 py-2.5 text-sm font-bold text-white shadow-sm transition hover:bg-blue-700"
+            @click="closeMenu"
+          >
+            {{ t('nav.talk') }}
+          </NuxtLink>
+        </div>
+      </nav>
+    </Transition>
+  </Teleport>
 </template>
 
 <style scoped>
@@ -213,44 +242,57 @@ onMounted(() => {
 }
 
 .site-header {
-  border-color: rgb(var(--border) / .7);
-  background: rgb(var(--bg) / .74);
-  box-shadow: 0 8px 30px rgb(15 23 42 / .04);
+  border-color: rgb(var(--border) / 0.7);
+  background: rgb(var(--bg) / 0.74);
+  box-shadow: 0 8px 30px rgb(15 23 42 / 0.04);
 }
 
-.site-logo { letter-spacing: .08em; }
-.site-logo span { color: #1464f4; }
+.site-logo {
+  letter-spacing: 0.08em;
+}
 
+/* Links de Navegação com fallback de cor estrito para Dark Mode */
 .nav-link {
+  position: relative;
   font-weight: 600;
-  color: rgba(var(--fg), 0.75);
+  font-size: 0.9rem;
+  color: rgb(var(--fg) / 0.85);
   transition: color 0.2s ease;
 }
-.nav-link:hover,
-.nav-link.router-link-active {
-  color: rgb(var(--fg));
+:global(html.dark) .nav-link {
+  color: #e2e8f0;
 }
 
-@media (min-width: 768px) {
-  .nav-link {
-    position: relative;
-    font-size: 0.9rem;
-  }
-  .nav-link::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: -4px;
-    height: 2px;
-    width: 0%;
-    border-radius: 999px;
-    background:#3b82f6;
-    transition: width 0.25s ease;
-  }
-  .nav-link:hover::after,
-  .nav-link.router-link-active::after {
-    width: 100%;
-  }
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  height: 2px;
+  width: 0%;
+  border-radius: 999px;
+  background: #3b82f6;
+  transition: width 0.25s ease;
+}
+
+.nav-link:hover,
+.nav-link:focus-visible {
+  color: rgb(var(--fg));
+}
+:global(html.dark) .nav-link:hover,
+:global(html.dark) .nav-link:focus-visible {
+  color: #ffffff;
+}
+
+.nav-link:hover::after,
+.nav-link:focus-visible::after {
+  width: 100%;
+}
+
+.nav-link:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 4px;
+  border-radius: 2px;
 }
 
 #talk-btn:hover {

@@ -29,6 +29,18 @@ function toText(value: unknown, field: keyof typeof MAX_LENGTH): string | null {
   return text.length > 0 && text.length <= MAX_LENGTH[field] ? text : null;
 }
 
+// Aceita e-mail (formato básico) ou telefone (8+ dígitos, com espaços/
+// parênteses/traço/+ opcionais) — não trava formatos incomuns, só barra
+// lixo óbvio tipo "a" ou "123".
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const PHONE_PATTERN = /^[\d\s()+-]{8,}$/;
+
+function isValidContact(value: string): boolean {
+  if (EMAIL_PATTERN.test(value)) return true;
+  const digitsOnly = value.replace(/\D/g, "");
+  return digitsOnly.length >= 8 && PHONE_PATTERN.test(value);
+}
+
 function cleanupRateLimit(): void {
   const now = Date.now();
   for (const [ip, timestamp] of recentSubmissions.entries()) {
@@ -49,7 +61,16 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  const body = await readBody<IncomingMessageBody>(event);
+  let body: IncomingMessageBody;
+  try {
+    body = await readBody<IncomingMessageBody>(event);
+  } catch {
+    throw createError({
+      statusCode: 400,
+      statusMessage: "Corpo da requisição inválido.",
+    });
+  }
+
   const name = toText(body?.name, "name");
   const contact = toText(body?.contact, "contact");
   const source = toText(body?.source, "source");
@@ -62,9 +83,27 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  const created = await prisma.contactMessage.create({
-    data: { name, contact, topic: body.topic, source, message },
-  });
+  if (!isValidContact(contact)) {
+    throw createError({
+      statusCode: 400,
+      statusMessage: "Informe um e-mail ou telefone válido pra contato.",
+    });
+  }
+
+  let created;
+  try {
+    created = await prisma.contactMessage.create({
+      data: { name, contact, topic: body.topic, source, message },
+    });
+  } catch (err) {
+    // Nunca repassa o erro do Prisma pro cliente (pode vazar detalhe
+    // interno de banco) -- só loga no servidor e devolve algo genérico.
+    console.error("[api/messages] falha ao gravar mensagem:", err);
+    throw createError({
+      statusCode: 500,
+      statusMessage: "Não foi possível enviar sua mensagem agora. Tente novamente em instantes.",
+    });
+  }
 
   recentSubmissions.set(ip, Date.now());
   cleanupRateLimit();

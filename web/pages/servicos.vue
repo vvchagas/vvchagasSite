@@ -25,7 +25,7 @@
           </p>
         </div>
 
-        <div class="grid gap-6 lg:grid-cols-3">
+        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           <article 
             v-for="service in servicesList" 
             :key="service.id"
@@ -160,7 +160,6 @@ const servicesList = [
 ];
 
 useHead({
-  title: "vvchagas - Meus Serviços",
   link: [
     { rel: "preconnect", href: "https://fonts.googleapis.com" },
     { rel: "preconnect", href: "https://fonts.gstatic.com", crossorigin: "" },
@@ -169,6 +168,15 @@ useHead({
       href: "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,300,0,0",
     },
   ],
+});
+
+useSeoMeta({
+  title: "vvchagas - Meus Serviços",
+  description: () => t("services.description"),
+  ogTitle: "vvchagas - Meus Serviços",
+  ogDescription: () => t("services.description"),
+  ogType: "website",
+  twitterCard: "summary",
 });
 
 const heroSection = ref<HTMLElement | null>(null);

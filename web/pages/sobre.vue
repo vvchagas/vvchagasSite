@@ -143,7 +143,6 @@ import { useScrollReveal } from "~/composables/useScrollReveal";
 const { t } = useLocale();
 
 useHead({
-  title: "vvchagas - Sobre",
   link: [
     { rel: "preconnect", href: "https://fonts.googleapis.com" },
     { rel: "preconnect", href: "https://fonts.gstatic.com", crossorigin: "" },
@@ -152,6 +151,15 @@ useHead({
       href: "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,300,0,0",
     },
   ],
+});
+
+useSeoMeta({
+  title: "vvchagas - Sobre",
+  description: () => t("about.description"),
+  ogTitle: "vvchagas - Sobre",
+  ogDescription: () => t("about.description"),
+  ogType: "website",
+  twitterCard: "summary",
 });
 
 // Hero

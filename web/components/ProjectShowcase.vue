@@ -41,13 +41,15 @@ const translatedProjects = computed(() => {
 });
 
 // Classes de grid fixas para o Tailwind gerar os estilos corretamente.
+// Transição fluida: 1 coluna no mobile, 2 a partir de sm (tablet),
+// só chega no total pedido a partir de lg (onde há espaço de sobra).
 const gridClasses: Record<number, string> = {
-  1: "md:grid-cols-1",
-  2: "md:grid-cols-2",
-  3: "md:grid-cols-3",
+  1: "",
+  2: "sm:grid-cols-2",
+  3: "sm:grid-cols-2 lg:grid-cols-3",
 };
 
-const gridClass = computed(() => gridClasses[props.columns] ?? "md:grid-cols-3");
+const gridClass = computed(() => gridClasses[props.columns] ?? "sm:grid-cols-2 lg:grid-cols-3");
 const listClass = computed(() =>
   props.layout === "centered" ? "project-showcase__list--centered" : "grid gap-6",
 );
@@ -233,7 +235,7 @@ onUnmounted(() => {
             >
               <span aria-hidden="true" class="material-symbols-outlined">close</span>
             </button>
-            <img :src="lightboxImage" :alt="t('portfolio.lightboxAlt')" class="lightbox-image">
+            <img :src="lightboxImage" :alt="t('portfolio.lightboxAlt')" class="lightbox-image" loading="lazy">
           </div>
         </div>
       </Transition>

@@ -564,7 +564,6 @@ import { useScrollReveal } from "~/composables/useScrollReveal";
 const { t } = useLocale();
 
 useHead({
-  title: "vvchagas - Início",
   link: [
     { rel: "preconnect", href: "https://fonts.googleapis.com" },
     { rel: "preconnect", href: "https://fonts.gstatic.com", crossorigin: "" },
@@ -573,6 +572,15 @@ useHead({
       href: "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,300,0,0",
     },
   ],
+});
+
+useSeoMeta({
+  title: "vvchagas - Início",
+  description: () => t("hero.description"),
+  ogTitle: "vvchagas - Início",
+  ogDescription: () => t("hero.description"),
+  ogType: "website",
+  twitterCard: "summary",
 });
 
 // Sobre
@@ -707,15 +715,6 @@ async function submit() {
   direction: ltr;
   -webkit-font-smoothing: antialiased;
   vertical-align: middle;
-}
-
-.footer-link {
-  font-weight: 600;
-  color: rgba(var(--fg), 0.75);
-  transition: color 0.2s ease;
-}
-.footer-link:hover {
-  color: #3b82f6;
 }
 
 .badge {

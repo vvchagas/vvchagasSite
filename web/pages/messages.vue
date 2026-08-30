@@ -1,5 +1,5 @@
 <template>
-  <div class="site-page min-h-screen bg-background text-foreground">
+  <div class="site-page min-h-screen bg-background text-foreground overflow-x-hidden">
     <NuxtRouteAnnouncer />
     <SiteHeader />
 
@@ -107,8 +107,8 @@
                   <span class="rounded-full bg-blue-600/10 px-3 py-1 text-xs font-bold text-blue-700 dark:text-blue-300">{{ topicLabel(item.topic) }}</span>
                   <span class="rounded-full bg-muted px-3 py-1 text-xs font-semibold text-foreground/90">Origem: {{ item.source }}</span>
                   <span class="rounded-full bg-muted px-3 py-1 text-xs font-semibold text-foreground/90">{{ formatDate(item.createdAt) }}</span>
-                  <span v-if="item.readAt" class="rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-semibold text-emerald-700 dark:text-green-600">Lida</span>
-                  <span v-else class="rounded-full bg-amber-500/10 px-3 py-1 text-xs font-semibold text-amber-700 dark:text-red-600">Não lida</span>
+                  <span v-if="item.readAt" class="rounded-full bg-emerald-600 px-3 py-1 text-xs font-semibold text-green-800 dark:text-green-400">Lida</span>
+                  <span v-else class="rounded-full bg-red-400/20 px-3 py-1 text-xs font-semibold text-amber-700 dark:text-red-600">Não lida</span>
                 </div>
               </div>
               <p class="mt-4 whitespace-pre-line text-sm leading-7 text-muted">{{ item.message }}</p>
@@ -312,6 +312,6 @@ useHead({
 .message-action:disabled { cursor: wait; opacity: .55; }
 .message-action--read { background: rgba(15, 211, 9, 0.281); color: rgb(11, 170, 6); }
 .message-action--delete { background: rgb(239 68 68 / .12); color: rgb(185 28 28); }
-:global(html.dark) .message-action--read { color: rgb(147 197 253); }
+:global(html.dark) .message-action--read { color: rgba(20, 231, 20, 0.788); }
 :global(html.dark) .message-action--delete { color: rgb(252 165 165); }
 </style>

@@ -278,6 +278,13 @@
               </p>
             </div>
           </form>
+
+          <!-- Reserva de espaço só no mobile: o teclado nativo cobre a
+               parte de baixo da viewport, e sem essa folga o botão de
+               enviar (ou a mensagem de erro/sucesso logo abaixo dele)
+               fica escondido atrás do teclado depois que o campo focado
+               é rolado até a vista. -->
+          <div class="h-24 sm:hidden" aria-hidden="true" />
         </div>
       </section>
     </main>
@@ -295,7 +302,6 @@ import { useScrollReveal } from "~/composables/useScrollReveal";
 const { t } = useLocale();
 
 useHead({
-  title: "vvchagas - Contato",
   link: [
     { rel: "preconnect", href: "https://fonts.googleapis.com" },
     { rel: "preconnect", href: "https://fonts.gstatic.com", crossorigin: "" },
@@ -304,6 +310,15 @@ useHead({
       href: "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,300,0,0",
     },
   ],
+});
+
+useSeoMeta({
+  title: "vvchagas - Contato",
+  description: () => t("contact.description"),
+  ogTitle: "vvchagas - Contato",
+  ogDescription: () => t("contact.description"),
+  ogType: "website",
+  twitterCard: "summary",
 });
 
 const route = useRoute();
