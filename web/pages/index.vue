@@ -447,101 +447,164 @@
             </div>
 
             <form
-              ref="contatoForm"
-              class="rounded-3xl border border-border/60 bg-card p-5 shadow-sm backdrop-blur sm:p-6 md:p-8"
-              @submit.prevent="submit"
-            >
-              <div class="flex items-center justify-between gap-4">
-                <h3 class="text-lg font-extrabold">{{ t('contact.formTitle') }}</h3>
-                <span class="text-xs font-semibold text-muted">{{ t('contact.formFast') }}</span>
-              </div>
+            class="rounded-3xl border border-neutral-700/60 bg-black/50 dark:bg-black/60 p-5 shadow-sm backdrop-blur sm:p-6 md:p-8 mt-5"
+            @submit.prevent="submit"
+          >
+            <div class="flex items-center justify-between gap-4">
+              <h3 class="text-lg font-extrabold">{{ t('contact.formTitle') }}</h3>
+              <span class="text-xs font-semibold text-muted">{{ t('contact.formFast') }}</span>
+            </div>
 
-              <div class="mt-5 grid gap-4">
-                <label class="block">
-                  <span class="text-sm font-semibold">{{ t('contact.formName') }}</span>
-                  <input
-                    v-model="form.name"
-                    type="text"
-                    class="mt-2 w-full rounded-2xl border border-border/70 bg-background/50 px-4 py-3 text-sm outline-none transition focus:border-blue-500/60 focus:ring-2 focus:ring-blue-500/20"
-                    :placeholder="t('contact.formNamePlaceholder')"
-                    required
-                  > 
-                </label>
+            <div class="mt-5 grid gap-4">
+              <label class="block">
+                <span class="text-sm font-semibold">{{ t('contact.formName') }}</span>
+                <input
+                  v-model="form.name"
+                  type="text"
+                  class="mt-2 w-full rounded-2xl border border-border/70 bg-background/50 px-4 py-3 text-sm outline-none transition focus:border-blue-500/60 focus:ring-2 focus:ring-blue-500/20"
+                  :placeholder="t('contact.formNamePlaceholder')"
+                  required
+                > 
+              </label>
 
-                <label class="block">
-                  <span class="text-sm font-semibold">{{ t('contact.formContact') }}</span>
-                  <input
-                    v-model="form.contact"
-                    type="text"
-                    class="mt-2 w-full rounded-2xl border border-border/70 bg-background/50 px-4 py-3 text-sm outline-none transition focus:border-blue-500/60 focus:ring-2 focus:ring-blue-500/20"
-                    :placeholder="t('contact.formContactPlaceholder')"
-                    required
-                  >
-                </label>
-
-                <label class="block">
-                  <span class="text-sm font-semibold">{{ t('contact.formSubject') }}</span>
-                  <select
-                    v-model="form.topic"
-                    class="mt-2 w-full rounded-2xl border border-border/70 bg-background/50 px-4 py-3 text-sm outline-none transition focus:border-blue-500/60 focus:ring-2 focus:ring-blue-500/20"
-                    required
-                  >
-                    <option class="bg-background text-foreground" value="web">{{ t('contact.formSubjectWeb') }}</option>
-                    <option class="bg-background text-foreground" value="ti">{{ t('contact.formSubjectIT') }}</option>
-                    <option class="bg-background text-foreground" value="assistencia-tecnica">{{ t('contact.formSubjectTech') }}</option>
-                  </select>
-                </label>
-
-                <label class="block">
-                  <span class="text-sm font-semibold">{{ t('contact.formSource') }}</span>
-                  <select
-                    v-model="form.source"
-                    class="mt-2 w-full rounded-2xl border border-border/70 bg-background/50 px-4 py-3 text-sm outline-none transition focus:border-blue-500/60 focus:ring-2 focus:ring-blue-500/20"
-                    required
-                  >
-                    <option class="bg-background text-foreground" value="google">{{ t('contact.formSourceGoogle') }}</option>
-                    <option class="bg-background text-foreground" value="linkedin">{{ t('contact.formSourceLinkedin') }}</option>
-                    <option class="bg-background text-foreground" value="indicacao">{{ t('contact.formSourceIndication') }}</option>
-                    <option class="bg-background text-foreground" value="github">{{ t('contact.formSourceGithub') }}</option>
-                  </select>
-                </label>
-
-                <label class="block">
-                  <span class="text-sm font-semibold">{{ t('contact.formMessage') }}</span>
-                  <textarea
-                    v-model="form.message"
-                    rows="5"
-                    class="mt-2 w-full resize-none rounded-2xl border border-border/70 bg-background/50 px-4 py-3 text-sm outline-none transition focus:border-blue-500/60 focus:ring-2 focus:ring-blue-500/20"
-                    :placeholder="t('contact.formMessagePlaceholder')"
-                    required
-                  />
-                </label>
-
-                <button
-                  type="submit"
-                  :disabled="isSending"
-                  class="inline-flex w-full items-center justify-center rounded-2xl bg-blue-600 px-4 py-3 text-sm font-extrabold text-white shadow-sm transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:cursor-wait disabled:opacity-55"
+              <label class="block">
+                <span class="text-sm font-semibold">{{ t('contact.formContactType') }}</span>
+                <select
+                  v-model="form.contactType"
+                  class="mt-2 w-full rounded-2xl border border-border/70 bg-background/50 px-4 py-3 text-sm outline-none transition focus:border-blue-500/60 focus:ring-2 focus:ring-blue-500/20"
+                  required
                 >
-                  {{ isSending ? t('contact.formSending') : t('contact.formSend') }}
-                </button>
+                  <option class="bg-background text-foreground" value="email">{{ t('contact.formContactTypeEmail') }}</option>
+                  <option class="bg-background text-foreground" value="phone">{{ t('contact.formContactTypePhone') }}</option>
+                </select>
+              </label>
 
-                <p
-                  v-if="sendError"
-                  class="rounded-2xl border border-red-500/40 bg-red-500/10 px-4 py-3 text-sm text-red-700 dark:text-red-300"
-                  role="alert"
+              <label v-if="form.contactType === 'email'" class="block">
+                <span class="text-sm font-semibold">{{ t('contact.formEmail') }}</span>
+                <input
+                  v-model="form.email"
+                  type="email"
+                  inputmode="email"
+                  autocomplete="email"
+                  class="mt-2 w-full rounded-2xl border bg-background/50 px-4 py-3 text-sm outline-none transition focus:ring-2"
+                  :class="emailError
+                    ? 'border-red-500/70 focus:border-red-500 focus:ring-red-500/20'
+                    : 'border-border/70 focus:border-blue-500/60 focus:ring-blue-500/20'"
+                  :aria-invalid="Boolean(emailError)"
+                  :aria-describedby="emailError ? 'email-error' : undefined"
+                  :placeholder="t('contact.formEmailPlaceholder')"
+                  required
+                  @blur="touchedEmail = true"
                 >
-                  {{ sendError }}
+                <p v-if="emailError" id="email-error" class="mt-1.5 text-xs font-medium text-red-500" role="alert">
+                  {{ emailError }}
                 </p>
+              </label>
 
-                <p
-                  v-if="toast"
-                  class="rounded-2xl border border-border/70 bg-card/60 px-4 py-3 text-sm text-muted"
-                  role="status"
-                >
-                  {{ toast }}
+              <label v-if="form.contactType === 'phone'" class="block">
+                <span class="text-sm font-semibold">{{ t('contact.formPhone') }}</span>
+                <div class="mt-2 flex gap-2">
+                  <label class="sr-only" for="phone-ddi">{{ t('contact.formPhoneDdiLabel') }}</label>
+                  <select
+                    id="phone-ddi"
+                    v-model="phone.ddi.value"
+                    class="w-26 shrink-0 rounded-2xl border border-border/70 bg-background/50 px-2 py-3 text-sm outline-none transition focus:border-blue-500/60 focus:ring-2 focus:ring-blue-500/20"
+                  >
+                    <option
+                      v-for="country in phone.countries"
+                      :key="country.ddi"
+                      class="bg-background text-foreground"
+                      :value="country.ddi"
+                    >
+                      {{ country.flag }} {{ country.ddi }}
+                    </option>
+                  </select>
+                  <input
+                    :value="phone.displayValue.value"
+                    type="tel"
+                    inputmode="tel"
+                    autocomplete="tel-national"
+                    class="w-full rounded-2xl border bg-background/50 px-4 py-3 text-sm outline-none transition focus:ring-2"
+                    :class="phoneError
+                      ? 'border-red-500/70 focus:border-red-500 focus:ring-red-500/20'
+                      : 'border-border/70 focus:border-blue-500/60 focus:ring-blue-500/20'"
+                    :aria-invalid="Boolean(phoneError)"
+                    :aria-describedby="phoneError ? 'phone-error' : undefined"
+                    :placeholder="t('contact.formPhonePlaceholder')"
+                    required
+                    @input="phone.onInput(($event.target as HTMLInputElement).value)"
+                    @blur="touchedPhone = true"
+                  >
+                </div>
+                <p v-if="phoneError" id="phone-error" class="mt-1.5 text-xs font-medium text-red-500" role="alert">
+                  {{ phoneError }}
                 </p>
-              </div>
-            </form>
+              </label>
+
+              <label class="block">
+                <span class="text-sm font-semibold">{{ t('contact.formSubject') }}</span>
+                <select
+                  v-model="form.topic"
+                  class="mt-2 w-full rounded-2xl border border-border/70 bg-background/50 px-4 py-3 text-sm outline-none transition focus:border-blue-500/60 focus:ring-2 focus:ring-blue-500/20"
+                  required
+                >
+                  <option class="bg-background text-foreground" value="web">{{ t('contact.formSubjectWeb') }}</option>
+                  <option class="bg-background text-foreground" value="ti">{{ t('contact.formSubjectIT') }}</option>
+                  <option class="bg-background text-foreground" value="assistencia-tecnica">{{ t('contact.formSubjectTech') }}</option>
+                </select>
+              </label>
+
+              <label class="block">
+                <span class="text-sm font-semibold">{{ t('contact.formSource') }}</span>
+                <select
+                  v-model="form.source"
+                  class="mt-2 w-full rounded-2xl border border-border/70 bg-background/50 px-4 py-3 text-sm outline-none transition focus:border-blue-500/60 focus:ring-2 focus:ring-blue-500/20"
+                  required
+                >
+                  <option class="bg-background text-foreground" value="google">{{ t('contact.formSourceGoogle') }}</option>
+                  <option class="bg-background text-foreground" value="linkedin">{{ t('contact.formSourceLinkedin') }}</option>
+                  <option class="bg-background text-foreground" value="indicacao">{{ t('contact.formSourceIndication') }}</option>
+                  <option class="bg-background text-foreground" value="github">{{ t('contact.formSourceGithub') }}</option>
+                </select>
+              </label>
+
+              <label class="block">
+                <span class="text-sm font-semibold">{{ t('contact.formMessage') }}</span>
+                <textarea
+                  v-model="form.message"
+                  rows="5"
+                  class="mt-2 w-full resize-none rounded-2xl border border-border/70 bg-background/50 px-4 py-3 text-sm outline-none transition focus:border-blue-500/60 focus:ring-2 focus:ring-blue-500/20"
+                  :placeholder="t('contact.formMessagePlaceholder')"
+                  required
+                />
+              </label>
+
+              <button
+                type="submit"
+                :disabled="isSending || (touchedEmail && touchedPhone && !isFormValid)"
+                class="inline-flex w-full items-center justify-center rounded-2xl bg-blue-600 px-4 py-3 text-sm font-extrabold text-white shadow-sm transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:cursor-not-allowed disabled:opacity-55"
+              >
+                {{ isSending ? t('contact.formSending') : t('contact.formSend') }}
+              </button>
+
+              <p
+                v-if="sendError"
+                class="rounded-2xl border border-red-500/40 bg-red-500/10 px-4 py-3 text-sm text-red-700 dark:text-red-300"
+                role="alert"
+              >
+                {{ sendError }}
+              </p>
+
+              <p
+                v-if="toast"
+                class="rounded-2xl border border-border/70 bg-card/60 px-4 py-3 text-sm text-muted"
+                role="status"
+              >
+                {{ toast }}
+              </p>
+            </div>
+          </form>
+
           </div>
         </div>
       </section>
@@ -552,7 +615,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import { useHead } from "nuxt/app";
 import type { MessageTopic } from "@@/shared/messages";
 
@@ -560,6 +623,7 @@ import SiteHeader from "../components/SiteHeader.vue";
 import SiteFooter from "../components/SiteFooter.vue";
 import ProjectShowcase from "../components/ProjectShowcase.vue";
 import { useScrollReveal } from "~/composables/useScrollReveal";
+import { useInternationalPhone } from "~/composables/useInternationalPhone";
 
 const { t } = useLocale();
 
@@ -625,32 +689,77 @@ useScrollReveal(contatoForm, { delay: 0.15 });
 const toast = ref<string | null>(null);
 const sendError = ref<string | null>(null);
 const isSending = ref(false);
+const phone = useInternationalPhone();
+
+const touchedEmail = ref(false);
+const touchedPhone = ref(false);
+
+const EMAIL_PATTERN =
+  /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/;
 
 const form = ref({
   name: "",
-  contact: "",
+  email: "",
+  contactType: "email" as "email" | "phone",
   topic: "web" as MessageTopic,
   source: "google",
   message: "",
 });
 
+const isEmailValid = computed(() => EMAIL_PATTERN.test(form.value.email.trim()));
+
+const emailError = computed(() => {
+  if (!touchedEmail.value || isEmailValid.value) return null;
+  return t("contact.formEmailError");
+});
+
+const phoneError = computed(() => {
+  if (!touchedPhone.value || phone.isValid.value) return null;
+  return t("contact.formPhoneError");
+});
+
+const isFormValid = computed(() => {
+  if (form.value.contactType === "email") {
+    return isEmailValid.value;
+  }
+
+  return phone.isValid.value;
+});
+
 async function submit() {
+  touchedEmail.value = true;
+  touchedPhone.value = true;
+
+  if (!isFormValid.value) return;
+
   isSending.value = true;
   sendError.value = null;
   try {
     await $fetch("/api/messages", {
       method: "POST",
-      body: form.value,
+      body: {
+        name: form.value.name,
+        email: form.value.contactType === "email" ? form.value.email.trim() : "",
+        phone: form.value.contactType === "phone" ? phone.e164.value : "",
+        contactType: form.value.contactType,
+        topic: form.value.topic,
+        source: form.value.source,
+        message: form.value.message,
+      },
     });
 
     toast.value = t("contact.formSuccess");
     form.value = {
       name: "",
-      contact: "",
+      email: "",
+      contactType: "email",
       topic: "web",
       source: "google",
       message: "",
     };
+    phone.reset();
+    touchedEmail.value = false;
+    touchedPhone.value = false;
     window.setTimeout(() => (toast.value = null), 3500);
   } catch {
     sendError.value = t("contact.formError");

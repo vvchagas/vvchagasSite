@@ -4,7 +4,9 @@ import { prisma } from "../../utils/prisma";
 
 interface IncomingMessageBody {
   name?: unknown;
-  contact?: unknown;
+  email?: unknown;
+  phone?: unknown;
+  contactType?: unknown;
   topic?: unknown;
   source?: unknown;
   message?: unknown;
@@ -12,7 +14,6 @@ interface IncomingMessageBody {
 
 const MAX_LENGTH = {
   name: 100,
-  contact: 160,
   source: 80,
   message: 3_000,
 } as const;
@@ -29,16 +30,20 @@ function toText(value: unknown, field: keyof typeof MAX_LENGTH): string | null {
   return text.length > 0 && text.length <= MAX_LENGTH[field] ? text : null;
 }
 
-// Aceita e-mail (formato básico) ou telefone (8+ dígitos, com espaços/
-// parênteses/traço/+ opcionais) — não trava formatos incomuns, só barra
-// lixo óbvio tipo "a" ou "123".
-const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const PHONE_PATTERN = /^[\d\s()+-]{8,}$/;
+// E-mail: exige "@" e um domínio com TLD válido (regex estrita, mesma
+// exigida no frontend). Máx. 254 chars é o limite prático de e-mail (RFC 5321).
+const EMAIL_PATTERN =
+  /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/;
 
-function isValidContact(value: string): boolean {
-  if (EMAIL_PATTERN.test(value)) return true;
-  const digitsOnly = value.replace(/\D/g, "");
-  return digitsOnly.length >= 8 && PHONE_PATTERN.test(value);
+// Telefone E.164: "+" seguido de 7 a 15 dígitos (padrão internacional).
+const E164_PATTERN = /^\+[1-9]\d{6,14}$/;
+
+function isValidEmail(value: string): boolean {
+  return value.length <= 254 && EMAIL_PATTERN.test(value);
+}
+
+function isValidPhoneE164(value: string): boolean {
+  return E164_PATTERN.test(value);
 }
 
 function cleanupRateLimit(): void {
@@ -72,28 +77,53 @@ export default defineEventHandler(async (event) => {
   }
 
   const name = toText(body?.name, "name");
-  const contact = toText(body?.contact, "contact");
   const source = toText(body?.source, "source");
   const message = toText(body?.message, "message");
+  const email = typeof body?.email === "string" ? body.email.trim() : "";
+  const phone = typeof body?.phone === "string" ? body.phone.trim() : "";
+  const contactType = body?.contactType === "email" || body?.contactType === "phone" 
+    ? body.contactType 
+    : "email";
 
-  if (!name || !contact || !source || !message || !isMessageTopic(body?.topic)) {
+  if (!name || !source || !message || !isMessageTopic(body?.topic)) {
     throw createError({
       statusCode: 400,
       statusMessage: "Faltam informações ou acima do limite permitido.",
     });
   }
 
-  if (!isValidContact(contact)) {
-    throw createError({
-      statusCode: 400,
-      statusMessage: "Informe um e-mail ou telefone válido pra contato.",
-    });
+  // Validação condicional conforme tipo de contato
+  if (contactType === "email") {
+    if (!isValidEmail(email)) {
+      throw createError({
+        statusCode: 400,
+        statusMessage: "Informe um e-mail válido (ex: nome@dominio.com).",
+      });
+    }
+  } else if (contactType === "phone") {
+    if (!isValidPhoneE164(phone)) {
+      throw createError({
+        statusCode: 400,
+        statusMessage: "Informe um telefone válido, com DDI (padrão internacional).",
+      });
+    }
   }
 
-  let created;
   try {
-    created = await prisma.contactMessage.create({
-      data: { name, contact, topic: body.topic, source, message },
+    await prisma.contactMessage.create({
+      // "contact" é mantido por retrocompatibilidade com a tela admin
+      // (/messages, que ainda lê esse campo único) -- reflete o que a
+      // pessoa realmente escolheu (e-mail OU telefone), não sempre e-mail.
+      data: {
+        name,
+        contact: contactType === "phone" ? phone : email,
+        email,
+        phone,
+        contactType,
+        topic: body.topic,
+        source,
+        message,
+      },
     });
   } catch (err) {
     // Nunca repassa o erro do Prisma pro cliente (pode vazar detalhe
@@ -108,12 +138,5 @@ export default defineEventHandler(async (event) => {
   recentSubmissions.set(ip, Date.now());
   cleanupRateLimit();
 
-  return {
-    ok: true,
-    item: {
-      ...created,
-      createdAt: created.createdAt.toISOString(),
-      readAt: created.readAt ? created.readAt.toISOString() : null,
-    },
-  };
+  return { success: true };
 });

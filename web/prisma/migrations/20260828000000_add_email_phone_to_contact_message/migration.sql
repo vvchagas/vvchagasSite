@@ -1,0 +1,5 @@
+-- AlterTable
+ALTER TABLE "ContactMessage" ADD COLUMN "email" TEXT NOT NULL DEFAULT '';
+ALTER TABLE "ContactMessage" ADD COLUMN "phone" TEXT NOT NULL DEFAULT '';
+ALTER TABLE "ContactMessage" ALTER COLUMN "email" DROP DEFAULT;
+ALTER TABLE "ContactMessage" ALTER COLUMN "phone" DROP DEFAULT;

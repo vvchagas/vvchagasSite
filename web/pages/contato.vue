@@ -54,7 +54,7 @@
           </div>
 
           <div
-            class="mt-5 rounded-xl border border-green-600/40 bg-black/50 dark:bg-black/60 p-4 shadow-sm backdrop-blur sm:mt-6 sm:rounded-4xl sm:p-8"
+            class="mt-5 rounded-xl border border-green-600/40 bg-background p-4 shadow-sm backdrop-blur sm:mt-6 sm:rounded-4xl sm:p-8"
           >
             <h3 class="text-center text-base sm:text-lg mb-4 sm:mb-5 font-bold">
               {{ t('contact.whatsappResponseTitle') }}
@@ -98,7 +98,7 @@
           </div>
 
           <div
-            class="mt-5 rounded-xl border border-blue-600/40 bg-black/50 dark:bg-black/60 p-4 shadow-sm backdrop-blur sm:mt-6 sm:rounded-4xl sm:p-8"
+            class="mt-5 rounded-xl border border-blue-600/40 bg-background p-4 shadow-sm backdrop-blur sm:mt-6 sm:rounded-4xl sm:p-8"
           >
             <h3 class="text-center text-base sm:text-lg mb-4 sm:mb-5 font-bold">
               {{ t('contact.linkedinResponseTitle') }}
@@ -142,7 +142,7 @@
           </div>
 
           <div
-            class="mt-5 rounded-xl border border-red-600/40 bg-black/50 dark:bg-black/60 p-4 shadow-sm backdrop-blur sm:mt-6 sm:rounded-4xl sm:p-8"
+            class="mt-5 rounded-xl border border-red-600/40 bg-background p-4 shadow-sm backdrop-blur sm:mt-6 sm:rounded-4xl sm:p-8"
           >
             <h3 class="text-center text-base sm:text-lg mb-4 sm:mb-5 font-bold">
               {{ t('contact.emailResponseTitle') }}
@@ -184,7 +184,7 @@
           </p>
 
           <form
-            class="rounded-3xl border border-neutral-700/60 bg-black/50 dark:bg-black/60 p-5 shadow-sm backdrop-blur sm:p-6 md:p-8 mt-5"
+            class="rounded-3xl border border-neutral-700/60 bg-background p-5 shadow-sm backdrop-blur sm:p-6 md:p-8 mt-5"
             @submit.prevent="submit"
           >
             <div class="flex items-center justify-between gap-4">
@@ -205,14 +205,77 @@
               </label>
 
               <label class="block">
-                <span class="text-sm font-semibold">{{ t('contact.formContact') }}</span>
-                <input
-                  v-model="form.contact"
-                  type="text"
+                <span class="text-sm font-semibold">{{ t('contact.formContactType') }}</span>
+                <select
+                  v-model="form.contactType"
                   class="mt-2 w-full rounded-2xl border border-border/70 bg-background/50 px-4 py-3 text-sm outline-none transition focus:border-blue-500/60 focus:ring-2 focus:ring-blue-500/20"
-                  :placeholder="t('contact.formContactPlaceholder')"
                   required
                 >
+                  <option class="bg-background text-foreground" value="email">{{ t('contact.formContactTypeEmail') }}</option>
+                  <option class="bg-background text-foreground" value="phone">{{ t('contact.formContactTypePhone') }}</option>
+                </select>
+              </label>
+
+              <label v-if="form.contactType === 'email'" class="block">
+                <span class="text-sm font-semibold">{{ t('contact.formEmail') }}</span>
+                <input
+                  v-model="form.email"
+                  type="email"
+                  inputmode="email"
+                  autocomplete="email"
+                  class="mt-2 w-full rounded-2xl border bg-background/50 px-4 py-3 text-sm outline-none transition focus:ring-2"
+                  :class="emailError
+                    ? 'border-red-500/70 focus:border-red-500 focus:ring-red-500/20'
+                    : 'border-border/70 focus:border-blue-500/60 focus:ring-blue-500/20'"
+                  :aria-invalid="Boolean(emailError)"
+                  :aria-describedby="emailError ? 'email-error' : undefined"
+                  :placeholder="t('contact.formEmailPlaceholder')"
+                  required
+                  @blur="touchedEmail = true"
+                >
+                <p v-if="emailError" id="email-error" class="mt-1.5 text-xs font-medium text-red-500" role="alert">
+                  {{ emailError }}
+                </p>
+              </label>
+
+              <label v-if="form.contactType === 'phone'" class="block">
+                <span class="text-sm font-semibold">{{ t('contact.formPhone') }}</span>
+                <div class="mt-2 flex gap-2">
+                  <label class="sr-only" for="phone-ddi">{{ t('contact.formPhoneDdiLabel') }}</label>
+                  <select
+                    id="phone-ddi"
+                    v-model="phone.ddi.value"
+                    class="w-26 shrink-0 rounded-2xl border border-border/70 bg-background/50 px-2 py-3 text-sm outline-none transition focus:border-blue-500/60 focus:ring-2 focus:ring-blue-500/20"
+                  >
+                    <option
+                      v-for="country in phone.countries"
+                      :key="country.ddi"
+                      class="bg-background text-foreground"
+                      :value="country.ddi"
+                    >
+                      {{ country.flag }} {{ country.ddi }}
+                    </option>
+                  </select>
+                  <input
+                    :value="phone.displayValue.value"
+                    type="tel"
+                    inputmode="tel"
+                    autocomplete="tel-national"
+                    class="w-full rounded-2xl border bg-background/50 px-4 py-3 text-sm outline-none transition focus:ring-2"
+                    :class="phoneError
+                      ? 'border-red-500/70 focus:border-red-500 focus:ring-red-500/20'
+                      : 'border-border/70 focus:border-blue-500/60 focus:ring-blue-500/20'"
+                    :aria-invalid="Boolean(phoneError)"
+                    :aria-describedby="phoneError ? 'phone-error' : undefined"
+                    :placeholder="t('contact.formPhonePlaceholder')"
+                    required
+                    @input="phone.onInput(($event.target as HTMLInputElement).value)"
+                    @blur="touchedPhone = true"
+                  >
+                </div>
+                <p v-if="phoneError" id="phone-error" class="mt-1.5 text-xs font-medium text-red-500" role="alert">
+                  {{ phoneError }}
+                </p>
               </label>
 
               <label class="block">
@@ -255,8 +318,8 @@
 
               <button
                 type="submit"
-                :disabled="isSending"
-                class="inline-flex w-full items-center justify-center rounded-2xl bg-blue-600 px-4 py-3 text-sm font-extrabold text-white shadow-sm transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:cursor-wait disabled:opacity-55"
+                :disabled="isSending || (touchedEmail && touchedPhone && !isFormValid)"
+                class="inline-flex w-full items-center justify-center rounded-2xl bg-blue-600 px-4 py-3 text-sm font-extrabold text-white shadow-sm transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:cursor-not-allowed disabled:opacity-55"
               >
                 {{ isSending ? t('contact.formSending') : t('contact.formSend') }}
               </button>
@@ -293,11 +356,12 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import type { MessageTopic } from "~/shared/messages";
 import SiteHeader from "../components/SiteHeader.vue";
 import SiteFooter from "../components/SiteFooter.vue";
 import { useScrollReveal } from "~/composables/useScrollReveal";
+import { useInternationalPhone } from "~/composables/useInternationalPhone";
 
 const { t } = useLocale();
 
@@ -329,19 +393,68 @@ const selectedProject = typeof route.query.projeto === "string" ? route.query.pr
 
 const form = ref({
   name: "",
-  contact: "",
+  email: "",
+  contactType: "email" as "email" | "phone",
   topic: "web" as MessageTopic,
   source: "google",
   message: selectedProject ? `Olá! Quero um projeto semelhante a "${selectedProject}".` : "",
 });
 
+const phone = useInternationalPhone();
+
+// Validação em tempo real: só mostra erro depois que o campo perdeu o
+// foco pelo menos uma vez (evita "gritar" com o usuário no meio da digitação).
+const touchedEmail = ref(false);
+const touchedPhone = ref(false);
+
+const EMAIL_PATTERN =
+  /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/;
+
+const isEmailValid = computed(() => EMAIL_PATTERN.test(form.value.email.trim()));
+
+const emailError = computed(() => {
+  if (!touchedEmail.value || isEmailValid.value) return null;
+  return t("contact.formEmailError");
+});
+
+const phoneError = computed(() => {
+  if (!touchedPhone.value || phone.isValid.value) return null;
+  return t("contact.formPhoneError");
+});
+
+const isFormValid = computed(() => {
+  if (form.value.contactType === "email") {
+    return isEmailValid.value;
+  } else {
+    return phone.isValid.value;
+  }
+});
+
 async function submit() {
+  touchedEmail.value = true;
+  touchedPhone.value = true;
+  if (!isFormValid.value) return;
+
   isSending.value = true;
   sendError.value = null;
   try {
-    await $fetch("/api/messages", { method: "POST", body: form.value });
+    await $fetch("/api/messages", {
+      method: "POST",
+      body: {
+        name: form.value.name,
+        email: form.value.contactType === "email" ? form.value.email.trim() : "",
+        phone: form.value.contactType === "phone" ? phone.e164.value : "",
+        contactType: form.value.contactType,
+        topic: form.value.topic,
+        source: form.value.source,
+        message: form.value.message,
+      },
+    });
     toast.value = t('contact.formSuccess');
-    form.value = { name: "", contact: "", topic: "web", source: "google", message: "" };
+    form.value = { name: "", email: "", contactType: "email", topic: "web", source: "google", message: "" };
+    phone.reset();
+    touchedEmail.value = false;
+    touchedPhone.value = false;
     window.setTimeout(() => (toast.value = null), 3500);
   } catch {
     sendError.value = t('contact.formError');
