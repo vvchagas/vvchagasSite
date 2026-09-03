@@ -20,6 +20,7 @@ export default defineNuxtConfig({
     '@nuxt/eslint',
     '@nuxt/ui',
     '@nuxt/fonts',
+    '@vercel/speed-insights/nuxt',
   ],
 
   vite: {

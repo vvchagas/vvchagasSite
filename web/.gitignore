@@ -40,3 +40,10 @@ API_MESSAGES.md
 User-agent: *
 Disallow: /api/
 Disallow: /messages
+
+package-lock.json
+package.json
+nuxt.config.ts
+
+skills-lock.json
+tsconfig.json
