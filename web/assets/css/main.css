@@ -3,10 +3,23 @@
 @import "tailwindcss";
 
 :root {
+  --bg: 255 255 255;
+  --fg: 15 23 42;
+  --muted: 71 85 105;
+  --card: 255 255 255;
+  --border: 226 232 240;
   --site-blue: #1464f4;
   --site-blue-soft: #dce9ff;
   --site-glow: rgb(20 100 244 / .14);
   --site-radius: 1.25rem;
+}
+
+html.dark {
+  --bg: 12 12 12;
+  --fg: 226 232 240;
+  --muted: 148 163 184;
+  --card: 12 12 12;
+  --border: 38 38 38;
 }
 
 html,

@@ -186,21 +186,6 @@ useScrollReveal(ctaSection, { delay: 0.1 });
 </script>
 
 <style scoped>
-:global(html) {
-  --bg: 255 255 255;
-  --fg: 15 23 42;
-  --muted: 71 85 105;
-  --card: 255 255 255;
-  --border: 226 232 240;
-}
-:global(html.dark) {
-  --bg: 10 10 10;
-  --fg: 226 232 240;
-  --muted: 148 163 184;
-  --card: 18 18 18;
-  --border: 38 38 38;
-}
-
 .bg-background {
   background-color: rgb(var(--bg));
 }

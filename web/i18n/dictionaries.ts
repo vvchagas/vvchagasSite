@@ -34,6 +34,14 @@ export const dictionaries = {
     },
     hero: {
       badge: "Web Desenvolvedor, Suporte de TI e Manutenção de Notebooks",
+      greetingPrefix: "Olá, sou ",
+      firstName: "Victor",
+      lastName: "Chagas",
+      heroPhraseName: "Olá, sou Victor Chagas",
+      heroPhraseRoles: "Desenvolvedor web, Suporte de TI, manutenção de notebooks",
+      greetingBeforeName: "Olá! Eu sou Victor ",
+      name: "Chagas",
+      roles: "Desenvolvedor Web, Suporte de TI e Manutenção de Notebooks",
       description:
         "Do diagnóstico ao resultado, com clareza e sem enrolação — sites que funcionam e equipamentos que não travam na sua rotina.",
       cta: "Ver serviços",
@@ -334,6 +342,14 @@ export const dictionaries = {
     },
     hero: {
       badge: "Web Developer, IT Support and Laptop Maintenance",
+      greetingPrefix: "Hello, I'm ",
+      firstName: "Victor",
+      lastName: "Chagas",
+      heroPhraseName: "Hello, I'm Victor Chagas",
+      heroPhraseRoles: "Web Developer, IT Support, Laptop Maintenance",
+      greetingBeforeName: "Hello! I'm Victor ",
+      name: "Chagas",
+      roles: "Web Developer, IT Support and Laptop Maintenance",
       description:
         "From diagnosis to result, clear and no runaround — websites that work and hardware that keeps up with your routine.",
       cta: "View services",

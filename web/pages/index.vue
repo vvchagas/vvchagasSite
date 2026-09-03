@@ -11,35 +11,32 @@
 
     <SiteHeader />
 
-    <main id="conteudo" class="mx-auto w-full max-w-6xl px-4 md:px-6">
+    <main id="conteudo" class="mx-auto w-full max-w-6xl px-4 pb-4 md:px-6 ">
       <!-- ===== HERO ===== -->
       <section id="inicio" class="relative overflow-hidden pt-8 md:pt-14">
         <div class="absolute inset-0 -z-10">
           <div
-            class="absolute left-1/2 top-30 h-75 w-75 sm:top-55 sm:h-130 sm:w-130 -translate-x-1/2 rounded-full bg-linear-to-tr from-blue-500/30 via-indigo-500/20 to-fuchsia-500/20 blur-3xl"
+            class="hero-orb hero-orb--center absolute left-1/2 top-30 h-75 w-75 sm:top-55 sm:h-130 sm:w-130 rounded-full bg-linear-to-tr from-blue-500/30 via-indigo-500/20 to-fuchsia-500/20 blur-3xl"
           />
           <div
-            class="absolute -left-8 top-28 h-40 w-40 sm:-left-24 sm:h-64 sm:w-64 rounded-full bg-blue-500/15 blur-2xl"
+            class="hero-orb hero-orb--left absolute -left-8 top-28 h-40 w-40 sm:-left-24 sm:h-64 sm:w-64 rounded-full bg-blue-500/15 blur-2xl"
           />
           <div
-            class="absolute -right-8 top-52 h-48 w-48 sm:-right-24 sm:h-72 sm:w-72 rounded-full bg-indigo-500/15 blur-2xl"
+            class="hero-orb hero-orb--right absolute -right-8 top-52 h-48 w-48 sm:-right-24 sm:h-72 sm:w-72 rounded-full bg-indigo-500/15 blur-2xl"
           />
         </div>
 
         <div class="grid items-center gap-10 md:grid-cols-2">
           <div>
-            <p
-              class="inline-flex items-center gap-2 rounded-full border border-border/60 bg-card/60 px-3 py-1.5 text-xs font-semibold text-foreground/90 backdrop-blur"
+
+            <h1
+              class="mt-5 min-h-[3.2em] sm:min-h-[2.4em] font-mono font-black tracking-tight leading-tight break-words text-2xl sm:text-4xl lg:text-5xl"
             >
               <span
-                aria-hidden="true"
-                class="inline-flex size-2 rounded-full bg-blue-600 shadow-[0_0_0_4px_rgba(12,129,232,.15)] shrink-0"
-              />
-              <span class="leading-tight">{{ t('hero.badge') }}</span>
-            </p>
-
-            <h1 class="mt-5 text-3xl font-black tracking-tight sm:text-4xl lg:text-5xl">
-              Victor <span class="text-blue-600">Chagas</span>
+                v-for="(segment, i) in heroSegments"
+                :key="i"
+                :class="segment.cls"
+              >{{ segment.text }}</span><span class="hero-typing-cursor" aria-hidden="true">|</span>
             </h1>
 
             <p class="mt-4 max-w-prose text-base text-muted sm:text-lg leading-relaxed">
@@ -447,7 +444,7 @@
             </div>
 
             <form
-            class="rounded-3xl border border-neutral-700/60 bg-black/50 dark:bg-black/60 p-5 shadow-sm backdrop-blur sm:p-6 md:p-8 mt-5"
+            class="rounded-3xl border border-border/70 bg-background p-5 shadow-sm backdrop-blur sm:p-6 md:p-8 mt-5"
             @submit.prevent="submit"
           >
             <div class="flex items-center justify-between gap-4">
@@ -624,6 +621,7 @@ import SiteFooter from "../components/SiteFooter.vue";
 import ProjectShowcase from "../components/ProjectShowcase.vue";
 import { useScrollReveal } from "~/composables/useScrollReveal";
 import { useInternationalPhone } from "~/composables/useInternationalPhone";
+import { useTypewriterCycle } from "~/composables/useTypewriterCycle";
 
 const { t } = useLocale();
 
@@ -673,9 +671,6 @@ useScrollReveal(servCard3, { delay: 0.2 });
 useScrollReveal(servCard4, { delay: 0.3 });
 useScrollReveal(servCta, { delay: 0.4 });
 
-// Portfolio
-const portfolioSection = ref<HTMLElement | null>(null);
-useScrollReveal(portfolioSection);
 
 // Contato
 const contatoSection = ref<HTMLElement | null>(null);
@@ -690,6 +685,59 @@ const toast = ref<string | null>(null);
 const sendError = ref<string | null>(null);
 const isSending = ref(false);
 const phone = useInternationalPhone();
+
+const heroPhrase1 = computed(() => t("hero.heroPhraseName"));
+const heroPhrase2 = computed(() => t("hero.heroPhraseRoles"));
+
+const heroCycleTexts = computed(() => [heroPhrase1.value, heroPhrase2.value]);
+
+// Alterna entre o nome e as funções em loop infinito:
+// Fica 3s digitado -> apaga tudo letra por letra -> espera 1s após apagar a última letra -> próxima frase
+const { displayed: heroTyped, activeIndex: heroPhase } = useTypewriterCycle(
+  heroCycleTexts,
+  3000,
+  1000,
+  50,
+  25,
+);
+
+interface HeroSegment {
+  text: string;
+  cls: string;
+}
+
+const heroSegments = computed<HeroSegment[]>(() => {
+  if (heroPhase.value !== 0) {
+    return [{ text: heroTyped.value, cls: "text-foreground dark:text-foreground" }];
+  }
+
+  const current = heroTyped.value;
+  const prefix = t("hero.greetingPrefix");
+  const firstName = t("hero.firstName");
+  const space = " ";
+  const lastName = t("hero.lastName");
+
+  const segments: { text: string; cls: string }[] = [
+    { text: prefix, cls: "text-foreground/85 dark:text-foreground/85" },
+    { text: firstName, cls: "text-foreground dark:text-foreground font-black" },
+    { text: space, cls: "" },
+    { text: lastName, cls: "text-blue-600 dark:text-blue-500 font-black" },
+  ];
+
+  const result: HeroSegment[] = [];
+  let remaining = current.length;
+
+  for (const seg of segments) {
+    if (remaining <= 0) break;
+    const piece = seg.text.slice(0, remaining);
+    if (piece) {
+      result.push({ text: piece, cls: seg.cls });
+    }
+    remaining -= seg.text.length;
+  }
+
+  return result;
+});
 
 const touchedEmail = ref(false);
 const touchedPhone = ref(false);
@@ -770,21 +818,6 @@ async function submit() {
 </script>
 
 <style scoped>
-:global(html) {
-  --bg: 255 255 255;
-  --fg: 15 23 42;
-  --muted: 71 85 105;
-  --card: 255 255 255;
-  --border: 226 232 240;
-}
-:global(html.dark) {
-  --bg: 10 10 10;
-  --fg: 226 232 240;
-  --muted: 148 163 184;
-  --card: 18 18 18;
-  --border: 38 38 38;
-}
-
 .bg-background {
   background-color: rgb(var(--bg));
 }
@@ -863,25 +896,50 @@ async function submit() {
   color: rgb(var(--muted));
 }
 
-section#inicio .absolute.inset-0.-z-10 > div {
+section#inicio .hero-orb {
   animation: float 8s ease-in-out infinite;
 }
-section#inicio .absolute.inset-0.-z-10 > div:nth-child(2) {
+section#inicio .hero-orb--left {
   animation-delay: -2.5s;
 }
-section#inicio .absolute.inset-0.-z-10 > div:nth-child(3) {
+section#inicio .hero-orb--right {
   animation-delay: -5s;
 }
 @keyframes float {
-  0%, 100% { transform: translate(-50%, 0) scale(1); }
-  50% { transform: translate(-50%, 20px) scale(1.06); }
+  0%, 100% { transform: translate(var(--orb-x), 0) scale(1); }
+  50% { transform: translate(var(--orb-x), 20px) scale(1.06); }
 }
-section#inicio .absolute.inset-0.-z-10 > div:not(:first-child) {
-  animation-name: floatSide;
+.hero-orb--center {
+  --orb-x: -50%;
 }
-@keyframes floatSide {
-  0%, 100% { transform: translateY(0) scale(1); }
-  50% { transform: translateY(18px) scale(1.05); }
+.hero-orb--left,
+.hero-orb--right {
+  --orb-x: 0;
+}
+
+
+.code-dot {
+  width: 0.6rem;
+  border-radius: 999px;
+  flex-shrink: 0;
+}
+
+
+.hero-typing-cursor {
+  display: inline-block;
+  margin-left: 2px;
+  color: #2563eb;
+  animation: hero-cursor-blink 0.85s steps(1, end) infinite;
+}
+:global(html.dark) .hero-typing-cursor {
+  color: #3b82f6;
+}
+@keyframes hero-cursor-blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-typing-cursor { animation: none; }
 }
 
 .bg-green-500 {
