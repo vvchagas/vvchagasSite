@@ -30,7 +30,7 @@
           <div>
 
             <h1
-              class="mt-5 min-h-[3.2em] sm:min-h-[2.4em] font-mono font-black tracking-tight leading-tight break-words text-2xl sm:text-4xl lg:text-5xl"
+              class="mt-5 min-h-[3.2em] sm:min-h-[2.4em] font-mono font-black tracking-tight leading-tight wrap-break-word text-2xl sm:text-4xl lg:text-5xl"
             >
               <span
                 v-for="(segment, i) in heroSegments"

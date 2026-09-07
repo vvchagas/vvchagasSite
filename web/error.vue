@@ -7,10 +7,16 @@
       <p class="error-kicker">vvchagas / sinal interrompido</p>
       <h1 id="error-title">{{ errorTitle }}</h1>
       <p class="error-message">{{ errorMessage }}</p>
-      <button type="button" @click="handleRecovery">
-        <span aria-hidden="true">&#8592;</span>
-        {{ errorCode === 404 ? "Voltar para o inicio" : "Tentar novamente" }}
-      </button>
+      <NuxtLink
+        to="/"
+        class="inline-flex items-center gap-2 rounded-full bg-blue-600 px-4 py-2 text-sm font-bold text-white shadow-sm transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        @click="handleRecovery"
+      >
+        <span aria-hidden="true" class="material-symbols-outlined text-lg"
+          >arrow_back</span
+        >
+        {{ errorCode === 404 ? "Voltar para o início" : "Tentar novamente" }}
+      </NuxtLink>
     </section>
   </main>
 </template>
@@ -18,16 +24,25 @@
 <script setup lang="ts">
 import { computed, onMounted } from "vue";
 
-const props = defineProps<{ error: { statusCode?: number; statusMessage?: string } }>();
-const errorCode = computed(() => props.error.statusCode === 404 ? 404 : 500);
-const errorTitle = computed(() => errorCode.value === 404 ? "Essa pagina não existe." : "Algo saiu do eixo.");
-const errorMessage = computed(() => errorCode.value === 404
-  ? "O endereço pode estar incorreto ou a página foi movida."
-  : "O servidor encontrou um problema inesperado. Tente novamente em alguns instantes.");
+const props = defineProps<{
+  error: { statusCode?: number; statusMessage?: string };
+}>();
+const errorCode = computed(() => (props.error.statusCode === 404 ? 404 : 500));
+const errorTitle = computed(() =>
+  errorCode.value === 404 ? "Essa pagina não existe." : "Algo saiu do eixo.",
+);
+const errorMessage = computed(() =>
+  errorCode.value === 404
+    ? "O endereço pode estar incorreto ou a página foi movida."
+    : "O servidor encontrou um problema inesperado. Tente novamente em alguns instantes.",
+);
 
 onMounted(() => {
   if (import.meta.dev && errorCode.value >= 500) {
-    console.error("Erro interno da aplicação, o desenvolvedor estará resolvendo o problema e volta dentro de instantes.", props.error);
+    console.error(
+      "Erro interno da aplicação, o desenvolvedor estará resolvendo o problema e volta dentro de instantes.",
+      props.error,
+    );
   }
 });
 
@@ -60,7 +75,12 @@ function handleRecovery() {
   position: absolute;
   inset: -30%;
   z-index: -2;
-  background: radial-gradient(circle at 50% 50%, #262b30 0, #111311 38%, #080908 72%);
+  background: radial-gradient(
+    circle at 50% 50%,
+    #262b30 0,
+    #111311 38%,
+    #080908 72%
+  );
   content: "";
   animation: error-breathe 10s ease-in-out infinite alternate;
 }
@@ -69,8 +89,10 @@ function handleRecovery() {
   position: absolute;
   inset: 0;
   z-index: -1;
-  opacity: .2;
-  background-image: linear-gradient(#c8d0be 1px, transparent 1px), linear-gradient(90deg, #c8d0be 1px, transparent 1px);
+  opacity: 0.2;
+  background-image:
+    linear-gradient(#c8d0be 1px, transparent 1px),
+    linear-gradient(90deg, #c8d0be 1px, transparent 1px);
   background-size: 48px 48px;
   mask-image: radial-gradient(ellipse at center, black, transparent 72%);
   animation: error-drift 18s linear infinite;
@@ -83,18 +105,98 @@ function handleRecovery() {
   pointer-events: none;
 }
 
+.error-panel {
+  width: min(90vw, 620px);
+  padding: 3rem 0;
+  text-align: center;
+}
+.error-code {
+  margin: 0;
+  color: var(--error-accent);
+  font:
+    900 clamp(6rem, 20vw, 12rem)/0.8 ui-monospace,
+    SFMono-Regular,
+    Consolas,
+    monospace;
+  letter-spacing: -0.08em;
+}
+.error-kicker {
+  margin: 1.75rem 0 0;
+  color: var(--error-muted);
+  font:
+    700 0.7rem/1.4 ui-monospace,
+    SFMono-Regular,
+    Consolas,
+    monospace;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.error-panel h1 {
+  margin: 1rem 0 0;
+  font:
+    800 clamp(2rem, 5vw, 3.6rem)/1.05 Georgia,
+    serif;
+  letter-spacing: -0.03em;
+}
+.error-message {
+  max-width: 34rem;
+  margin: 1.25rem auto;
+  color: var(--error-muted);
+  font:
+    400 1rem/1.7 ui-monospace,
+    SFMono-Regular,
+    Consolas,
+    monospace;
+}
+.error-panel button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-top: 2rem;
+  border: 0;
+  border-radius: 999px;
+  padding: 0.85rem 1.2rem;
+  background: var(--error-accent);
+  color: #111311;
+  cursor: pointer;
+  font:
+    800 0.85rem/1 ui-monospace,
+    SFMono-Regular,
+    Consolas,
+    monospace;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+.error-panel button:hover {
+  box-shadow: 0 0 28px rgba(16, 99, 207, 0.24);
+  transform: translateY(-2px);
+}
+.error-panel button:focus-visible {
+  outline: 3px solid var(--error-ink);
+  outline-offset: 4px;
+}
 
-.error-panel { width: min(90vw, 620px); padding: 3rem 0; text-align: center; }
-.error-code { margin: 0; color: var(--error-accent); font: 900 clamp(6rem, 20vw, 12rem)/.8 ui-monospace, SFMono-Regular, Consolas, monospace; letter-spacing: -.08em; }
-.error-kicker { margin: 1.75rem 0 0; color: var(--error-muted); font: 700 .7rem/1.4 ui-monospace, SFMono-Regular, Consolas, monospace; letter-spacing: .2em; text-transform: uppercase; }
-.error-panel h1 { margin: 1rem 0 0; font: 800 clamp(2rem, 5vw, 3.6rem)/1.05 Georgia, serif; letter-spacing: -.03em; }
-.error-message { max-width: 34rem; margin: 1.25rem auto 0; color: var(--error-muted); font: 400 1rem/1.7 ui-monospace, SFMono-Regular, Consolas, monospace; }
-.error-panel button { display: inline-flex; align-items: center; gap: .65rem; margin-top: 2rem; border: 0; border-radius: 999px; padding: .85rem 1.2rem; background: var(--error-accent); color: #111311; cursor: pointer; font: 800 .85rem/1 ui-monospace, SFMono-Regular, Consolas, monospace; transition: transform .2s ease, box-shadow .2s ease; }
-.error-panel button:hover { box-shadow: 0 0 28px rgba(16, 99, 207, 0.24); transform: translateY(-2px); }
-.error-panel button:focus-visible { outline: 3px solid var(--error-ink); outline-offset: 4px; }
-
-@keyframes error-breathe { to { transform: scale(1.12); } }
-@keyframes error-drift { to { transform: translate3d(48px, 48px, 0); } }
-@keyframes error-spin { to { rotate: 360deg; } }
-@media (prefers-reduced-motion: reduce) { .error-page::before, .error-grid, .error-orbit { animation: none; } }
+@keyframes error-breathe {
+  to {
+    transform: scale(1.12);
+  }
+}
+@keyframes error-drift {
+  to {
+    transform: translate3d(48px, 48px, 0);
+  }
+}
+@keyframes error-spin {
+  to {
+    rotate: 360deg;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .error-page::before,
+  .error-grid,
+  .error-orbit {
+    animation: none;
+  }
+}
 </style>

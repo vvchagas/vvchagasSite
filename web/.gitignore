@@ -1,4 +1,4 @@
-# Nuxt dev/build outputs
+# Nuxt & Build Output
 .output
 .data
 .nuxt
@@ -7,43 +7,31 @@
 dist
 .vercel
 
-# Node dependencies
+# Node Dependencies
 node_modules/
 
-# Prisma Generated Client (Trata tanto a raiz quanto subpastas)
+# Prisma Client Gerado 
 **/generated/prisma
 **/generated/prisma/**
 generated/
 
-# AI Tooling & Editors (VS Code, Windsurf, Claude)
+# AI Tooling & Configurações de Editores
 .agents/
 .claude/
 .windsurf/
 .vscode/
-.DS_Store
 .fleet
 .idea
+.DS_Store
+Thumbs.db
 
-# Logs
+# Logs de Erros e Debug
 logs
 *.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-# Environment Files (Proteção de Chaves de API e Segredos)
+# Environment Variables
 .env
-.env.local
-
-# Outros
-/public/robot.txt
-
-API_MESSAGES.md
-
-User-agent: *
-Disallow: /api/
-Disallow: /messages
-
-package-lock.json
-package.json
-nuxt.config.ts
-
-skills-lock.json
-tsconfig.json
+public/robots.txt
