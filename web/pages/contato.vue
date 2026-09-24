@@ -376,14 +376,7 @@ useHead({
   ],
 });
 
-useSeoMeta({
-  title: "vvchagas - Contato",
-  description: () => t("contact.description"),
-  ogTitle: "vvchagas - Contato",
-  ogDescription: () => t("contact.description"),
-  ogType: "website",
-  twitterCard: "summary",
-});
+useSiteSeo({ title: 'Contato', description: t('contact.description') });
 
 const route = useRoute();
 const toast = ref<string | null>(null);

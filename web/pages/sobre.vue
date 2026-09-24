@@ -153,14 +153,7 @@ useHead({
   ],
 });
 
-useSeoMeta({
-  title: "vvchagas - Sobre",
-  description: () => t("about.description"),
-  ogTitle: "vvchagas - Sobre",
-  ogDescription: () => t("about.description"),
-  ogType: "website",
-  twitterCard: "summary",
-});
+useSiteSeo({ title: 'Sobre', description: t('about.description') });
 
 // Hero
 const heroSection = ref<HTMLElement | null>(null);

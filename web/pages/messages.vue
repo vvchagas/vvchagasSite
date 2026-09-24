@@ -148,6 +148,8 @@ import SiteFooter from "../components/SiteFooter.vue";
 import SiteHeader from "../components/SiteHeader.vue";
 import ConfirmModal from "../components/ConfirmModal.vue";
 
+useSiteSeo({ title: 'Mensagens', description: 'Área administrativa privada.', noIndex: true });
+
 definePageMeta({ middleware: ["admin"] });
 
 const authenticated = ref(false);

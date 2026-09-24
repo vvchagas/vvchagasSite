@@ -636,14 +636,7 @@ useHead({
   ],
 });
 
-useSeoMeta({
-  title: "vvchagas - Início",
-  description: () => t("hero.description"),
-  ogTitle: "vvchagas - Início",
-  ogDescription: () => t("hero.description"),
-  ogType: "website",
-  twitterCard: "summary",
-});
+useSiteSeo({ title: 'Desenvolvimento web e soluções digitais', description: t('hero.description') });
 
 // Sobre
 const sobreSection = ref<HTMLElement | null>(null);

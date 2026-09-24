@@ -21,6 +21,8 @@ export default defineNuxtConfig({
     '@nuxt/ui',
     '@nuxt/fonts',
     '@vercel/speed-insights/nuxt',
+    '@nuxtjs/robots',
+    '@nuxtjs/sitemap',
   ],
 
   vite: {
@@ -61,9 +63,41 @@ export default defineNuxtConfig({
   app: {
     head: {
       title: 'vvchagas',
+      titleTemplate: '%s | vvchagas',
+      htmlAttrs: { lang: 'pt-BR' },
+      meta: [
+        { charset: 'utf-8' },
+        { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+        { name: 'theme-color', content: '#2563eb' },
+      ],
+      link: [
+        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      ],
       script: [
         { src: '/_vercel/insights/script.js', defer: true },
       ],
     }
+  },
+  runtimeConfig: {
+    public: {
+      siteUrl: process.env.NUXT_PUBLIC_SITE_URL || '',
+    },
+  },
+  site: {
+    url: process.env.NUXT_PUBLIC_SITE_URL || 'https://vvchagas.dev',
+    name: 'vvchagas',
+  },
+  sitemap: {
+    exclude: ['/messages'],
+    defaults: { changefreq: 'monthly', priority: 0.7 },
+  },
+  robots: {
+    groups: [
+      { userAgent: '*', allow: '/', disallow: ['/messages'] },
+      ],
+      sitemap: `${process.env.NUXT_PUBLIC_SITE_URL || 'https://vvchagas.dev'}/sitemap.xml`,
+    },
+    routeRules: {
+      '/messages': { robots: false },
   },
 })

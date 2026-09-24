@@ -170,14 +170,7 @@ useHead({
   ],
 });
 
-useSeoMeta({
-  title: "vvchagas - Meus Serviços",
-  description: () => t("services.description"),
-  ogTitle: "vvchagas - Meus Serviços",
-  ogDescription: () => t("services.description"),
-  ogType: "website",
-  twitterCard: "summary",
-});
+useSiteSeo({ title: 'Serviços', description: t('services.description') });
 
 const heroSection = ref<HTMLElement | null>(null);
 const ctaSection = ref<HTMLElement | null>(null);
