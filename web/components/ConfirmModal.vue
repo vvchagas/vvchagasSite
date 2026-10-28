@@ -60,7 +60,7 @@ onUnmounted(() => {
       >
         <div
           ref="dialogRef"
-          class="confirm-modal"
+          class="confirm-modal tech-frame"
           role="dialog"
           aria-modal="true"
           :aria-label="title"
@@ -110,15 +110,21 @@ onUnmounted(() => {
   align-items: center;
   justify-content: center;
   padding: 1rem;
-  background: rgb(0 0 0 / 0.55);
-  backdrop-filter: blur(4px);
+  background: #000;
+}
+
+@media (min-width: 768px) and (prefers-reduced-transparency: no-preference) {
+  .confirm-modal-overlay {
+    background: rgb(0 0 0 / 0.55);
+    backdrop-filter: blur(4px);
+  }
 }
 
 .confirm-modal {
   position: relative;
   width: 100%;
   max-width: 26rem;
-  border-radius: 1.75rem;
+  border-radius: .25rem;
   border: 1px solid rgb(var(--border) / 1);
   background: rgb(var(--card));
   color: rgb(var(--fg));
@@ -139,7 +145,7 @@ onUnmounted(() => {
   justify-content: center;
   width: 3.5rem;
   height: 3.5rem;
-  border-radius: 999px;
+  border-radius: .25rem;
   background: rgb(59 130 246 / 0.12);
   color: rgb(37 99 235);
   margin-bottom: 1rem;
@@ -182,12 +188,12 @@ onUnmounted(() => {
   align-items: center;
   justify-content: center;
   gap: 0.4rem;
-  border-radius: 0.85rem;
+  border-radius: .25rem;
   padding: 0.6rem 1.2rem;
   font-size: 0.8rem;
   font-weight: 800;
   border: 1px solid rgb(var(--border) / 1);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform var(--hover-duration) var(--hover-ease), box-shadow var(--hover-duration) var(--hover-ease);
   cursor: pointer;
 }
 .confirm-modal__btn:hover:not(:disabled) {
@@ -229,7 +235,7 @@ onUnmounted(() => {
   height: 0.9rem;
   border: 2px solid currentColor;
   border-top-color: transparent;
-  border-radius: 999px;
+  border-radius: .25rem;
   animation: spin 0.6s linear infinite;
 }
 
@@ -241,11 +247,11 @@ onUnmounted(() => {
 
 .confirm-modal-enter-active,
 .confirm-modal-leave-active {
-  transition: opacity 0.5s ease;
+  transition: background-color 0.3s ease-out;
 }
 .confirm-modal-enter-from,
 .confirm-modal-leave-to {
-  opacity: 0;
+  background-color: transparent;
 }
 .confirm-modal-enter-active .confirm-modal,
 .confirm-modal-leave-active .confirm-modal {
@@ -262,7 +268,13 @@ onUnmounted(() => {
   .confirm-modal-leave-active,
   .confirm-modal-enter-active .confirm-modal,
   .confirm-modal-leave-active .confirm-modal {
-    transition: 0.5s ease-in-out;
+    transition: none;
+  }
+
+  /* Indica carregamento: gira devagar em vez de parar (o reset global congela animações). */
+  .confirm-modal__spinner {
+    animation-duration: 1.6s !important;
+    animation-iteration-count: infinite !important;
   }
 }
 </style>

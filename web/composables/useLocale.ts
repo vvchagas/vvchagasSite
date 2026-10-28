@@ -26,13 +26,18 @@ function getByPath(obj: unknown, path: string): unknown {
   }, obj);
 }
 
-export function useLocale() {
-  if (!initialized && typeof window !== "undefined") {
-    locale.value = detectInitialLocale();
-    document.documentElement.lang = locale.value;
-    initialized = true;
-  }
+/**
+ * Aplica o idioma salvo/do navegador. Chamado só DEPOIS da hidratação (plugins/locale.client.ts):
+ * o servidor sempre renderiza em português, então trocar antes disso gera "Hydration mismatch".
+ */
+export function initLocale() {
+  if (initialized || typeof window === "undefined") return;
+  initialized = true;
+  locale.value = detectInitialLocale();
+  document.documentElement.lang = locale.value;
+}
 
+export function useLocale() {
   function setLocale(next: Locale) {
     locale.value = next;
     if (typeof window !== "undefined") {

@@ -1,607 +1,413 @@
 <template>
-  <div class="site-page min-h-screen bg-background text-foreground overflow-x-hidden">
+  <div
+    class="site-page min-h-screen overflow-x-hidden bg-background text-foreground"
+  >
     <NuxtRouteAnnouncer />
 
+    <!-- Acessibilidade -->
     <a
       href="#conteudo"
-      class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-blue-600 focus:px-3 focus:py-2 focus:text-white"
+      class="sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:not-sr-only focus:rounded-md focus:bg-blue-600 focus:px-3 focus:py-2 focus:text-white"
     >
-      {{ t('common.skipToContent') }}
+      {{ t("common.skipToContent") }}
     </a>
 
     <SiteHeader />
 
-    <main id="conteudo" class="mx-auto w-full max-w-6xl px-4 pb-4 md:px-6 ">
-      <!-- ===== HERO ===== -->
-      <section id="inicio" class="relative overflow-hidden pt-8 md:pt-14">
-        <div class="absolute inset-0 -z-10">
-          <div
-            class="hero-orb hero-orb--center absolute left-1/2 top-30 h-75 w-75 sm:top-55 sm:h-130 sm:w-130 rounded-full bg-linear-to-tr from-blue-500/30 via-indigo-500/20 to-fuchsia-500/20 blur-3xl"
-          />
-          <div
-            class="hero-orb hero-orb--left absolute -left-8 top-28 h-40 w-40 sm:-left-24 sm:h-64 sm:w-64 rounded-full bg-blue-500/15 blur-2xl"
-          />
-          <div
-            class="hero-orb hero-orb--right absolute -right-8 top-52 h-48 w-48 sm:-right-24 sm:h-72 sm:w-72 rounded-full bg-indigo-500/15 blur-2xl"
-          />
-        </div>
+    <main
+      id="conteudo"
+      class="mx-auto mt-22 w-full max-w-7xl px-4 pb-4 md:px-6"
+    >
+      <!-- =========================================================
+           HERO
+      ========================================================== -->
+      <section
+        id="inicio"
+        aria-labelledby="hero-title"
+        class="corner-frame relative isolate min-h-180 overflow-hidden border border-border/70 bg-background pt-8 md:pt-14"
+      >
+        <div class="pointer-events-none absolute inset-0 hero-wash" />
 
-        <div class="grid items-center gap-10 md:grid-cols-2">
-          <div>
-
-            <h1
-              class="mt-5 min-h-[3.2em] sm:min-h-[2.4em] font-mono font-black tracking-tight leading-tight wrap-break-word text-2xl sm:text-4xl lg:text-5xl"
-            >
-              <span
-                v-for="(segment, i) in heroSegments"
-                :key="i"
-                :class="segment.cls"
-              >{{ segment.text }}</span><span class="hero-typing-cursor" aria-hidden="true">|</span>
-            </h1>
-
-            <p class="mt-4 max-w-prose text-base text-muted sm:text-lg leading-relaxed">
-              {{ t('hero.description') }}
-            </p>
-
-            <div class="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
-              <NuxtLink
-                id="hero-cta-btn"
-                to="/servicos"
-                class="inline-flex items-center justify-center rounded-full bg-blue-600 px-6 py-3 text-sm font-bold text-white shadow-sm transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              >
-                {{ t('hero.cta') }}
-              </NuxtLink>
-            </div>
-
-            <dl class="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-3">
-              <div
-                class="rounded-2xl border border-border/60 bg-card/60 p-4 backdrop-blur"
-              >
-                <dt class="text-xs sm:text-sm font-semibold text-foreground/80">
-                  {{ t('hero.statDeliveryLabel') }}
-                </dt>
-                <dd class="mt-1 text-xl sm:text-2xl font-black">{{ t('hero.statDeliveryValue') }}</dd>
-                <dd class="mt-1 text-xs text-muted">
-                  {{ t('hero.statDeliveryDesc') }}
-                </dd>
-              </div>
-              <div
-                class="rounded-2xl border border-border/60 bg-card/60 p-4 backdrop-blur"
-              >
-                <dt class="text-xs sm:text-sm font-semibold text-foreground/80">{{ t('hero.statFocusLabel') }}</dt>
-                <dd class="mt-1 text-xl sm:text-2xl font-black">{{ t('hero.statFocusValue') }}</dd>
-                <dd class="mt-1 text-xs text-muted">
-                  {{ t('hero.statFocusDesc') }}
-                </dd>
-              </div>
-              <div
-                class="rounded-2xl border border-border/60 bg-card/60 p-4 backdrop-blur"
-              >
-                <dt class="text-xs sm:text-sm font-semibold text-foreground/80">
-                  {{ t('hero.statSupportLabel') }}
-                </dt>
-                <dd class="mt-1 text-xl sm:text-2xl font-black">{{ t('hero.statSupportValue') }}</dd>
-                <dd class="mt-1 text-xs text-muted">
-                  {{ t('hero.statSupportDesc') }}
-                </dd>
-              </div>
-            </dl>
-          </div>
-
-          <div class="relative mt-10">
-            <div
-              class="absolute inset-0 -z-10 rounded-4xl bg-linear-to-b from-blue-500/15 to-transparent blur-2xl"
-            />
-            <div
-              class="rounded-4xl border border-border/70 bg-card/70 p-5 shadow-sm backdrop-blur"
-            >
-              <div class="flex items-center justify-between gap-4">
-                <div>
-                  <p class="text-xs font-semibold text-muted">
-                    {{ t('hero.statusLabel') }}
-                  </p>
-                  <p class="text-base sm:text-lg font-extrabold">{{ t('hero.statusValue') }}</p>
-                </div>
-                <span
-                  class="inline-flex items-center gap-2 rounded-full bg-muted px-3 py-1 text-xs font-semibold text-foreground/90 shrink-0"
-                >
-                  <span
-                    aria-hidden="true"
-                    class="size-2 rounded-full bg-green-500"
-                  />
-                  {{ t('hero.statusOnline') }}
-                </span>
-              </div>
-
-              <div class="mt-5 grid gap-3">
-                <div class="rounded-2xl bg-muted/60 p-4">
-                  <h3 class="font-bold text-sm sm:text-base">{{ t('hero.step1Title') }}</h3>
-                  <p class="mt-1 text-xs sm:text-sm text-muted">
-                    {{ t('hero.step1Desc') }}
-                  </p>
-                </div>
-                <div class="rounded-2xl bg-muted/60 p-4">
-                  <h3 class="font-bold text-sm sm:text-base">{{ t('hero.step2Title') }}</h3>
-                  <p class="mt-1 text-xs sm:text-sm text-muted">
-                    {{ t('hero.step2Desc') }}
-                  </p>
-                </div>
-                <div class="rounded-2xl bg-muted/60 p-4">
-                  <h3 class="font-bold text-sm sm:text-base">{{ t('hero.step3Title') }}</h3>
-                  <p class="mt-1 text-xs sm:text-sm text-muted">
-                    {{ t('hero.step3Desc') }}
-                  </p>
-                </div>
-              </div>
-
-              <div class="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2">
-                <NuxtLink class="card-link" to="/contato">
-                  <span class="card-icon material-symbols-outlined text-blue-500" aria-hidden="true">chat</span>
-                  <span class="card-title">{{ t('hero.cardAttendTitle') }}</span>
-                  <span class="card-desc">{{ t('hero.cardAttendDesc') }}</span>
-                </NuxtLink>
-                <NuxtLink class="card-link" to="/servicos">
-                  <span class="card-icon material-symbols-outlined text-purple-500" aria-hidden="true">settings</span>
-                  <span class="card-title">{{ t('hero.cardSolutionsTitle') }}</span>
-                  <span class="card-desc">{{ t('hero.cardSolutionsDesc') }}</span>
-                </NuxtLink>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ===== SOBRE ===== -->
-      <section id="sobre" ref="sobreSection" class="mt-14 md:mt-18">
-        <div class="flex items-end justify-between gap-4">
-          <div>
-            <h2 class="text-2xl font-black tracking-tight md:text-3xl">
-              {{ t('indexSections.aboutTitle') }}
-            </h2>
-            <p class="mt-2 text-muted">
-              {{ t('indexSections.aboutDesc') }}
-            </p>
-          </div>
-          <div
-            class="hidden sm:block rounded-2xl border border-border/60 bg-card/60 px-4 py-3 text-sm text-muted"
-          >
-            <p class="font-semibold text-foreground/90">{{ t('indexSections.aboutWork') }}</p>
-            <p class="mt-1">{{ t('indexSections.aboutWorkDesc') }}</p>
-          </div>
-        </div>
-
-        <div class="mt-7 grid gap-4 md:grid-cols-3">
-          <article
-            ref="sobreCard1"
-            class="rounded-3xl border border-border/60 bg-card/60 p-6 shadow-sm backdrop-blur"
-          >
-            <h3 class="text-lg font-extrabold">{{ t('indexSections.aboutWebTitle') }}</h3>
-            <p class="mt-3 text-sm text-muted">
-              {{ t('indexSections.aboutWebDesc') }}
-            </p>
-            <ul class="mt-4 space-y-2 text-sm text-muted">
-              <li class="flex gap-2">
-                <span aria-hidden="true" class="material-symbols-outlined text-base text-emerald-500">task_alt</span> {{ t('indexSections.aboutWebItem1') }}
-              </li>
-              <li class="flex gap-2">
-                <span aria-hidden="true" class="material-symbols-outlined text-base text-emerald-500">task_alt</span> {{ t('indexSections.aboutWebItem2') }}
-              </li>
-              <li class="flex gap-2">
-                <span aria-hidden="true" class="material-symbols-outlined text-base text-emerald-500">task_alt</span> {{ t('indexSections.aboutWebItem3') }}
-              </li>
-            </ul>
-          </article>
-
-          <article
-            ref="sobreCard2"
-            class="rounded-3xl border border-border/60 bg-card/60 p-6 shadow-sm backdrop-blur"
-          >
-            <h3 class="text-lg font-extrabold">{{ t('indexSections.aboutItTitle') }}</h3>
-            <p class="mt-3 text-sm text-muted">
-              {{ t('indexSections.aboutItDesc') }}
-            </p>
-            <ul class="mt-4 space-y-2 text-sm text-muted">
-              <li class="flex gap-2">
-                <span aria-hidden="true" class="material-symbols-outlined text-base text-violet-500">psychology</span> {{ t('indexSections.aboutItItem1') }}
-              </li>
-              <li class="flex gap-2">
-                <span aria-hidden="true" class="material-symbols-outlined text-base text-teal-500">shield</span> {{ t('indexSections.aboutItItem2') }}
-              </li>
-              <li class="flex gap-2">
-                <span aria-hidden="true" class="material-symbols-outlined text-base text-amber-500">build</span> {{ t('indexSections.aboutItItem3') }}
-              </li>
-            </ul>
-          </article>
-
-          <article
-            ref="sobreCard3"
-            class="rounded-3xl border border-border/60 bg-card/60 p-6 shadow-sm backdrop-blur"
-          >
-            <h3 class="text-lg font-extrabold">{{ t('indexSections.aboutNotebookTitle') }}</h3>
-            <p class="mt-3 text-sm text-muted">
-              {{ t('indexSections.aboutNotebookDesc') }}
-            </p>
-            <ul class="mt-4 space-y-2 text-sm text-muted">
-              <li class="flex gap-2">
-                <span aria-hidden="true" class="material-symbols-outlined text-base text-rose-500">thermostat</span> {{ t('indexSections.aboutNotebookItem1') }}
-              </li>
-              <li class="flex gap-2">
-                <span aria-hidden="true" class="material-symbols-outlined text-base text-sky-500">save</span> {{ t('indexSections.aboutNotebookItem2') }}
-              </li>
-              <li class="flex gap-2">
-                <span aria-hidden="true" class="material-symbols-outlined text-base text-amber-500">bolt</span> {{ t('indexSections.aboutNotebookItem3') }}
-              </li>
-            </ul>
-          </article>
-        </div>
-      </section>
-
-      <!-- ===== SERVIÇOS ===== -->
-      <section id="servicos" ref="servicosSection" class="mt-14 md:mt-18">
         <div
+          class="relative z-10 flex min-h-170 flex-col justify-between p-5 sm:p-10"
+        >
+          <!-- Identificação técnica -->
+          <header
+            class="flex items-start justify-between text-foreground font-mono text-[10px] uppercase tracking-[0.22em]"
+          >
+            <span>{{ t("hero.location") }}</span>
+
+            <span class="hidden sm:block mb-3">
+              SYSTEM.ACTIVE // SISYPHUS.PROTOCOL
+            </span>
+          </header>
+
+          <!-- Conteúdo principal (Grid com 2 colunas no Desktop) -->
+          <div class="grid items-center gap-10 md:grid-cols-[1.2fr_.8fr]">
+            <!-- Coluna da Esquerda: Apresentação e Estatísticas -->
+            <div>
+              <p
+                data-hero-stagger
+                class="technical-label text-xs uppercase tracking-[0.2em] text-muted"
+              >
+                {{ t("hero.eyebrow") }}
+              </p>
+
+              <!-- H1 com efeito de escrita (min-h reserva a altura: sem layout shift) -->
+              <h1
+                id="hero-title"
+                class="mt-5 min-h-[3.2em] font-mono text-2xl font-black uppercase leading-tight tracking-tight wrap-break-word sm:text-5xl lg:text-4xl"
+              >
+                <span
+                  v-for="(segment, index) in heroSegments"
+                  :key="index"
+                  :class="segment.cls"
+                >
+                  {{ segment.text }}
+                </span>
+
+                <span class="hero-typing-cursor" aria-hidden="true"> | </span>
+              </h1>
+
+              <p class="mt-4 max-w-prose text-base leading-relaxed text-muted sm:text-lg">
+                {{ t("hero.description") }}
+              </p>
+
+              <div class="mt-6 flex flex-col gap-3 sm:flex-row">
+                <a
+                  :href="waLink(t('contact.whatsappPrefillTopic'))"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="cta-primary"
+                >
+                  {{ t("hero.ctaPrimary") }}
+                </a>
+
+                <NuxtLink to="/servicos" class="cta-secondary">
+                  {{ t("hero.cta") }}
+                </NuxtLink>
+              </div>
+
+              <p class="mt-3 text-xs text-muted">
+                {{ t("hero.ctaNote") }}
+              </p>
+
+              <!-- Estatísticas -->
+              <dl data-hero-stagger class="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-3">
+                <div
+                  v-for="stat in heroStats"
+                  :key="stat.label"
+                  class="tech-frame flex flex-col justify-between border border-border/70 bg-background p-4"
+                >
+                  <div>
+                    <dt class="text-sm font-bold text-foreground sm:text-base">
+                      {{ t(stat.label) }}
+
+                      <span v-if="t(stat.value)" class="ml-1 text-purple-600">
+                        {{ t(stat.value) }}
+                      </span>
+                    </dt>
+
+                    <dd class="mt-1 text-xs leading-relaxed text-muted">
+                      {{ t(stat.description) }}
+                    </dd>
+                  </div>
+                </div>
+              </dl>
+            </div>
+
+            <!-- Coluna da Direita: Card de Status -->
+            <div class="relative flex w-full justify-end">
+              <div
+                data-hero-stagger
+                class="corner-frame w-full max-w-lg border border-border/70 bg-background/55 p-5 shadow-sm"
+              >
+                <!-- Status Header -->
+                <div class="flex items-center justify-between gap-4">
+                  <div>
+                    <p class="text-xs font-semibold text-muted">
+                      {{ t("hero.statusLabel") }}
+                    </p>
+                    <p
+                      class="text-base font-extrabold text-foreground sm:text-lg"
+                    >
+                      {{ t("hero.statusValue") }}
+                    </p>
+                  </div>
+
+                  <a
+                    :href="waLink(t('contact.whatsappPrefill'))"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex min-h-11 shrink-0 items-center gap-2 rounded-sm bg-muted/30 px-3 text-xs font-semibold text-foreground/90 hover:bg-muted/50"
+                  >
+                    <span
+                      aria-hidden="true"
+                      class="size-2 rounded-sm bg-green-500 animate-pulse"
+                    />
+                    {{ t("hero.statusOnline") }}
+                  </a>
+                </div>
+
+                <!-- Etapas -->
+                <div class="mt-5 grid gap-3">
+                  <div
+                    v-for="step in heroSteps"
+                    :key="step.title"
+                    class="tech-frame rounded-md bg-muted/25 p-4 border border-border/50"
+                  >
+                    <h3
+                      class="flex items-center justify-between gap-3 text-sm font-bold text-foreground sm:text-base"
+                    >
+                      {{ t(step.title) }}
+                      <span
+                        aria-hidden="true"
+                        class="material-symbols-outlined shrink-0 text-xl"
+                        :class="step.color"
+                      >
+                        {{ step.icon }}
+                      </span>
+                    </h3>
+
+                    <p class="mt-1 text-xs text-muted sm:text-sm">
+                      {{ t(step.description) }}
+                    </p>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <!-- Rodapé técnico -->
+          <footer
+            class="mt-8 flex justify-between font-mono text-[10px] uppercase tracking-[0.2em] text-muted/75"
+          >
+            <span>BUILD 2026</span>
+          </footer>
+        </div>
+      </section>
+
+      <!-- =========================================================
+           SERVIÇOS
+      ========================================================== -->
+      <section
+        id="servicos"
+        ref="servicosSection"
+        aria-labelledby="servicos-title"
+        class="mt-14 md:mt-18"
+      >
+        <header
           class="flex flex-col gap-3 md:flex-row md:items-end md:justify-between"
         >
           <div>
-            <h2 class="text-2xl font-black tracking-tight md:text-3xl">
-              {{ t('indexSections.servicesTitle') }}
+            <h2
+              id="servicos-title"
+              class="text-2xl font-black tracking-tight md:text-3xl"
+            >
+              {{ t("indexSections.servicesTitle") }}
             </h2>
+
             <p class="mt-2 text-muted">
-              {{ t('indexSections.servicesDesc') }}
+              {{ t("indexSections.servicesDesc") }}
             </p>
           </div>
-        </div>
+        </header>
 
         <div class="mt-7 grid gap-4 md:grid-cols-2">
           <article
-            ref="servCard1"
-            class="rounded-3xl border border-border/60 bg-card/60 p-6 shadow-sm backdrop-blur"
-          >
+            v-for="(service, index) in services"
+            :key="service.badge"
+            :ref="(element) => setServiceCardRef(element, index)"
+            class="tech-frame flex flex-col rounded-md border border-border/60 p-6 shadow-sm">
             <div class="flex items-start justify-between gap-4">
               <div>
-                <h3 class="text-lg font-extrabold">{{ t('indexSections.servWebTitle') }}</h3>
-                <p class="mt-2 text-sm text-muted">
-                  {{ t('indexSections.servWebDesc') }}
-                </p>
-              </div>
-              <span class="badge border border-border/60">WEB</span>
-            </div>
-            <ul class="mt-4 space-y-2 text-sm text-muted">
-              <li class="flex gap-2">
-                <span aria-hidden="true" class="material-symbols-outlined text-base text-amber-500">bolt</span> {{ t('indexSections.servWebItem1') }}
-              </li>
-              <li class="flex gap-2">
-                <span aria-hidden="true" class="material-symbols-outlined text-base text-fuchsia-500">palette</span> {{ t('indexSections.servWebItem2') }}
-              </li>
-              <li class="flex gap-2">
-                <span aria-hidden="true" class="material-symbols-outlined text-base text-cyan-500">accessibility_new</span> {{ t('indexSections.servWebItem3') }}
-              </li>
-            </ul>
-          </article>
+                <h3 class="text-lg font-extrabold text-foreground">
+                  {{ t(service.title) }}
+                </h3>
 
-          <article
-            ref="servCard2"
-            class="rounded-3xl border border-border/60 bg-card/60 p-6 shadow-sm backdrop-blur"
-          >
-            <div class="flex items-start justify-between gap-4">
-              <div>
-                <h3 class="text-lg font-extrabold">{{ t('indexSections.servAdjTitle') }}</h3>
                 <p class="mt-2 text-sm text-muted">
-                  {{ t('indexSections.servAdjDesc') }}
+                  {{ t(service.description) }}
                 </p>
               </div>
-              <span class="badge border border-border/60">UI/UX</span>
-            </div>
-            <ul class="mt-4 space-y-2 text-sm text-muted">
-              <li class="flex gap-2">
-                <span aria-hidden="true" class="material-symbols-outlined text-base text-indigo-500">widgets</span> {{ t('indexSections.servAdjItem1') }}
-              </li>
-              <li class="flex gap-2">
-                <span aria-hidden="true" class="material-symbols-outlined text-base text-emerald-500">trending_up</span> {{ t('indexSections.servAdjItem2') }}
-              </li>
-              <li class="flex gap-2">
-                <span aria-hidden="true" class="material-symbols-outlined text-base text-blue-500">search</span> {{ t('indexSections.servAdjItem3') }}
-              </li>
-            </ul>
-          </article>
 
-          <article
-            ref="servCard3"
-            class="rounded-3xl border border-border/60 bg-card/60 p-6 shadow-sm backdrop-blur"
-          >
-            <div class="flex items-start justify-between gap-4">
-              <div>
-                <h3 class="text-lg font-extrabold">{{ t('indexSections.servItTitle') }}</h3>
-                <p class="mt-2 text-sm text-muted">
-                  {{ t('indexSections.servItDesc') }}
-                </p>
-              </div>
-              <span class="badge border border-border/60">TI</span>
+              <!-- Badge simples/transparente com borda -->
+              <span
+                class="badge border border-border/60 bg-muted/40 px-2.5 py-1 text-xs font-bold uppercase tracking-wider text-foreground"
+              >
+                {{ service.badge }}
+              </span>
             </div>
-            <ul class="mt-4 space-y-2 text-sm text-muted">
-              <li class="flex gap-2">
-                <span aria-hidden="true" class="material-symbols-outlined text-base text-orange-500">construction</span> {{ t('indexSections.servItItem1') }}
-              </li>
-              <li class="flex gap-2">
-                <span aria-hidden="true" class="material-symbols-outlined text-base text-cyan-500">wifi</span> {{ t('indexSections.servItItem2') }}
-              </li>
-              <li class="flex gap-2">
-                <span aria-hidden="true" class="material-symbols-outlined text-base text-amber-500">build</span> {{ t('indexSections.servItItem3') }}
-              </li>
-            </ul>
-          </article>
 
-          <article
-            ref="servCard4"
-            class="rounded-3xl border border-border/60 bg-card/60 p-6 shadow-sm backdrop-blur"
-          >
-            <div class="flex items-start justify-between gap-4">
-              <div>
-                <h3 class="text-lg font-extrabold">{{ t('indexSections.servNotebookTitle') }}</h3>
-                <p class="mt-2 text-sm text-muted">
-                  {{ t('indexSections.servNotebookDesc') }}
-                </p>
-              </div>
-              <span class="badge border border-border/60">NOTEBOOK</span>
-            </div>
             <ul class="mt-4 space-y-2 text-sm text-muted">
-              <li class="flex gap-2">
-                <span aria-hidden="true" class="material-symbols-outlined text-base text-teal-500">cleaning_services</span> {{ t('indexSections.servNotebookItem1') }}
-              </li>
-              <li class="flex gap-2">
-                <span aria-hidden="true" class="material-symbols-outlined text-base text-purple-500">memory</span> {{ t('indexSections.servNotebookItem2') }}
-              </li>
-              <li class="flex gap-2">
-                <span aria-hidden="true" class="material-symbols-outlined text-base text-emerald-500">battery_charging_full</span> {{ t('indexSections.servNotebookItem3') }}
+              <li
+                v-for="item in service.items"
+                :key="item.label"
+                class="flex items-center gap-2"
+              >
+                <span
+                  aria-hidden="true"
+                  class="material-symbols-outlined text-base shrink-0"
+                  :class="item.color"
+                >
+                  {{ item.icon }}
+                </span>
+
+                <span class="text-foreground/90">{{ t(item.label) }}</span>
               </li>
             </ul>
+
+            <div class="mt-auto pt-5">
+              <a
+                :href="waLink(t('contact.whatsappPrefillTopic') + t(service.title))"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="cta-primary w-full sm:w-auto"
+              >
+                {{ t("indexSections.servCardBtn") }}
+              </a>
+            </div>
           </article>
         </div>
-
+        <!-- CTA -->
         <div
           ref="servCta"
-          class="mt-6 text-foreground rounded-3xl border border-blue-300/50 bg-blue-500/10 p-5 text-center shadow-sm dark:border-blue-500/30 dark:bg-blue-500/15"
+          class="tech-frame mt-6 rounded-md border border-border/60 bg-card/80 p-5 text-foreground shadow-sm transition"
         >
           <div
             class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between"
           >
             <div>
-              <h3 class="text-lg font-extrabold text-start">{{ t('indexSections.servCtaTitle') }}</h3>
-              <p class="mt-1 text-sm text-start">
-                {{ t('indexSections.servCtaDesc') }}
+              <h3 class="text-start text-lg font-extrabold">
+                {{ t("indexSections.servCtaTitle") }}
+              </h3>
+
+              <p class="mt-1 text-start text-sm">
+                {{ t("indexSections.servCtaDesc") }}
               </p>
             </div>
-            <NuxtLink
-              to="/contato"
-              class="inline-flex items-center justify-center rounded-full bg-blue-600 px-5 py-3 text-sm font-bold text-white shadow-sm transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 shrink-0"
+
+            <a
+              :href="waLink(t('contact.whatsappPrefillTopic'))"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="cta-primary shrink-0"
             >
-              {{ t('indexSections.servCtaBtn') }}
-            </NuxtLink>
-            
+              {{ t("indexSections.servCtaBtn") }}
+            </a>
           </div>
         </div>
       </section>
 
-      <!-- ===== PORTFÓLIO ===== -->
-      <section id="portfolio" ref="portfolioSection" class="mt-14 md:mt-18">
-        <div class="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+      <!-- =========================================================
+           PORTFÓLIO
+      ========================================================== -->
+      <section
+        id="portfolio"
+        ref="portfolioSection"
+        aria-labelledby="portfolio-title"
+        class="relative mt-14 md:mt-18"
+      >
+        <span id="projetos" class="absolute -top-24" aria-hidden="true" />
+
+        <header
+          class="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between"
+        >
           <div>
-            <h2 class="text-2xl font-black tracking-tight md:text-3xl">
-              {{ t('indexSections.portfolioTitle') }}
+            <h2
+              id="portfolio-title"
+              class="text-2xl font-black tracking-tight md:text-3xl"
+            >
+              {{ t("indexSections.portfolioTitle") }}
             </h2>
+
             <p class="mt-2 text-muted">
-              {{ t('indexSections.portfolioDesc') }}
+              {{ t("indexSections.portfolioDesc") }}
             </p>
           </div>
-          <NuxtLink to="/sobre" class="border border-border/60 rounded-full px-3 py-1.5 hover:-translate-y-0.5 duration-300 text-sm text-center font-semibold shrink-0">
-            {{ t('indexSections.portfolioMore') }}
+
+          <NuxtLink
+            to="/sobre"
+            class="shrink-0 rounded-sm border border-border/60 px-3 py-1.5 text-center text-sm font-semibold cursor-pointer transition hover:-translate-y-0.5 active:scale-95"
+          >
+            {{ t("indexSections.portfolioMore") }}
           </NuxtLink>
-        </div>
+        </header>
 
         <ProjectShowcase
           :columns="2"
           :hide-heading="true"
-          :slugs="['yu-gi-oh-api', 'loja-do-seu-ze']"
+          :slugs="['loja-do-seu-ze', 'sige-sistema-de-emergencias']"
           class="mt-7"
         />
       </section>
 
-      <!-- ===== CONTATO ===== -->
-      <section id="contato" ref="contatoSection" class="mt-14 pb-12 md:mt-18">
+      <!-- =========================================================
+           CONTATO
+      ========================================================== -->
+      <section
+        id="contato"
+        ref="contatoSection"
+        aria-labelledby="contato-title"
+        class="mt-14 pb-12 md:mt-18"
+      >
         <div
-          class="rounded-[2.5rem] border border-border/70 from-blue-500/15 via-indigo-500/10 to-fuchsia-500/15 p-5 shadow-sm backdrop-blur sm:p-8 md:p-10"
+          class="corner-frame border border-border/70 bg-background p-5 shadow-sm sm:p-8 md:p-10"
         >
           <div class="grid gap-8 md:grid-cols-2 md:items-start">
+            <!-- Informações -->
             <div ref="contatoInfo">
-              <h2 class="text-2xl font-black tracking-tight md:text-3xl">
-                {{ t('indexSections.contactTitle') }}
+              <h2
+                id="contato-title"
+                class="text-2xl font-black tracking-tight md:text-3xl"
+              >
+                {{ t("indexSections.contactTitle") }}
               </h2>
+
               <p class="mt-3 text-muted">
-                {{ t('indexSections.contactDesc') }}
+                {{ t("indexSections.contactDesc") }}
               </p>
 
-              <ul class="mt-6 space-y-3 text-sm text-muted">
-                <li class="flex items-start gap-3">
+              <ul class="mt-6 space-y-3 text-sm">
+                <li
+                  v-for="item in contactInfo"
+                  :key="item.label"
+                  class="flex items-start gap-3"
+                >
                   <span
                     aria-hidden="true"
-                    class="material-symbols-outlined mt-0.5 flex size-9 items-center justify-center rounded-xl bg-muted/60 text-lg text-rose-500 shrink-0"
-                  >location_on</span>
+                    class="material-symbols-outlined flex size-10 shrink-0 items-center justify-center rounded-md bg-muted/60"
+                    :class="item.color"
+                  >
+                    {{ item.icon }}
+                  </span>
+
                   <div>
-                    <p class="font-semibold text-foreground/90">{{ t('indexSections.contactLocLabel') }}</p>
-                    <p>{{ t('indexSections.contactLocDesc') }}</p>
-                  </div>
-                </li>
-                <li class="flex items-start gap-3">
-                  <span
-                    aria-hidden="true"
-                    class="material-symbols-outlined mt-0.5 flex size-9 items-center justify-center rounded-xl bg-muted/60 text-lg text-amber-500 shrink-0"
-                  >bolt</span>
-                  <div>
-                    <p class="font-semibold text-foreground/90">{{ t('indexSections.contactObjLabel') }}</p>
-                    <p>{{ t('indexSections.contactObjDesc') }}</p>
+                    <p class="font-semibold text-foreground/90">
+                      {{ t(item.label) }}
+                    </p>
+
+                    <p>
+                      {{ t(item.description) }}
+                    </p>
                   </div>
                 </li>
               </ul>
+
+              <a
+                :href="waLink(t('contact.whatsappPrefill'))"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="cta-primary mt-6 w-full sm:w-auto"
+              >
+                {{ t("contact.whatsappBtn") }}
+              </a>
             </div>
 
-            <form
-            class="rounded-3xl border border-border/70 bg-background p-5 shadow-sm backdrop-blur sm:p-6 md:p-8 mt-5"
-            @submit.prevent="submit"
-          >
-            <div class="flex items-center justify-between gap-4">
-              <h3 class="text-lg font-extrabold">{{ t('contact.formTitle') }}</h3>
-              <span class="text-xs font-semibold text-muted">{{ t('contact.formFast') }}</span>
+            <!-- Formulário -->
+            <div ref="contatoForm" class="mt-5">
+              <ContactForm />
             </div>
-
-            <div class="mt-5 grid gap-4">
-              <label class="block">
-                <span class="text-sm font-semibold">{{ t('contact.formName') }}</span>
-                <input
-                  v-model="form.name"
-                  type="text"
-                  class="mt-2 w-full rounded-2xl border border-border/70 bg-background/50 px-4 py-3 text-sm outline-none transition focus:border-blue-500/60 focus:ring-2 focus:ring-blue-500/20"
-                  :placeholder="t('contact.formNamePlaceholder')"
-                  required
-                > 
-              </label>
-
-              <label class="block">
-                <span class="text-sm font-semibold">{{ t('contact.formContactType') }}</span>
-                <select
-                  v-model="form.contactType"
-                  class="mt-2 w-full rounded-2xl border border-border/70 bg-background/50 px-4 py-3 text-sm outline-none transition focus:border-blue-500/60 focus:ring-2 focus:ring-blue-500/20"
-                  required
-                >
-                  <option class="bg-background text-foreground" value="email">{{ t('contact.formContactTypeEmail') }}</option>
-                  <option class="bg-background text-foreground" value="phone">{{ t('contact.formContactTypePhone') }}</option>
-                </select>
-              </label>
-
-              <label v-if="form.contactType === 'email'" class="block">
-                <span class="text-sm font-semibold">{{ t('contact.formEmail') }}</span>
-                <input
-                  v-model="form.email"
-                  type="email"
-                  inputmode="email"
-                  autocomplete="email"
-                  class="mt-2 w-full rounded-2xl border bg-background/50 px-4 py-3 text-sm outline-none transition focus:ring-2"
-                  :class="emailError
-                    ? 'border-red-500/70 focus:border-red-500 focus:ring-red-500/20'
-                    : 'border-border/70 focus:border-blue-500/60 focus:ring-blue-500/20'"
-                  :aria-invalid="Boolean(emailError)"
-                  :aria-describedby="emailError ? 'email-error' : undefined"
-                  :placeholder="t('contact.formEmailPlaceholder')"
-                  required
-                  @blur="touchedEmail = true"
-                >
-                <p v-if="emailError" id="email-error" class="mt-1.5 text-xs font-medium text-red-500" role="alert">
-                  {{ emailError }}
-                </p>
-              </label>
-
-              <label v-if="form.contactType === 'phone'" class="block">
-                <span class="text-sm font-semibold">{{ t('contact.formPhone') }}</span>
-                <div class="mt-2 flex gap-2">
-                  <label class="sr-only" for="phone-ddi">{{ t('contact.formPhoneDdiLabel') }}</label>
-                  <select
-                    id="phone-ddi"
-                    v-model="phone.ddi.value"
-                    class="w-26 shrink-0 rounded-2xl border border-border/70 bg-background/50 px-2 py-3 text-sm outline-none transition focus:border-blue-500/60 focus:ring-2 focus:ring-blue-500/20"
-                  >
-                    <option
-                      v-for="country in phone.countries"
-                      :key="country.ddi"
-                      class="bg-background text-foreground"
-                      :value="country.ddi"
-                    >
-                      {{ country.flag }} {{ country.ddi }}
-                    </option>
-                  </select>
-                  <input
-                    :value="phone.displayValue.value"
-                    type="tel"
-                    inputmode="tel"
-                    autocomplete="tel-national"
-                    class="w-full rounded-2xl border bg-background/50 px-4 py-3 text-sm outline-none transition focus:ring-2"
-                    :class="phoneError
-                      ? 'border-red-500/70 focus:border-red-500 focus:ring-red-500/20'
-                      : 'border-border/70 focus:border-blue-500/60 focus:ring-blue-500/20'"
-                    :aria-invalid="Boolean(phoneError)"
-                    :aria-describedby="phoneError ? 'phone-error' : undefined"
-                    :placeholder="t('contact.formPhonePlaceholder')"
-                    required
-                    @input="phone.onInput(($event.target as HTMLInputElement).value)"
-                    @blur="touchedPhone = true"
-                  >
-                </div>
-                <p v-if="phoneError" id="phone-error" class="mt-1.5 text-xs font-medium text-red-500" role="alert">
-                  {{ phoneError }}
-                </p>
-              </label>
-
-              <label class="block">
-                <span class="text-sm font-semibold">{{ t('contact.formSubject') }}</span>
-                <select
-                  v-model="form.topic"
-                  class="mt-2 w-full rounded-2xl border border-border/70 bg-background/50 px-4 py-3 text-sm outline-none transition focus:border-blue-500/60 focus:ring-2 focus:ring-blue-500/20"
-                  required
-                >
-                  <option class="bg-background text-foreground" value="web">{{ t('contact.formSubjectWeb') }}</option>
-                  <option class="bg-background text-foreground" value="ti">{{ t('contact.formSubjectIT') }}</option>
-                  <option class="bg-background text-foreground" value="assistencia-tecnica">{{ t('contact.formSubjectTech') }}</option>
-                </select>
-              </label>
-
-              <label class="block">
-                <span class="text-sm font-semibold">{{ t('contact.formSource') }}</span>
-                <select
-                  v-model="form.source"
-                  class="mt-2 w-full rounded-2xl border border-border/70 bg-background/50 px-4 py-3 text-sm outline-none transition focus:border-blue-500/60 focus:ring-2 focus:ring-blue-500/20"
-                  required
-                >
-                  <option class="bg-background text-foreground" value="google">{{ t('contact.formSourceGoogle') }}</option>
-                  <option class="bg-background text-foreground" value="linkedin">{{ t('contact.formSourceLinkedin') }}</option>
-                  <option class="bg-background text-foreground" value="indicacao">{{ t('contact.formSourceIndication') }}</option>
-                  <option class="bg-background text-foreground" value="github">{{ t('contact.formSourceGithub') }}</option>
-                </select>
-              </label>
-
-              <label class="block">
-                <span class="text-sm font-semibold">{{ t('contact.formMessage') }}</span>
-                <textarea
-                  v-model="form.message"
-                  rows="5"
-                  class="mt-2 w-full resize-none rounded-2xl border border-border/70 bg-background/50 px-4 py-3 text-sm outline-none transition focus:border-blue-500/60 focus:ring-2 focus:ring-blue-500/20"
-                  :placeholder="t('contact.formMessagePlaceholder')"
-                  required
-                />
-              </label>
-
-              <button
-                type="submit"
-                :disabled="isSending || (touchedEmail && touchedPhone && !isFormValid)"
-                class="inline-flex w-full items-center justify-center rounded-2xl bg-blue-600 px-4 py-3 text-sm font-extrabold text-white shadow-sm transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:cursor-not-allowed disabled:opacity-55"
-              >
-                {{ isSending ? t('contact.formSending') : t('contact.formSend') }}
-              </button>
-
-              <p
-                v-if="sendError"
-                class="rounded-2xl border border-red-500/40 bg-red-500/10 px-4 py-3 text-sm text-red-700 dark:text-red-300"
-                role="alert"
-              >
-                {{ sendError }}
-              </p>
-
-              <p
-                v-if="toast"
-                class="rounded-2xl border border-border/70 bg-card/60 px-4 py-3 text-sm text-muted"
-                role="status"
-              >
-                {{ toast }}
-              </p>
-            </div>
-          </form>
-
           </div>
         </div>
       </section>
@@ -612,80 +418,72 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from "vue";
-import { useHead } from "nuxt/app";
-import type { MessageTopic } from "@@/shared/messages";
+import { computed, onMounted, ref, type ComponentPublicInstance } from "vue";
 
 import SiteHeader from "../components/SiteHeader.vue";
 import SiteFooter from "../components/SiteFooter.vue";
 import ProjectShowcase from "../components/ProjectShowcase.vue";
-import { useScrollReveal } from "~/composables/useScrollReveal";
-import { useInternationalPhone } from "~/composables/useInternationalPhone";
+import ContactForm from "../components/ContactForm.vue";
+
+import { revealNow, useScrollReveal } from "~/composables/useScrollReveal";
 import { useTypewriterCycle } from "~/composables/useTypewriterCycle";
 
 const { t } = useLocale();
 
-useHead({
-  link: [
-    { rel: "preconnect", href: "https://fonts.googleapis.com" },
-    { rel: "preconnect", href: "https://fonts.gstatic.com", crossorigin: "" },
-    {
-      rel: "stylesheet",
-      href: "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,300,0,0",
-    },
-  ],
+useSiteSeo({
+  title: () => t("hero.roles"),
+  description: () => t("hero.description"),
 });
 
-useSiteSeo({ title: 'Desenvolvimento web e soluções digitais', description: t('hero.description') });
+/* =========================================================
+   HERO
+========================================================= */
 
-// Sobre
-const sobreSection = ref<HTMLElement | null>(null);
-const sobreCard1 = ref<HTMLElement | null>(null);
-const sobreCard2 = ref<HTMLElement | null>(null);
-const sobreCard3 = ref<HTMLElement | null>(null);
+const heroStats = [
+  {
+    label: "hero.statDiagLabel",
+    value: "hero.statDiagValue",
+    description: "hero.statDiagDesc",
+  },
+  {
+    label: "hero.statModeLabel",
+    value: "hero.statModeValue",
+    description: "hero.statModeDesc",
+  },
+  {
+    label: "hero.statScopeLabel",
+    value: "hero.statScopeValue",
+    description: "hero.statScopeDesc",
+  },
+];
 
-useScrollReveal(sobreSection);
-useScrollReveal(sobreCard1, { delay: 0.0 });
-useScrollReveal(sobreCard2, { delay: 0.1 });
-useScrollReveal(sobreCard3, { delay: 0.2 });
-
-// Serviços
-const servicosSection = ref<HTMLElement | null>(null);
-const servCard1 = ref<HTMLElement | null>(null);
-const servCard2 = ref<HTMLElement | null>(null);
-const servCard3 = ref<HTMLElement | null>(null);
-const servCard4 = ref<HTMLElement | null>(null);
-const servCta = ref<HTMLElement | null>(null);
-
-useScrollReveal(servicosSection);
-useScrollReveal(servCard1, { delay: 0.0 });
-useScrollReveal(servCard2, { delay: 0.1 });
-useScrollReveal(servCard3, { delay: 0.2 });
-useScrollReveal(servCard4, { delay: 0.3 });
-useScrollReveal(servCta, { delay: 0.4 });
-
-
-// Contato
-const contatoSection = ref<HTMLElement | null>(null);
-const contatoInfo = ref<HTMLElement | null>(null);
-const contatoForm = ref<HTMLElement | null>(null);
-
-useScrollReveal(contatoSection);
-useScrollReveal(contatoInfo, { delay: 0.0 });
-useScrollReveal(contatoForm, { delay: 0.15 });
-
-const toast = ref<string | null>(null);
-const sendError = ref<string | null>(null);
-const isSending = ref(false);
-const phone = useInternationalPhone();
+const heroSteps = [
+  {
+    title: "hero.step1Title",
+    description: "hero.step1Desc",
+    icon: "monitoring",
+    color: "text-blue-500",
+  },
+  {
+    title: "hero.step2Title",
+    description: "hero.step2Desc",
+    icon: "terminal",
+    color: "text-emerald-500",
+  },
+  {
+    title: "hero.step3Title",
+    description: "hero.step3Desc",
+    icon: "delivery_truck_speed",
+    color: "text-amber-500",
+  },
+];
 
 const heroPhrase1 = computed(() => t("hero.heroPhraseName"));
+
 const heroPhrase2 = computed(() => t("hero.heroPhraseRoles"));
 
 const heroCycleTexts = computed(() => [heroPhrase1.value, heroPhrase2.value]);
 
-// Alterna entre o nome e as funções em loop infinito:
-// Fica 3s digitado -> apaga tudo letra por letra -> espera 1s após apagar a última letra -> próxima frase
 const { displayed: heroTyped, activeIndex: heroPhase } = useTypewriterCycle(
   heroCycleTexts,
   3000,
@@ -701,270 +499,307 @@ interface HeroSegment {
 
 const heroSegments = computed<HeroSegment[]>(() => {
   if (heroPhase.value !== 0) {
-    return [{ text: heroTyped.value, cls: "text-foreground dark:text-foreground" }];
+    return [
+      {
+        text: heroTyped.value,
+        cls: "text-foreground dark:text-foreground",
+      },
+    ];
   }
 
   const current = heroTyped.value;
-  const prefix = t("hero.greetingPrefix");
-  const firstName = t("hero.firstName");
-  const space = " ";
-  const lastName = t("hero.lastName");
 
-  const segments: { text: string; cls: string }[] = [
-    { text: prefix, cls: "text-foreground/85 dark:text-foreground/85" },
-    { text: firstName, cls: "text-foreground dark:text-foreground font-black" },
-    { text: space, cls: "" },
-    { text: lastName, cls: "text-blue-600 dark:text-blue-500 font-black" },
+  const segments = [
+    {
+      text: t("hero.greetingPrefix"),
+      cls: "text-foreground/85 dark:text-foreground/85",
+    },
+    {
+      text: t("hero.firstName"),
+      cls: "font-black text-foreground dark:text-foreground",
+    },
+    {
+      text: " ",
+      cls: "",
+    },
+    {
+      text: t("hero.lastName"),
+      cls: "font-black text-purple-600",
+    },
   ];
 
   const result: HeroSegment[] = [];
+
   let remaining = current.length;
 
-  for (const seg of segments) {
+  for (const segment of segments) {
     if (remaining <= 0) break;
-    const piece = seg.text.slice(0, remaining);
+
+    const piece = segment.text.slice(0, remaining);
+
     if (piece) {
-      result.push({ text: piece, cls: seg.cls });
+      result.push({
+        text: piece,
+        cls: segment.cls,
+      });
     }
-    remaining -= seg.text.length;
+
+    remaining -= segment.text.length;
   }
 
   return result;
 });
 
-const touchedEmail = ref(false);
-const touchedPhone = ref(false);
+/* =========================================================
+   ANIMAÇÃO HERO
+========================================================= */
 
-const EMAIL_PATTERN =
-  /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/;
-
-const form = ref({
-  name: "",
-  email: "",
-  contactType: "email" as "email" | "phone",
-  topic: "web" as MessageTopic,
-  source: "google",
-  message: "",
+onMounted(() => {
+  revealNow([...document.querySelectorAll<HTMLElement>("[data-hero-stagger]")], {
+    y: 18,
+    scale: 1,
+    duration: 0.8,
+    delay: 0.15,
+    stagger: 0.08,
+  });
 });
 
-const isEmailValid = computed(() => EMAIL_PATTERN.test(form.value.email.trim()));
+/* =========================================================
+   SERVIÇOS
+========================================================= */
 
-const emailError = computed(() => {
-  if (!touchedEmail.value || isEmailValid.value) return null;
-  return t("contact.formEmailError");
-});
+const servicosSection = ref<HTMLElement | null>(null);
 
-const phoneError = computed(() => {
-  if (!touchedPhone.value || phone.isValid.value) return null;
-  return t("contact.formPhoneError");
-});
+const servCardRefs = ref<Array<HTMLElement | null>>([]);
 
-const isFormValid = computed(() => {
-  if (form.value.contactType === "email") {
-    return isEmailValid.value;
-  }
+const setServiceCardRef = (element: Element | ComponentPublicInstance | null, index: number) => {
+  servCardRefs.value[index] = element instanceof HTMLElement ? element : null;
+};
 
-  return phone.isValid.value;
-});
+const servCta = ref<HTMLElement | null>(null);
 
-async function submit() {
-  touchedEmail.value = true;
-  touchedPhone.value = true;
+useScrollReveal(servicosSection);
 
-  if (!isFormValid.value) return;
-
-  isSending.value = true;
-  sendError.value = null;
-  try {
-    await $fetch("/api/messages", {
-      method: "POST",
-      body: {
-        name: form.value.name,
-        email: form.value.contactType === "email" ? form.value.email.trim() : "",
-        phone: form.value.contactType === "phone" ? phone.e164.value : "",
-        contactType: form.value.contactType,
-        topic: form.value.topic,
-        source: form.value.source,
-        message: form.value.message,
+const services = [
+  {
+    badge: "WEB",
+    title: "indexSections.servWebTitle",
+    description: "indexSections.servWebDesc",
+    items: [
+      {
+        icon: "bolt",
+        color: "text-amber-500",
+        label: "indexSections.servWebItem1",
       },
-    });
+      {
+        icon: "palette",
+        color: "text-fuchsia-500",
+        label: "indexSections.servWebItem2",
+      },
+      {
+        icon: "accessibility_new",
+        color: "text-cyan-500",
+        label: "indexSections.servWebItem3",
+      },
+    ],
+  },
+  {
+    badge: "UI/UX",
+    title: "indexSections.servAdjTitle",
+    description: "indexSections.servAdjDesc",
+    items: [
+      {
+        icon: "widgets",
+        color: "text-indigo-500",
+        label: "indexSections.servAdjItem1",
+      },
+      {
+        icon: "trending_up",
+        color: "text-emerald-500",
+        label: "indexSections.servAdjItem2",
+      },
+      {
+        icon: "search",
+        color: "text-blue-500",
+        label: "indexSections.servAdjItem3",
+      },
+    ],
+  },
+  {
+    badge: "TI",
+    title: "indexSections.servItTitle",
+    description: "indexSections.servItDesc",
+    items: [
+      {
+        icon: "construction",
+        color: "text-orange-500",
+        label: "indexSections.servItItem1",
+      },
+      {
+        icon: "wifi",
+        color: "text-cyan-500",
+        label: "indexSections.servItItem2",
+      },
+      {
+        icon: "build",
+        color: "text-amber-500",
+        label: "indexSections.servItItem3",
+      },
+    ],
+  },
+  {
+    badge: "NOTEBOOK",
+    title: "indexSections.servNotebookTitle",
+    description: "indexSections.servNotebookDesc",
+    items: [
+      {
+        icon: "cleaning_services",
+        color: "text-teal-500",
+        label: "indexSections.servNotebookItem1",
+      },
+      {
+        icon: "memory",
+        color: "text-purple-500",
+        label: "indexSections.servNotebookItem2",
+      },
+      {
+        icon: "battery_charging_full",
+        color: "text-emerald-500",
+        label: "indexSections.servNotebookItem3",
+      },
+    ],
+  },
+];
 
-    toast.value = t("contact.formSuccess");
-    form.value = {
-      name: "",
-      email: "",
-      contactType: "email",
-      topic: "web",
-      source: "google",
-      message: "",
-    };
-    phone.reset();
-    touchedEmail.value = false;
-    touchedPhone.value = false;
-    window.setTimeout(() => (toast.value = null), 3500);
-  } catch {
-    sendError.value = t("contact.formError");
-  } finally {
-    isSending.value = false;
-  }
-}
+const serviceRevealDelays = [0, 0.1, 0.2, 0.3];
+
+services.forEach((_, index) => {
+  useScrollReveal(
+    computed(() => servCardRefs.value[index] ?? null),
+    {
+      delay: serviceRevealDelays[index],
+    },
+  );
+});
+
+useScrollReveal(servCta, {
+  delay: 0.4,
+});
+
+/* =========================================================
+   PORTFÓLIO
+========================================================= */
+
+const portfolioSection = ref<HTMLElement | null>(null);
+
+useScrollReveal(portfolioSection);
+
+/* =========================================================
+   CONTATO
+========================================================= */
+
+const contatoSection = ref<HTMLElement | null>(null);
+
+const contatoInfo = ref<HTMLElement | null>(null);
+
+const contatoForm = ref<HTMLElement | null>(null);
+
+useScrollReveal(contatoSection);
+useScrollReveal(contatoInfo, {
+  delay: 0,
+});
+useScrollReveal(contatoForm, {
+  delay: 0.15,
+});
+
+const contactInfo = [
+  {
+    icon: "location_on",
+    color: "text-green-600 dark:text-green-400",
+    label: "indexSections.contactLocLabel",
+    description: "indexSections.contactLocDesc",
+  },
+  {
+    icon: "bolt",
+    color: "text-red-600 dark:text-red-400",
+    label: "indexSections.contactObjLabel",
+    description: "indexSections.contactObjDesc",
+  },
+];
 </script>
 
 <style scoped>
-.bg-background {
-  background-color: rgb(var(--bg));
-}
-.text-foreground {
-  color: rgb(var(--fg));
-}
-.text-muted {
-  color: rgb(var(--muted));
-}
-.bg-card {
-  background-color: rgb(var(--card));
-}
-.border-border {
-  border-color: rgb(var(--border));
-}
-
-.bg-header,
-.bg-footer {
-  background: rgba(var(--bg), 0.75);
-}
-
-.bg-muted {
-  background-color: rgba(var(--muted), 0.12);
-}
-
-.material-symbols-outlined {
-  font-family: "Material Symbols Outlined";
-  font-weight: normal;
-  font-style: normal;
-  font-size: 20px;
-  line-height: 1;
-  letter-spacing: normal;
-  text-transform: none;
-  display: inline-block;
-  white-space: nowrap;
-  word-wrap: normal;
-  direction: ltr;
-  -webkit-font-smoothing: antialiased;
-  vertical-align: middle;
-}
+/* =========================================================
+   BADGES
+========================================================= */
 
 .badge {
   display: inline-flex;
   align-items: center;
-  border-radius: 999px;
+  border-radius: 0.25rem;
   padding: 0.25rem 0.7rem;
   font-size: 0.7rem;
   font-weight: 800;
   letter-spacing: 0.04em;
 }
 
-.card-link {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  border-radius: 1rem;
-  padding: 1rem;
-  border: 1px solid rgba(var(--border), 1);
-  background: rgba(var(--card), 0.7);
-  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-}
-.card-link:hover {
-  transform: translateY(-4px);
-  border-color: rgba(59, 130, 246, 0.6);
-  box-shadow: 0 10px 30px rgba(59, 130, 246, 0.2);
-}
-.card-icon {
-  font-size: 22px;
-}
-.card-title {
-  font-weight: 800;
-  font-size: 0.9rem;
-}
-.card-desc {
-  font-size: 0.8rem;
-  color: rgb(var(--muted));
-}
-
-section#inicio .hero-orb {
-  animation: float 8s ease-in-out infinite;
-}
-section#inicio .hero-orb--left {
-  animation-delay: -2.5s;
-}
-section#inicio .hero-orb--right {
-  animation-delay: -5s;
-}
-@keyframes float {
-  0%, 100% { transform: translate(var(--orb-x), 0) scale(1); }
-  50% { transform: translate(var(--orb-x), 20px) scale(1.06); }
-}
-.hero-orb--center {
-  --orb-x: -50%;
-}
-.hero-orb--left,
-.hero-orb--right {
-  --orb-x: 0;
-}
-
-
-.code-dot {
-  width: 0.6rem;
-  border-radius: 999px;
-  flex-shrink: 0;
-}
-
+/* =========================================================
+   HERO TYPING
+========================================================= */
 
 .hero-typing-cursor {
   display: inline-block;
   margin-left: 2px;
-  color: #2563eb;
+  color: #3e3f42;
   animation: hero-cursor-blink 0.85s steps(1, end) infinite;
 }
+
 :global(html.dark) .hero-typing-cursor {
-  color: #3b82f6;
+  color: #60a5fa;
 }
+
 @keyframes hero-cursor-blink {
-  0%, 49% { opacity: 1; }
-  50%, 100% { opacity: 0; }
+  0%,
+  49% {
+    opacity: 1;
+  }
+
+  50%,
+  100% {
+    opacity: 0;
+  }
 }
+
 @media (prefers-reduced-motion: reduce) {
-  .hero-typing-cursor { animation: none; }
+  .hero-typing-cursor {
+    animation: none;
+  }
 }
+
+/* =========================================================
+   STATUS
+========================================================= */
 
 .bg-green-500 {
   position: relative;
 }
+
 .bg-green-500::after {
   content: "";
   position: absolute;
   inset: 0;
-  border-radius: 999px;
+  border-radius: 0.25rem;
   background: rgb(34, 197, 94);
   animation: pulseDot 1.6s ease-out infinite;
 }
+
 @keyframes pulseDot {
-  0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.55); }
-  100% { box-shadow: 0 0 0 8px rgba(34, 197, 94, 0); }
-}
+  0% {
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.55);
+  }
 
-.bg-blue-600 {
-  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
-}
-a.bg-blue-600:hover,
-button.bg-blue-600:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 30px rgba(37, 99, 235, 0.45);
-}
-
-article.rounded-3xl {
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-article.rounded-3xl:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 16px 40px rgba(59, 130, 246, 0.15);
+  100% {
+    box-shadow: 0 0 0 8px rgba(34, 197, 94, 0);
+  }
 }
 </style>

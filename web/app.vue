@@ -1,41 +1,46 @@
 <template>
-  <div class="pt-header">
+  <div class="pt-header" :class="{ 'pb-20 sm:pb-0': showQuickBar }">
     <NuxtPage />
   </div>
+
+  
 </template>
 
 <script setup lang="ts">
-import { nextTick, watch } from "vue";
+import { computed, nextTick, watch } from "vue";
 import { useRoute } from "vue-router";
 
 const route = useRoute();
-const { $lenis } = useNuxtApp();
 
-// Atualiza o scroll do Lenis ao trocar de rota
+// /messages é a área administrativa: sem barra de contato.
+const showQuickBar = computed(() => route.path !== "/messages");
+
+// Ao trocar de rota, libera qualquer trava de scroll que tenha ficado aberta.
 const { reset: resetScrollLock } = useScrollLock();
 
+const { $lenis } = useNuxtApp();
+
+// Ao trocar de rota: solta travas de scroll e volta ao topo sem animar.
 watch(
   () => route.fullPath,
   async () => {
     resetScrollLock();
     await nextTick();
-    if ($lenis) {
-      $lenis.start();
-      $lenis.scrollTo(0, { immediate: true });
-    }
+    $lenis?.start();
+    $lenis?.scrollTo(0, { immediate: true });
   },
 );
 </script>
 
 <style>
-/* CSS global para garantir comportamentos suaves e prevenir estouros horizontais sem travar o scroll do Lenis */
+/* Previne estouros horizontais sem travar o scroll do Lenis */
 html, body {
   margin: 0;
   padding: 0;
   overflow-x: clip;
 }
 
-/* Evita que o Lenis interfira na rolagem suave nativa em modais ou overlays */
+/* Lenis: regras recomendadas pela lib */
 html.lenis, html.lenis body {
   height: auto;
 }
