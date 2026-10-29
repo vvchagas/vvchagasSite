@@ -7,7 +7,7 @@
     <!-- Password modal - always shows on visit -->
     <div 
       v-if="!authenticated" 
-      class="fixed inset-0 z-50 flex items-center justify-center bg-black/60"
+      class="bg-blur fixed inset-0 z-50 flex items-center justify-center bg-black/60"
     >
       <form 
         class="w-full max-w-sm rounded-md border border-border/70 bg-card p-8 shadow-2xl"
@@ -302,6 +302,7 @@ useHead({ title: "vvchagas - Mensagens" });
 .bg-card { background-color: rgb(var(--card)); }
 .border-border { border-color: rgb(var(--border)); }
 .bg-muted { background-color: rgb(var(--muted) / .12); }
+.bg-blur{background-color: rgb(var(--bg) / .55);backdrop-filter: blur(8px);}
 
 .message-action { padding: .6rem .85rem; font-size: .8rem; font-weight: 800; }
 .message-action:disabled { cursor: wait; opacity: .55; }

@@ -237,7 +237,7 @@ onBeforeUnmount(closeDrawer);
         v-if="isMenuOpen"
         id="menu-mobile"
         aria-label="Menu mobile"
-        class="mobile-drawer fixed inset-y-0 left-0 top-0 z-50 flex h-dvh w-full max-w-full flex-col border-r border-border/70 bg-black text-foreground shadow-2xl min-[480px]:w-80 min-[480px]:max-w-xs min-[900px]:hidden"
+        class=" bg-background fixed inset-y-0 left-0 top-0 z-50 flex h-dvh w-full max-w-full flex-col border-r border-border/70 bg-black text-foreground shadow-2xl min-[480px]:w-80 min-[480px]:max-w-xs min-[900px]:hidden"
         @keydown.esc="closeDrawer"
       >
         <div
@@ -372,15 +372,6 @@ onBeforeUnmount(closeDrawer);
 .nav-link:hover::after,
 .nav-link:focus-visible::after {
   width: 100%;
-}
-
-/* Painel mobile sempre escuro (bg-black), mesmo no tema claro: redefine os tokens dentro dele. */
-.mobile-drawer {
-  --fg: 244 244 245;
-  --bg: 0 0 0;
-  --muted: 161 161 170;
-  --border: 63 63 70;
-  color-scheme: dark;
 }
 
 /* Bordas sutis: sem isso herdam currentColor (branco) sobre o fundo preto. */

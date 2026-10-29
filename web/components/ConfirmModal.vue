@@ -110,13 +110,13 @@ onUnmounted(() => {
   align-items: center;
   justify-content: center;
   padding: 1rem;
-  background: #000;
+  background-color: rgb(var(--bg) / .55);backdrop-filter: blur(8px);
 }
 
 @media (min-width: 768px) and (prefers-reduced-transparency: no-preference) {
   .confirm-modal-overlay {
-    background: rgb(0 0 0 / 0.55);
-    backdrop-filter: blur(4px);
+    background-color: rgb(var(--bg) / 0.55);
+    background: blur(4px);
   }
 }
 
@@ -130,7 +130,6 @@ onUnmounted(() => {
   color: rgb(var(--fg));
   padding: 1.5rem;
   text-align: center;
-  box-shadow: 0 30px 70px -20px rgb(0 0 0 / 0.45);
 }
 
 @media (min-width: 640px) {

@@ -134,8 +134,7 @@ onUnmounted(() => {
   align-items: center;
   justify-content: center;
   padding: 1rem;
-  /* Mobile: preto sólido (barato e legível). */
-  background: #000;
+  background-color: rgb(var(--bg) / .55);backdrop-filter: blur(8px);
 }
 
 /* md+: o blur escolhido, mas com raio pequeno, só onde há GPU/tela para isso
@@ -159,7 +158,6 @@ onUnmounted(() => {
   color: rgb(var(--fg));
   padding: 1.5rem;
   overflow: hidden;
-  box-shadow: 0 30px 70px -20px rgb(0 0 0 / 0.55);
 }
 
 @media (min-width: 640px) {
