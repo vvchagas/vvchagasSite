@@ -52,14 +52,16 @@ onUnmounted(() => {
 
 <template>
   <Teleport to="body">
-    <Transition name="confirm-modal">
+    <Transition :css="false" @leave="onMotionLeave">
       <div
         v-if="open"
+        v-motion-fade
         class="confirm-modal-overlay"
         @mousedown.self="cancel"
       >
         <div
           ref="dialogRef"
+          v-motion-pop
           class="confirm-modal tech-frame"
           role="dialog"
           aria-modal="true"
@@ -78,7 +80,7 @@ onUnmounted(() => {
           <div class="confirm-modal__actions">
             <button
               type="button"
-              class="confirm-modal__btn confirm-modal__btn--cancel"
+              class="confirm-modal__btn confirm-modal__btn--cancel transition-all duration-300 enabled:hover:-translate-y-0.5 enabled:active:scale-95"
               :disabled="loading"
               @click="cancel"
             >
@@ -86,7 +88,7 @@ onUnmounted(() => {
             </button>
             <button
               type="button"
-              class="confirm-modal__btn"
+              class="confirm-modal__btn transition-all duration-300 enabled:hover:-translate-y-0.5 enabled:active:scale-95"
               :class="danger ? 'confirm-modal__btn--danger' : 'confirm-modal__btn--confirm'"
               :disabled="loading"
               @click="confirm"
@@ -111,13 +113,6 @@ onUnmounted(() => {
   justify-content: center;
   padding: 1rem;
   background-color: rgb(var(--bg) / .55);backdrop-filter: blur(8px);
-}
-
-@media (min-width: 768px) and (prefers-reduced-transparency: no-preference) {
-  .confirm-modal-overlay {
-    background-color: rgb(var(--bg) / 0.55);
-    background: blur(4px);
-  }
 }
 
 .confirm-modal {
@@ -149,7 +144,7 @@ onUnmounted(() => {
   color: rgb(37 99 235);
   margin-bottom: 1rem;
 }
-:global(html.dark) .confirm-modal__icon {
+:global(html.dark .confirm-modal__icon) {
   color: rgb(147 197 253);
   background: rgb(59 130 246 / 0.16);
 }
@@ -157,7 +152,7 @@ onUnmounted(() => {
   background: rgb(239 68 68 / 0.12);
   color: rgb(185 28 28);
 }
-:global(html.dark) .confirm-modal__icon--danger {
+:global(html.dark .confirm-modal__icon--danger) {
   color: rgb(252 165 165);
   background: rgb(239 68 68 / 0.16);
 }
@@ -192,11 +187,7 @@ onUnmounted(() => {
   font-size: 0.8rem;
   font-weight: 800;
   border: 1px solid rgb(var(--border) / 1);
-  transition: transform var(--hover-duration) var(--hover-ease), box-shadow var(--hover-duration) var(--hover-ease);
   cursor: pointer;
-}
-.confirm-modal__btn:hover:not(:disabled) {
-  transform: translateY(-2px);
 }
 .confirm-modal__btn:disabled {
   cursor: wait;
@@ -213,7 +204,7 @@ onUnmounted(() => {
   color: rgb(37 99 235);
   border-color: rgb(59 130 246 / 0.3);
 }
-:global(html.dark) .confirm-modal__btn--confirm {
+:global(html.dark .confirm-modal__btn--confirm) {
   color: rgb(147 197 253);
   background: rgb(59 130 246 / 0.16);
 }
@@ -223,7 +214,7 @@ onUnmounted(() => {
   color: rgb(185 28 28);
   border-color: rgb(239 68 68 / 0.3);
 }
-:global(html.dark) .confirm-modal__btn--danger {
+:global(html.dark .confirm-modal__btn--danger) {
   color: rgb(252 165 165);
   background: rgb(239 68 68 / 0.16);
 }
@@ -244,36 +235,10 @@ onUnmounted(() => {
   }
 }
 
-.confirm-modal-enter-active,
-.confirm-modal-leave-active {
-  transition: background-color 0.3s ease-out;
-}
-.confirm-modal-enter-from,
-.confirm-modal-leave-to {
-  background-color: transparent;
-}
-.confirm-modal-enter-active .confirm-modal,
-.confirm-modal-leave-active .confirm-modal {
-  transition: transform 0.25s ease, opacity 0.25s ease;
-}
-.confirm-modal-enter-from .confirm-modal,
-.confirm-modal-leave-to .confirm-modal {
-  transform: translateY(16px) scale(0.98);
-  opacity: 0;
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .confirm-modal-enter-active,
-  .confirm-modal-leave-active,
-  .confirm-modal-enter-active .confirm-modal,
-  .confirm-modal-leave-active .confirm-modal {
-    transition: none;
-  }
-
-  /* Indica carregamento: gira devagar em vez de parar (o reset global congela animações). */
+  /* Indica carregamento: gira devagar em vez de parar. */
   .confirm-modal__spinner {
-    animation-duration: 1.6s !important;
-    animation-iteration-count: infinite !important;
+    animation-duration: 1.6s;
   }
 }
 </style>

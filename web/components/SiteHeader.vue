@@ -5,6 +5,14 @@ import LanguageSwitcher from "./LanguageSwitcher.vue";
 const { t } = useLocale();
 const { lock, unlock } = useScrollLock();
 
+// Link de navegação só com utilitários: cor, sublinhado que cresce (::after) e anel de foco.
+const navLinkBase =
+  "relative text-[0.9rem] font-semibold text-[rgb(var(--fg)/0.85)] transition-all duration-300 hover:text-[rgb(var(--fg))] focus-visible:text-[rgb(var(--fg))] " +
+  "after:absolute after:bottom-[-4px] after:left-0 after:h-0.5 after:w-0 after:rounded-sm after:bg-blue-500 after:transition-all after:duration-300 hover:after:w-full focus-visible:after:w-full " +
+  "focus-visible:rounded-xs focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-500";
+const navLink = `${navLinkBase} hover:-translate-y-0.5`;
+const drawerLink = `${navLinkBase} flex items-center gap-3 border-b border-border/40 py-2.5`;
+
 type Theme = "light" | "dark";
 
 const isDark = ref(false);
@@ -117,7 +125,7 @@ onBeforeUnmount(closeDrawer);
       <div class="flex items-center gap-3">
         <button
           type="button"
-          class="inline-flex min-h-11 min-w-11 items-center justify-center bg-background rounded-sm border border-border/70 bg-card/80 p-2 text-sm font-semibold text-foreground shadow-sm hover:border-blue-500/60 focus:outline-none focus:ring-2 focus:ring-blue-500 min-[900px]:hidden transition"
+          class="inline-flex min-h-11 min-w-11 items-center justify-center bg-background rounded-sm border border-border/70 bg-card/80 p-2 text-sm font-semibold text-foreground shadow-sm hover:border-blue-500/60 focus:outline-none focus:ring-2 focus:ring-blue-500 min-[900px]:hidden transition-all duration-300 active:scale-95"
           :aria-expanded="isMenuOpen"
           aria-controls="menu-mobile"
           :aria-label="isMenuOpen ? t('nav.closeMenu') : t('nav.openMenu')"
@@ -125,7 +133,7 @@ onBeforeUnmount(closeDrawer);
         >
           <span
             aria-hidden="true"
-            class="material-symbols-outlined block transition-transform"
+            class="material-symbols-outlined block transition-transform duration-300"
             :class="{ 'rotate-90': isMenuOpen }"
           >
             {{ isMenuOpen ? "close" : "menu" }}
@@ -153,16 +161,16 @@ onBeforeUnmount(closeDrawer);
         aria-label="Navegação principal"
         class="hidden items-center gap-4 lg:gap-6 min-[900px]:flex"
       >
-        <NuxtLink class="nav-link hover:-translate-y-0.5" to="/">
+        <NuxtLink :class="navLink" to="/">
           {{ t("nav.home") }}
         </NuxtLink>
-        <NuxtLink class="nav-link hover:-translate-y-0.5" to="/sobre">
+        <NuxtLink :class="navLink" to="/sobre">
           {{ t("nav.about") }}
         </NuxtLink>
-        <NuxtLink class="nav-link hover:-translate-y-0.5" to="/servicos">
+        <NuxtLink :class="navLink" to="/servicos">
           {{ t("nav.services") }}
         </NuxtLink>
-        <NuxtLink class="nav-link hover:-translate-y-0.5" to="/contato">
+        <NuxtLink :class="navLink" to="/contato">
           {{ t("nav.contact") }}
         </NuxtLink>
       </nav>
@@ -224,7 +232,12 @@ onBeforeUnmount(closeDrawer);
 
   <!-- Teleport mantido EXCLUSIVAMENTE para a sobreposição do Backdrop e Menu Mobile -->
   <Teleport to="body">
-    <Transition name="fade">
+    <Transition
+      enter-active-class="transition-opacity duration-300"
+      leave-active-class="transition-opacity duration-300"
+      enter-from-class="opacity-0"
+      leave-to-class="opacity-0"
+    >
       <div
         v-if="isMenuOpen"
         class="fixed inset-0 z-40 bg-black/70 min-[900px]:hidden"
@@ -232,7 +245,12 @@ onBeforeUnmount(closeDrawer);
       />
     </Transition>
 
-    <Transition name="slide">
+    <Transition
+      enter-active-class="transition-transform duration-300"
+      leave-active-class="transition-transform duration-300"
+      enter-from-class="-translate-x-full"
+      leave-to-class="-translate-x-full"
+    >
       <nav
         v-if="isMenuOpen"
         id="menu-mobile"
@@ -264,7 +282,7 @@ onBeforeUnmount(closeDrawer);
 
         <div class="flex flex-1 flex-col gap-3 overflow-y-auto px-5 py-6">
           <NuxtLink
-            class="nav-link flex items-center gap-3 border-b border-border/40 py-2.5 text-base transition-colors hover:text-cyan-400"
+            :class="drawerLink"
             to="/"
             @click="closeDrawer"
           >
@@ -275,7 +293,7 @@ onBeforeUnmount(closeDrawer);
           </NuxtLink>
 
           <NuxtLink
-            class="nav-link flex items-center gap-3 border-b border-border/40 py-2.5 text-base transition-colors hover:text-cyan-400"
+            :class="drawerLink"
             to="/sobre"
             @click="closeDrawer"
           >
@@ -286,7 +304,7 @@ onBeforeUnmount(closeDrawer);
           </NuxtLink>
 
           <NuxtLink
-            class="nav-link flex items-center gap-3 border-b border-border/40 py-2.5 text-base transition-colors hover:text-cyan-400"
+            :class="drawerLink"
             to="/servicos"
             @click="closeDrawer"
           >
@@ -297,7 +315,7 @@ onBeforeUnmount(closeDrawer);
           </NuxtLink>
 
           <NuxtLink
-            class="nav-link flex items-center gap-3 border-b border-border/40 py-2.5 text-base transition-colors hover:text-cyan-400"
+            :class="drawerLink"
             to="/contato"
             @click="closeDrawer"
           >
@@ -336,65 +354,5 @@ onBeforeUnmount(closeDrawer);
 
 .site-logo {
   letter-spacing: 0.08em;
-}
-
-/* Links de Navegação com fallback de cor estrito para Dark Mode */
-.nav-link {
-  position: relative;
-  font-weight: 600;
-  font-size: 0.9rem;
-  color: rgb(var(--fg) / 0.85);
-  /* `translate` (não `transform`): hover:-translate-y-* do Tailwind v4 usa a propriedade translate */
-  transition:
-    color var(--hover-duration) var(--hover-ease),
-    translate var(--hover-duration) var(--hover-ease);
-}
-:global(html.dark) .nav-link {
-  color: #e2e8f0;
-}
-
-.nav-link::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -4px;
-  height: 2px;
-  width: 0%;
-  border-radius: 0.25rem;
-  transition: width var(--hover-duration) var(--hover-ease);
-}
-
-:global(html.dark) .nav-link:hover,
-:global(html.dark) .nav-link:focus-visible {
-  color: #ffffff;
-}
-
-.nav-link:hover::after,
-.nav-link:focus-visible::after {
-  width: 100%;
-}
-
-/* Bordas sutis: sem isso herdam currentColor (branco) sobre o fundo preto. */
-.mobile-drawer,
-.mobile-drawer *:not(.cta-primary):not(.cta-secondary) {
-  border-color: rgb(var(--border) / 0.6);
-}
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.25s ease;
-}
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
-
-.slide-enter-active,
-.slide-leave-active {
-  transition: transform 0.25s ease;
-}
-.slide-enter-from,
-.slide-leave-to {
-  transform: translateX(-100%);
 }
 </style>

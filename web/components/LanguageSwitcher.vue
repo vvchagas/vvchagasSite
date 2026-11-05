@@ -1,13 +1,19 @@
 <script setup lang="ts">
 const { locale, setLocale } = useLocale();
+
+// Inativo: 50% de opacidade, sobe no hover. Ativo: opaco, com anel.
+const langBtn = (active: boolean) =>
+  [
+    "inline-flex size-[1.9rem] cursor-pointer items-center justify-center rounded-sm bg-transparent transition-all duration-300 hover:-translate-y-px active:scale-95",
+    active ? "opacity-100 shadow-[0_0_0_2px_rgb(94_98_104/.55)]" : "opacity-50 hover:opacity-85",
+  ];
 </script>
 
 <template>
   <div class="lang-switcher" role="group" aria-label="Idioma / Language">
     <button
       type="button"
-      class="lang-btn"
-      :class="{ 'lang-btn--active': locale === 'pt' }"
+:class="langBtn(locale === 'pt')"
       :aria-pressed="locale === 'pt'"
       aria-label="Português"
       title="Português"
@@ -24,8 +30,7 @@ const { locale, setLocale } = useLocale();
 
     <button
       type="button"
-      class="lang-btn"
-      :class="{ 'lang-btn--active': locale === 'en' }"
+:class="langBtn(locale === 'en')"
       :aria-pressed="locale === 'en'"
       aria-label="English"
       title="English"
@@ -57,30 +62,6 @@ const { locale, setLocale } = useLocale();
   border: 1px solid rgb(var(--border) / 1);
   background: rgb(var(--card) / 0.6);
   padding: 0.25rem;
-}
-
-.lang-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 1.9rem;
-  height: 1.9rem;
-  border-radius: .25rem;
-  border: none;
-  cursor: pointer;
-  background: transparent;
-  opacity: 0.5;
-  transition: opacity var(--hover-duration) var(--hover-ease), transform var(--hover-duration) var(--hover-ease), box-shadow var(--hover-duration) var(--hover-ease);
-}
-
-.lang-btn:hover {
-  opacity: 0.85;
-  transform: translateY(-1px);
-}
-
-.lang-btn--active {
-  opacity: 1;
-  box-shadow: 0 0 0 2px rgba(94, 98, 104, 0.55);
 }
 
 .lang-flag {

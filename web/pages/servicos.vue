@@ -12,7 +12,7 @@
     <SiteHeader />
 
     <main id="conteudo" class="mt-22 mx-auto w-full max-w-6xl px-4 md:px-6">
-      <section ref="heroSection" class="corner-frame relative isolate mx-auto flex w-full max-w-7xl flex-col gap-10 overflow-hidden border border-border/70 bg-card/80 py-10 sm:py-16">
+      <section v-motion-reveal class="corner-frame relative isolate mx-auto flex w-full max-w-7xl flex-col gap-10 overflow-hidden border border-border/70 bg-card/80 py-10 sm:py-16">
         <div class="relative z-10 px-5 sm:px-10">
         <div class="max-w-3xl space-y-4">
           <p class="text-xs sm:text-sm font-semibold uppercase tracking-[0.3em] text-foreground">
@@ -27,10 +27,12 @@
         </div>
 
         <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          <article 
-            v-for="service in servicesList" 
+          <article
+            v-for="(service, cardIndex) in servicesList"
             :key="service.id"
-            class="tech-frame group rounded-md border border-border/60 bg-card/70 p-6 sm:p-8 shadow-sm flex flex-col justify-between"
+            v-motion-reveal
+            :delay="cardIndex * 100"
+            class="tech-frame fx-card group rounded-md border border-border/60 bg-card/70 p-6 sm:p-8 shadow-sm flex flex-col justify-between"
           >
             <div>
               <!-- Desenhos SVGs nos contornos pedidoss -->
@@ -38,7 +40,7 @@
                 <div class="absolute inset-0 rounded-md bg-blue-600/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity"/>
                 
                 <!-- Desenho 1: </> Pulsando no hover -->
-                <svg v-if="service.id === 'web'" class="relative z-10 h-8 w-8 text-blue-500 transition-transform group-hover:scale-110 group-hover:animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                <svg v-if="service.id === 'web'" class="relative z-10 h-8 w-8 text-blue-500 transition-transform group-hover:scale-110 motion-safe:group-hover:animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5" />
                 </svg>
 
@@ -63,7 +65,7 @@
                 </svg>
               </div>
 
-              <div class="mb-4 inline-flex text-foreground rounded-sm bg-background px-3 py-1 text-xs font-semibold dark:bg-blue-900/30 dark:text-blue-300">
+              <div class="mb-4 inline-flex text-foreground rounded-sm bg-background px-3 py-1 text-xs font-semibold transition-transform duration-300 group-hover:scale-105 dark:bg-blue-900/30 dark:text-blue-300">
                 {{ t(service.badge) }}
               </div>
               <h2 class="text-xl sm:text-2xl font-bold">{{ t(service.title) }}</h2>
@@ -71,7 +73,7 @@
                 {{ t(service.desc) }}
               </p>
               <ul class="mt-6 space-y-3 text-sm text-muted">
-                <li v-for="(item, index) in service.items" :key="index" class="flex gap-3 items-start">
+                <li v-for="(item, index) in service.items" :key="index" class="fx-row flex gap-3 items-start">
                   <span class="mt-1.5 h-2 w-2 shrink-0 rounded-sm bg-blue-600 dark:bg-blue-500"/>
                   <span>{{ t(item) }}</span>
                 </li>
@@ -89,7 +91,7 @@
           </article>
         </div>
 
-        <section ref="ctaSection" class="tech-frame mt-6 rounded-md border border-border/60 bg-card/70 p-6 shadow-sm sm:p-10 relative overflow-hidden transition">
+        <section v-motion-reveal class="tech-frame fx-card mt-6 rounded-md border border-border/60 bg-card/70 p-6 shadow-sm sm:p-10 relative overflow-hidden">
           <div class="absolute -right-20 -top-20 h-64 w-64 rounded-sm blur-3xl pointer-events-none"/>
 
           <div class="grid gap-6 lg:grid-cols-[1.25fr_0.75fr] lg:items-center relative z-10">
@@ -131,7 +133,6 @@
 <script setup lang="ts">
 import SiteHeader from "../components/SiteHeader.vue";
 import SiteFooter from "../components/SiteFooter.vue";
-import { useScrollReveal } from "~/composables/useScrollReveal";
 
 const { t } = useLocale();
 
@@ -163,9 +164,4 @@ const servicesList = [
 ];
 
 useSiteSeo({ title: () => t('services.sectionLabel'), description: () => t('services.description') });
-
-const heroSection = ref<HTMLElement | null>(null);
-const ctaSection = ref<HTMLElement | null>(null);
-useScrollReveal(heroSection);
-useScrollReveal(ctaSection, { delay: 0.1 });
 </script>

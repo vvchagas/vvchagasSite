@@ -17,6 +17,7 @@ export default defineNuxtConfig({
     '@nuxt/a11y',
     '@nuxt/eslint',
     '@nuxt/ui',
+    '@vueuse/motion/nuxt',
     '@nuxt/fonts',
     '@vercel/analytics/nuxt',
     '@vercel/speed-insights/nuxt',
@@ -70,10 +71,8 @@ export default defineNuxtConfig({
       ],
       link: [
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-        { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
-        { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
-        // display=block: o ícone fica invisível até carregar, em vez de mostrar o nome em texto.
-        { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,300,0,0&display=block' },
+        // Ícones: fonte própria (subset de poucos KB, `npm run icons`). Sem Google, sem @nuxt/fonts no meio.
+        { rel: 'preload', as: 'font', type: 'font/woff2', href: '/fonts/material-symbols.woff2', crossorigin: '' },
       ],
       script: [
         { src: '/_vercel/insights/script.js', defer: true },

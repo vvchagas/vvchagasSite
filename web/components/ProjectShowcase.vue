@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import { nextTick, onBeforeUpdate, type ComponentPublicInstance } from "vue";
 import { getTranslatedProjects, type ResolvedProject } from "~/shared/projects";
-import { revealOnView, useScrollReveal } from "~/composables/useScrollReveal";
 
 const props = withDefaults(
   defineProps<{
@@ -61,28 +59,6 @@ const activeProject = computed<ResolvedProject | null>(
 
 const lightboxImage = ref<string | null>(null);
 
-const sectionEl = ref<HTMLElement | null>(null);
-useScrollReveal(sectionEl);
-
-const cardEls = ref<Array<HTMLElement | null>>([]);
-let cardsCleanup: (() => void) | undefined;
-function setCardRef(el: Element | ComponentPublicInstance | null, index: number) {
-  cardEls.value[index] = el instanceof HTMLElement ? el : null;
-}
-
-onBeforeUpdate(() => {
-  cardEls.value = [];
-});
-
-onMounted(async () => {
-  await nextTick();
-
-  cardsCleanup = revealOnView(
-    cardEls.value.filter((el): el is HTMLElement => el !== null),
-    { trigger: sectionEl.value ?? undefined, y: 24, stagger: 0.08 },
-  );
-});
-
 function openProject(slug: string) {
   activeSlug.value = slug;
 }
@@ -114,15 +90,14 @@ watch(lightboxImage, (val) => {
 });
 
 onUnmounted(() => {
-  cardsCleanup?.();
   document.removeEventListener("keydown", onLightboxKeydown);
   unlock();
 });
 </script>
 
 <template>
-  <section ref="sectionEl" class="project-showcase mt-10">
-    <div v-if="!props.hideHeading" class="mb-10 max-w-3xl space-y-4" :class="{ 'mb-7': props.compact }">
+  <section class="project-showcase mt-10">
+    <div v-if="!props.hideHeading" v-motion-reveal class="mb-10 max-w-3xl space-y-4" :class="{ 'mb-7': props.compact }">
       <p class="mt-10 text-xs font-semibold uppercase tracking-[0.3em] text-blue-600 dark:text-blue-400 sm:text-sm">
         {{ props.eyebrow || t('portfolio.eyebrow') }}
       </p>
@@ -139,8 +114,9 @@ onUnmounted(() => {
         v-for="(project, index) in translatedProjects"
         :id="project.slug"
         :key="project.slug"
-        :ref="(element) => setCardRef(element, index)"
-        class="tech-frame projectslug group relative flex flex-col justify-between overflow-hidden rounded-md border border-border/60 bg-card/70 p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-lg hover:border-blue-500/40"
+        v-motion-reveal
+        :delay="index * 100"
+        class="tech-frame group relative flex flex-col justify-between overflow-hidden rounded-md border border-border/60 bg-card/70 p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[rgb(34_36_39/.5)] hover:bg-[rgb(46_47_49/.1)] hover:shadow-lg"
       >
         <div class="relative flex flex-col h-full justify-between">
           <div>
@@ -157,7 +133,7 @@ onUnmounted(() => {
                 v-if="project.image"
                 :src="project.image"
                 :alt="project.title"
-                class="h-full w-full cursor-pointer object-cover transition-transform hover:scale-105"
+                class="h-full w-full cursor-pointer object-cover transition-transform duration-300 hover:scale-105"
                 loading="lazy"
                 @click="openLightbox(project.image)"
               >
@@ -199,16 +175,17 @@ onUnmounted(() => {
     <ProjectModal :project="activeProject" :open="!!activeProject" @close="closeProject" />
 
     <Teleport to="body">
-      <Transition name="lightbox">
+      <Transition :css="false" @leave="onMotionLeave">
         <div
           v-if="lightboxImage"
+          v-motion-fade
           class="lightbox-overlay"
           @click.self="closeLightbox"
         >
-          <div class="lightbox-container">
+          <div v-motion-pop class="lightbox-container">
             <button
               type="button"
-              class="lightbox-close"
+              class="absolute right-3 top-3 z-1 inline-flex size-9 cursor-pointer items-center justify-center rounded-sm border border-white/25 bg-black/50 text-white transition-all duration-300 hover:border-[rgb(250_9_1)] hover:bg-black/75 active:scale-95"
               :aria-label="t('portfolio.lightboxClose')"
               @click="closeLightbox"
             >
@@ -241,11 +218,6 @@ onUnmounted(() => {
   }
 }
 
-.projectslug:hover {
-  background-color: rgba(46, 47, 49, 0.1);
-  border-color: rgba(34, 36, 39, 0.5);
-}
-
 .lightbox-overlay {
   position: fixed;
   inset: 0;
@@ -273,54 +245,4 @@ onUnmounted(() => {
   object-fit: contain;
   max-height: 85vh;
 }
-
-.lightbox-close {
-  position: absolute;
-  top: 0.75rem;
-  right: 0.75rem;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 2.25rem;
-  height: 2.25rem;
-  border-radius: .25rem;
-  border: 1px solid rgb(255 255 255 / 0.25);
-  background: rgb(0 0 0 / 0.5);
-  color: #fff;
-  cursor: pointer;
-  transition: transform var(--hover-duration) var(--hover-ease), background var(--hover-duration) var(--hover-ease), border-color var(--hover-duration) var(--hover-ease);
-  z-index: 1;
-}
-.lightbox-close:hover {
-  background: rgb(0 0 0 / 0.75);
-  border-color: rgb(250, 9, 1)
-}
-
-.lightbox-enter-active,
-.lightbox-leave-active {
-  transition: opacity 0.2s ease;
-}
-.lightbox-enter-from,
-.lightbox-leave-to {
-  opacity: 0;
-}
-.lightbox-enter-active .lightbox-container,
-.lightbox-leave-active .lightbox-container {
-  transition: transform 0.25s ease, opacity 0.25s ease;
-}
-.lightbox-enter-from .lightbox-container,
-.lightbox-leave-to .lightbox-container {
-  transform: scale(0.92);
-  opacity: 0;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .lightbox-enter-active,
-  .lightbox-leave-active,
-  .lightbox-enter-active .lightbox-container,
-  .lightbox-leave-active .lightbox-container {
-    transition: none;
-  }
-}
-
 </style>

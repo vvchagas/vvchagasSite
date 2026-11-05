@@ -296,7 +296,7 @@ async function submit() {
       <button
         type="submit"
         :disabled="isSending"
-        class="text-foreground border border-gray-600 hover:border-gray-800 flex justify-center py-1 px-6 font-semibold text-center items-center  w-full disabled:cursor-not-allowed disabled:opacity-55"
+        class="text-foreground border border-gray-600 hover:border-gray-800 transition-all duration-300 active:scale-95 flex justify-center py-1 px-6 font-semibold text-center items-center  w-full disabled:cursor-not-allowed disabled:opacity-55"
       >
         {{ isSending ? t("contact.formSending") : t("contact.formSend") }}
       </button>

@@ -12,15 +12,11 @@
   }
 }
 
-/* Movimento: UM token para todo hover/transição da interface.
-   --default-transition-* faz as utilities `transition*` do Tailwind usarem o mesmo valor;
-   o CSS escopado dos componentes usa var(--hover-duration)/var(--hover-ease).
-   Quer mais lento/rápido? Mude só --hover-duration. */
+/* Movimento: hover/active/focus usam só utilitários Tailwind (transition-all duration-300 hover:... active:...).
+   Estes dois tokens são o padrão de `transition*` quando a classe não define duration-*/ease-*. */
 @theme static {
-  --hover-duration: 0.5ms;
-  --hover-ease: cubic-bezier(0.22, 1, 0.36, 1);
-  --default-transition-duration: var(--hover-duration);
-  --default-transition-timing-function: var(--hover-ease);
+  --default-transition-duration: 300ms;
+  --default-transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 :root {
@@ -103,8 +99,16 @@ h1, h2, h3, h4, .font-black, .font-extrabold { font-family: "Manrope", sans-seri
   background: rgb(var(--bg) / 0.75);
 }
 
+/* Declarado aqui, o @nuxt/fonts não tenta baixar a fonte completa (~4 MB) do Google. */
+@font-face {
+  font-family: "Material Symbols Outlined";
+  src: url("/fonts/material-symbols.woff2") format("woff2");
+  font-display: block; /* invisível até carregar, nunca mostra o nome em texto */
+}
+
 .material-symbols-outlined {
   font-family: "Material Symbols Outlined";
+  font-feature-settings: "liga";
   font-weight: normal;
   font-style: normal;
   font-size: 20px;
@@ -125,53 +129,46 @@ h1, h2, h3, h4, .font-black, .font-extrabold { font-family: "Manrope", sans-seri
 .site-page form {
   border-radius: var(--site-radius);
 }
-.site-page article,
-.site-page .contact-card {
-  position: relative;
-  border-color: var(--frame-line);
+/* Em @layer components: o hover:border-* / border-* dos utilitários no markup vence esta cor base. */
+@layer components {
+  .site-page article,
+  .tech-frame {
+    position: relative;
+    border-color: var(--frame-line);
+  }
 }
-
-.site-page article:hover,
-.site-page .contact-card:hover {
-  border-color: var(--frame-accent);
-}
-
-.tech-frame { position: relative; border-color: var(--frame-line); }
 
 /* Botões: UMA cor (--cta-bg). .cta-primary = preenchido, .cta-secondary = contorno.
-   Em @layer components para que utilitários (w-full, min-h-*, hidden) continuem vencendo. */
+   Em @layer components para que utilitários do markup (w-full, min-h-*, px-*, hidden) continuem vencendo. */
 @layer components {
   .cta-primary,
   .cta-secondary {
-    display: inline-flex;
-    min-height: 3rem;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    padding-inline: 1.5rem;
-    border: 1px solid var(--cta-bg);
-    border-radius: 0.375rem;
-    font-size: 0.875rem;
-    font-weight: 800;
-    text-align: center;
-    cursor: pointer;
-    transition-property: translate, scale, background-color, border-color, color;
-    transition-duration: var(--hover-duration);
-    transition-timing-function: var(--hover-ease);
+    @apply inline-flex min-h-12 cursor-pointer items-center justify-center gap-2 rounded-md border border-(--cta-bg) px-6 text-center text-sm font-extrabold transition-all duration-300 hover:-translate-y-0.5 hover:scale-[1.03] hover:shadow-lg hover:shadow-(--cta-bg)/35 active:translate-y-0 active:scale-95 active:shadow-none;
   }
 
   .cta-primary {
-    background-color: var(--cta-bg);
-    color: var(--cta-fg);
+    @apply bg-(--cta-bg) text-(--cta-fg) hover:border-(--cta-hover) hover:bg-(--cta-hover);
   }
 
   .cta-secondary {
-    background-color: transparent;
-    color: var(--cta-bg);
+    @apply bg-transparent text-(--cta-bg) hover:bg-(--cta-bg)/12;
   }
 
-  .cta-primary:active,
-  .cta-secondary:active { scale: 0.97; }
+  /* Microinterações padrão (Tailwind puro; o markup só escolhe quais usar).
+     .fx-card: card sobe, a moldura acende e ganha brilho (não transiciona opacity/transform: quem anima isso é o v-motion).
+     Precisa de `group` no card para o .fx-icon.
+     .fx-icon: ícone do card cresce e inclina.  .fx-row: linha de lista anda 4px; o ícone usa group/row. */
+  .fx-card {
+    @apply transition-[translate,scale,box-shadow,border-color] duration-300 hover:-translate-y-1 hover:border-(--frame-accent) hover:shadow-xl hover:shadow-(--frame-accent)/20 active:translate-y-0;
+  }
+
+  .fx-icon {
+    @apply transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-6;
+  }
+
+  .fx-row {
+    @apply transition-transform duration-300 hover:translate-x-1;
+  }
 
   /* Ícone: reserva a caixa 1em para o nome do ícone não aparecer em texto
      (nem deslocar o layout) antes da fonte carregar. */
@@ -182,31 +179,13 @@ h1, h2, h3, h4, .font-black, .font-extrabold { font-family: "Manrope", sans-seri
   }
 }
 
-@media (any-hover: hover) {
-  .cta-primary:hover { background-color: var(--cta-hover); border-color: var(--cta-hover); translate: 0 -2px; }
-  .cta-secondary:hover { background-color: color-mix(in srgb, var(--cta-bg) 12%, transparent); translate: 0 -2px; }
-}
-
 /* Modal/menu aberto: pausa animações da página por baixo. Com backdrop-filter, cada frame de
    animação atrás do overlay obriga o navegador a refazer o blur. */
 html.scroll-locked :is(main, footer) :is(*, *::before, *::after) {
   animation-play-state: paused !important;
 }
 
-/* Transição base dos cards. Fica em @layer components para que as classes do
-   Tailwind (transition-*, duration-*, ease-*) vençam. Regra sem layer anularia
-   o duration-* e, sem `translate`/`scale` na lista, o hover:-translate-y-* pularia. */
-@layer components {
-  .site-page article,
-  .tech-frame,
-  .corner-frame,
-  .contact-card {
-    transition-property: translate, scale, box-shadow, border-color;
-    transition-duration: var(--hover-duration);
-    transition-timing-function: var(--hover-ease);
-  }
-}
-
+/* Moldura técnica: cantos que crescem no hover (pseudo-elementos não têm utilitário prático por elemento). */
 .tech-frame::before, .tech-frame::after,
 .corner-frame::before, .corner-frame::after {
   position: absolute;
@@ -217,7 +196,7 @@ html.scroll-locked :is(main, footer) :is(*, *::before, *::after) {
   border-style: solid;
   content: "";
   pointer-events: none;
-  transition: width var(--hover-duration) var(--hover-ease), height var(--hover-duration) var(--hover-ease), border-color var(--hover-duration) var(--hover-ease);
+  @apply transition-all duration-300;
 }
 .tech-frame::before, .corner-frame::before { top: -1px; left: -1px; border-width: 2px 0 0 2px; }
 .tech-frame::after, .corner-frame::after { right: -1px; bottom: -1px; border-width: 0 2px 2px 0; }
@@ -281,7 +260,7 @@ button.project-action { width: 100%; border: 0; cursor: pointer; font-family: in
 html.dark::view-transition-old(root) { z-index: 2; }
 html.dark::view-transition-new(root) { z-index: 1; }
 
+/* Animações CSS (@keyframes) tratam reduced-motion caso a caso, no próprio componente: zerar animation-duration global deixa spinners e loops mais bruscos. */
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
-  body :is(a, button, input, textarea, select, [role="button"], [class*="hover:"], .tech-frame, .corner-frame, .contact-card) { transition-duration: .01ms !important; }
+  *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
 }

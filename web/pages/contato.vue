@@ -13,7 +13,7 @@
 
     <main id="conteudo" class="mx-auto w-full max-w-6xl px-3 pt-24 sm:px-5 sm:pt-28 lg:px-8">
       <section
-        ref="heroSection"
+        v-motion-reveal
         class="corner-frame bg-background text-foreground relative isolate mx-auto w-full max-w-4xl overflow-hidden border border-border/70 bg-card/80 py-10 sm:py-16"
       >
         <div class="relative z-10 px-5 sm:px-10">
@@ -35,7 +35,8 @@
 
           <!-- CARD WHATSAPP -->
           <div
-            ref="cardWhatsapp"
+            v-motion-reveal
+            :class="cardFx"
             class="tech-frame contact-card contact-card--whatsapp rounded-md border bg-card p-5 shadow-sm sm:p-8"
           >
             <div
@@ -72,7 +73,7 @@
               :href="waLink(t('contact.whatsappPrefill'))"
               target="_blank"
               rel="noopener noreferrer"
-              class="text-foreground border border-green-600 hover:border-green-800 min-h-12 flex justify-center py-1 px-6 font-semibold text-center items-center  mx-auto mt-5 w-full sm:mt-6 sm:w-fit"
+              class="text-foreground border border-green-600 hover:border-green-800 transition-all duration-300 active:scale-95 min-h-12 flex justify-center py-1 px-6 font-semibold text-center items-center  mx-auto mt-5 w-full sm:mt-6 sm:w-fit"
             >
               {{ t('contact.whatsappBtn') }}
             </a>
@@ -80,7 +81,8 @@
 
           <!-- CARD LINKEDIN -->
           <div
-            ref="cardLinkedin"
+            v-motion-reveal
+            :class="cardFx"
             class="tech-frame contact-card contact-card--linkedin mt-8 rounded-md border bg-card p-5 shadow-sm sm:mt-10 sm:p-8"
           >
             <div
@@ -117,7 +119,7 @@
               href="https://linkedin.com/in/victor-vasques-chagas"
               target="_blank"
               rel="noopener noreferrer"
-              class="text-foreground border border-blue-600 hover:border-blue-800 min-h-12 flex justify-center py-1 px-6 font-semibold text-center items-center  mx-auto mt-5 w-full sm:mt-6 sm:w-fit"
+              class="text-foreground border border-blue-600 hover:border-blue-800 transition-all duration-300 active:scale-95 min-h-12 flex justify-center py-1 px-6 font-semibold text-center items-center  mx-auto mt-5 w-full sm:mt-6 sm:w-fit"
             >
               {{ t('contact.linkedinBtn') }}
             </a>
@@ -125,7 +127,8 @@
 
           <!-- CARD EMAIL -->
           <div
-            ref="cardEmail"
+            v-motion-reveal
+            :class="cardFx"
             class="tech-frame contact-card contact-card--email mt-8 rounded-md border bg-card p-5 shadow-sm sm:mt-10 sm:p-8"
           >
             <div
@@ -162,7 +165,7 @@
               :href="mailLink(t('contact.emailSubject'))"
               target="_blank"
               rel="noopener noreferrer"
-              class="text-foreground border border-red-600 hover:border-red-800 min-h-12 flex justify-center py-1 px-6 font-semibold text-center items-center  mx-auto mt-5 w-full sm:mt-6 sm:w-fit"
+              class="text-foreground border border-red-600 hover:border-red-800 transition-all duration-300 active:scale-95 min-h-12 flex justify-center py-1 px-6 font-semibold text-center items-center  mx-auto mt-5 w-full sm:mt-6 sm:w-fit"
             >
               {{ t('contact.emailBtn') }}
             </a>
@@ -175,7 +178,8 @@
             </h2>
           </div>
           <div
-            ref="cardForm"
+            v-motion-reveal
+            :class="cardFx"
             class="tech-frame contact-card contact-card--form mt-5 rounded-md border bg-card p-4 shadow-sm sm:mt-6 sm:p-8"
           >
             <h3 class="text-center text-base sm:text-lg mb-2 sm:mb-3 font-bold">
@@ -199,11 +203,9 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref } from "vue";
 import SiteHeader from "../components/SiteHeader.vue";
 import SiteFooter from "../components/SiteFooter.vue";
 import ContactForm from "../components/ContactForm.vue";
-import { useScrollReveal } from "~/composables/useScrollReveal";
 
 const { t } = useLocale();
 
@@ -213,53 +215,62 @@ const route = useRoute();
 const selectedProject = typeof route.query.projeto === "string" ? route.query.projeto : "";
 const initialMessage = selectedProject ? `Olá! Quero um projeto semelhante a "${selectedProject}".` : "";
 
-const heroSection = ref<HTMLElement | null>(null);
-const cardWhatsapp = ref<HTMLElement | null>(null);
-const cardLinkedin = ref<HTMLElement | null>(null);
-const cardEmail = ref<HTMLElement | null>(null);
-const cardForm = ref<HTMLElement | null>(null);
-
-useScrollReveal(heroSection);
-useScrollReveal(cardWhatsapp, { delay: 0.0 });
-useScrollReveal(cardLinkedin, { delay: 0.15 });
-useScrollReveal(cardEmail, { delay: 0.3 });
-useScrollReveal(cardForm, { delay: 0.45 });
+// Hover dos cards: cada card define suas cores em CSS vars (<style>); aqui só a mecânica, igual para os 4.
+const cardFx =
+  "border-(--contact-border) transition-all duration-300 hover:border-[rgb(var(--contact-accent)/.95)] hover:shadow-[0_16px_36px_var(--contact-glow)] " +
+  "hover:[--frame-accent:var(--frame-accent-hover)] hover:[--frame-line:var(--frame-line-hover)]";
 </script>
 
 <style scoped>
 /* ======================================================
    CARDS DE CONTATO COM CORNER ACCENT PERSONALIZADOS
 ====================================================== */
-/* WHATSAPP */
-.contact-card--whatsapp {
-  --contact-accent: 34 197 94;
-  --frame-line: rgb(34 197 94 / 0.4);
-  --frame-accent: #22c55e;
-  border-color: rgb(var(--contact-accent) / .55) !important;
-}
+/* Em @layer components: o hover:[--frame-accent:...] dos utilitários precisa vencer estes valores base
+   (CSS sem layer sempre ganha de utilitário). */
+@layer components {
+  /* WHATSAPP */
+  .contact-card--whatsapp {
+    --contact-accent: 34 197 94;
+    --contact-border: rgb(34 197 94 / .55);
+    --contact-glow: rgb(22 163 74 / .22);
+    --frame-line: rgb(34 197 94 / 0.4);
+    --frame-accent: #22c55e;
+    --frame-line-hover: rgb(34 197 94 / 0.8);
+    --frame-accent-hover: #4ade80;
+  }
 
-/* LINKEDIN */
-.contact-card--linkedin {
-  --contact-accent: 59 130 246;
-  --frame-line: rgb(59 130 246 / 0.4);
-  --frame-accent: #3b82f6;
-  border-color: rgb(var(--contact-accent) / .65) !important;
-}
+  /* LINKEDIN */
+  .contact-card--linkedin {
+    --contact-accent: 59 130 246;
+    --contact-border: rgb(59 130 246 / .65);
+    --contact-glow: rgb(37 99 235 / .22);
+    --frame-line: rgb(59 130 246 / 0.4);
+    --frame-accent: #3b82f6;
+    --frame-line-hover: rgb(59 130 246 / 0.8);
+    --frame-accent-hover: #60a5fa;
+  }
 
-/* EMAIL (GMAIL) */
-.contact-card--email {
-  --contact-accent: 239 68 68;
-  --frame-line: rgb(239 68 68 / 0.4);
-  --frame-accent: #ef4444;
-  border-color: rgb(var(--contact-accent) / .55) !important;
-}
+  /* EMAIL (GMAIL) */
+  .contact-card--email {
+    --contact-accent: 239 68 68;
+    --contact-border: rgb(239 68 68 / .55);
+    --contact-glow: rgb(220 38 38 / .22);
+    --frame-line: rgb(239 68 68 / 0.4);
+    --frame-accent: #ef4444;
+    --frame-line-hover: rgb(239 68 68 / 0.8);
+    --frame-accent-hover: #f87171;
+  }
 
-/* FORMULÁRIO */
-.contact-card--form {
-  --contact-accent: 115 115 115;
-  --frame-line: rgb(115 115 115 / 0.4);
-  --frame-accent: #a3a3a3;
-  border-color: rgb(var(--contact-accent) / .55) !important;
+  /* FORMULÁRIO */
+  .contact-card--form {
+    --contact-accent: 115 115 115;
+    --contact-border: rgb(115 115 115 / .55);
+    --contact-glow: rgb(115 115 115 / .22);
+    --frame-line: rgb(115 115 115 / 0.4);
+    --frame-accent: #a3a3a3;
+    --frame-line-hover: rgb(115 115 115 / 0.8);
+    --frame-accent-hover: #e5e5e5;
+  }
 }
 
 /* CONTAINERS INTERNOS */
@@ -269,30 +280,5 @@ useScrollReveal(cardForm, { delay: 0.45 });
   background-color: rgb(var(--bg) / .72) !important;
   --frame-line: rgb(var(--contact-accent) / 0.3);
   --frame-accent: rgb(var(--contact-accent));
-}
-
-.contact-card--whatsapp:hover {
-  box-shadow: 0 16px 36px rgb(22 163 74 / .22);
-  border-color: rgb(var(--contact-accent) / .95) !important;
-  --frame-line: rgb(34 197 94 / 0.8);
-  --frame-accent: #4ade80;
-}
-.contact-card--linkedin:hover {
-  box-shadow: 0 16px 36px rgb(37 99 235 / .22);
-  border-color: rgb(var(--contact-accent) / .95) !important;
-  --frame-line: rgb(59 130 246 / 0.8);
-  --frame-accent: #60a5fa;
-}
-.contact-card--email:hover {
-  box-shadow: 0 16px 36px rgb(220 38 38 / .22);
-  border-color: rgb(var(--contact-accent) / .95) !important;
-  --frame-line: rgb(239 68 68 / 0.8);
-  --frame-accent: #f87171;
-}
-.contact-card--form:hover {
-  box-shadow: 0 16px 36px rgb(115 115 115 / .22);
-  border-color: rgb(var(--contact-accent) / .95) !important;
-  --frame-line: rgb(115 115 115 / 0.8);
-  --frame-accent: #e5e5e5;
 }
 </style>

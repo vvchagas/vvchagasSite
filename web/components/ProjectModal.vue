@@ -42,14 +42,16 @@ onUnmounted(() => {
 
 <template>
   <Teleport to="body">
-    <Transition name="project-modal">
+    <Transition :css="false" @leave="onMotionLeave">
       <div
         v-if="open && project"
+        v-motion-fade
         class="project-modal-overlay"
         @mousedown.self="close"
       >
         <div
           ref="dialogRef"
+          v-motion-pop
           class="project-modal tech-frame"
           role="dialog"
           aria-modal="true"
@@ -57,8 +59,9 @@ onUnmounted(() => {
           tabindex="-1"
         >
           <button
+            v-motion-spin-in
             type="button"
-            class="project-modal__close"
+            class="project-modal__close border border-[rgb(var(--border))] transition-all duration-300 hover:border-[rgb(250_9_1)] active:scale-95"
             :aria-label="t('common.close')"
             @click="close"
           >
@@ -187,25 +190,8 @@ onUnmounted(() => {
   width: 2.5rem;
   height: 2.5rem;
   border-radius: .25rem;
-  border: 1px solid rgb(var(--border) / 1);
   background: rgb(var(--bg) / 0.6);
   color: rgb(var(--fg));
-  transition: transform var(--hover-duration) var(--hover-ease), border-color var(--hover-duration) var(--hover-ease), background-color var(--hover-duration) var(--hover-ease);
-  animation: project-modal-close-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.15s backwards;
-}
-.project-modal__close:hover {
-  border-color: rgb(250, 9, 1);
-}
-
-@keyframes project-modal-close-in {
-  from {
-    opacity: 0;
-    transform: scale(0.6)rotate(-45deg);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1) rotate(0deg);
-  }
 }
 
 .stack-badge {
@@ -217,41 +203,9 @@ onUnmounted(() => {
   font-size: 0.75rem;
   font-weight: 700;
 }
-:global(html.dark) .stack-badge {
+:global(html.dark .stack-badge) {
   color: rgb(147 197 253);
   background: rgb(59 130 246 / 0.16);
-}
-
-/* Transição suave e uniforme de abertura e fechamento */
-.project-modal-enter-active,
-.project-modal-leave-active {
-  transition: background-color 0.3s ease-out;
-}
-.project-modal-enter-from,
-.project-modal-leave-to {
-  background-color: transparent;
-}
-
-.project-modal-enter-active .project-modal,
-.project-modal-leave-active .project-modal {
-  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease-out;
-}
-.project-modal-enter-from .project-modal,
-.project-modal-leave-to .project-modal {
-  transform: translateY(16px);
-  opacity: 0;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .project-modal-enter-active,
-  .project-modal-leave-active,
-  .project-modal-enter-active .project-modal,
-  .project-modal-leave-active .project-modal {
-    transition: none;
-  }
-  .project-modal__close {
-    animation: none;
-  }
 }
 
 ::-webkit-scrollbar {

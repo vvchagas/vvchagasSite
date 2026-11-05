@@ -47,7 +47,8 @@
             <!-- Coluna da Esquerda: Apresentação e Estatísticas -->
             <div>
               <p
-                data-hero-stagger
+                v-motion-reveal
+                :delay="150"
                 class="technical-label text-xs uppercase tracking-[0.2em] text-muted"
               >
                 {{ t("hero.eyebrow") }}
@@ -93,11 +94,11 @@
               </p>
 
               <!-- Estatísticas -->
-              <dl data-hero-stagger class="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-3">
+              <dl v-motion-reveal :delay="230" class="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-3">
                 <div
                   v-for="stat in heroStats"
                   :key="stat.label"
-                  class="tech-frame flex flex-col justify-between border border-border/70 bg-background p-4"
+                  class="tech-frame fx-card flex flex-col justify-between border border-border/70 bg-background p-4"
                 >
                   <div>
                     <dt class="text-sm font-bold text-foreground sm:text-base">
@@ -119,7 +120,8 @@
             <!-- Coluna da Direita: Card de Status -->
             <div class="relative flex w-full justify-end">
               <div
-                data-hero-stagger
+                v-motion-reveal
+                :delay="310"
                 class="corner-frame w-full max-w-lg border border-border/70 bg-background/55 p-5 shadow-sm"
               >
                 <!-- Status Header -->
@@ -139,11 +141,11 @@
                     :href="waLink(t('contact.whatsappPrefill'))"
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="inline-flex min-h-11 shrink-0 items-center gap-2 rounded-sm bg-muted/30 px-3 text-xs font-semibold text-foreground/90 hover:bg-muted/50"
+                    class="inline-flex min-h-11 shrink-0 items-center gap-2 rounded-sm bg-muted/30 px-3 text-xs font-semibold text-foreground/90 transition-all duration-300 hover:bg-muted/50 active:scale-95"
                   >
                     <span
                       aria-hidden="true"
-                      class="size-2 rounded-sm bg-green-500 animate-pulse"
+                      class="size-2 rounded-sm bg-green-500 motion-safe:animate-pulse"
                     />
                     {{ t("hero.statusOnline") }}
                   </a>
@@ -154,7 +156,7 @@
                   <div
                     v-for="step in heroSteps"
                     :key="step.title"
-                    class="tech-frame rounded-md bg-muted/25 p-4 border border-border/50"
+                    class="tech-frame fx-card group rounded-md bg-muted/25 p-4 border border-border/50"
                   >
                     <h3
                       class="flex items-center justify-between gap-3 text-sm font-bold text-foreground sm:text-base"
@@ -162,7 +164,7 @@
                       {{ t(step.title) }}
                       <span
                         aria-hidden="true"
-                        class="material-symbols-outlined shrink-0 text-xl"
+                        class="material-symbols-outlined fx-icon shrink-0 text-xl"
                         :class="step.color"
                       >
                         {{ step.icon }}
@@ -193,11 +195,11 @@
       ========================================================== -->
       <section
         id="servicos"
-        ref="servicosSection"
         aria-labelledby="servicos-title"
         class="mt-14 md:mt-18"
       >
         <header
+          v-motion-reveal
           class="flex flex-col gap-3 md:flex-row md:items-end md:justify-between"
         >
           <div>
@@ -218,8 +220,10 @@
           <article
             v-for="(service, index) in services"
             :key="service.badge"
-            :ref="(element) => setServiceCardRef(element, index)"
-            class="tech-frame flex flex-col rounded-md border border-border/60 p-6 shadow-sm">
+            v-motion-reveal
+            :delay="index * 100"
+            class="tech-frame fx-card group flex flex-col rounded-md border border-border/60 p-6 shadow-sm"
+          >
             <div class="flex items-start justify-between gap-4">
               <div>
                 <h3 class="text-lg font-extrabold text-foreground">
@@ -233,7 +237,7 @@
 
               <!-- Badge simples/transparente com borda -->
               <span
-                class="badge border border-border/60 bg-muted/40 px-2.5 py-1 text-xs font-bold uppercase tracking-wider text-foreground"
+                class="badge border border-border/60 bg-muted/40 px-2.5 py-1 text-xs font-bold uppercase tracking-wider text-foreground transition-transform duration-300 group-hover:scale-105"
               >
                 {{ service.badge }}
               </span>
@@ -243,11 +247,11 @@
               <li
                 v-for="item in service.items"
                 :key="item.label"
-                class="flex items-center gap-2"
+                class="group/row fx-row flex items-center gap-2"
               >
                 <span
                   aria-hidden="true"
-                  class="material-symbols-outlined text-base shrink-0"
+                  class="material-symbols-outlined shrink-0 text-base transition-transform duration-300 group-hover/row:scale-125"
                   :class="item.color"
                 >
                   {{ item.icon }}
@@ -271,8 +275,8 @@
         </div>
         <!-- CTA -->
         <div
-          ref="servCta"
-          class="tech-frame mt-6 rounded-md border border-border/60 bg-card/80 p-5 text-foreground shadow-sm transition"
+          v-motion-reveal
+          class="tech-frame fx-card mt-6 rounded-md border border-border/60 bg-card/80 p-5 text-foreground shadow-sm"
         >
           <div
             class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between"
@@ -304,13 +308,13 @@
       ========================================================== -->
       <section
         id="portfolio"
-        ref="portfolioSection"
         aria-labelledby="portfolio-title"
         class="relative mt-14 md:mt-18"
       >
         <span id="projetos" class="absolute -top-24" aria-hidden="true" />
 
         <header
+          v-motion-reveal
           class="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between"
         >
           <div>
@@ -328,7 +332,7 @@
 
           <NuxtLink
             to="/sobre"
-            class="shrink-0 rounded-sm border border-border/60 px-3 py-1.5 text-center text-sm font-semibold cursor-pointer transition hover:-translate-y-0.5 active:scale-95"
+            class="shrink-0 rounded-sm border border-border/60 px-3 py-1.5 text-center text-sm font-semibold cursor-pointer transition-all duration-300 hover:-translate-y-0.5 active:scale-95"
           >
             {{ t("indexSections.portfolioMore") }}
           </NuxtLink>
@@ -347,16 +351,16 @@
       ========================================================== -->
       <section
         id="contato"
-        ref="contatoSection"
         aria-labelledby="contato-title"
         class="mt-14 pb-12 md:mt-18"
       >
         <div
+          v-motion-reveal
           class="corner-frame border border-border/70 bg-background p-5 shadow-sm sm:p-8 md:p-10"
         >
           <div class="grid gap-8 md:grid-cols-2 md:items-start">
             <!-- Informações -->
-            <div ref="contatoInfo">
+            <div>
               <h2
                 id="contato-title"
                 class="text-2xl font-black tracking-tight md:text-3xl"
@@ -405,7 +409,7 @@
             </div>
 
             <!-- Formulário -->
-            <div ref="contatoForm" class="mt-5">
+            <div class="mt-5">
               <ContactForm />
             </div>
           </div>
@@ -418,14 +422,13 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref, type ComponentPublicInstance } from "vue";
+import { computed } from "vue";
 
 import SiteHeader from "../components/SiteHeader.vue";
 import SiteFooter from "../components/SiteFooter.vue";
 import ProjectShowcase from "../components/ProjectShowcase.vue";
 import ContactForm from "../components/ContactForm.vue";
 
-import { revealNow, useScrollReveal } from "~/composables/useScrollReveal";
 import { useTypewriterCycle } from "~/composables/useTypewriterCycle";
 
 const { t } = useLocale();
@@ -551,34 +554,8 @@ const heroSegments = computed<HeroSegment[]>(() => {
 });
 
 /* =========================================================
-   ANIMAÇÃO HERO
-========================================================= */
-
-onMounted(() => {
-  revealNow([...document.querySelectorAll<HTMLElement>("[data-hero-stagger]")], {
-    y: 18,
-    scale: 1,
-    duration: 0.8,
-    delay: 0.15,
-    stagger: 0.08,
-  });
-});
-
-/* =========================================================
    SERVIÇOS
 ========================================================= */
-
-const servicosSection = ref<HTMLElement | null>(null);
-
-const servCardRefs = ref<Array<HTMLElement | null>>([]);
-
-const setServiceCardRef = (element: Element | ComponentPublicInstance | null, index: number) => {
-  servCardRefs.value[index] = element instanceof HTMLElement ? element : null;
-};
-
-const servCta = ref<HTMLElement | null>(null);
-
-useScrollReveal(servicosSection);
 
 const services = [
   {
@@ -671,47 +648,6 @@ const services = [
   },
 ];
 
-const serviceRevealDelays = [0, 0.1, 0.2, 0.3];
-
-services.forEach((_, index) => {
-  useScrollReveal(
-    computed(() => servCardRefs.value[index] ?? null),
-    {
-      delay: serviceRevealDelays[index],
-    },
-  );
-});
-
-useScrollReveal(servCta, {
-  delay: 0.4,
-});
-
-/* =========================================================
-   PORTFÓLIO
-========================================================= */
-
-const portfolioSection = ref<HTMLElement | null>(null);
-
-useScrollReveal(portfolioSection);
-
-/* =========================================================
-   CONTATO
-========================================================= */
-
-const contatoSection = ref<HTMLElement | null>(null);
-
-const contatoInfo = ref<HTMLElement | null>(null);
-
-const contatoForm = ref<HTMLElement | null>(null);
-
-useScrollReveal(contatoSection);
-useScrollReveal(contatoInfo, {
-  delay: 0,
-});
-useScrollReveal(contatoForm, {
-  delay: 0.15,
-});
-
 const contactInfo = [
   {
     icon: "location_on",
@@ -754,7 +690,7 @@ const contactInfo = [
   animation: hero-cursor-blink 0.85s steps(1, end) infinite;
 }
 
-:global(html.dark) .hero-typing-cursor {
+:global(html.dark .hero-typing-cursor) {
   color: #60a5fa;
 }
 
@@ -791,6 +727,12 @@ const contactInfo = [
   border-radius: 0.25rem;
   background: rgb(34, 197, 94);
   animation: pulseDot 1.6s ease-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bg-green-500::after {
+    animation: none;
+  }
 }
 
 @keyframes pulseDot {

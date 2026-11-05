@@ -2,6 +2,9 @@
 const { t } = useLocale();
 
 const year = new Date().getFullYear();
+
+const footerLink =
+  "inline-flex min-h-11 items-center px-1.5 font-semibold text-[rgb(var(--fg)/.75)] transition-all duration-300 hover:-translate-y-0.5 hover:text-[rgb(var(--fg))] active:scale-95";
 </script>
 
 <template>
@@ -13,10 +16,10 @@ const year = new Date().getFullYear();
       </div>
 
       <div class="flex flex-wrap gap-1 text-sm">
-        <NuxtLink class="footer-link inline-flex min-h-11 items-center px-1.5 hover:-translate-y-0.5" to="/">{{ t('footer.home') }}</NuxtLink>
-        <NuxtLink class="footer-link inline-flex min-h-11 items-center px-1.5 hover:-translate-y-0.5" to="/sobre">{{ t('footer.about') }}</NuxtLink>
-        <NuxtLink class="footer-link inline-flex min-h-11 items-center px-1.5 hover:-translate-y-0.5" to="/servicos">{{ t('footer.services') }}</NuxtLink>
-        <NuxtLink class="footer-link inline-flex min-h-11 items-center px-1.5 hover:-translate-y-0.5" to="/contato">{{ t('footer.contact') }}</NuxtLink>
+        <NuxtLink :class="footerLink" to="/">{{ t('footer.home') }}</NuxtLink>
+        <NuxtLink :class="footerLink" to="/sobre">{{ t('footer.about') }}</NuxtLink>
+        <NuxtLink :class="footerLink" to="/servicos">{{ t('footer.services') }}</NuxtLink>
+        <NuxtLink :class="footerLink" to="/contato">{{ t('footer.contact') }}</NuxtLink>
       </div>
 
        <div class="gap-6 flex flex-wrap items-center">
@@ -67,19 +70,9 @@ const year = new Date().getFullYear();
   background: rgb(var(--bg) / .62);
 }
 
-/* .footer-link é usado aqui e só aqui — antes estava (sem efeito nenhum)
-   duplicado dentro de pages/index.vue: CSS scoped de uma página nunca
-   alcança elementos de um componente filho. */
-.footer-link {
-  font-weight: 600;
-  color: rgb(var(--fg) / .75);
-  /* `translate` (não `transform`): hover:-translate-y-* do Tailwind v4 usa a propriedade translate */
-  transition: color var(--hover-duration) var(--hover-ease), translate var(--hover-duration) var(--hover-ease);
-}
-
 a:focus-visible {
   outline: 2px solid;
   outline-offset: 2px;
   border-radius: 4px;
 }
-</style>
+</style>
