@@ -311,7 +311,7 @@
         aria-labelledby="portfolio-title"
         class="relative mt-14 md:mt-18"
       >
-        <span id="projetos" class="absolute -top-24" aria-hidden="true" />
+        <span id="projetos" class="pointer-events-none absolute -top-24" aria-hidden="true" />
 
         <header
           v-motion-reveal

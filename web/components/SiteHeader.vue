@@ -104,13 +104,25 @@ function toggleDrawer() {
   else openDrawer();
 }
 
+// Ao passar de 900px com o menu aberto, o drawer some por CSS (min-[900px]:hidden), mas o estado
+// e o travamento de scroll (html.scroll-locked + body overflow:hidden) ficariam presos no desktop.
+let desktopQuery: MediaQueryList | undefined;
+function closeOnDesktop(event: MediaQueryListEvent) {
+  if (event.matches) closeDrawer();
+}
+
 onMounted(() => {
   const theme = detectTheme();
   applyTheme(theme);
   syncStateFromDom();
+  desktopQuery = window.matchMedia("(min-width: 900px)");
+  desktopQuery.addEventListener("change", closeOnDesktop);
 });
 
-onBeforeUnmount(closeDrawer);
+onBeforeUnmount(() => {
+  desktopQuery?.removeEventListener("change", closeOnDesktop);
+  closeDrawer();
+});
 </script>
 
 <template>

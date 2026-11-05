@@ -37,7 +37,7 @@
             <div>
               <!-- Desenhos SVGs nos contornos pedidoss -->
               <div class="relative mb-6 inline-flex h-16 w-16 items-center justify-center rounded-md bg-background text-foreground shadow-inner">
-                <div class="absolute inset-0 rounded-md bg-blue-600/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity"/>
+                <div class="pointer-events-none absolute inset-0 rounded-md bg-blue-600/20 blur-xl opacity-0 transition-opacity group-hover:opacity-100"/>
                 
                 <!-- Desenho 1: </> Pulsando no hover -->
                 <svg v-if="service.id === 'web'" class="relative z-10 h-8 w-8 text-blue-500 transition-transform group-hover:scale-110 motion-safe:group-hover:animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
