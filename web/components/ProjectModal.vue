@@ -42,23 +42,26 @@ onUnmounted(() => {
 
 <template>
   <Teleport to="body">
-    <Transition name="project-modal">
+    <Transition :css="false" @leave="onMotionLeave">
       <div
         v-if="open && project"
+        v-motion-fade
         class="project-modal-overlay"
         @mousedown.self="close"
       >
         <div
           ref="dialogRef"
-          class="project-modal"
+          v-motion-pop
+          class="project-modal tech-frame"
           role="dialog"
           aria-modal="true"
           :aria-label="project.title"
           tabindex="-1"
         >
           <button
+            v-motion-spin-in
             type="button"
-            class="project-modal__close"
+            class="project-modal__close border border-[rgb(var(--border))] transition-all duration-300 hover:border-[rgb(250_9_1)] active:scale-95"
             :aria-label="t('common.close')"
             @click="close"
           >
@@ -70,10 +73,9 @@ onUnmounted(() => {
               <p class="text-xs font-semibold uppercase tracking-[0.3em] text-blue-600 dark:text-blue-400">
                 {{ project.tag }}
               </p>
-              <h2 class="mt-1 text-2xl font-black tracking-tight sm:text-3xl">{{ project.title }}</h2>
-            </div>
-            <div class="hidden shrink-0 sm:grid" aria-hidden="true">
-              <span class="material-symbols-outlined">{{ project.icon }}</span>
+              <h2 class="mt-1 text-2xl font-black tracking-tight sm:text-3xl">{{ project.title }}
+              <span class="material-symbols-outlined ml-2">{{ project.icon }}</span>
+              </h2>
             </div>
           </div>
 
@@ -101,7 +103,7 @@ onUnmounted(() => {
               :href="project.githubUrl"
               target="_blank"
               rel="noopener noreferrer"
-              class="project-action project-action--github rounded-full py-2.5 px-4 text-xs sm:text-sm font-bold flex items-center justify-center gap-2 transition"
+              class="cta-secondary min-h-11 px-4 text-xs sm:text-sm"
             >
               <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
                 <path
@@ -113,7 +115,7 @@ onUnmounted(() => {
 
             <NuxtLink
               :to="{ path: '/contato', query: { projeto: project.title } }"
-              class="project-action project-action--secondary rounded-full py-2.5 px-4 text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 border border-border/60 transition"
+              class="cta-primary min-h-11 px-4 text-xs sm:text-sm"
               @click="close"
             >
               <span>{{ t('portfolio.wantSimilar') }}</span>
@@ -135,8 +137,16 @@ onUnmounted(() => {
   align-items: center;
   justify-content: center;
   padding: 1rem;
-  background: rgb(0 0 0 / 0.55);
-  backdrop-filter: blur(4px);
+  background-color: rgb(var(--bg) / .55);backdrop-filter: blur(8px);
+}
+
+/* md+: o blur escolhido, mas com raio pequeno, só onde há GPU/tela para isso
+   e desligado se o sistema pedir menos transparência. */
+@media (min-width: 768px) and (prefers-reduced-transparency: no-preference) {
+  .project-modal-overlay {
+    background: rgb(var(--bg) / 0.9);
+    backdrop-filter: blur(4px);
+  }
 }
 
 .project-modal {
@@ -145,12 +155,12 @@ onUnmounted(() => {
   max-width: 38rem;
   max-height: 100vh;
   overflow-y: auto;
-  border-radius: 1.75rem;
+  border-radius: .25rem;
   border: 1px solid rgb(var(--border) / 1);
-  background: rgb(var(--card));
+  background: rgb(var(--surface));
   color: rgb(var(--fg));
   padding: 1.5rem;
-  box-shadow: 0 30px 70px -20px rgb(0 0 0 / 0.55);
+  overflow: hidden;
 }
 
 @media (min-width: 640px) {
@@ -166,7 +176,7 @@ onUnmounted(() => {
     width: 90%;
     max-width: 52rem;
     padding: 2.5rem 3rem;
-    border-radius: 2.25rem;
+    border-radius: .25rem;
   }
 }
 
@@ -179,30 +189,13 @@ onUnmounted(() => {
   justify-content: center;
   width: 2.5rem;
   height: 2.5rem;
-  border-radius: 1rem;
-  border: 1px solid rgb(var(--border) / 1);
+  border-radius: .25rem;
   background: rgb(var(--bg) / 0.6);
   color: rgb(var(--fg));
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, background-color 0.3s ease;
-  animation: project-modal-close-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.15s backwards;
-}
-.project-modal__close:hover {
-  border-color: rgb(250, 9, 1);
-}
-
-@keyframes project-modal-close-in {
-  from {
-    opacity: 0;
-    transform: scale(0.6)rotate(-45deg);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1) rotate(0deg);
-  }
 }
 
 .stack-badge {
-  border-radius: 999px;
+  border-radius: .25rem;
   border: 1px solid rgb(var(--border) / 1);
   background: rgb(59 130 246 / 0.1);
   color: rgb(37 99 235);
@@ -210,58 +203,18 @@ onUnmounted(() => {
   font-size: 0.75rem;
   font-weight: 700;
 }
-:global(html.dark) .stack-badge {
+:global(html.dark .stack-badge) {
   color: rgb(147 197 253);
   background: rgb(59 130 246 / 0.16);
-}
-
-.project-action--github {
-  background: #171515;
-  color: #fff;
-}
-.project-action--github:hover {
-  background: #2b2828;
-}
-
-/* Transição suave e uniforme de abertura e fechamento */
-.project-modal-enter-active,
-.project-modal-leave-active {
-  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.project-modal-enter-from,
-.project-modal-leave-to {
-  opacity: 0;
-}
-
-.project-modal-enter-active .project-modal,
-.project-modal-leave-active .project-modal {
-  transition: transform 0.75s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.project-modal-enter-from .project-modal,
-.project-modal-leave-to .project-modal {
-  transform: translateY(20px) scale(0.96);
-  opacity: 0;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .project-modal-enter-active,
-  .project-modal-leave-active,
-  .project-modal-enter-active .project-modal,
-  .project-modal-leave-active .project-modal {
-    transition: none;
-  }
-  .project-modal__close {
-    animation: none;
-  }
 }
 
 ::-webkit-scrollbar {
   background-color: rgb(var(--bg));
   width: 8px;
-  border-radius: 20px;
+  border-radius: .25rem;
 }
 ::-webkit-scrollbar-thumb {
   background-color: rgb(var(--muted) / 0.3);
-  border-radius: 20px;
+  border-radius: .25rem;
 }
 </style>

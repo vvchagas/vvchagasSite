@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import type { ComponentPublicInstance } from "vue";
 import { getTranslatedProjects, type ResolvedProject } from "~/shared/projects";
-import { useScrollReveal } from "~/composables/useScrollReveal";
 
 const props = withDefaults(
   defineProps<{
@@ -61,49 +59,6 @@ const activeProject = computed<ResolvedProject | null>(
 
 const lightboxImage = ref<string | null>(null);
 
-const sectionEl = ref<HTMLElement | null>(null);
-useScrollReveal(sectionEl);
-
-const cardEls = ref<HTMLElement[]>([]);
-function setCardRef(el: Element | ComponentPublicInstance | null) {
-  if (el instanceof HTMLElement && !cardEls.value.includes(el)) {
-    cardEls.value.push(el);
-  }
-}
-
-onMounted(() => {
-  if (typeof window === "undefined" || !cardEls.value.length) return;
-
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    cardEls.value.forEach((el) => {
-      el.style.opacity = "1";
-      el.style.transform = "none";
-    });
-    return;
-  }
-
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry, index) => {
-        if (entry.isIntersecting) {
-          const target = entry.target as HTMLElement;
-          target.style.transition = `opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1) ${index * 0.08}s, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) ${index * 0.08}s`;
-          target.style.opacity = "1";
-          target.style.transform = "translateY(0)";
-          observer.unobserve(target);
-        }
-      });
-    },
-    { threshold: 0.1, rootMargin: "0px 0px -40px 0px" },
-  );
-
-  cardEls.value.forEach((el) => {
-    el.style.opacity = "0";
-    el.style.transform = "translateY(24px)";
-    observer.observe(el);
-  });
-});
-
 function openProject(slug: string) {
   activeSlug.value = slug;
 }
@@ -141,8 +96,8 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <section ref="sectionEl" class="project-showcase mt-10">
-    <div v-if="!props.hideHeading" class="mb-10 max-w-3xl space-y-4" :class="{ 'mb-7': props.compact }">
+  <section class="project-showcase mt-10">
+    <div v-if="!props.hideHeading" v-motion-reveal class="mb-10 max-w-3xl space-y-4" :class="{ 'mb-7': props.compact }">
       <p class="mt-10 text-xs font-semibold uppercase tracking-[0.3em] text-blue-600 dark:text-blue-400 sm:text-sm">
         {{ props.eyebrow || t('portfolio.eyebrow') }}
       </p>
@@ -156,13 +111,13 @@ onUnmounted(() => {
 
     <div :class="[listClass, props.layout === 'grid' ? gridClass : '']">
       <article
-        v-for="project in translatedProjects"
+        v-for="(project, index) in translatedProjects"
         :id="project.slug"
         :key="project.slug"
-        :ref="setCardRef"
-        class="projectslug hover:-translate-y-0.75 duration-600 group relative overflow-hidden rounded-3xl border border-border/60 bg-card/70 p-5 shadow-sm backdrop-blur flex flex-col justify-between"
+        v-motion-reveal
+        :delay="index * 100"
+        class="tech-frame group relative flex flex-col justify-between overflow-hidden rounded-md border border-border/60 bg-card/70 p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[rgb(34_36_39/.5)] hover:bg-[rgb(46_47_49/.1)] hover:shadow-lg"
       >
-        <div class="project-card__light absolute inset-0 opacity-0 transition-opacity duration-500" aria-hidden="true" />
         <div class="relative flex flex-col h-full justify-between">
           <div>
             <div class="flex items-start justify-between gap-4">
@@ -170,19 +125,19 @@ onUnmounted(() => {
                 <h3 class="text-lg font-extrabold">{{ project.title }}</h3>
                 <p class="mt-2 text-sm text-muted">{{ project.description }}</p>
               </div>
-              <span class="badge border border-border/60 rounded-full px-2 py-1 text-xs font-bold shrink-0">{{ project.tag }}</span>
+              <span class="badge border border-border/60 rounded-sm px-2 py-1 text-xs font-bold shrink-0">{{ project.tag }}</span>
             </div>
 
-            <div class="mt-4 flex aspect-4/3 items-center justify-center overflow-hidden rounded-2xl bg-muted/60 ring-1 ring-border/60">
+            <div class="mt-4 flex aspect-4/3 items-center justify-center overflow-hidden rounded-md bg-muted/60 ring-1 ring-border/60">
               <img
                 v-if="project.image"
                 :src="project.image"
                 :alt="project.title"
-                class="h-full w-full cursor-pointer object-cover transition duration-300 hover:scale-105"
+                class="h-full w-full cursor-pointer object-cover transition-transform duration-300 hover:scale-105"
                 loading="lazy"
                 @click="openLightbox(project.image)"
               >
-              <div v-else class="project-illustration relative flex h-16 w-16 items-center justify-center rounded-full bg-blue/60">
+              <div v-else class="project-illustration relative flex h-16 w-16 items-center justify-center rounded-sm bg-blue">
                 <span class="material-symbols-outlined text-2xl">{{ project.icon }}</span>
               </div>
             </div>
@@ -198,7 +153,7 @@ onUnmounted(() => {
           <div class="mt-5 grid gap-2">
             <button
               type="button"
-              class="flex items-center justify-center gap-1.5 px-3 py-2.5 text-xs sm:text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-full transition-all duration-300 ease-out hover:scale-105 active:scale-95 text-center leading-snug"
+              class="cta-primary min-h-11 px-3 text-xs leading-snug sm:text-sm"
               @click="openProject(project.slug)"
             >
               <span>{{ t('portfolio.viewFull') }}</span>
@@ -207,7 +162,7 @@ onUnmounted(() => {
 
             <NuxtLink
               :to="{ path: '/contato', query: { projeto: project.title } }"
-              class="project-action--secondary border border-border/60 bg-background hover:bg-muted rounded-full flex items-center justify-center gap-1.5 px-3 py-2.5 text-xs sm:text-sm font-semibold transition text-center leading-snug"
+              class="cta-secondary min-h-11 px-3 text-xs leading-snug sm:text-sm"
             >
               <span>{{ t('portfolio.wantSimilar') }}</span>
               <span class="material-symbols-outlined text-base" aria-hidden="true">chat</span>
@@ -220,16 +175,17 @@ onUnmounted(() => {
     <ProjectModal :project="activeProject" :open="!!activeProject" @close="closeProject" />
 
     <Teleport to="body">
-      <Transition name="lightbox">
+      <Transition :css="false" @leave="onMotionLeave">
         <div
           v-if="lightboxImage"
+          v-motion-fade
           class="lightbox-overlay"
           @click.self="closeLightbox"
         >
-          <div class="lightbox-container">
+          <div v-motion-pop class="lightbox-container">
             <button
               type="button"
-              class="lightbox-close"
+              class="absolute right-3 top-3 z-1 inline-flex size-9 cursor-pointer items-center justify-center rounded-sm border border-white/25 bg-black/50 text-white transition-all duration-300 hover:border-[rgb(250_9_1)] hover:bg-black/75 active:scale-95"
               :aria-label="t('portfolio.lightboxClose')"
               @click="closeLightbox"
             >
@@ -262,11 +218,6 @@ onUnmounted(() => {
   }
 }
 
-.projectslug:hover {
-  background-color: rgba(59, 130, 246, 0.1);
-  border-color: rgba(59, 130, 246, 0.5);  
-}
-
 .lightbox-overlay {
   position: fixed;
   inset: 0;
@@ -275,15 +226,14 @@ onUnmounted(() => {
   align-items: center;
   justify-content: center;
   padding: 1rem;
-  background: rgb(0 0 0 / 0.7);
-  backdrop-filter: blur(6px);
+  background: #000;
 }
 
 .lightbox-container {
   position: relative;
   max-width: min(90vw, 56rem);
   max-height: 85vh;
-  border-radius: 1.5rem;
+  border-radius: .25rem;
   overflow: hidden;
   box-shadow: 0 30px 80px -20px rgb(0 0 0 / 0.6);
 }
@@ -294,60 +244,5 @@ onUnmounted(() => {
   height: 100%;
   object-fit: contain;
   max-height: 85vh;
-}
-
-.lightbox-close {
-  position: absolute;
-  top: 0.75rem;
-  right: 0.75rem;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 2.25rem;
-  height: 2.25rem;
-  border-radius: 999px;
-  border: 1px solid rgb(255 255 255 / 0.25);
-  background: rgb(0 0 0 / 0.5);
-  color: #fff;
-  cursor: pointer;
-  transition: transform 0.2s ease, background 0.2s ease;
-  z-index: 1;
-}
-.lightbox-close:hover {
-  background: rgb(0 0 0 / 0.75);
-  border-color: rgb(250, 9, 1)
-}
-
-.lightbox-enter-active,
-.lightbox-leave-active {
-  transition: opacity 0.2s ease;
-}
-.lightbox-enter-from,
-.lightbox-leave-to {
-  opacity: 0;
-}
-.lightbox-enter-active .lightbox-container,
-.lightbox-leave-active .lightbox-container {
-  transition: transform 0.25s ease, opacity 0.25s ease;
-}
-.lightbox-enter-from .lightbox-container,
-.lightbox-leave-to .lightbox-container {
-  transform: scale(0.92);
-  opacity: 0;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .lightbox-enter-active,
-  .lightbox-leave-active,
-  .lightbox-enter-active .lightbox-container,
-  .lightbox-leave-active .lightbox-container {
-    transition: none;
-  }
-}
-.bg-background {
-  background-color: rgb(var(--bg));
-}
-.text-foreground {
-  color: rgb(var(--fg));
 }
 </style>

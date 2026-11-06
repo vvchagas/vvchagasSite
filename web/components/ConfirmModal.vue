@@ -52,15 +52,17 @@ onUnmounted(() => {
 
 <template>
   <Teleport to="body">
-    <Transition name="confirm-modal">
+    <Transition :css="false" @leave="onMotionLeave">
       <div
         v-if="open"
+        v-motion-fade
         class="confirm-modal-overlay"
         @mousedown.self="cancel"
       >
         <div
           ref="dialogRef"
-          class="confirm-modal"
+          v-motion-pop
+          class="confirm-modal tech-frame"
           role="dialog"
           aria-modal="true"
           :aria-label="title"
@@ -78,7 +80,7 @@ onUnmounted(() => {
           <div class="confirm-modal__actions">
             <button
               type="button"
-              class="confirm-modal__btn confirm-modal__btn--cancel"
+              class="confirm-modal__btn confirm-modal__btn--cancel transition-all duration-300 enabled:hover:-translate-y-0.5 enabled:active:scale-95"
               :disabled="loading"
               @click="cancel"
             >
@@ -86,7 +88,7 @@ onUnmounted(() => {
             </button>
             <button
               type="button"
-              class="confirm-modal__btn"
+              class="confirm-modal__btn transition-all duration-300 enabled:hover:-translate-y-0.5 enabled:active:scale-95"
               :class="danger ? 'confirm-modal__btn--danger' : 'confirm-modal__btn--confirm'"
               :disabled="loading"
               @click="confirm"
@@ -110,21 +112,19 @@ onUnmounted(() => {
   align-items: center;
   justify-content: center;
   padding: 1rem;
-  background: rgb(0 0 0 / 0.55);
-  backdrop-filter: blur(4px);
+  background-color: rgb(var(--bg) / .55);backdrop-filter: blur(8px);
 }
 
 .confirm-modal {
   position: relative;
   width: 100%;
   max-width: 26rem;
-  border-radius: 1.75rem;
+  border-radius: .25rem;
   border: 1px solid rgb(var(--border) / 1);
   background: rgb(var(--card));
   color: rgb(var(--fg));
   padding: 1.5rem;
   text-align: center;
-  box-shadow: 0 30px 70px -20px rgb(0 0 0 / 0.45);
 }
 
 @media (min-width: 640px) {
@@ -139,12 +139,12 @@ onUnmounted(() => {
   justify-content: center;
   width: 3.5rem;
   height: 3.5rem;
-  border-radius: 999px;
+  border-radius: .25rem;
   background: rgb(59 130 246 / 0.12);
   color: rgb(37 99 235);
   margin-bottom: 1rem;
 }
-:global(html.dark) .confirm-modal__icon {
+:global(html.dark .confirm-modal__icon) {
   color: rgb(147 197 253);
   background: rgb(59 130 246 / 0.16);
 }
@@ -152,7 +152,7 @@ onUnmounted(() => {
   background: rgb(239 68 68 / 0.12);
   color: rgb(185 28 28);
 }
-:global(html.dark) .confirm-modal__icon--danger {
+:global(html.dark .confirm-modal__icon--danger) {
   color: rgb(252 165 165);
   background: rgb(239 68 68 / 0.16);
 }
@@ -182,16 +182,12 @@ onUnmounted(() => {
   align-items: center;
   justify-content: center;
   gap: 0.4rem;
-  border-radius: 0.85rem;
+  border-radius: .25rem;
   padding: 0.6rem 1.2rem;
   font-size: 0.8rem;
   font-weight: 800;
   border: 1px solid rgb(var(--border) / 1);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
   cursor: pointer;
-}
-.confirm-modal__btn:hover:not(:disabled) {
-  transform: translateY(-2px);
 }
 .confirm-modal__btn:disabled {
   cursor: wait;
@@ -208,7 +204,7 @@ onUnmounted(() => {
   color: rgb(37 99 235);
   border-color: rgb(59 130 246 / 0.3);
 }
-:global(html.dark) .confirm-modal__btn--confirm {
+:global(html.dark .confirm-modal__btn--confirm) {
   color: rgb(147 197 253);
   background: rgb(59 130 246 / 0.16);
 }
@@ -218,7 +214,7 @@ onUnmounted(() => {
   color: rgb(185 28 28);
   border-color: rgb(239 68 68 / 0.3);
 }
-:global(html.dark) .confirm-modal__btn--danger {
+:global(html.dark .confirm-modal__btn--danger) {
   color: rgb(252 165 165);
   background: rgb(239 68 68 / 0.16);
 }
@@ -229,7 +225,7 @@ onUnmounted(() => {
   height: 0.9rem;
   border: 2px solid currentColor;
   border-top-color: transparent;
-  border-radius: 999px;
+  border-radius: .25rem;
   animation: spin 0.6s linear infinite;
 }
 
@@ -239,30 +235,10 @@ onUnmounted(() => {
   }
 }
 
-.confirm-modal-enter-active,
-.confirm-modal-leave-active {
-  transition: opacity 0.5s ease;
-}
-.confirm-modal-enter-from,
-.confirm-modal-leave-to {
-  opacity: 0;
-}
-.confirm-modal-enter-active .confirm-modal,
-.confirm-modal-leave-active .confirm-modal {
-  transition: transform 0.25s ease, opacity 0.25s ease;
-}
-.confirm-modal-enter-from .confirm-modal,
-.confirm-modal-leave-to .confirm-modal {
-  transform: translateY(16px) scale(0.98);
-  opacity: 0;
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .confirm-modal-enter-active,
-  .confirm-modal-leave-active,
-  .confirm-modal-enter-active .confirm-modal,
-  .confirm-modal-leave-active .confirm-modal {
-    transition: 0.5s ease-in-out;
+  /* Indica carregamento: gira devagar em vez de parar. */
+  .confirm-modal__spinner {
+    animation-duration: 1.6s;
   }
 }
 </style>

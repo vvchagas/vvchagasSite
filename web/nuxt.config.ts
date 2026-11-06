@@ -1,4 +1,3 @@
-import tailwindcss from '@tailwindcss/vite'
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
@@ -14,12 +13,13 @@ export default defineNuxtConfig({
   // Mantém os caminhos explícitos na raiz do projeto
   srcDir: '.',
 
-
   modules: [
     '@nuxt/a11y',
     '@nuxt/eslint',
     '@nuxt/ui',
+    '@vueuse/motion/nuxt',
     '@nuxt/fonts',
+    '@vercel/analytics/nuxt',
     '@vercel/speed-insights/nuxt',
     '@nuxtjs/robots',
     '@nuxtjs/sitemap',
@@ -28,17 +28,16 @@ export default defineNuxtConfig({
   vite: {
     optimizeDeps: {
       include: [
+        '@vercel/analytics',
+        '@vercel/speed-insights',
         '@vue/devtools-core',
         '@vue/devtools-kit',
-        'lenis'
+        'lenis',
       ]
     },
     esbuild: {
       tsconfigRaw: {}
-    },
-    plugins: [
-      tailwindcss()
-    ]
+    }
   },
 
   // Node.js serverless na Vercel — não usar 'vercel-edge' aqui, porque o
@@ -72,6 +71,8 @@ export default defineNuxtConfig({
       ],
       link: [
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+        // Ícones: fonte própria (subset de poucos KB, `npm run icons`). Sem Google, sem @nuxt/fonts no meio.
+        { rel: 'preload', as: 'font', type: 'font/woff2', href: '/fonts/material-symbols.woff2', crossorigin: '' },
       ],
       script: [
         { src: '/_vercel/insights/script.js', defer: true },
@@ -84,7 +85,7 @@ export default defineNuxtConfig({
     },
   },
   site: {
-    url: process.env.NUXT_PUBLIC_SITE_URL || 'https://vvchagas.dev',
+    url: process.env.NUXT_PUBLIC_SITE_URL || 'https://vvchagas.com',
     name: 'vvchagas',
   },
   sitemap: {
@@ -94,10 +95,10 @@ export default defineNuxtConfig({
   robots: {
     groups: [
       { userAgent: '*', allow: '/', disallow: ['/messages'] },
-      ],
-      sitemap: `${process.env.NUXT_PUBLIC_SITE_URL || 'https://vvchagas.dev'}/sitemap.xml`,
-    },
-    routeRules: {
-      '/messages': { robots: false },
+    ],
+    sitemap: `${process.env.NUXT_PUBLIC_SITE_URL || 'https://vvchagas.com'}/sitemap.xml`,
+  },
+  routeRules: {
+    '/messages': { robots: false },
   },
 })

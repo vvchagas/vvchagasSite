@@ -31,6 +31,7 @@ export function useScrollLock() {
       }
     }
     document.body.style.overflow = "hidden";
+    document.documentElement.classList.add("scroll-locked");
   }
 
   function unlock(options: ScrollLockOptions = {}) {
@@ -48,6 +49,7 @@ export function useScrollLock() {
 
     if (lockCount === 0) {
       document.body.style.overflow = "";
+      document.documentElement.classList.remove("scroll-locked");
     }
   }
 
@@ -60,7 +62,7 @@ export function useScrollLock() {
       lenis.start();
     }
     document.body.style.overflow = "";
-    document.documentElement.classList.remove("lenis-stopped");
+    document.documentElement.classList.remove("lenis-stopped", "scroll-locked");
   }
 
   return { lock, unlock, reset };

@@ -1,7 +1,9 @@
+import { computed, toValue, type MaybeRefOrGetter } from 'vue'
+
 interface SiteSeoOptions {
-  title: string
-  description: string
-  image?: string
+  title: MaybeRefOrGetter<string>
+  description: MaybeRefOrGetter<string>
+  image?: MaybeRefOrGetter<string>
   noIndex?: boolean
 }
 
@@ -13,28 +15,30 @@ export function useSiteSeo(options: SiteSeoOptions) {
   const { locale } = useLocale()
   const configuredOrigin = String(config.public.siteUrl || '').trim()
   const origin = configuredOrigin || requestUrl.origin
-  const canonical = new URL(route.path, `${origin.replace(/\/$/, '')}/`).toString()
-  const image = new URL(options.image || '/yu-gi-oh_foto.webp', `${origin.replace(/\/$/, '')}/`).toString()
-  const pageTitle = `${options.title} | vvchagas`
+  const title = computed(() => toValue(options.title))
+  const description = computed(() => toValue(options.description))
+  const canonical = computed(() => new URL(route.path, `${origin.replace(/\/$/, '')}/`).toString())
+  const image = computed(() => new URL(options.image ? toValue(options.image) : '/yu-gi-oh_foto.webp', `${origin.replace(/\/$/, '')}/`).toString())
+  const pageTitle = computed(() => `${title.value} | vvchagas`)
 
   useSeoMeta({
-    title: options.title,
-    description: options.description,
+    title,
+    description,
     robots: options.noIndex ? 'noindex, nofollow' : 'index, follow',
     ogTitle: pageTitle,
-    ogDescription: options.description,
+    ogDescription: description,
     ogImage: image,
     ogUrl: canonical,
     ogType: 'website',
-    ogLocale: 'pt_BR',
+    ogLocale: computed(() => locale.value === 'en' ? 'en_US' : 'pt_BR'),
     twitterCard: 'summary_large_image',
     twitterTitle: pageTitle,
-    twitterDescription: options.description,
+    twitterDescription: description,
     twitterImage: image,
   })
 
   useHead({
-    htmlAttrs: { lang: locale.value === 'en' ? 'en' : 'pt-BR' },
+    htmlAttrs: { lang: computed(() => locale.value === 'en' ? 'en' : 'pt-BR') },
     link: [{ rel: 'canonical', href: canonical }],
   })
 }

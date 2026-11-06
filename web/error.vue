@@ -9,7 +9,7 @@
       <p class="error-message">{{ errorMessage }}</p>
       <NuxtLink
         to="/"
-        class="inline-flex items-center gap-2 rounded-full bg-blue-600 px-4 py-2 text-sm font-bold text-white shadow-sm transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        class="inline-flex items-center gap-2 rounded-sm bg-blue-600 px-4 py-2 text-sm font-bold text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-500"
         @click="handleRecovery"
       >
         <span aria-hidden="true" class="material-symbols-outlined text-lg"
@@ -101,7 +101,7 @@ function handleRecovery() {
 .error-orbit {
   position: absolute;
   border: 1px solid rgba(8, 159, 247, 0.562);
-  border-radius: 50%;
+  border-radius: .25rem;
   pointer-events: none;
 }
 
@@ -154,7 +154,7 @@ function handleRecovery() {
   gap: 0.65rem;
   margin-top: 2rem;
   border: 0;
-  border-radius: 999px;
+  border-radius: .25rem;
   padding: 0.85rem 1.2rem;
   background: var(--error-accent);
   color: #111311;
