@@ -13,7 +13,7 @@
 }
 
 /* Movimento: hover/active/focus usam só utilitários Tailwind (transition-all duration-300 hover:... active:...).
-   Estes dois tokens são o padrão de `transition*` quando a classe não define duration-*/ease-*. */
+   Estes dois tokens são o padrão de `transition*` quando a classe não define duration-*/
 @theme static {
   --default-transition-duration: 300ms;
   --default-transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
@@ -30,14 +30,13 @@
   --line: 15 23 42;
   --interactive: #393d47;
   --interactive-hover: #111213;
-  --site-blue: #2563eb;
+  --site-accent: #a855f7;
   --site-radius: .25rem;
   --frame-line: rgb(203 213 225 / .9);
-  --frame-accent: #0f172a;
-  /* Cor única de botão (azul da marca): AA com texto branco (~5:1) */
-  --cta-bg: #2563eb;
+  --frame-accent: #7c3aed;
+  --cta-bg: #7c3aed;
   --cta-fg: #ffffff;
-  --cta-hover: #1d4ed8;
+  --cta-hover: #6d28d9;
 }
 
 html.dark {
@@ -51,13 +50,12 @@ html.dark {
   --line: 255 255 255;
   --interactive: #70757a;
   --interactive-hover: #44484d;
-  --site-blue: #60a5fa;
+  --site-accent: #c084fc;
   --frame-line: rgb(255 255 255 / .15);
-  --frame-accent: #596364;
-  --frame-line-whatsapp: #25d366;
-  --cta-bg: #60a5fa;
-  --cta-fg: #0b1220;
-  --cta-hover: #93c5fd;
+  --frame-accent: #c084fc;
+  --cta-bg: #8b5cf6;
+  --cta-fg: #ffffff;
+  --cta-hover: #a78bfa;
 }
 
 html, body {
@@ -71,20 +69,20 @@ html, body {
 
 body {
   background-image:
-    radial-gradient(circle at 10% 0%, rgb(37 99 235 / .045), transparent 26rem),
+    radial-gradient(circle at 10% 0%, rgb(168 85 247 / .045), transparent 26rem),
     linear-gradient(135deg, rgb(var(--line) / .018) 1px, transparent 1px);
   background-size: auto, 28px 28px;
 }
 
 html.dark body {
   background-image:
-    radial-gradient(circle at 10% 0%, rgb(96 165 250 / .075), transparent 26rem),
+    radial-gradient(circle at 10% 0%, rgba(128, 5, 133, 0.075), transparent 26rem),
     linear-gradient(135deg, rgb(var(--line) / .025) 1px, transparent 1px);
 }
 
 h1, h2, h3, h4, .font-black, .font-extrabold { font-family: "Manrope", sans-serif; }
 .font-mono, code, .technical-label { font-family: "Space Mono", monospace; }
-::selection { background: var(--site-blue); color: white; }
+::selection { background: var(--site-accent); color: white; }
 
 .site-page { min-height: 100vh; background: transparent; color: rgb(var(--fg)); }
 .hero-wash { background-color: rgb(var(--bg) / .35); }
@@ -141,19 +139,23 @@ h1, h2, h3, h4, .font-black, .font-extrabold { font-family: "Manrope", sans-seri
 /* Botões: UMA cor (--cta-bg). .cta-primary = preenchido, .cta-secondary = contorno.
    Em @layer components para que utilitários do markup (w-full, min-h-*, px-*, hidden) continuem vencendo. */
 @layer components {
+  /* Borda roxa compartilhada por controles interativos com contorno. */
+  .interactive-border {
+    @apply border-purple-500 hover:border-purple-700 dark:border-purple-600 dark:hover:border-purple-800;
+  }
+
   .cta-primary,
   .cta-secondary {
-    @apply inline-flex min-h-12 cursor-pointer items-center justify-center gap-2 rounded-md border border-(--cta-bg) px-6 text-center text-sm font-extrabold transition-all duration-300 hover:-translate-y-0.5 hover:scale-[1.03] hover:shadow-lg hover:shadow-(--cta-bg)/35 active:translate-y-0 active:scale-95 active:shadow-none;
+    @apply inline-flex min-h-12 cursor-pointer items-center justify-center gap-2 rounded-md border border-purple-500 px-6 text-center text-sm font-extrabold transition-all duration-300 hover:-translate-y-0.5 hover:scale-[1.03] hover:shadow-lg hover:shadow-purple-500/20 active:translate-y-0 active:scale-95 active:shadow-none hover:border-purple-400;
   }
 
   .cta-primary {
-    @apply bg-(--cta-bg) text-(--cta-fg) hover:border-(--cta-hover) hover:bg-(--cta-hover);
+    @apply bg-(--cta-bg) text-(--cta-fg) hover:bg-(--cta-hover);
   }
 
   .cta-secondary {
-    @apply bg-transparent text-(--cta-bg) hover:bg-(--cta-bg)/12;
+    @apply bg-transparent text-purple-400 hover:bg-violet-600/15;
   }
-
   /* Microinterações padrão (Tailwind puro; o markup só escolhe quais usar).
      .fx-card: card sobe, a moldura acende e ganha brilho (não transiciona opacity/transform: quem anima isso é o v-motion).
      Precisa de `group` no card para o .fx-icon.

@@ -23,6 +23,7 @@ function cancel() {
 }
 
 function confirm() {
+  if (props.loading) return;
   emit("confirm");
 }
 
@@ -68,9 +69,12 @@ onUnmounted(() => {
           :aria-label="title"
           tabindex="-1"
         >
-          <div class="confirm-modal__icon" :class="{ 'confirm-modal__icon--danger': danger }">
+          <div
+            class="confirm-modal__icon"
+            :class="{ 'confirm-modal__icon--danger': danger }"
+          >
             <span aria-hidden="true" class="material-symbols-outlined">
-              {{ danger ? 'delete_forever' : 'warning' }}
+              {{ danger ? "delete_forever" : "warning" }}
             </span>
           </div>
 
@@ -84,17 +88,35 @@ onUnmounted(() => {
               :disabled="loading"
               @click="cancel"
             >
-              {{ cancelText ?? t('common.cancel') }}
+              {{ cancelText ?? t("common.cancel") }}
             </button>
             <button
               type="button"
               class="confirm-modal__btn transition-all duration-300 enabled:hover:-translate-y-0.5 enabled:active:scale-95"
-              :class="danger ? 'confirm-modal__btn--danger' : 'confirm-modal__btn--confirm'"
+              :class="
+                danger
+                  ? 'confirm-modal__btn--danger'
+                  : 'confirm-modal__btn--confirm'
+              "
               :disabled="loading"
               @click="confirm"
             >
-              <span v-if="loading" class="confirm-modal__spinner" aria-hidden="true"/>
-              {{ loading ? t('common.deleting') : (confirmText ?? t('common.confirm')) }}
+              <span class="inline-flex items-center justify-center gap-2">
+                <span
+                  v-if="loading"
+                  class="material-symbols-outlined animate-spin text-base"
+                  aria-hidden="true"
+                >
+                  progress_activity
+                </span>
+                <span>
+                  {{
+                    loading
+                      ? (danger ? t("common.deleting") : t("common.loading"))
+                      : (confirmText ?? t("common.confirm"))
+                  }}
+                </span>
+              </span>
             </button>
           </div>
         </div>
@@ -112,14 +134,15 @@ onUnmounted(() => {
   align-items: center;
   justify-content: center;
   padding: 1rem;
-  background-color: rgb(var(--bg) / .55);backdrop-filter: blur(8px);
+  background-color: rgb(var(--bg) / 0.55);
+  backdrop-filter: blur(8px);
 }
 
 .confirm-modal {
   position: relative;
   width: 100%;
   max-width: 26rem;
-  border-radius: .25rem;
+  border-radius: 0.25rem;
   border: 1px solid rgb(var(--border) / 1);
   background: rgb(var(--card));
   color: rgb(var(--fg));
@@ -139,7 +162,7 @@ onUnmounted(() => {
   justify-content: center;
   width: 3.5rem;
   height: 3.5rem;
-  border-radius: .25rem;
+  border-radius: 0.25rem;
   background: rgb(59 130 246 / 0.12);
   color: rgb(37 99 235);
   margin-bottom: 1rem;
@@ -182,7 +205,7 @@ onUnmounted(() => {
   align-items: center;
   justify-content: center;
   gap: 0.4rem;
-  border-radius: .25rem;
+  border-radius: 0.25rem;
   padding: 0.6rem 1.2rem;
   font-size: 0.8rem;
   font-weight: 800;
@@ -210,35 +233,12 @@ onUnmounted(() => {
 }
 
 .confirm-modal__btn--danger {
-  background: rgb(239 68 68 / 0.12);
+  background: rgba(236, 34, 34, 0.12);
   color: rgb(185 28 28);
   border-color: rgb(239 68 68 / 0.3);
 }
 :global(html.dark .confirm-modal__btn--danger) {
-  color: rgb(252 165 165);
-  background: rgb(239 68 68 / 0.16);
-}
-
-.confirm-modal__spinner {
-  display: inline-block;
-  width: 0.9rem;
-  height: 0.9rem;
-  border: 2px solid currentColor;
-  border-top-color: transparent;
-  border-radius: .25rem;
-  animation: spin 0.6s linear infinite;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  /* Indica carregamento: gira devagar em vez de parar. */
-  .confirm-modal__spinner {
-    animation-duration: 1.6s;
-  }
+  color: rgb(219, 22, 22);
+  background: rgba(224, 4, 4, 0.16);
 }
 </style>

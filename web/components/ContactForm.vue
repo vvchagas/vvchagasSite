@@ -28,9 +28,9 @@ const inputBase =
   "mt-2 w-full rounded-md border bg-background/50 px-4 py-3 text-sm outline-none transition focus:ring-2";
 
 const chipBase =
-  "flex min-h-11 cursor-pointer items-center justify-center rounded-md border border-border/70 px-3 text-center text-sm font-semibold transition-colors peer-checked:border-transparent peer-checked:bg-[rgb(var(--fg))] peer-checked:text-[rgb(var(--bg))] peer-focus-visible:ring-2 peer-focus-visible:ring-blue-500/40";
+  "flex min-h-11 cursor-pointer items-center justify-center rounded-md border border-border/70 px-3 text-center text-sm font-semibold transition-colors peer-checked:border-transparent peer-checked:bg-[rgb(var(--fg))] peer-checked:text-[rgb(var(--bg))] peer-focus-visible:ring-2 peer-focus-visible:ring-violet-500/40";
 
-const fieldOk = "border-border/70 focus:border-blue-500/60 focus:ring-blue-500/20";
+const fieldOk = "border-border/70 focus:border-violet-500/60 focus:ring-violet-500/20";
 const fieldBad = "border-red-500/70 focus:border-red-500 focus:ring-red-500/20";
 
 const form = ref({
@@ -240,7 +240,7 @@ async function submit() {
           <select
             id="phone-ddi"
             v-model="phone.ddi.value"
-            class="w-26 shrink-0 rounded-md border border-border/70 bg-background/50 px-2 py-3 text-sm outline-none transition focus:border-blue-500/60 focus:ring-2 focus:ring-blue-500/20"
+            class="w-26 shrink-0 rounded-md border border-border/70 bg-background/50 px-2 py-3 text-sm outline-none transition focus:border-violet-500/60 focus:ring-2 focus:ring-violet-500/20"
           >
             <option
               v-for="country in phone.countries"
@@ -296,7 +296,7 @@ async function submit() {
       <button
         type="submit"
         :disabled="isSending"
-        class="text-foreground border border-gray-600 hover:border-gray-800 transition-all duration-300 active:scale-95 flex justify-center py-1 px-6 font-semibold text-center items-center  w-full disabled:cursor-not-allowed disabled:opacity-55"
+        class="interactive-border text-foreground border transition-all duration-300 active:scale-95 flex justify-center py-1 px-6 font-semibold text-center items-center w-full disabled:cursor-not-allowed disabled:opacity-55"
       >
         {{ isSending ? t("contact.formSending") : t("contact.formSend") }}
       </button>

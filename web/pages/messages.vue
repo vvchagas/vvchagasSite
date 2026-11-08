@@ -28,7 +28,7 @@
               v-model="loginUser"
               type="text"
               autocomplete="off"
-              class="mt-1 w-full rounded-md border border-border/70 bg-background/60 px-4 py-3 text-sm outline-none transition focus:border-blue-500/60 focus:ring-2 focus:ring-blue-500/20"
+              class="mt-1 w-full rounded-md border border-border/70 bg-background/60 px-4 py-3 text-sm outline-none transition focus:border-violet-500/60 focus:ring-2 focus:ring-violet-500/20"
               placeholder="Usuário"
             >
           </div>
@@ -40,7 +40,7 @@
               v-model="loginPassword"
               type="password"
               autocomplete="off"
-              class="mt-1 w-full rounded-md border border-border/70 bg-background/60 px-4 py-3 text-sm outline-none transition focus:border-blue-500/60 focus:ring-2 focus:ring-blue-500/20"
+              class="mt-1 w-full rounded-md border border-border/70 bg-background/60 px-4 py-3 text-sm outline-none transition focus:border-violet-500/60 focus:ring-2 focus:ring-violet-500/20"
               placeholder="Senha"
             >
           </div>
@@ -68,7 +68,7 @@
         <ScrollReveal as="section" class="rounded-md border border-border/70 bg-card/70 p-6 shadow-sm md:p-8">
           <div class="flex flex-col gap-5 md:flex-row mt-10 md:items-end md:justify-between">
             <div>
-              <p class="text-xs font-semibold uppercase tracking-[0.3em] text-blue-600 dark:text-blue-400">Mensagens</p>
+              <p class="text-xs font-semibold uppercase tracking-[0.3em] text-violet-400">Mensagens</p>
               <h1 class="mt-2 text-3xl font-black tracking-tight sm:text-4xl">Caixa de mensagens do site</h1>
               <p class="mt-2 max-w-2xl text-sm text-muted sm:text-base">Aqui você visualiza os envios do formulário e pode filtrar por assunto.</p>
             </div>
@@ -76,7 +76,7 @@
               <span class="text-sm font-semibold">Filtrar por assunto</span>
               <select
                 v-model="selectedTopic"
-                class="mt-2 w-full rounded-md border border-border/70 bg-background/60 px-4 py-3 text-sm outline-none transition focus:border-blue-500/60 focus:ring-2 focus:ring-blue-500/20"
+                class="mt-2 w-full rounded-md border border-border/70 bg-background/60 px-4 py-3 text-sm outline-none transition focus:border-violet-500/60 focus:ring-2 focus:ring-violet-500/20"
               >
                 <option class="bg-background text-foreground" value="all">Todos</option>
                 <option class="bg-background text-foreground" value="web">Web</option>
@@ -97,7 +97,7 @@
               v-for="item in messages"
               :key="item.id"
               class="tech-frame rounded-md border border-border/70 bg-card/70 p-5 shadow-sm md:p-6 transition hover:-translate-y-1 hover:shadow-lg cursor-pointer"
-              :class="item.readAt ? 'opacity-75' : 'ring-1 ring-blue-500/20'"
+              :class="item.readAt ? 'opacity-75' : 'ring-1 ring-violet-500/20'"
             >
               <div class="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
                 <div>
@@ -105,7 +105,7 @@
                   <p class="text-sm text-muted">{{ item.contact }}</p>
                 </div>
                 <div class="flex flex-wrap gap-2">
-                  <span class="rounded-sm bg-blue-600/10 px-3 py-1 text-xs font-bold text-blue-700 dark:text-blue-300">{{ topicLabel(item.topic) }}</span>
+                  <span class="rounded-sm bg-violet-950/80 px-3 py-1 text-xs font-bold text-violet-200">{{ topicLabel(item.topic) }}</span>
                   <span class="rounded-sm bg-muted px-3 py-1 text-xs font-semibold text-foreground/90">Origem: {{ item.source }}</span>
                   <span class="rounded-sm bg-muted px-3 py-1 text-xs font-semibold text-foreground/90">{{ formatDate(item.createdAt) }}</span>
                   <span v-if="item.readAt" class="rounded-sm bg-emerald-600 px-3 py-1 text-xs font-semibold text-green-800 dark:text-green-400">Lida</span>
@@ -306,8 +306,8 @@ useHead({ title: "vvchagas - Mensagens" });
 
 .message-action { padding: .6rem .85rem; font-size: .8rem; font-weight: 800; }
 .message-action:disabled { cursor: wait; opacity: .55; }
-.message-action--read { background: rgba(15, 211, 9, 0.281); color: rgb(11, 170, 6); }
-.message-action--delete { background: rgb(239 68 68 / .12); color: rgb(185 28 28); }
+.message-action--read { background: rgba(37, 226, 30, 0.281); color: rgb(18, 224, 11); }
+.message-action--delete { background: rgb(239 68 68 / .12); color: rgb(235, 8, 8); }
 :global(html.dark) .message-action--read { color: rgba(20, 231, 20, 0.788); }
 :global(html.dark) .message-action--delete { color: rgb(252 165 165); }
 </style>

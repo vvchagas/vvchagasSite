@@ -98,7 +98,7 @@ onUnmounted(() => {
 <template>
   <section class="project-showcase mt-10">
     <div v-if="!props.hideHeading" v-motion-reveal class="mb-10 max-w-3xl space-y-4" :class="{ 'mb-7': props.compact }">
-      <p class="mt-10 text-xs font-semibold uppercase tracking-[0.3em] text-blue-600 dark:text-blue-400 sm:text-sm">
+      <p class="mt-10 text-xs font-semibold uppercase tracking-[0.3em] text-violet-400 sm:text-sm">
         {{ props.eyebrow || t('portfolio.eyebrow') }}
       </p>
       <h2 class="text-3xl font-black tracking-tight sm:text-4xl" :class="{ 'sm:text-3xl': props.compact }">
@@ -137,7 +137,7 @@ onUnmounted(() => {
                 loading="lazy"
                 @click="openLightbox(project.image)"
               >
-              <div v-else class="project-illustration relative flex h-16 w-16 items-center justify-center rounded-sm bg-blue">
+              <div v-else class="project-illustration relative flex h-16 w-16 items-center justify-center rounded-sm bg-violet-950/80 text-violet-200">
                 <span class="material-symbols-outlined text-2xl">{{ project.icon }}</span>
               </div>
             </div>
@@ -185,7 +185,7 @@ onUnmounted(() => {
           <div v-motion-pop class="lightbox-container">
             <button
               type="button"
-              class="absolute right-3 top-3 z-1 inline-flex size-9 cursor-pointer items-center justify-center rounded-sm border border-white/25 bg-black/50 text-white transition-all duration-300 hover:border-[rgb(250_9_1)] hover:bg-black/75 active:scale-95"
+              class="interactive-border absolute right-3 top-3 z-1 inline-flex size-9 cursor-pointer items-center justify-center rounded-sm border bg-black/50 text-white transition-all duration-300 hover:bg-black/75 active:scale-95"
               :aria-label="t('portfolio.lightboxClose')"
               @click="closeLightbox"
             >

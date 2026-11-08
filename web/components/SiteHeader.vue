@@ -8,8 +8,8 @@ const { lock, unlock } = useScrollLock();
 // Link de navegação só com utilitários: cor, sublinhado que cresce (::after) e anel de foco.
 const navLinkBase =
   "relative text-[0.9rem] font-semibold text-[rgb(var(--fg)/0.85)] transition-all duration-300 hover:text-[rgb(var(--fg))] focus-visible:text-[rgb(var(--fg))] " +
-  "after:absolute after:bottom-[-4px] after:left-0 after:h-0.5 after:w-0 after:rounded-sm after:bg-blue-500 after:transition-all after:duration-300 hover:after:w-full focus-visible:after:w-full " +
-  "focus-visible:rounded-xs focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-500";
+  "after:absolute after:bottom-[-4px] after:left-0 after:h-0.5 after:w-0 after:rounded-sm after:bg-violet-400 after:transition-all after:duration-300 hover:after:w-full focus-visible:after:w-full " +
+  "focus-visible:rounded-xs focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-violet-400";
 const navLink = `${navLinkBase} hover:-translate-y-0.5`;
 const drawerLink = `${navLinkBase} flex items-center gap-3 border-b border-border/40 py-2.5`;
 
@@ -137,7 +137,7 @@ onBeforeUnmount(() => {
       <div class="flex items-center gap-3">
         <button
           type="button"
-          class="inline-flex min-h-11 min-w-11 items-center justify-center bg-background rounded-sm border border-border/70 bg-card/80 p-2 text-sm font-semibold text-foreground shadow-sm hover:border-blue-500/60 focus:outline-none focus:ring-2 focus:ring-blue-500 min-[900px]:hidden transition-all duration-300 active:scale-95"
+          class="interactive-border inline-flex min-h-11 min-w-11 items-center justify-center rounded-sm border bg-card/80 p-2 text-sm font-semibold text-foreground shadow-sm focus:outline-none focus:ring-2 focus:ring-violet-400 min-[900px]:hidden transition-all duration-300 active:scale-95"
           :aria-expanded="isMenuOpen"
           aria-controls="menu-mobile"
           :aria-label="isMenuOpen ? t('nav.closeMenu') : t('nav.openMenu')"
@@ -193,7 +193,7 @@ onBeforeUnmount(() => {
 
         <button
           type="button"
-          class="theme-toggle inline-flex items-center gap-2 rounded-sm border border-border/70 bg-card/60 p-1.5 text-sm font-semibold shadow-sm hover:border-blue-500/60 focus:outline-none focus:ring-2 transition hover:scale-105 active:scale-95"
+          class="theme-toggle interactive-border inline-flex items-center gap-2 rounded-sm border bg-card/60 p-1.5 text-sm font-semibold shadow-sm focus:outline-none focus:ring-2 transition hover:scale-105 active:scale-95"
           :aria-label="isDark ? t('nav.toggleLight') : t('nav.toggleDark')"
           @click="toggleTheme"
         >
@@ -282,7 +282,7 @@ onBeforeUnmount(() => {
           </NuxtLink>
           <button
             type="button"
-            class="relative z-50 inline-flex size-11 items-center justify-center rounded-sm border border-border/70 bg-background text-foreground hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 transition hover:scale-105 active:scale-95"
+            class="relative z-50 inline-flex size-11 items-center justify-center rounded-sm border border-border/70 bg-background text-foreground hover:text-violet-400 focus:outline-none focus:ring-2 focus:ring-violet-400 transition hover:scale-105 active:scale-95"
             :aria-label="t('nav.closeMenu')"
             @click="closeDrawer"
           >

@@ -61,7 +61,7 @@ onUnmounted(() => {
           <button
             v-motion-spin-in
             type="button"
-            class="project-modal__close border border-[rgb(var(--border))] transition-all duration-300 hover:border-[rgb(250_9_1)] active:scale-95"
+            class="project-modal__close interactive-border border transition-all duration-300 active:scale-95"
             :aria-label="t('common.close')"
             @click="close"
           >
@@ -70,7 +70,7 @@ onUnmounted(() => {
 
           <div class="flex items-start justify-between gap-4 pr-10">
             <div>
-              <p class="text-xs font-semibold uppercase tracking-[0.3em] text-blue-600 dark:text-blue-400">
+              <p class="text-xs font-semibold uppercase tracking-[0.3em] text-violet-400">
                 {{ project.tag }}
               </p>
               <h2 class="mt-1 text-2xl font-black tracking-tight sm:text-3xl">{{ project.title }}
@@ -91,9 +91,9 @@ onUnmounted(() => {
           </ul>
 
           <div class="mt-6">
-            <p class="text-xs font-semibold uppercase tracking-[0.2em] text-muted">{{ t('portfolio.technologies') }}</p>
+            <p class="text-xs font-semibold uppercase tracking-[0.2em] text-violet-400">{{ t('portfolio.technologies') }}</p>
             <div class="mt-2 flex flex-wrap gap-2">
-              <span v-for="tech in project.stack" :key="tech" class="stack-badge">{{ tech }}</span>
+              <span v-for="tech in project.stack" :key="tech" class="stack-badge border border-violet-500/40 bg-violet-950/80 text-violet-200">{{ tech }}</span>
             </div>
           </div>
 
@@ -103,7 +103,7 @@ onUnmounted(() => {
               :href="project.githubUrl"
               target="_blank"
               rel="noopener noreferrer"
-              class="cta-secondary min-h-11 px-4 text-xs sm:text-sm"
+              class="cta-secondary min-h-11 border-violet-500/50 px-4 text-xs hover:bg-violet-600/15 hover:shadow-violet-500/20 sm:text-sm"
             >
               <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
                 <path
@@ -115,7 +115,7 @@ onUnmounted(() => {
 
             <NuxtLink
               :to="{ path: '/contato', query: { projeto: project.title } }"
-              class="cta-primary min-h-11 px-4 text-xs sm:text-sm"
+              class="cta-primary min-h-11 border-violet-500/50 px-4 text-xs hover:bg-violet-600/15 hover:shadow-violet-500/20 sm:text-sm"
               @click="close"
             >
               <span>{{ t('portfolio.wantSimilar') }}</span>
@@ -156,7 +156,8 @@ onUnmounted(() => {
   max-height: 100vh;
   overflow-y: auto;
   border-radius: .25rem;
-  border: 1px solid rgb(var(--border) / 1);
+  border: 1px solid rgb(139 92 246 / 0.5);
+  --frame-accent: rgb(139 92 246);
   background: rgb(var(--surface));
   color: rgb(var(--fg));
   padding: 1.5rem;
@@ -196,16 +197,9 @@ onUnmounted(() => {
 
 .stack-badge {
   border-radius: .25rem;
-  border: 1px solid rgb(var(--border) / 1);
-  background: rgb(59 130 246 / 0.1);
-  color: rgb(37 99 235);
   padding: 0.35rem 0.85rem;
   font-size: 0.75rem;
   font-weight: 700;
-}
-:global(html.dark .stack-badge) {
-  color: rgb(147 197 253);
-  background: rgb(59 130 246 / 0.16);
 }
 
 ::-webkit-scrollbar {

@@ -4,7 +4,7 @@
 
     <a
       href="#conteudo"
-      class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-blue-600 focus:px-3 focus:py-2 focus:text-white"
+      class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-violet-600 focus:px-3 focus:py-2 focus:text-white"
     >
       {{ t('common.skipToContent') }}
     </a>
@@ -126,7 +126,7 @@
             <div v-motion-reveal :delay="100" class="rounded-md bg-muted/60 p-5"><span class="text-sm font-black text-foreground">{{ t('about.process02Label') }}</span><p class="mt-3 text-sm leading-6 text-muted">{{ t('about.process02Desc') }}</p></div>
             <div v-motion-reveal :delay="200" class="rounded-md bg-muted/60 p-5"><span class="text-sm font-black text-foreground">{{ t('about.process03Label') }}</span><p class="mt-3 text-sm leading-6 text-muted">{{ t('about.process03Desc') }}</p></div>
           </div>
-          <div class="mt-7 flex items-center justify-center rounded-sm border border-blue-500/40 px-5 py-3 text-sm font-extrabold text-blue-700 dark:text-blue-300 text-center">{{ t('about.processCallout') }}</div>
+          <div class="mt-7 flex items-center justify-center rounded-sm border border-violet-500/40 px-5 py-3 text-center text-sm font-extrabold text-violet-400">{{ t('about.processCallout') }}</div>
         </section>
 
         <ProjectShowcase

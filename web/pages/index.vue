@@ -7,7 +7,7 @@
     <!-- Acessibilidade -->
     <a
       href="#conteudo"
-      class="sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:not-sr-only focus:rounded-md focus:bg-blue-600 focus:px-3 focus:py-2 focus:text-white"
+      class="sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:not-sr-only focus:rounded-md focus:bg-violet-600 focus:px-3 focus:py-2 focus:text-white"
     >
       {{ t("common.skipToContent") }}
     </a>
@@ -94,17 +94,17 @@
               </p>
 
               <!-- Estatísticas -->
-              <dl v-motion-reveal :delay="230" class="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-3">
+              <dl v-motion-reveal :delay="230" class="mt-6 grid grid-cols-1 gap-4 pr-10 sm:grid-cols-3">
                 <div
                   v-for="stat in heroStats"
                   :key="stat.label"
                   class="tech-frame fx-card flex flex-col justify-between border border-border/70 bg-background p-4"
                 >
                   <div>
-                    <dt class="text-sm font-bold text-foreground sm:text-base">
+                    <dt class="whitespace-nowrap text-sm font-bold text-foreground sm:text-base">
                       {{ t(stat.label) }}
 
-                      <span v-if="t(stat.value)" class="ml-1 text-purple-600">
+                      <span v-if="t(stat.value)" class="mt-1 block whitespace-nowrap text-purple-600">
                         {{ t(stat.value) }}
                       </span>
                     </dt>
@@ -332,7 +332,7 @@
 
           <NuxtLink
             to="/sobre"
-            class="shrink-0 rounded-sm border border-border/60 px-3 py-1.5 text-center text-sm font-semibold cursor-pointer transition-all duration-300 hover:-translate-y-0.5 active:scale-95"
+            class="interactive-border shrink-0 rounded-sm border px-3 py-1.5 text-center text-sm font-semibold cursor-pointer transition-all duration-300 hover:-translate-y-0.5 active:scale-95"
           >
             {{ t("indexSections.portfolioMore") }}
           </NuxtLink>
@@ -465,7 +465,7 @@ const heroSteps = [
     title: "hero.step1Title",
     description: "hero.step1Desc",
     icon: "monitoring",
-    color: "text-blue-500",
+    color: "text-violet-400",
   },
   {
     title: "hero.step2Title",
@@ -575,7 +575,7 @@ const services = [
       },
       {
         icon: "accessibility_new",
-        color: "text-cyan-500",
+        color: "text-violet-400",
         label: "indexSections.servWebItem3",
       },
     ],
@@ -587,7 +587,7 @@ const services = [
     items: [
       {
         icon: "widgets",
-        color: "text-indigo-500",
+        color: "text-violet-400",
         label: "indexSections.servAdjItem1",
       },
       {
@@ -597,7 +597,7 @@ const services = [
       },
       {
         icon: "search",
-        color: "text-blue-500",
+        color: "text-violet-400",
         label: "indexSections.servAdjItem3",
       },
     ],
@@ -614,7 +614,7 @@ const services = [
       },
       {
         icon: "wifi",
-        color: "text-cyan-500",
+        color: "text-violet-400",
         label: "indexSections.servItItem2",
       },
       {

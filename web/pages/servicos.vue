@@ -37,15 +37,15 @@
             <div>
               <!-- Desenhos SVGs nos contornos pedidoss -->
               <div class="relative mb-6 inline-flex h-16 w-16 items-center justify-center rounded-md bg-background text-foreground shadow-inner">
-                <div class="pointer-events-none absolute inset-0 rounded-md bg-blue-600/20 blur-xl opacity-0 transition-opacity group-hover:opacity-100"/>
+                <div class="pointer-events-none absolute inset-0 rounded-md blur-xl opacity-0 transition-opacity group-hover:opacity-100"/>
                 
                 <!-- Desenho 1: </> Pulsando no hover -->
-                <svg v-if="service.id === 'web'" class="relative z-10 h-8 w-8 text-blue-500 transition-transform group-hover:scale-110 motion-safe:group-hover:animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                <svg v-if="service.id === 'web'" class="relative z-10 h-8 w-8 text-violet-400 transition-transform group-hover:scale-110 motion-safe:group-hover:animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5" />
                 </svg>
 
                 <!-- Desenho 2: Boneco com headset e monitor na frente -->
-                <svg v-else-if="service.id === 'it'" class="relative z-10 h-8 w-8 text-indigo-500 transition-transform group-hover:-translate-y-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                <svg v-else-if="service.id === 'it'" class="relative z-10 h-8 w-8 text-violet-400 transition-transform group-hover:-translate-y-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
                   <rect x="2" y="3" width="20" height="12" rx="2" stroke-linecap="round" stroke-linejoin="round"/>
                   <path d="M8 19h8m-4-4v4" stroke-linecap="round" stroke-linejoin="round"/>
                   <circle cx="12" cy="8.5" r="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -55,26 +55,26 @@
                 </svg>
 
                 <!-- Desenho 3: Notebook com engrenagem que gira -->
-                <svg v-else-if="service.id === 'notebook'" class="relative z-10 h-8 w-8 text-cyan-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                <svg v-else-if="service.id === 'notebook'" class="relative z-10 h-8 w-8 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
                   <path d="M4 14h16v1.5a2 2 0 01-2 2H6a2 2 0 01-2-2V14z" stroke-linecap="round" stroke-linejoin="round"/>
                   <path d="M6 14V6a2 2 0 012-2h8a2 2 0 012 2v8" stroke-linecap="round" stroke-linejoin="round"/>
-                  <g class="origin-[12px_9px] transition-transform duration-500 group-hover:rotate-180">
+                  <g class="origin-[12px_9px] transition-transform duration-500 group-hover:rotate-360">
                     <circle cx="12" cy="9" r="2" stroke-linecap="round" stroke-linejoin="round"/>
                     <path d="M12 5.5v1m0 5v1m3.5-3.5h-1m-5 0h-1m4.47-2.47l-.7.7m-3.54 3.54l-.7.7m4.94 0l-.7-.7m-3.54-3.54l-.7-.7" stroke-linecap="round" stroke-linejoin="round"/>
                   </g>
                 </svg>
               </div>
 
-              <div class="mb-4 inline-flex text-foreground rounded-sm bg-background px-3 py-1 text-xs font-semibold transition-transform duration-300 group-hover:scale-105 dark:bg-blue-900/30 dark:text-blue-300">
+              <div class="mb-1 inline-flex rounded-sm bg-violet-950/80 px-3 py-1 text-xs font-semibold text-violet-200 transition-transform duration-300 group-hover:scale-105">
                 {{ t(service.badge) }}
               </div>
-              <h2 class="text-xl sm:text-2xl font-bold">{{ t(service.title) }}</h2>
+              <h2 class="text-2xl font-bold sm:text-3xl">{{ t(service.title) }}</h2>
               <p class="mt-4 text-sm leading-7 text-muted">
                 {{ t(service.desc) }}
               </p>
               <ul class="mt-6 space-y-3 text-sm text-muted">
                 <li v-for="(item, index) in service.items" :key="index" class="fx-row flex gap-3 items-start">
-                  <span class="mt-1.5 h-2 w-2 shrink-0 rounded-sm bg-blue-600 dark:bg-blue-500"/>
+                  <span class="mt-1.5 h-2 w-2 shrink-0 rounded-sm bg-violet-500"/>
                   <span>{{ t(item) }}</span>
                 </li>
               </ul>

@@ -9,7 +9,7 @@
       <p class="error-message">{{ errorMessage }}</p>
       <NuxtLink
         to="/"
-        class="inline-flex items-center gap-2 rounded-sm bg-blue-600 px-4 py-2 text-sm font-bold text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-500"
+        class="inline-flex items-center gap-2 rounded-sm bg-violet-600 px-4 py-2 text-sm font-bold text-white shadow-sm hover:bg-violet-700 focus:outline-none focus:ring-2 focus:ring-violet-400 transition duration-500"
         @click="handleRecovery"
       >
         <span aria-hidden="true" class="material-symbols-outlined text-lg"
