@@ -189,10 +189,10 @@ const techs: Tech[] = [
   },
 ];
 
-// Hover e foco (teclado) com o mesmo efeito; `group` está no <li>. --tech-color vem de cada item.
+// Movimento compartilhado; a cor de cada tecnologia vem de --tech-color.
 const hexFx =
-  "group-hover:-translate-y-1 group-hover:scale-[1.03] group-hover:bg-(--tech-color) group-hover:drop-shadow-[0_0_12px_color-mix(in_srgb,var(--tech-color)_65%,transparent)] " +
-  "group-focus-visible:-translate-y-1 group-focus-visible:scale-[1.03] group-focus-visible:bg-(--tech-color) group-focus-visible:drop-shadow-[0_0_12px_color-mix(in_srgb,var(--tech-color)_65%,transparent)]";
+  "group-hover:-translate-y-1 group-hover:scale-[1.03] group-hover:drop-shadow-[0_0_12px_color-mix(in_srgb,var(--tech-color)_65%,transparent)] " +
+  "group-focus-visible:-translate-y-1 group-focus-visible:scale-[1.03] group-focus-visible:drop-shadow-[0_0_12px_color-mix(in_srgb,var(--tech-color)_65%,transparent)]";
 </script>
 
 <template>
@@ -207,9 +207,9 @@ const hexFx =
         :style="{ '--tech-color': tech.color }"
         tabindex="0"
       >
-        <div class="tech-hex-frame bg-white/12 transition-all duration-300 will-change-[transform,filter]" :class="hexFx">
+        <div class="tech-hex-frame transition-all duration-500 will-change-[transform,filter]" :class="hexFx">
           <div class="tech-hex">
-            <span aria-hidden="true" class="tech-chip__icon">
+            <span aria-hidden="true" class="tech-chip__icon ">
               <svg :viewBox="tech.viewBox" xmlns="http://www.w3.org/2000/svg" focusable="false">
                 <component
                   :is="shape.tag"
@@ -221,7 +221,7 @@ const hexFx =
             </span>
           </div>
         </div>
-        <span class="tech-chip__label text-[rgb(var(--fg))] transition-colors duration-300 group-hover:text-(--tech-color) group-focus-visible:text-(--tech-color)">{{ tech.name }}</span>
+        <span class="tech-chip__label transition-colors duration-300 group-hover:text-(--tech-color) group-focus-visible:text-(--tech-color)">{{ tech.name }}</span>
       </li>
     </ul>
   </section>
@@ -233,7 +233,7 @@ const hexFx =
   max-width: 72rem;
   margin: 2rem auto 0;
   padding: 0 1rem;
-  gap: 25px
+  gap: 1.5rem;
 }
 
 /* MOBILE E TELAS PEQUENAS (GRID MULTI-LINHA) */
@@ -266,7 +266,14 @@ const hexFx =
   width: clamp(3.75rem, 12vw, 5rem);
   height: clamp(3.75rem, 12vw, 5rem);
   aspect-ratio: 1;
+  background: var(--tech-frame);
+  transition: background-color 300ms ease;
   clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0 50%);
+}
+
+.tech-item:hover .tech-hex-frame,
+.tech-item:focus-visible .tech-hex-frame {
+  background: var(--tech-color);
 }
 
 .tech-hex {
@@ -276,7 +283,7 @@ const hexFx =
   place-items: center;
   width: auto;
   height: auto;
-  background: #0d0d0f;
+  background: var(--tech-surface);
   clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0 50%);
   color: var(--tech-color);
 }
@@ -302,6 +309,24 @@ const hexFx =
   font-weight: 700;
   line-height: 1.2;
   white-space: nowrap;
+  color: var(--tech-label);
+}
+
+.tech-item:hover .tech-chip__label,
+.tech-item:focus-visible .tech-chip__label {
+  color: var(--tech-color);
+}
+
+:global(:root) {
+  --tech-frame: rgb(82 82 91 / 0.24);
+  --tech-surface: rgb(255 255 255 / 0.9);
+  --tech-label: rgb(39 39 42);
+}
+
+:global(html.dark) {
+  --tech-frame: rgb(244 244 245 / 0.22);
+  --tech-surface: rgb(24 24 27);
+  --tech-label: rgb(244 244 245);
 }
 
 /* TELAS MÉDIAS A GRANDES (DESKTOP): LINHA ÚNICA (FILEIRA ÚNICA) */

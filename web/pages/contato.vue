@@ -4,7 +4,7 @@
 
     <a
       href="#conteudo"
-      class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-blue-600 focus:px-3 focus:py-2 focus:text-white"
+      class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-violet-600 focus:px-3 focus:py-2 focus:text-white"
     >
       {{ t('common.skipToContent') }}
     </a>
@@ -19,7 +19,7 @@
         <div class="relative z-10 px-5 sm:px-10">
           <div class="mb-8 max-w-2xl space-y-4 sm:mb-10 mx-auto text-center">
             <p
-              class="text-xs font-semibold uppercase tracking-[0.3em] text-blue-600 dark:text-blue-400 sm:text-sm"
+              class="text-xs font-semibold uppercase tracking-[0.3em] text-purple-600 dark:text-violet-400 sm:text-sm"
             >
               {{ t('contact.sectionLabel') }}
             </p>

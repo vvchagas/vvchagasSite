@@ -58,7 +58,7 @@
                 <svg v-else-if="service.id === 'notebook'" class="relative z-10 h-8 w-8 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
                   <path d="M4 14h16v1.5a2 2 0 01-2 2H6a2 2 0 01-2-2V14z" stroke-linecap="round" stroke-linejoin="round"/>
                   <path d="M6 14V6a2 2 0 012-2h8a2 2 0 012 2v8" stroke-linecap="round" stroke-linejoin="round"/>
-                  <g class="origin-[12px_9px] transition-transform duration-500 group-hover:rotate-360">
+                  <g class="origin-[12px_9px] transition-transform duration-900 group-hover:rotate-360">
                     <circle cx="12" cy="9" r="2" stroke-linecap="round" stroke-linejoin="round"/>
                     <path d="M12 5.5v1m0 5v1m3.5-3.5h-1m-5 0h-1m4.47-2.47l-.7.7m-3.54 3.54l-.7.7m4.94 0l-.7-.7m-3.54-3.54l-.7-.7" stroke-linecap="round" stroke-linejoin="round"/>
                   </g>

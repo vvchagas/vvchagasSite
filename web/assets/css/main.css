@@ -24,15 +24,18 @@
   --bg: 250 250 250;
   --fg: 24 24 27;
   --muted: 82 82 91;
-  --border: 226 232 240;
+  /* Borda principal escura/definida (zinc-800) em vez do cinza apagado */
+  --border: 39 39 42;
   --surface: 255 255 255;
   --surface-raised: 244 246 249;
   --line: 15 23 42;
   --interactive: #393d47;
   --interactive-hover: #111213;
-  --site-accent: #a855f7;
+  --site-accent: #9333ea;
   --site-radius: .25rem;
-  --frame-line: rgb(203 213 225 / .9);
+  /* Linha da moldura com opacidade marcante (preta/escura) */
+  --frame-line: rgb(24 24 27 / .85);
+  /* Cantos roxos vibrantes */
   --frame-accent: #7c3aed;
   --cta-bg: #7c3aed;
   --cta-fg: #ffffff;
