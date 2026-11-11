@@ -58,7 +58,6 @@ export default defineNuxtConfig({
     families: []
   },
 
-  // Vercel Analytics — injeção do script via head
   app: {
     head: {
       title: 'vvchagas',
@@ -67,11 +66,11 @@ export default defineNuxtConfig({
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-        { name: 'theme-color', content: '#2563eb' },
+        { name: 'theme-color', content: '#7c3aed' }, // Atualizado para o roxo/violeta do tema
+        { name: 'google-site-verification', content: 'dQrC6TN67zkl673M77KrHv7qCwDkT7Y0P7rkvG74NiQ' },
       ],
       link: [
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-        // Ícones: fonte própria (subset de poucos KB, `npm run icons`). Sem Google, sem @nuxt/fonts no meio.
         { rel: 'preload', as: 'font', type: 'font/woff2', href: '/fonts/material-symbols.woff2', crossorigin: '' },
       ],
       script: [
@@ -79,25 +78,33 @@ export default defineNuxtConfig({
       ],
     }
   },
+
   runtimeConfig: {
     public: {
-      siteUrl: process.env.NUXT_PUBLIC_SITE_URL || '',
+      siteUrl: process.env.NUXT_PUBLIC_SITE_URL || 'https://vvchagas.vercel.app',
     },
   },
+
+  // Configuração global da entidade do site
   site: {
-    url: process.env.NUXT_PUBLIC_SITE_URL || 'https://vvchagas.com',
+    url: process.env.NUXT_PUBLIC_SITE_URL || 'https://vvchagas.vercel.app',
     name: 'vvchagas',
   },
+
+  // Módulo de Sitemap otimizado sem XSLT e apontado para a Vercel
   sitemap: {
+    xsl: false, // Desativa o stylesheet XSLT visual para evitar alertas de deprecante no navegador
     exclude: ['/messages'],
     defaults: { changefreq: 'monthly', priority: 0.7 },
   },
+
   robots: {
     groups: [
       { userAgent: '*', allow: '/', disallow: ['/messages'] },
     ],
-    sitemap: `${process.env.NUXT_PUBLIC_SITE_URL || 'https://vvchagas.com'}/sitemap.xml`,
+    sitemap: `${process.env.NUXT_PUBLIC_SITE_URL || 'https://vvchagas.vercel.app'}/sitemap.xml`,
   },
+
   routeRules: {
     '/messages': { robots: false },
   },
