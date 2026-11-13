@@ -65,7 +65,7 @@
     <!-- Main content (only after auth) -->
     <template v-if="authenticated">
       <main id="conteudo" class=" mt-10 mx-auto w-full max-w-6xl px-4 py-12 md:px-6">
-        <ScrollReveal as="section" class="rounded-md border border-border/70 bg-card/70 p-6 shadow-sm md:p-8">
+        <ScrollReveal as="section" class="rounded-md bg-card/70 p-6 shadow-sm md:p-8">
           <div class="flex flex-col gap-5 md:flex-row mt-10 md:items-end md:justify-between">
             <div>
               <p class="text-xs font-semibold uppercase tracking-[0.3em] text-violet-400">Mensagens</p>

@@ -80,7 +80,6 @@ async function submit() {
   try {
     await $fetch("/api/messages", {
       method: "POST",
-
       body: {
         name: form.value.name,
         email: byEmail ? form.value.email.trim() : "",
@@ -106,7 +105,7 @@ async function submit() {
   <div
     v-if="sent"
     role="status"
-    class="rounded-md border border-border/70 bg-background p-5 shadow-sm sm:p-6 md:p-8"
+    class="form-success-card rounded-md p-5 shadow-sm sm:p-6 md:p-8"
   >
     <h3 class="text-lg font-extrabold">
       {{ t("contact.formSuccessTitle") }}
@@ -120,7 +119,7 @@ async function submit() {
       :href="waLink(t('contact.whatsappPrefillSent'))"
       target="_blank"
       rel="noopener noreferrer"
-      class="cta-primary mt-5 w-full sm:w-auto"
+      class="whatsapp-gradient-button mt-5 inline-flex min-h-12 w-full items-center justify-center rounded-md px-6 py-2 text-center font-semibold text-foreground transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_10px_24px_rgb(34_197_94/.25)] active:scale-95 sm:w-auto"
     >
       {{ t("contact.formSuccessWhatsapp") }}
     </a>
@@ -128,7 +127,7 @@ async function submit() {
 
   <form
     v-else
-    class="rounded-md border border-border/70 bg-background p-5 shadow-sm sm:p-6 md:p-8"
+    class=" form-sucess-card rounded-md border border-border/70 bg-background p-5 shadow-sm sm:p-6 md:p-8"
     @submit.prevent="submit"
   >
     <div class="flex items-center justify-between gap-4">
@@ -296,7 +295,7 @@ async function submit() {
       <button
         type="submit"
         :disabled="isSending"
-        class="interactive-border text-foreground border transition-all duration-300 active:scale-95 flex justify-center py-1 px-6 font-semibold text-center items-center w-full disabled:cursor-not-allowed disabled:opacity-55"
+        class="form-gradient-button flex min-h-12 w-full items-center justify-center rounded-md px-6 py-2 text-center font-semibold text-foreground transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_10px_24px_rgb(139_92_246/.28)] active:scale-95 disabled:pointer-events-none disabled:opacity-55"
       >
         {{ isSending ? t("contact.formSending") : t("contact.formSend") }}
       </button>
@@ -311,3 +310,41 @@ async function submit() {
     </div>
   </form>
 </template>
+
+<style scoped>
+/* Card de confirmação após envio */
+.form-success-card {
+  border: 2px solid transparent;
+  background:
+    linear-gradient(rgb(var(--bg)), rgb(var(--bg))) padding-box,
+    linear-gradient(135deg, #6d28d9, #8b5cf6, #c084fc) border-box;
+}
+
+/* Botão Enviar (Paleta roxa do portfólio) */
+.form-gradient-button {
+  border: 2px solid transparent;
+  background:
+    linear-gradient(rgb(var(--surface)), rgb(var(--surface))) padding-box,
+    linear-gradient(90deg, #6d28d9, #8b5cf6, #c084fc, #7c3aed) border-box;
+  background-size: 140% 140%;
+  background-position: 0% 50%;
+}
+
+.form-gradient-button:hover {
+  background-position: 100% 50%;
+}
+
+/* Botão WhatsApp na tela de sucesso */
+.whatsapp-gradient-button {
+  border: 2px solid transparent;
+  background:
+    linear-gradient(rgb(var(--surface)), rgb(var(--surface))) padding-box,
+    linear-gradient(90deg, #128c7e, #25d366, #4ade80, #128c7e) border-box;
+  background-size: 140% 140%;
+  background-position: 0% 50%;
+}
+
+.whatsapp-gradient-button:hover {
+  background-position: 100% 50%;
+}
+</style>

@@ -170,6 +170,11 @@ export const dictionaries = {
       linkedinResponseDesc:
         "Acompanhe minha trajetória profissional, rede de contatos e propostas para novos projetos full stack.",
       linkedinBtn: "Conectar no LinkedIn",
+      instagramLabel: "Instagram",
+      instagramResponseTitle: "Siga @techbychagas",
+      instagramResponseDesc:
+        "Acompanhe novidades, projetos e conteúdos sobre tecnologia no Instagram.",
+      instagramBtn: "Visitar Instagram",
       emailResponseTitle: "Tempo de resposta",
       emailResponseTime: "Retorno em até 24 horas",
       emailResponseDesc:
@@ -486,6 +491,10 @@ export const dictionaries = {
     "linkedinResponseTime": "Response within 24 hours",
     "linkedinResponseDesc": "Follow my professional journey, network, and inquiries for new full-stack projects.",
     "linkedinBtn": "Connect on LinkedIn",
+    "instagramLabel": "Instagram",
+    "instagramResponseTitle": "Follow @techbychagas",
+    "instagramResponseDesc": "Follow updates, projects, and technology content on Instagram.",
+    "instagramBtn": "Visit Instagram",
 
     "emailResponseTitle": "Corporate Contact via Email",
     "emailResponseTime": "Detailed response within 24 hours",

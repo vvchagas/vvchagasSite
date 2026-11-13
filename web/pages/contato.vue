@@ -14,7 +14,7 @@
     <main id="conteudo" class="mx-auto w-full max-w-6xl px-3 pt-24 sm:px-5 sm:pt-28 lg:px-8">
       <section
         v-motion-reveal
-        class="corner-frame bg-background text-foreground relative isolate mx-auto w-full max-w-4xl overflow-hidden border border-border/70 bg-card/80 py-10 sm:py-16"
+        class="corner-frame bg-background text-foreground relative isolate mx-auto w-full max-w-4xl overflow-hidden border border-border/70 py-10 sm:py-16"
       >
         <div class="relative z-10 px-5 sm:px-10">
           <div class="mb-8 max-w-2xl space-y-4 sm:mb-10 mx-auto text-center">
@@ -37,10 +37,10 @@
           <div
             v-motion-reveal
             :class="cardFx"
-            class="tech-frame contact-card contact-card--whatsapp rounded-md border bg-card p-5 shadow-sm sm:p-8"
+            class="tech-frame contact-card contact-card--whatsapp rounded-md p-5 shadow-sm sm:p-8"
           >
             <div
-              class="flex items-center justify-center gap-2 frame-line-whatsapp text-green-600 dark:text-green-400"
+              class="flex items-center justify-center gap-2 text-green-600 dark:text-green-400"
             >
               <svg
                 viewBox="0 0 24 24"
@@ -73,7 +73,7 @@
               :href="waLink(t('contact.whatsappPrefill'))"
               target="_blank"
               rel="noopener noreferrer"
-              class="text-foreground border border-green-600 hover:border-green-800 transition-all duration-300 active:scale-95 min-h-12 flex justify-center py-1 px-6 font-semibold text-center items-center  mx-auto mt-5 w-full sm:mt-6 sm:w-fit"
+              class="social-gradient-btn whatsapp-gradient-button mx-auto mt-5 flex min-h-12 w-full items-center justify-center rounded-md px-6 py-1 text-center font-semibold text-foreground transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_10px_24px_rgb(34_197_94/.25)] active:scale-95 sm:mt-6 sm:w-fit"
             >
               {{ t('contact.whatsappBtn') }}
             </a>
@@ -83,7 +83,7 @@
           <div
             v-motion-reveal
             :class="cardFx"
-            class="tech-frame contact-card contact-card--linkedin mt-8 rounded-md border bg-card p-5 shadow-sm sm:mt-10 sm:p-8"
+            class="tech-frame contact-card contact-card--linkedin mt-8 rounded-md p-5 shadow-sm sm:mt-10 sm:p-8"
           >
             <div
               class="flex items-center justify-center gap-2 text-blue-600 dark:text-blue-400"
@@ -119,9 +119,37 @@
               href="https://linkedin.com/in/victor-vasques-chagas"
               target="_blank"
               rel="noopener noreferrer"
-              class="text-foreground border border-blue-600 hover:border-blue-800 transition-all duration-300 active:scale-95 min-h-12 flex justify-center py-1 px-6 font-semibold text-center items-center  mx-auto mt-5 w-full sm:mt-6 sm:w-fit"
+              class="social-gradient-btn linkedin-gradient-button mx-auto mt-5 flex min-h-12 w-full items-center justify-center rounded-md px-6 py-1 text-center font-semibold text-foreground transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_10px_24px_rgb(10_102_194/.25)] active:scale-95 sm:mt-6 sm:w-fit"
             >
               {{ t('contact.linkedinBtn') }}
+            </a>
+          </div>
+
+          <!-- CARD INSTAGRAM -->
+          <div
+            v-motion-reveal
+            :class="cardFx"
+            class="tech-frame contact-card contact-card--instagram mt-8 rounded-md p-5 shadow-sm sm:mt-10 sm:p-8"
+          >
+            <div class="flex items-center justify-center gap-2 text-[#dd2a7b]">
+              <svg viewBox="0 0 24 24" fill="currentColor" role="img" aria-hidden="true" class="size-5 shrink-0">
+                <path d="M7.8 2h8.4A5.8 5.8 0 0 1 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8A5.8 5.8 0 0 1 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2Zm-.2 2A3.6 3.6 0 0 0 4 7.6v8.8A3.6 3.6 0 0 0 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6A3.6 3.6 0 0 0 16.4 4H7.6Zm9.65 1.5a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2a3 3 0 1 0 0 6 3 3 0 0 1 0-6Z" />
+              </svg>
+              <span class="text-sm font-semibold sm:text-base">{{ t('contact.instagramLabel') }}</span>
+            </div>
+            <div class="contact-inner mt-5 rounded-md border bg-background p-4 shadow-sm sm:mt-6 sm:p-8">
+              <h2 class="text-center text-base font-bold sm:text-lg">{{ t('contact.instagramResponseTitle') }}</h2>
+              <p class="mx-auto mt-3 max-w-lg text-center text-sm leading-relaxed text-foreground/90 sm:text-base">
+                {{ t('contact.instagramResponseDesc') }}
+              </p>
+            </div>
+            <a
+              href="https://www.instagram.com/techbychagas/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="social-gradient-btn instagram-gradient-button mx-auto mt-5 flex min-h-12 w-full items-center justify-center gap-2 rounded-md px-6 py-1 text-center font-semibold text-foreground transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_10px_24px_rgb(221_42_123/.28)] active:scale-95 sm:mt-6 sm:w-fit"
+            >
+              {{ t('contact.instagramBtn') }}
             </a>
           </div>
 
@@ -129,7 +157,7 @@
           <div
             v-motion-reveal
             :class="cardFx"
-            class="tech-frame contact-card contact-card--email mt-8 rounded-md border bg-card p-5 shadow-sm sm:mt-10 sm:p-8"
+            class="tech-frame contact-card contact-card--email mt-8 rounded-md p-5 shadow-sm sm:mt-10 sm:p-8"
           >
             <div
               class="flex items-center justify-center gap-2 text-red-600 dark:text-red-400"
@@ -165,7 +193,7 @@
               :href="mailLink(t('contact.emailSubject'))"
               target="_blank"
               rel="noopener noreferrer"
-              class="text-foreground border border-red-600 hover:border-red-800 transition-all duration-300 active:scale-95 min-h-12 flex justify-center py-1 px-6 font-semibold text-center items-center  mx-auto mt-5 w-full sm:mt-6 sm:w-fit"
+              class="social-gradient-btn gmail-gradient-button mx-auto mt-5 flex min-h-12 w-full items-center justify-center rounded-md px-6 py-1 text-center font-semibold text-foreground transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_10px_24px_rgb(234_67_53/.25)] active:scale-95 sm:mt-6 sm:w-fit"
             >
               {{ t('contact.emailBtn') }}
             </a>
@@ -180,7 +208,7 @@
           <div
             v-motion-reveal
             :class="cardFx"
-            class="tech-frame contact-card contact-card--form mt-5 rounded-md border bg-card p-4 shadow-sm sm:mt-6 sm:p-8"
+            class="tech-frame form-sucess-card  contact-card contact-card--form mt-5 rounded-md p-4 shadow-sm sm:mt-6 sm:p-8"
           >
             <h3 class="text-center text-base sm:text-lg mb-2 sm:mb-3 font-bold">
               {{ t('contact.formResponseTitle') }}
@@ -192,7 +220,7 @@
               {{ t('contact.formResponseDesc') }}
             </p>
 
-            <ContactForm class="mt-5" :initial-message="initialMessage" />
+            <ContactForm class="mt-5 " :initial-message="initialMessage" />
             <div class="h-24 sm:hidden" aria-hidden="true" />
           </div>
         </div>
@@ -202,6 +230,7 @@
     <SiteFooter />
   </div>
 </template>
+
 <script setup lang="ts">
 import SiteHeader from "../components/SiteHeader.vue";
 import SiteFooter from "../components/SiteFooter.vue";
@@ -215,62 +244,66 @@ const route = useRoute();
 const selectedProject = typeof route.query.projeto === "string" ? route.query.projeto : "";
 const initialMessage = selectedProject ? `Olá! Quero um projeto semelhante a "${selectedProject}".` : "";
 
-// Hover dos cards: cada card define suas cores em CSS vars (<style>); aqui só a mecânica, igual para os 4.
 const cardFx =
-  "border-(--contact-border) transition-all duration-300 hover:border-[rgb(var(--contact-accent)/.95)] hover:shadow-[0_16px_36px_var(--contact-glow)] " +
-  "hover:[--frame-accent:var(--frame-accent-hover)] hover:[--frame-line:var(--frame-line-hover)]";
+  "transition-all duration-300 hover:shadow-[0_16px_36px_var(--contact-glow)] " +
+  "hover:[--frame-accent:var(--frame-accent-hover)]";
 </script>
 
 <style scoped>
 /* ======================================================
-   CARDS DE CONTATO COM CORNER ACCENT PERSONALIZADOS
+   CARDS DE CONTATO COM BORDA GRADIENTE + CORNER ACCENT
 ====================================================== */
-/* Em @layer components: o hover:[--frame-accent:...] dos utilitários precisa vencer estes valores base
-   (CSS sem layer sempre ganha de utilitário). */
 @layer components {
+  .contact-card {
+    border: 2px solid transparent;
+    background:
+      linear-gradient(rgb(var(--surface)), rgb(var(--surface))) padding-box,
+      var(--contact-gradient) border-box;
+    background-size: 140% 140%;
+    background-position: 0% 50%;
+  }
+
+  .contact-card:hover {
+    background-position: 100% 50%;
+  }
+
   /* WHATSAPP */
   .contact-card--whatsapp {
     --contact-accent: 34 197 94;
-    --contact-border: rgb(34 197 94 / .55);
     --contact-glow: rgb(22 163 74 / .22);
-    --frame-line: rgb(34 197 94 / 0.4);
     --frame-accent: #22c55e;
-    --frame-line-hover: rgb(34 197 94 / 0.8);
     --frame-accent-hover: #4ade80;
+    --contact-gradient: linear-gradient(135deg, #128c7e, #25d366, #4ade80);
   }
 
   /* LINKEDIN */
   .contact-card--linkedin {
-    --contact-accent: 59 130 246;
-    --contact-border: rgb(59 130 246 / .65);
-    --contact-glow: rgb(37 99 235 / .22);
-    --frame-line: rgb(59 130 246 / 0.4);
-    --frame-accent: #3b82f6;
-    --frame-line-hover: rgb(59 130 246 / 0.8);
-    --frame-accent-hover: #60a5fa;
+    --contact-accent: 10 102 194;
+    --contact-glow: rgb(10 102 194 / .22);
+    --frame-accent: #0a66c2;
+    --frame-accent-hover: #00a0dc;
+    --contact-gradient: linear-gradient(135deg, #0a66c2, #0077b5, #00a0dc);
+  }
+
+  /* INSTAGRAM */
+  .contact-card--instagram {
+    --contact-accent: 221 42 123;
+    --contact-glow: rgb(221 42 123 / .22);
+    --frame-accent: #dd2a7b;
+    --frame-accent-hover: #f58529;
+    --contact-gradient: linear-gradient(135deg, #f58529, #dd2a7b 45%, #8134af 72%, #515bd4);
   }
 
   /* EMAIL (GMAIL) */
   .contact-card--email {
-    --contact-accent: 239 68 68;
-    --contact-border: rgb(239 68 68 / .55);
-    --contact-glow: rgb(220 38 38 / .22);
-    --frame-line: rgb(239 68 68 / 0.4);
-    --frame-accent: #ef4444;
-    --frame-line-hover: rgb(239 68 68 / 0.8);
-    --frame-accent-hover: #f87171;
+    --contact-accent: 234 67 53;
+    --contact-glow: rgb(234 67 53 / .22);
+    --frame-accent: #ea4335;
+    --frame-accent-hover: #fb3605;
+    --contact-gradient: linear-gradient(135deg, #ea4335);
   }
 
-  /* FORMULÁRIO */
-  .contact-card--form {
-    --contact-accent: 115 115 115;
-    --contact-border: rgb(115 115 115 / .55);
-    --contact-glow: rgb(115 115 115 / .22);
-    --frame-line: rgb(115 115 115 / 0.4);
-    --frame-accent: #a3a3a3;
-    --frame-line-hover: rgb(115 115 115 / 0.8);
-    --frame-accent-hover: #e5e5e5;
-  }
+  
 }
 
 /* CONTAINERS INTERNOS */
@@ -278,7 +311,49 @@ const cardFx =
   position: relative;
   border-color: rgb(var(--contact-accent) / .35) !important;
   background-color: rgb(var(--bg) / .72) !important;
-  --frame-line: rgb(var(--contact-accent) / 0.3);
-  --frame-accent: rgb(var(--contact-accent));
+}
+
+/* ======================================================
+   BOTÕES COM BORDA GRADIENTE ANIMADA
+====================================================== */
+.social-gradient-btn {
+  border: 2px solid transparent;
+  background-size: 140% 140%;
+  background-position: 0% 50%;
+}
+
+.social-gradient-btn:hover {
+  background-position: 100% 50%;
+}
+
+.whatsapp-gradient-button {
+  background:
+    linear-gradient(rgb(var(--surface)), rgb(var(--surface))) padding-box,
+    linear-gradient(90deg, #128c7e, #25d366, #4ade80, #128c7e) border-box;
+}
+
+.linkedin-gradient-button {
+  background:
+    linear-gradient(rgb(var(--surface)), rgb(var(--surface))) padding-box,
+    linear-gradient(90deg, #0a66c2, #0077b5, #00a0dc, #0a66c2) border-box;
+}
+
+.instagram-gradient-button {
+  background:
+    linear-gradient(rgb(var(--surface)), rgb(var(--surface))) padding-box,
+    linear-gradient(90deg, #f58529, #dd2a7b, #8134af, #515bd4) border-box;
+}
+
+.gmail-gradient-button {
+  background:
+    linear-gradient(rgb(var(--surface)), rgb(var(--surface))) padding-box,
+    linear-gradient(90deg, #ea4335) border-box;
+}
+
+.form-sucess-card {
+  border: 2px solid transparent;
+  background:
+    linear-gradient(rgb(var(--surface)), rgb(var(--surface))) padding-box,
+    linear-gradient(90deg, #6d28d9, #8b5cf6, #c084fc, #7c3aed) border-box;
 }
 </style>
